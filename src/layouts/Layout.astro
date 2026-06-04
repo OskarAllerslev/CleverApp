@@ -1,0 +1,734 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  currentSlug?: string;
+}
+
+const { title, description = "Visual, interaktiv læring af Matematik C, B og A på gymnasialt niveau.", currentSlug } = Astro.props;
+
+// Curriculum navigation structure
+const modules = [
+  {
+    title: 'Tal og Algebra',
+    slug: 'tal-og-algebra',
+    level: 'C',
+    icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+    items: [
+      { slug: 'tal-og-algebra/regningsarter', title: 'Regningsarter' },
+      { slug: 'tal-og-algebra/broeker', title: 'Brøker' },
+      { slug: 'tal-og-algebra/ligninger', title: 'Ligninger og Formler' },
+      { slug: 'tal-og-algebra/potens-og-rod', title: 'Potenser og Rødder' },
+      { slug: 'tal-og-algebra/procent-og-rente', title: 'Procent og Rente' },
+    ]
+  },
+  {
+    title: 'Geometri og Trigonometri',
+    slug: 'geometri-og-trigonometri',
+    level: 'C',
+    icon: 'M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20M4 19.5V3a1 1 0 011-1h13a1 1 0 011 1v16.5m-16 0h16M14 6h-4v4h4V6z',
+    items: [
+      { slug: 'geometri-og-trigonometri/ensvinklede-trekanter', title: 'Ensvinklede Trekanter' },
+      { slug: 'geometri-og-trigonometri/pythagoras', title: 'Pythagoras\' Sætning' },
+      { slug: 'geometri-og-trigonometri/sinus-cosinus-tan', title: 'Sinus, Cosinus & Tan' },
+      { slug: 'geometri-og-trigonometri/trekantsberegninger', title: 'Vilkårlige Trekanter' },
+    ]
+  },
+  {
+    title: 'Funktioner',
+    slug: 'funktioner',
+    level: 'C',
+    icon: 'M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
+    items: [
+      { slug: 'funktioner/funktionsbegrebet', title: 'Funktionsbegrebet' },
+      { slug: 'funktioner/lineaere-funktioner', title: 'Lineære Funktioner' },
+      { slug: 'funktioner/andengradspolynomier', title: 'Andengradspolynomier' },
+      { slug: 'funktioner/eksponentiel-og-potens', title: 'Eksponentiel & Potens' },
+      { slug: 'funktioner/regression', title: 'Regression' },
+    ]
+  },
+  {
+    title: 'Statistik og Sandsynlighed',
+    slug: 'statistik-og-sandsynlighed',
+    level: 'C',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    items: [
+      { slug: 'statistik-og-sandsynlighed/ugrupperet-data', title: 'Ugrupperet Data' },
+      { slug: 'statistik-og-sandsynlighed/grupperet-data', title: 'Grupperet Data' },
+      { slug: 'statistik-og-sandsynlighed/sandsynlighedsfelter', title: 'Sandsynlighedsfelter' },
+      { slug: 'statistik-og-sandsynlighed/kombinatorik', title: 'Kombinatorik' },
+    ]
+  },
+  {
+    title: 'Analytisk Plangeometri',
+    slug: 'analytisk-plangeometri',
+    level: 'B',
+    icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4',
+    items: [
+      { slug: 'analytisk-plangeometri/linjens-ligning', title: 'Linjens Ligning' },
+      { slug: 'analytisk-plangeometri/cirklens-ligning', title: 'Cirklens Ligning' },
+      { slug: 'analytisk-plangeometri/afstande', title: 'Afstande i Planen' },
+    ]
+  },
+  {
+    title: 'Infinitesimalregning',
+    slug: 'infinitesimalregning',
+    level: 'B',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+    items: [
+      { slug: 'infinitesimalregning/differentialkvotient', title: 'Differentialkvotient' },
+      { slug: 'infinitesimalregning/tretrinsreglen', title: 'Tretrinsreglen' },
+      { slug: 'infinitesimalregning/optimering-og-monotoni', title: 'Optimering & Monotoni' },
+    ]
+  },
+  {
+    title: 'Avanceret Statistik',
+    slug: 'avanceret-statistik',
+    level: 'B',
+    icon: 'M16 8v8m-4-5v5m-4-2v2M2 4h12a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V6a2 2 0 012-2z',
+    items: [
+      { slug: 'avanceret-statistik/binomialfordeling', title: 'Binomialfordeling' },
+      { slug: 'avanceret-statistik/hypotesetest', title: 'Hypotesetest' },
+    ]
+  },
+  {
+    title: 'Vektorer & Geometri (3D)',
+    slug: 'vektorer-og-analytisk-geometri',
+    level: 'A',
+    icon: 'M14 10l-2 1m-8.284-.284A2 2 0 112 8.716l2.186 2.186M10 20v-6m0 0l-2-2m2 2l2-2m-2-2H4a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2v-6z',
+    items: [
+      { slug: 'matematik-a/vektorer-og-analytisk-geometri/parameterfremstilling-plan-og-rum', title: 'Parameterfremstilling' },
+      { slug: 'matematik-a/vektorer-og-analytisk-geometri/skalar-og-krydsprodukt', title: 'Skalar- & Krydsprodukt' },
+      { slug: 'matematik-a/vektorer-og-analytisk-geometri/kuglens-ligning', title: 'Kuglens Ligning' },
+      { slug: 'matematik-a/vektorer-og-analytisk-geometri/afstande', title: 'Afstande i Rummet' },
+    ]
+  },
+  {
+    title: 'Infinitesimalregning (Avanc.)',
+    slug: 'avanceret-infinitesimalregning',
+    level: 'A',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+    items: [
+      { slug: 'matematik-a/avanceret-infinitesimalregning/graensevaerdier-og-kontinuitet', title: 'Grænseværdier' },
+      { slug: 'matematik-a/avanceret-infinitesimalregning/integrationsregneregler', title: 'Integrationsregler' },
+      { slug: 'matematik-a/avanceret-infinitesimalregning/substitution', title: 'Substitution' },
+      { slug: 'matematik-a/avanceret-infinitesimalregning/omdrejningslegemer', title: 'Omdrejningslegemer' },
+    ]
+  },
+  {
+    title: 'Differentialligninger',
+    slug: 'differentialligninger',
+    level: 'A',
+    icon: 'M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
+    items: [
+      { slug: 'matematik-a/differentialligninger/opstilling-af-modeller', title: 'Modelopstilling' },
+      { slug: 'matematik-a/differentialligninger/separationsmetoden', title: 'Separation af Variable' },
+      { slug: 'matematik-a/differentialligninger/logistisk-vaekst', title: 'Logistisk Vækst' },
+      { slug: 'matematik-a/differentialligninger/eulers-metode', title: 'Eulers Metode' },
+    ]
+  },
+  {
+    title: 'Statistik & Sandsynlighed (A)',
+    slug: 'avanceret-statistik-og-sandsynlighed',
+    level: 'A',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2',
+    items: [
+      { slug: 'matematik-a/avanceret-statistik-og-sandsynlighed/normalfordeling-taethed', title: 'Normalfordeling' },
+      { slug: 'matematik-a/avanceret-statistik-og-sandsynlighed/intervalsandsynlighed', title: 'Intervalsandsynlighed' },
+    ]
+  }
+];
+
+// Helper to determine active state
+const isActive = (itemSlug: string) => currentSlug === itemSlug;
+
+// Find next and previous topics for navigation buttons
+const allItems = modules.flatMap(m => m.items);
+const currentIndex = allItems.findIndex(item => item.slug === currentSlug);
+const prevItem = currentIndex > 0 ? allItems[currentIndex - 1] : null;
+const nextItem = currentIndex !== -1 && currentIndex < allItems.length - 1 ? allItems[currentIndex + 1] : null;
+---
+
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | CleverMat</title>
+    <meta name="description" content={description} />
+    
+    <!-- Google Fonts: Outfit and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Inline script to prevent theme, level, and sidebar flashing -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+
+      const level = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('math-level')) {
+          return localStorage.getItem('math-level');
+        }
+        return 'C';
+      })();
+      if (level === 'A') {
+        document.documentElement.classList.add('level-a');
+        document.documentElement.classList.add('level-b');
+      } else if (level === 'B') {
+        document.documentElement.classList.add('level-b');
+        document.documentElement.classList.remove('level-a');
+      } else {
+        document.documentElement.classList.remove('level-a');
+        document.documentElement.classList.remove('level-b');
+      }
+      window.localStorage.setItem('math-level', level);
+
+      const sidebarCollapsed = typeof localStorage !== 'undefined' && localStorage.getItem('sidebar-collapsed') === 'true';
+      if (sidebarCollapsed && window.innerWidth >= 768) {
+        document.documentElement.classList.add('sidebar-collapsed');
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen">
+    <!-- Navbar / Header -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/80 dark:border-slate-800/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-200">
+      <div class="flex h-16 w-full items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3">
+          <!-- Sidebar Toggle (Desktop collapse, Mobile modal drawer) -->
+          <button id="mobile-menu-toggle" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100 cursor-pointer" aria-label="Fold navigation">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+          
+          <a href="/" class="flex items-center gap-2 group">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-brand-600 to-sky-400 text-white font-outfit font-bold text-xl shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform duration-200">
+              C
+            </div>
+            <span class="font-outfit font-bold text-xl tracking-tight bg-gradient-to-r from-brand-600 to-sky-500 bg-clip-text text-transparent dark:from-brand-400 dark:to-sky-400">
+              CleverMat
+            </span>
+            <span id="header-level-badge" class="rounded-full bg-brand-100 px-2.5 py-0.5 text-xs font-semibold text-brand-700 dark:bg-brand-900/60 dark:text-brand-300">
+              Matematik C
+            </span>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <a href="/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Hjem / Dashboard</a>
+          <a href="/docs/tal-og-algebra/regningsarter" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Læringssti</a>
+          <a href="#" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors opacity-50 cursor-not-allowed" title="Opgaver kommer snart">Visualiseringer</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+          <!-- Auth session status/action -->
+          <div id="auth-status-container" class="flex items-center gap-2">
+            <a href="/login" class="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 px-3.5 py-1.5 rounded-lg transition-all">Log ind</a>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" type="button" class="relative rounded-lg p-2.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100 transition-all duration-200 cursor-pointer" aria-label="Skift tema">
+            <!-- Sun icon -->
+            <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+            <!-- Moon icon -->
+            <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- App Container (Left-padding removed so sidebar goes flush to left screen border) -->
+    <div class="flex w-full flex-1 items-stretch">
+      
+      <!-- Desktop Sidebar (W-80, flush to left screen border) -->
+      <aside id="desktop-sidebar" class="hidden md:flex w-80 shrink-0 flex-col border-r border-slate-200 dark:border-slate-800/80 py-8 px-6 bg-white dark:bg-slate-950">
+        <!-- Level Switcher (Three options) -->
+        <div class="mb-6 rounded-xl level-toggle-container p-1 flex items-center">
+          <button class="btn-toggle-level-c level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat C
+          </button>
+          <button class="btn-toggle-level-b level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat B
+          </button>
+          <button class="btn-toggle-level-a level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat A
+          </button>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="flex-1 space-y-6 overflow-y-auto max-h-[calc(100vh-14rem)]">
+          {modules.map((mod) => (
+            <div class={`space-y-2 sidebar-module ${mod.level === 'B' ? 'b-level-only' : mod.level === 'A' ? 'a-level-only' : ''}`} data-module-id={mod.slug}>
+              <button
+                type="button"
+                class="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer group"
+              >
+                <div class="flex items-center gap-2 text-left">
+                  <svg class="h-4 w-4 text-brand-500 dark:text-brand-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={mod.icon} />
+                  </svg>
+                  <span>{mod.title}</span>
+                  {mod.level !== 'C' && (
+                    <span class="text-[8px] bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-300 px-1 rounded shrink-0">{mod.level}</span>
+                  )}
+                </div>
+                <svg class="sidebar-module-arrow h-3.5 w-3.5 transform transition-transform text-slate-400 dark:text-slate-600 group-hover:text-slate-600 dark:group-hover:text-slate-350 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul class="sidebar-module-list space-y-1.5 pl-6 border-l border-slate-200 dark:border-slate-800">
+                {mod.items.map((item) => (
+                  <li>
+                    <a
+                      href={`/docs/${item.slug}`}
+                      class={`group flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
+                        isActive(item.slug)
+                          ? 'bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 font-semibold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900/60 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      <span>{item.title}</span>
+                      <div class="flex items-center gap-1.5 shrink-0">
+                        <span class="xp-badge text-[9px] font-outfit font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-500 border border-slate-200/20 dark:border-slate-800/20 transition-all" data-slug={item.slug}>
+                          0 XP
+                        </span>
+                        {isActive(item.slug) && (
+                          <span class="h-1.5 w-1.5 rounded-full bg-brand-500 dark:bg-brand-400 animate-pulse" />
+                        )}
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <!-- Mobile Sidebar Modal overlay -->
+      <div id="mobile-sidebar-overlay" class="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-sm hidden md:hidden" aria-hidden="true"></div>
+      
+      <!-- Mobile Sidebar -->
+      <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-950 p-6 shadow-2xl transition-transform duration-300 -translate-x-full md:hidden flex flex-col">
+        <div class="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-brand-600 to-sky-400 text-white font-outfit font-bold text-lg">
+              C
+            </div>
+            <span class="font-outfit font-bold text-lg text-slate-900 dark:text-white">CleverMat</span>
+          </div>
+          <button id="mobile-menu-close" type="button" class="rounded-md p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900" aria-label="Luk navigation">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Level Switcher Mobile -->
+        <div class="my-4 rounded-xl level-toggle-container p-1 flex items-center">
+          <button class="btn-toggle-level-c level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat C
+          </button>
+          <button class="btn-toggle-level-b level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat B
+          </button>
+          <button class="btn-toggle-level-a level-btn-custom flex-1 text-center text-xs font-bold py-2 px-1 rounded-lg cursor-pointer">
+            Mat A
+          </button>
+        </div>
+
+        <nav class="flex-1 space-y-6 overflow-y-auto">
+          {modules.map((mod) => (
+            <div class={`space-y-2 sidebar-module ${mod.level === 'B' ? 'b-level-only' : mod.level === 'A' ? 'a-level-only' : ''}`} data-module-id={mod.slug + '_mobile'}>
+              <button
+                type="button"
+                class="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
+              >
+                <div class="flex items-center gap-2">
+                  <svg class="h-4 w-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={mod.icon} />
+                  </svg>
+                  {mod.title}
+                  {mod.level !== 'C' && (
+                    <span class="text-[8px] bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-300 px-1 rounded">{mod.level}</span>
+                  )}
+                </div>
+                <svg class="sidebar-module-arrow h-3.5 w-3.5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul class="sidebar-module-list space-y-1.5 pl-6 border-l border-slate-200 dark:border-slate-800">
+                {mod.items.map((item) => (
+                  <li>
+                    <a
+                      href={`/docs/${item.slug}`}
+                      class={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                        isActive(item.slug)
+                          ? 'bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 font-semibold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900/60'
+                      }`}
+                    >
+                      <span>{item.title}</span>
+                      <div class="flex items-center gap-1.5 shrink-0">
+                        <span class="xp-badge text-[9px] font-outfit font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-500 border border-slate-200/20 dark:border-slate-800/20 transition-all" data-slug={item.slug}>
+                          0 XP
+                        </span>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="flex flex-1 flex-col py-8 px-4 md:px-8 min-w-0">
+        <div class="w-full max-w-4xl mx-auto flex flex-col flex-1">
+          <slot />
+
+        <!-- Next / Prev Navigation inside Docs -->
+        {currentSlug && (prevItem || nextItem) && (
+          <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row gap-4 justify-between">
+            {prevItem ? (
+              <a href={`/docs/${prevItem.slug}`} class="flex flex-1 flex-col items-start rounded-xl border border-slate-200 dark:border-slate-800 p-4 hover:bg-slate-50 dark:hover:bg-slate-900/40 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-200 group">
+                <span class="text-xs text-slate-400 dark:text-slate-500 mb-1">Forrige emne</span>
+                <span class="flex items-center gap-1 font-semibold text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-400 font-outfit">
+                  <svg class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  {prevItem.title}
+                </span>
+              </a>
+            ) : (
+              <div class="flex-1 hidden sm:block" />
+            )}
+
+            {nextItem ? (
+              <a href={`/docs/${nextItem.slug}`} class="flex flex-1 flex-col items-end rounded-xl border border-slate-200 dark:border-slate-800 p-4 hover:bg-slate-50 dark:hover:bg-slate-900/40 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-200 group">
+                <span class="text-xs text-slate-400 dark:text-slate-500 mb-1">Næste emne</span>
+                <span class="flex items-center gap-1 font-semibold text-slate-800 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-400 font-outfit">
+                  {nextItem.title}
+                  <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </a>
+            ) : (
+              <div class="flex-1 hidden sm:block" />
+            )}
+          </div>
+        )}
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 transition-colors duration-200">
+      <div class="mx-auto px-4 py-8 sm:px-6 lg:px-8 text-center text-slate-500 dark:text-slate-400">
+        <p class="font-outfit font-medium">&copy; {new Date().getFullYear()} CleverMat. Udviklet til Matematik C-, B- og A-niveau efter de officielle læreplaner.</p>
+        <p class="text-xs mt-2 italic text-slate-400 dark:text-slate-500">"Matematik handler ikke om tal, ligninger eller algoritmer: det handler om forståelse." — William Paul Thurston</p>
+      </div>
+    </footer>
+
+    <!-- Script for level toggle, dark mode, mobile menu, folding, and KaTeX auto-render -->
+    <script>
+      import renderMathInElement from 'katex/dist/contrib/auto-render.mjs';
+
+      // KaTeX Auto-Render function
+      function applyKatex() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+
+      // Dark Mode Logic
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const lightIcon = document.getElementById('theme-toggle-light-icon');
+      const darkIcon = document.getElementById('theme-toggle-dark-icon');
+
+      function updateThemeUI() {
+        if (document.documentElement.classList.contains('dark')) {
+          lightIcon?.classList.remove('hidden');
+          darkIcon?.classList.add('hidden');
+        } else {
+          lightIcon?.classList.add('hidden');
+          darkIcon?.classList.remove('hidden');
+        }
+      }
+
+      updateThemeUI();
+
+      themeToggleBtn?.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+        updateThemeUI();
+      });
+
+      // Level Toggle Logic (C, B, A)
+      const cButtons = document.querySelectorAll('.btn-toggle-level-c');
+      const bButtons = document.querySelectorAll('.btn-toggle-level-b');
+      const aButtons = document.querySelectorAll('.btn-toggle-level-a');
+      const levelBadge = document.getElementById('header-level-badge');
+
+      function setLevel(newLevel) {
+        if (newLevel === 'A') {
+          document.documentElement.classList.add('level-a');
+          document.documentElement.classList.add('level-b');
+          localStorage.setItem('math-level', 'A');
+          
+          cButtons.forEach(btn => btn.classList.remove('active'));
+          bButtons.forEach(btn => btn.classList.remove('active'));
+          aButtons.forEach(btn => btn.classList.add('active'));
+          
+          if (levelBadge) levelBadge.textContent = 'Matematik A';
+        } else if (newLevel === 'B') {
+          document.documentElement.classList.remove('level-a');
+          document.documentElement.classList.add('level-b');
+          localStorage.setItem('math-level', 'B');
+          
+          cButtons.forEach(btn => btn.classList.remove('active'));
+          bButtons.forEach(btn => btn.classList.add('active'));
+          aButtons.forEach(btn => btn.classList.remove('active'));
+          
+          if (levelBadge) levelBadge.textContent = 'Matematik B';
+        } else {
+          document.documentElement.classList.remove('level-a');
+          document.documentElement.classList.remove('level-b');
+          localStorage.setItem('math-level', 'C');
+          
+          cButtons.forEach(btn => btn.classList.add('active'));
+          bButtons.forEach(btn => btn.classList.remove('active'));
+          aButtons.forEach(btn => btn.classList.remove('active'));
+          
+          if (levelBadge) levelBadge.textContent = 'Matematik C';
+        }
+        window.dispatchEvent(new CustomEvent('clevermat_level_change', { detail: newLevel }));
+      }
+
+      // Initialize Level on Load
+      const savedLevel = localStorage.getItem('math-level') || 'C';
+      setLevel(savedLevel);
+
+      // Event Listeners for Level Toggles
+      cButtons.forEach(btn => btn.addEventListener('click', () => setLevel('C')));
+      bButtons.forEach(btn => btn.addEventListener('click', () => setLevel('B')));
+      aButtons.forEach(btn => btn.addEventListener('click', () => setLevel('A')));
+
+      // Sidebar Collapsing/Expandable Modules Logic
+      const modulesElements = document.querySelectorAll('.sidebar-module');
+      modulesElements.forEach(mod => {
+        const moduleId = mod.getAttribute('data-module-id');
+        const toggleBtn = mod.querySelector('button');
+        const list = mod.querySelector('.sidebar-module-list');
+        const arrow = mod.querySelector('.sidebar-module-arrow');
+
+        if (!moduleId || !toggleBtn || !list || !arrow) return;
+
+        // Check if there is an active item inside this module
+        const hasActiveChild = list.querySelector('a[href="' + window.location.pathname + '"]') !== null;
+
+        // Restore saved collapsible state (default to collapsed if not set, unless it has active child)
+        const savedState = localStorage.getItem(`collapsed_${moduleId}`);
+        let isCollapsed = savedState === null ? true : savedState === 'true';
+        
+        if (hasActiveChild) {
+          isCollapsed = false; // Always keep open if currently viewing its child topic
+        }
+
+        if (isCollapsed) {
+          list.classList.add('collapsed');
+          arrow.classList.add('collapsed');
+        } else {
+          list.classList.remove('collapsed');
+          arrow.classList.remove('collapsed');
+        }
+
+        // Toggle state on click
+        toggleBtn.addEventListener('click', () => {
+          const currentlyCollapsed = list.classList.toggle('collapsed');
+          arrow.classList.toggle('collapsed');
+          localStorage.setItem(`collapsed_${moduleId}`, currentlyCollapsed ? 'true' : 'false');
+        });
+      });
+
+      // Mobile / Desktop Sidebar Collapse Toggle
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const menuClose = document.getElementById('mobile-menu-close');
+      const mobileSidebar = document.getElementById('mobile-sidebar');
+      const overlay = document.getElementById('mobile-sidebar-overlay');
+
+      function openSidebar() {
+        mobileSidebar?.classList.remove('-translate-x-full');
+        overlay?.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeSidebar() {
+        mobileSidebar?.classList.add('-translate-x-full');
+        overlay?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      menuToggle?.addEventListener('click', () => {
+        if (window.innerWidth >= 768) {
+          // On Desktop, fold/unfold the sidebar completely
+          document.documentElement.classList.toggle('sidebar-collapsed');
+          localStorage.setItem('sidebar-collapsed', document.documentElement.classList.contains('sidebar-collapsed') ? 'true' : 'false');
+        } else {
+          // On Mobile, open the drawer overlay
+          openSidebar();
+        }
+      });
+      menuClose?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+
+      // Auth Session Rendering in header
+      const authStatusContainer = document.getElementById('auth-status-container');
+      
+      function renderAuthStatus() {
+        const savedSession = localStorage.getItem('clevermat_session');
+        if (savedSession && authStatusContainer) {
+          try {
+            const session = JSON.parse(savedSession);
+            if (session.user) {
+              authStatusContainer.innerHTML = `
+                <div class="flex items-center gap-3">
+                  <div class="hidden sm:flex items-center gap-1.5 bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-brand-100 dark:border-brand-900">
+                    <svg class="h-3.5 w-3.5 text-brand-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    <span>${session.user.xp} XP</span>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 max-w-[120px] truncate">${session.user.email}</div>
+                  </div>
+                  <button id="auth-signout-btn" class="text-xs text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 font-bold px-2 py-1 rounded transition-colors cursor-pointer">Log ud</button>
+                </div>
+              `;
+
+              document.getElementById('auth-signout-btn')?.addEventListener('click', () => {
+                localStorage.removeItem('clevermat_session');
+                renderAuthStatus();
+                window.location.href = '/';
+              });
+              return;
+            }
+          } catch (e) {
+            console.error('Error parsing session in header', e);
+          }
+        }
+
+        if (authStatusContainer) {
+          authStatusContainer.innerHTML = `
+            <a href="/login" class="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 px-3.5 py-1.5 rounded-lg transition-all">Log ind</a>
+          `;
+        }
+      }
+
+      renderAuthStatus();
+
+      // Listen for auth change events
+      window.addEventListener('clevermat_auth_change', renderAuthStatus);
+
+      // List of quizzes per slug to calculate total XP and current progress
+      const quizzesBySlug = {
+        'funktioner/funktionsbegrebet': ['mapping-definition', 'mapping-range']
+      };
+
+      function updateXPBadges() {
+        const badges = document.querySelectorAll('.xp-badge');
+        badges.forEach((badge) => {
+          const slug = badge.getAttribute('data-slug');
+          if (!slug) return;
+          
+          const quizzes = quizzesBySlug[slug] || [];
+          const totalXP = quizzes.length > 0 ? quizzes.length * 50 : 100;
+          
+          let earnedXP = 0;
+          if (quizzes.length > 0) {
+            quizzes.forEach(quizId => {
+              if (localStorage.getItem(`clevermat-quiz-${quizId}`) === 'correct') {
+                earnedXP += 50;
+              }
+            });
+          } else {
+            earnedXP = parseInt(localStorage.getItem(`clevermat-mock-xp-${slug}`) || '0');
+          }
+          
+          badge.textContent = `${earnedXP} / ${totalXP} XP`;
+          
+          if (earnedXP === totalXP) {
+            badge.className = "xp-badge text-[9px] font-outfit font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-250/20 dark:border-emerald-800/20";
+          } else if (earnedXP > 0) {
+            badge.className = "xp-badge text-[9px] font-outfit font-bold px-1.5 py-0.5 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300 border border-brand-200/30 dark:border-brand-800/30";
+          } else {
+            badge.className = "xp-badge text-[9px] font-outfit font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500 dark:bg-slate-900/60 dark:text-slate-500 border border-slate-200/20 dark:border-slate-800/20";
+          }
+        });
+      }
+
+      // Initial update
+      updateXPBadges();
+
+      // Listen for correct quiz completions to update XP dynamically
+      window.addEventListener('clevermat-xp-earned', (e) => {
+        const { quizId, points } = e.detail;
+        
+        // Update user session XP if logged in
+        const savedSession = localStorage.getItem('clevermat_session');
+        if (savedSession) {
+          try {
+            const session = JSON.parse(savedSession);
+            if (session.user) {
+              session.user.xp = (session.user.xp || 0) + points;
+              localStorage.setItem('clevermat_session', JSON.stringify(session));
+              window.dispatchEvent(new CustomEvent('clevermat_auth_change'));
+            }
+          } catch (err) {
+            console.error('Error updating XP in session', err);
+          }
+        }
+        
+        updateXPBadges();
+      });
+
+      // Run KaTeX immediately
+      applyKatex();
+      // Run it on window load to ensure elements are settled
+      window.addEventListener('load', applyKatex);
+    </script>
+  </body>
+</html>

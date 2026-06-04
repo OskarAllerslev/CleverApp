@@ -1,0 +1,154 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "katex/dist/katex.min.css";
+
+/* Configure manual dark mode toggle using the .dark class */
+@variant dark (&:where(.dark, .dark *));
+
+/* Custom styles for our application */
+@theme {
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-200: #bae0fd;
+  --color-brand-300: #7cc8fc;
+  --color-brand-400: #38adf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
+  --color-brand-900: #0c4a6e;
+}
+
+html {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-900);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark {
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-100);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom KaTeX tweaks for better display */
+.katex-display {
+  padding: 1rem;
+  background: var(--color-slate-100);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--color-slate-200);
+}
+
+html.dark .katex-display {
+  background: var(--color-slate-900);
+  border-color: var(--color-slate-800);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate-300);
+  border-radius: 3px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-slate-700);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-400);
+}
+
+/* Show or hide Matematik B and A content based on level classes on html */
+html:not(.level-b):not(.level-a) .b-level-only {
+  display: none !important;
+}
+html:not(.level-a) .a-level-only {
+  display: none !important;
+}
+
+/* Level Switcher Style overrides for absolute dark-theme color correctness */
+.level-toggle-container {
+  background-color: var(--color-slate-100);
+  border: 1px solid var(--color-slate-200);
+}
+html.dark .level-toggle-container {
+  background-color: var(--color-slate-900);
+  border-color: var(--color-slate-800);
+}
+
+.level-btn-custom {
+  color: var(--color-slate-500);
+  background-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.level-btn-custom:hover {
+  color: var(--color-slate-900);
+}
+html.dark .level-btn-custom:hover {
+  color: var(--color-slate-100);
+}
+
+.level-btn-custom.active {
+  background-color: #ffffff !important;
+  color: var(--color-slate-900) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+html.dark .level-btn-custom.active {
+  background-color: var(--color-slate-800) !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Collapsible sidebar modules styling */
+.sidebar-module-list {
+  max-height: 500px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-out;
+}
+.sidebar-module-list.collapsed {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.sidebar-module-arrow {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar-module-arrow.collapsed {
+  transform: rotate(-90deg);
+}
+
+/* Desktop Sidebar Collapsing */
+@media (min-width: 768px) {
+  #desktop-sidebar {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, padding 0.3s ease, border-color 0.3s ease;
+  }
+  
+  html.sidebar-collapsed #desktop-sidebar {
+    width: 0px !important;
+    opacity: 0 !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    border-right-width: 0px !important;
+    pointer-events: none;
+  }
+}

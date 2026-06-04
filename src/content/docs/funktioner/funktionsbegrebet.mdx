@@ -1,0 +1,126 @@
+---
+title: "Funktionsbegrebet"
+level: "Matematik C"
+order: 1
+description: "En pædagogisk og strukturel introduktion til funktioner som afbildninger mellem reelle mængder."
+---
+
+import { Term } from '../../../components/Term.tsx';
+import { FunctionMappingVisualizer } from '../../../components/FunctionMappingVisualizer.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+
+# Funktionsbegrebet
+
+Inden for matematikken er en **funktion** en af de vigtigste byggesten. Men før vi kan forstå, hvad en funktion præcist gør, skal vi først kigge på det fundament, som funktioner er bygget af: **mængder**.
+
+---
+
+## Hvad er en mængde?
+
+Forestil dig en mængde som en "pose" eller en samling af ting. Inden for matematikken er disse ting oftest tal. 
+
+Når vi vil vise en mængde, skriver vi den typisk med krøllede parenteser:
+$$
+M = \{1, 2, 3\}
+$$
+Dette betyder bare, at posen $M$ indeholder tallene $1$, $2$ og $3$.
+
+For at tale præcist om mængder bruger vi et par vigtige matematiske tegn:
+1. **<Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> (tilhører):** Dette tegn bruges til at sige, at noget ligger nede i mængden. Vi skriver $2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> M$, hvilket udtales: *"2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">tilhører</Term> mængden M"*. Hvis et tal ikke ligger i posen, f.eks. $5$, skriver vi $5 \notin M$ (*"5 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">tilhører</Term> ikke M"*).
+2. **<Term client:load definition="Matematisk symbol, der betyder 'der eksisterer'.">$\exists$</Term> (der eksisterer):** Dette tegn bruges, når vi vil sige, at der findes et eller andet element med en bestemt egenskab.
+
+---
+
+## Den formelle definition på en funktion
+
+Når vi har to mængder (lad os kalde dem $A$ og $B$), kan vi lave en regel, der forbinder elementerne i $A$ med elementerne i $B$. En sådan regel kaldes en <Term client:load definition="En matematiske proces, der entydigt forbinder hvert element fra en startmængde til et element i en slutmængde.">afbildning</Term> eller en funktion.
+
+Formelt siger vi:
+> En funktion $f$ fra en mængde $A$ til en mængde $B$ er en regel, som til ethvert element $x$ i $A$ knytter **præcis ét** element $y$ i $B$.
+
+Vi skriver det formelt som:
+$$
+f: A \to B
+$$
+Her kalder vi:
+*   Mængden $A$ (startmængden) for funktionens **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængde</Term>** (eller domæne).
+*   Mængden $B$ (målrammen) for funktionens **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængde</Term>** (eller kodomæne).
+
+Når vi tager et bestemt element $x$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$, sender funktionen det over i et element $f(x)$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $B$. Dette skriver vi som:
+$$
+x \mapsto f(x)
+$$
+
+### Billedmængden: Værdimængden
+
+Bemærk, at det ikke er sikkert, at funktionen rammer *alle* tallene i posen $B$. Den delmængde af $B$, som vi faktisk kan ramme, kaldes for funktionens **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængde</Term>** (eller billedmængde).
+
+Formelt definerer vi **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængden</Term>** som:
+$$
+Vm(f) = \{ y \in B \mid \exists x \in A \text{ hvor } f(x) = y \}
+$$
+(Skrevet mere formelt med tegn: Værdimængden består af alle $y$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $B$, hvorom der <Term client:load definition="Matematisk symbol, der betyder 'der eksisterer'.">$\exists$</Term> et $x$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ således at $f(x) = y$).
+
+### Opsummering af de tre mængder
+*   **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">Definitionsmængde</Term> ($Dm(f)$):** Posen med alle de tal, vi må putte *ind* i funktionen.
+*   **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">Sekundærmængde</Term> ($B$):** Posen, der angiver rammen for, hvor vores output *kan* lande.
+*   **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">Værdimængde</Term> ($Vm(f)$):** De tal nede i sekundærmængden, som funktionen *faktisk* rammer.
+
+---
+
+## Interaktiv visualisering af en afbildning
+
+Herunder kan du se, hvordan afbildningen fungerer for funktionen:
+$$
+f(x) = x^2 - 2x
+$$
+Prøv at klikke på elementerne i **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængden</Term> $A$** for at se, hvordan pilene strækker sig over til **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængden</Term> $B$**.
+
+<FunctionMappingVisualizer client:load />
+
+Bemærk:
+1. Der starter præcis én pil fra hvert tal i $A$. Det gør det til en funktion.
+2. Værdien $0 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ og $2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ afbildes begge til $0$ i $B$. Det er helt tilladt.
+3. Elementerne $-2$, $-1$, $1$ og $2$ i **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængden</Term> $B$** bliver aldrig ramt af nogen pil. De tilhører ikke **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængden</Term>**.
+
+---
+
+## Funktionsnotationen $y = f(x)$
+
+Når vi arbejder med funktioner til hverdag, skriver vi dem ofte som ligninger, f.eks. $y = f(x)$. Her kalder vi:
+*   $x$ for den **<Term client:load definition="Inputvariablen (ofte x), som vi frit kan vælge inden for definitionsmængden.">uafhængige variabel</Term>** (fordi vi frit kan vælge den i **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængden</Term>**).
+*   $y$ for den **afhængige variabel** (fordi dens værdi afhænger helt af, hvilket $x$ vi vælger).
+
+---
+
+## Interaktiv Practice
+
+Test din forståelse af mængder og afbildninger i quizzen herunder:
+
+<QuizQuestion
+  client:load
+  quizId="mapping-definition"
+  question="Betragt afbildningen f: A → B vist i den interaktive figur ovenfor, hvor f(x) = x² - 2x. Hvis vi vælger inputtet x = 3, hvad afbildes det så til i sekundærmængden B?"
+  options={[
+    "f(3) = 1",
+    "f(3) = 2",
+    "f(3) = 3",
+    "f(3) = 4"
+  ]}
+  correctIndex={2}
+  explanation="Indsætter vi x = 3 i formlen f(x) = x² - 2x, får vi f(3) = 3² - 2·3 = 9 - 6 = 3. Tallet 3 afbildes altså til tallet 3 i sekundærmængden B."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="mapping-range"
+  question="Baseret på den interaktive figur og regneforskriften f(x) = x² - 2x med definitionsmængden A = {-1, 0, 1, 2, 3}, hvad er så funktionens værdimængde Vm(f)?"
+  options={[
+    "{-2, -1, 0, 1, 2, 3, 4}",
+    "{-1, 0, 3}",
+    "{-1, 0, 1, 2, 3}",
+    "{-1, 0, 2, 3}"
+  ]}
+  correctIndex={1}
+  explanation="Hvis vi beregner f(x) for alle elementer i A: f(-1) = 3, f(0) = 0, f(1) = -1, f(2) = 0, f(3) = 3. De faktiske outputværdier, der 'rammes', er dermed {-1, 0, 3}. Dette udgør præcis funktionens værdimængde."
+/>

@@ -1,0 +1,207 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Log Ind & Opret Bruger">
+  <div class="flex-1 flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative">
+    <!-- Premium background glow elements -->
+    <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-25 dark:opacity-15 blur-3xl pointer-events-none">
+      <div class="h-96 w-96 rounded-full bg-brand-500"></div>
+      <div class="h-80 w-80 rounded-full bg-sky-400 -ml-20"></div>
+    </div>
+
+    <!-- Login/Signup Card Container -->
+    <div class="max-w-md w-full relative overflow-hidden bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 p-8 rounded-2xl shadow-2xl backdrop-blur-lg transition-all duration-300">
+      
+      <!-- Top brand line accent -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-600 to-sky-400"></div>
+
+      <!-- Header -->
+      <div class="text-center pb-6">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-brand-600 to-sky-400 text-white font-outfit font-bold text-2xl shadow-lg shadow-brand-500/25">
+          C
+        </div>
+        <h2 class="mt-4 font-outfit text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          Velkommen til <span class="bg-gradient-to-r from-brand-600 to-sky-500 bg-clip-text text-transparent dark:from-brand-400 dark:to-sky-400">CleverMat</span>
+        </h2>
+        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400 font-medium">
+          Log ind for at gemme dine fremskridt og optjene XP.
+        </p>
+      </div>
+
+      <!-- Tab Controls styled as a segmented control -->
+      <div class="mb-6 rounded-xl bg-slate-100 dark:bg-slate-950 p-1 flex items-center border border-slate-200/40 dark:border-slate-800/40 shadow-inner">
+        <button id="tab-login" type="button" class="flex-1 text-center text-xs font-bold py-2.5 px-3 rounded-lg transition-all duration-300 bg-white text-slate-900 shadow dark:bg-slate-800 dark:text-white cursor-pointer">
+          Log ind
+        </button>
+        <button id="tab-signup" type="button" class="flex-1 text-center text-xs font-bold py-2.5 px-3 rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer">
+          Opret profil
+        </button>
+      </div>
+
+      <!-- Forms Section -->
+      <div class="space-y-4">
+        <!-- Errors / Success Alert Boxes -->
+        <div id="auth-error" class="hidden p-4 text-xs font-medium text-red-800 border border-red-200/80 rounded-xl bg-red-50/50 dark:bg-red-950/20 dark:border-red-900/50 dark:text-red-400 transition-all duration-200 animate-pulse"></div>
+        <div id="auth-success" class="hidden p-4 text-xs font-medium text-green-800 border border-green-200/80 rounded-xl bg-green-50/50 dark:bg-green-950/20 dark:border-green-900/50 dark:text-green-400 transition-all duration-200"></div>
+
+        <form id="auth-form" class="space-y-5">
+          <input type="hidden" id="form-mode" value="login" />
+
+          <!-- Email Input -->
+          <div class="space-y-1.5">
+            <label for="email-address" class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              E-mail adresse
+            </label>
+            <div class="relative">
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="navn@domæne.dk"
+                class="block w-full rounded-xl border border-slate-200/80 bg-white/40 dark:border-slate-800 dark:bg-slate-950/40 px-4 py-3 text-slate-900 dark:text-white sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-500 focus:border-brand-500 dark:focus:border-brand-500 transition-all shadow-inner"
+              />
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="space-y-1.5">
+            <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              Adgangskode
+            </label>
+            <div class="relative">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                placeholder="••••••••"
+                class="block w-full rounded-xl border border-slate-200/80 bg-white/40 dark:border-slate-800 dark:bg-slate-950/40 px-4 py-3 text-slate-900 dark:text-white sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-500 focus:border-brand-500 dark:focus:border-brand-500 transition-all shadow-inner"
+              />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button
+              id="auth-submit-btn"
+              type="submit"
+              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-gradient-to-tr from-brand-600 to-sky-500 hover:shadow-brand-500/35 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+            >
+              Log ind
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    import { authHelper } from '../lib/auth';
+
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
+    const formMode = document.getElementById('form-mode') as HTMLInputElement;
+    const authSubmitBtn = document.getElementById('auth-submit-btn');
+    const authForm = document.getElementById('auth-form') as HTMLFormElement;
+    
+    const emailInput = document.getElementById('email-address') as HTMLInputElement;
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+
+    const errorAlert = document.getElementById('auth-error');
+    const successAlert = document.getElementById('auth-success');
+
+    // Tab toggling logic with updated active classes
+    tabLogin?.addEventListener('click', () => {
+      tabLogin.className = 'flex-1 text-center text-xs font-bold py-2.5 px-3 rounded-lg transition-all duration-300 bg-white text-slate-900 shadow dark:bg-slate-800 dark:text-white cursor-pointer';
+      tabSignup?.classList.remove('bg-white', 'text-slate-900', 'shadow', 'dark:bg-slate-800', 'dark:text-white');
+      tabSignup?.classList.add('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400', 'dark:hover:text-white');
+      
+      if (formMode) formMode.value = 'login';
+      if (authSubmitBtn) authSubmitBtn.textContent = 'Log ind';
+      clearAlerts();
+    });
+
+    tabSignup?.addEventListener('click', () => {
+      tabSignup.className = 'flex-1 text-center text-xs font-bold py-2.5 px-3 rounded-lg transition-all duration-300 bg-white text-slate-900 shadow dark:bg-slate-800 dark:text-white cursor-pointer';
+      tabLogin?.classList.remove('bg-white', 'text-slate-900', 'shadow', 'dark:bg-slate-800', 'dark:text-white');
+      tabLogin?.classList.add('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400', 'dark:hover:text-white');
+      
+      if (formMode) formMode.value = 'signup';
+      if (authSubmitBtn) authSubmitBtn.textContent = 'Opret profil';
+      clearAlerts();
+    });
+
+    function clearAlerts() {
+      if (errorAlert) {
+        errorAlert.classList.add('hidden');
+        errorAlert.textContent = '';
+      }
+      if (successAlert) {
+        successAlert.classList.add('hidden');
+        successAlert.textContent = '';
+      }
+    }
+
+    authForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlerts();
+
+      const email = emailInput?.value || '';
+      const password = passwordInput?.value || '';
+      const mode = formMode?.value || 'login';
+
+      if (authSubmitBtn) {
+        authSubmitBtn.setAttribute('disabled', 'true');
+        authSubmitBtn.textContent = mode === 'login' ? 'Logger ind...' : 'Opretter profil...';
+      }
+
+      try {
+        let result;
+        if (mode === 'login') {
+          result = await authHelper.signIn(email, password);
+        } else {
+          result = await authHelper.signUp(email, password);
+        }
+
+        if (result.error) {
+          if (errorAlert) {
+            errorAlert.textContent = result.error.message;
+            errorAlert.classList.remove('hidden');
+          }
+          if (authSubmitBtn) {
+            authSubmitBtn.removeAttribute('disabled');
+            authSubmitBtn.textContent = mode === 'login' ? 'Log ind' : 'Opret profil';
+          }
+        } else {
+          if (successAlert) {
+            successAlert.textContent = mode === 'login' 
+              ? 'Log ind fuldført! Henter dine fremskridt...' 
+              : 'Profil oprettet med succes! Velkommen til CleverMat.';
+            successAlert.classList.remove('hidden');
+          }
+
+          window.dispatchEvent(new CustomEvent('clevermat_auth_change', { detail: result.data.session }));
+
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1200);
+        }
+      } catch (err) {
+        console.error(err);
+        if (errorAlert) {
+          errorAlert.textContent = 'Der opstod en uventet fejl. Prøv venligst igen.';
+          errorAlert.classList.remove('hidden');
+        }
+        if (authSubmitBtn) {
+          authSubmitBtn.removeAttribute('disabled');
+          authSubmitBtn.textContent = mode === 'login' ? 'Log ind' : 'Opret profil';
+        }
+      }
+    });
+  </script>
+</Layout>
