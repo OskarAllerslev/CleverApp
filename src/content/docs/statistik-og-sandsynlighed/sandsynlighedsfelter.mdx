@@ -2,31 +2,488 @@
 title: "Sandsynlighedsfelter"
 level: "Matematik C"
 order: 3
-description: "Sandsynlighedsregning beskriver chancerne for forskellige udfald. Vi arbejder med symmetriske sandsy..."
+description: "Forstå sandsynlighedens grundsprog: udfaldsrum, hændelser og regneregler. Optjen +150 XP!"
 ---
 
-# Sandsynlighedsfelter
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Sandsynlighedsfelter** på Matematik C-niveau.
+# Sandsynlighedsfelter 🎲
 
-## Introduktion
+Hver gang du kaster en terning, trækker et kort eller tjekker vejrudsigten, har du med **sandsynlighed** at gøre. Men hvordan taler matematikere præcist om tilfældigheder? De bruger et stringent begrebsapparat — og det lærer du her!
 
-Sandsynlighedsregning beskriver chancerne for forskellige udfald. Vi arbejder med symmetriske sandsynlighedsfelter og hændelser.
+I dette kapitel bygger vi hele fundamentet for sandsynlighedsregning fra bunden. Når du er færdig, har du et nyt sprog til at beskrive tilfældighed. 🏗️
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Stokastisk eksperiment og udfald
+
+Et <Term definition="Et forsøg eller en observation, hvis resultat ikke kan forudsiges med sikkerhed, men hvor mængden af mulige resultater er kendt.">stokastisk eksperiment</Term> er et forsøg, hvor:
+
+1. Vi ved, hvilke resultater der **kan** forekomme.
+2. Vi **ikke** kan forudsige, hvilket resultat der faktisk vil forekomme.
+
+Hvert muligt resultat kaldes et <Term definition="Et enkelt muligt resultat af et stokastisk eksperiment.">udfald</Term>.
+
+**Eksempler på stokastiske eksperimenter:**
+
+| Eksperiment | Mulige udfald |
+|:--|:--|
+| Kast med én terning | $1, 2, 3, 4, 5, 6$ |
+| Kast med en mønt | Plat, Krone |
+| Træk et kort fra en bunke | Alle 52 kort |
+| Antal soltimer i morgen | Ethvert tal mellem $0$ og $24$ |
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Udfaldsrum
+
+<Term definition="Mængden af alle mulige udfald i et stokastisk eksperiment. Betegnes typisk med det store græske bogstav omega (Ω) eller S.">Udfaldsrummet</Term> er mængden af **alle** mulige udfald. Det betegnes med $S$ (eller det græske bogstav $\Omega$).
+
+**Vigtige regler for udfaldsrummet:**
+
+- Det skal indeholde **alle** mulige udfald — intet må mangle.
+- Udfaldene skal være **gensidigt udelukkende** — kun ét udfald kan forekomme ad gangen.
+
+**Eksempler:**
+
+Kast med én terning:
 
 $$
-P(A) = \frac{\text{Gunstige}}{\text{Mulige}}
+S = \{1, 2, 3, 4, 5, 6\}
 $$
 
-## Hvad skal vi lære?
+Kast med to mønter (P = plat, K = krone):
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+S = \{(P,P), (P,K), (K,P), (K,K)\}
+$$
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+Antallet af elementer i udfaldsrummet skrives $|S|$ eller $n(S)$.
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+For én terning: $|S| = 6$.
+
+For to mønter: $|S| = 4$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Udfaldsrum for to terninger ⚡</summary>
+
+Vi kaster to terninger og noterer begge resultater som et par $(a, b)$, hvor $a$ er resultatet af den første terning og $b$ af den anden.
+
+Udfaldsrummet er:
+
+$$
+S = \{(1,1), (1,2), (1,3), \ldots, (6,5), (6,6)\}
+$$
+
+Hvert par $(a, b)$ er ét udfald. Da den første terning kan vise $6$ værdier, og den anden også $6$, er der i alt:
+
+$$
+|S| = 6 \cdot 6 = 36 \text{ mulige udfald}
+$$
+
+Det er vigtigt at skelne mellem fx $(2, 3)$ og $(3, 2)$ — de er forskellige udfald, selvom summen er den samme!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Hændelse
+
+En <Term definition="En delmængde af udfaldsrummet. En hændelse er en samling af udfald, som vi er interesserede i.">hændelse</Term> er en **delmængde** af udfaldsrummet — altså en samling af udfald, som vi er interesserede i.
+
+Vi siger, at hændelsen $A$ **indtræffer**, hvis det udfald, der forekommer, er et element i $A$.
+
+**Specielle hændelser:**
+
+- Den **sikre hændelse** er hele udfaldsrummet $S$ — den indtræffer altid.
+- Den **umulige hændelse** er den tomme mængde $\emptyset$ — den indtræffer aldrig.
+- En <Term definition="En hændelse der kun indeholder ét enkelt udfald.">elementarhændelse</Term> er en hændelse med kun ét udfald.
+
+**Eksempel med én terning:**
+
+$$
+S = \{1, 2, 3, 4, 5, 6\}
+$$
+
+| Beskrivelse | Hændelse som mængde |
+|:--|:--|
+| "Slå et lige tal" | $A = \{2, 4, 6\}$ |
+| "Slå over 4" | $B = \{5, 6\}$ |
+| "Slå en 3'er" | $C = \{3\}$ (elementarhændelse) |
+| "Slå et 7-tal" | $D = \emptyset$ (umulig) |
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Hændelser med kortspil ⚡</summary>
+
+Vi trækker ét kort fra en standard kortbunke med 52 kort. Udfaldsrummet $S$ er alle 52 kort.
+
+Lad os definere nogle hændelser:
+
+- $A$ = "trække en ruder" $\Rightarrow$ $|A| = 13$ (der er 13 ruder-kort)
+- $B$ = "trække et es" $\Rightarrow$ $|B| = 4$ (der er 4 esser)
+- $A \cap B$ = "trække ruder es" $\Rightarrow$ $|A \cap B| = 1$ (kun ét kort er både ruder og es)
+- $A \cup B$ = "trække ruder ELLER es" $\Rightarrow$ vi vender tilbage til dette med additionsreglen!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sandsynlighedsfelt
+
+Et <Term definition="En matematisk model der tildeler en sandsynlighed (et tal mellem 0 og 1) til hvert udfald i udfaldsrummet, sådan at sandsynlighederne summer til 1.">sandsynlighedsfelt</Term> er en matematisk model, der tildeler en sandsynlighed $P$ til hvert udfald. Det opfylder to krav (Kolmogorovs aksiomer i forenklet form):
+
+**Krav 1:** For ethvert udfald $u$ gælder:
+
+$$
+0 \leq P(u) \leq 1
+$$
+
+Sandsynligheden er altid mellem 0 og 1.
+
+**Krav 2:** Summen af sandsynlighederne for alle udfald er 1:
+
+$$
+\sum_{u \in S} P(u) = 1
+$$
+
+**Sandsynligheden for en hændelse** $A$ er summen af sandsynlighederne for alle udfald i $A$:
+
+$$
+P(A) = \sum_{u \in A} P(u)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sandsynlighedsfelt for en unfair mønt ⚡</summary>
+
+En defekt mønt lander på krone 60 % af gangene.
+
+**Udfaldsrum:** $S = \{\text{Plat}, \text{Krone}\}$
+
+**Sandsynlighedsfelt:**
+
+$$
+P(\text{Krone}) = 0{,}60 \qquad P(\text{Plat}) = 0{,}40
+$$
+
+**Tjek:** $P(\text{Krone}) + P(\text{Plat}) = 0{,}60 + 0{,}40 = 1{,}00$ ✓
+
+Dette er et gyldigt sandsynlighedsfelt, selvom mønten ikke er fair. Sandsynlighederne behøver ikke være ens — de skal bare summe til 1 og være ikke-negative.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Symmetrisk sandsynlighedsfelt (Laplace-modellen)
+
+Et <Term definition="Et sandsynlighedsfelt hvor alle udfald er lige sandsynlige. Opkaldt efter den franske matematiker Pierre-Simon Laplace.">symmetrisk sandsynlighedsfelt</Term> (Laplace-model) er det specielle tilfælde, hvor alle udfald er **lige sandsynlige**.
+
+Hvis udfaldsrummet har $|S| = n$ udfald, gælder for hvert udfald $u$:
+
+$$
+P(u) = \frac{1}{n}
+$$
+
+Og for en hændelse $A$ med $|A|$ udfald gælder **Laplace-reglen**:
+
+$$
+\boxed{P(A) = \frac{|A|}{|S|} = \frac{\text{antal gunstige udfald}}{\text{antal mulige udfald}}}
+$$
+
+**Hvornår kan du bruge Laplace-modellen?** Kun når du har grund til at antage, at alle udfald er lige sandsynlige — fx en fair terning, en velblandet kortbunke, eller en lodtrækning.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Laplace-regel med terning ⚡</summary>
+
+Vi kaster en fair terning. Udfaldsrummet er $S = \{1, 2, 3, 4, 5, 6\}$ med $|S| = 6$.
+
+**Hændelse A:** "Slå et lige tal" → $A = \{2, 4, 6\}$ → $|A| = 3$
+
+$$
+P(A) = \frac{|A|}{|S|} = \frac{3}{6} = \frac{1}{2} = 0{,}50
+$$
+
+**Hændelse B:** "Slå mindst 5" → $B = \{5, 6\}$ → $|B| = 2$
+
+$$
+P(B) = \frac{|B|}{|S|} = \frac{2}{6} = \frac{1}{3} \approx 0{,}33
+$$
+
+**Hændelse C:** "Slå under 4" → $C = \{1, 2, 3\}$ → $|C| = 3$
+
+$$
+P(C) = \frac{|C|}{|S|} = \frac{3}{6} = \frac{1}{2}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Laplace med to terninger ⚡</summary>
+
+Vi kaster to fair terninger. Udfaldsrummet har $|S| = 36$ udfald.
+
+**Hændelse:** "Summen er 7"
+
+Hvilke par $(a, b)$ giver summen 7?
+
+$$
+A = \{(1,6), (2,5), (3,4), (4,3), (5,2), (6,1)\}
+$$
+
+Der er $|A| = 6$ gunstige udfald.
+
+$$
+P(\text{sum} = 7) = \frac{6}{36} = \frac{1}{6} \approx 0{,}167
+$$
+
+**Hændelse:** "Summen er 12"
+
+$$
+B = \{(6,6)\} \quad \Rightarrow \quad |B| = 1
+$$
+
+$$
+P(\text{sum} = 12) = \frac{1}{36} \approx 0{,}028
+$$
+
+Summen 7 er altså 6 gange så sandsynlig som summen 12! 🎯
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Komplementærhændelsen
+
+<Term definition="Hændelsen at A IKKE indtræffer. Betegnes A' eller Ā. Består af alle udfald i udfaldsrummet, som ikke er i A.">Komplementærhændelsen</Term> $A'$ (også skrevet $\bar{A}$) til en hændelse $A$ er hændelsen "A indtræffer **ikke**":
+
+$$
+A' = S \setminus A
+$$
+
+Den indeholder alle udfald, der **ikke** er i $A$.
+
+**Komplementærreglen:**
+
+$$
+\boxed{P(A') = 1 - P(A)}
+$$
+
+Denne regel er utrolig nyttig! Sommetider er det nemmere at beregne sandsynligheden for, at noget **ikke** sker, og så trække fra 1.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Komplementærreglen ⚡</summary>
+
+**Eksempel 1:** Vi kaster en terning. Hvad er sandsynligheden for at slå **noget andet end 6**?
+
+$$
+P(\text{ikke 6}) = 1 - P(\{6\}) = 1 - \frac{1}{6} = \frac{5}{6}
+$$
+
+**Eksempel 2:** I en klasse med 30 elever har 12 briller. Vi vælger én tilfældig elev. Hvad er sandsynligheden for, at eleven **ikke** har briller?
+
+$$
+P(\text{ikke briller}) = 1 - P(\text{briller}) = 1 - \frac{12}{30} = 1 - 0{,}40 = 0{,}60
+$$
+
+**Eksempel 3 (smart brug):** Hvad er sandsynligheden for at slå **mindst én sekser** ved kast med 3 terninger?
+
+Det er kompliceret at beregne direkte (man kan slå 1, 2 eller 3 seksere). Brug komplementet i stedet:
+
+$$
+P(\text{mindst én 6}) = 1 - P(\text{ingen seksere})
+$$
+
+Sandsynligheden for "ikke 6" på én terning er $\frac{5}{6}$. For tre uafhængige terninger:
+
+$$
+P(\text{ingen seksere}) = \frac{5}{6} \cdot \frac{5}{6} \cdot \frac{5}{6} = \left(\frac{5}{6}\right)^3 = \frac{125}{216}
+$$
+
+$$
+P(\text{mindst én 6}) = 1 - \frac{125}{216} = \frac{91}{216} \approx 0{,}421
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Additionsreglen
+
+Hvad er sandsynligheden for, at hændelse $A$ **eller** hændelse $B$ (eller begge) indtræffer?
+
+**Additionsreglen (generel):**
+
+$$
+\boxed{P(A \cup B) = P(A) + P(B) - P(A \cap B)}
+$$
+
+Her er:
+- $A \cup B$ = "$A$ eller $B$ (eller begge)" (<Term definition="Foreningsmængden af A og B — alle udfald der er i A, i B, eller i begge.">foreningsmængden</Term>)
+- $A \cap B$ = "$A$ og $B$ samtidig" (<Term definition="Fællesmængden af A og B — alle udfald der er i både A og B.">fællesmængden</Term>)
+
+**Hvorfor trækker vi $P(A \cap B)$ fra?** Fordi udfald, der er i **begge** hændelser, ellers tælles dobbelt!
+
+**Specialtilfælde: Disjunkte hændelser**
+
+Hvis $A$ og $B$ er <Term definition="To hændelser der ikke kan indtræffe samtidig, dvs. de har ingen fælles udfald. Også kaldet inkompatible hændelser.">disjunkte</Term> (uforenelige), dvs. $A \cap B = \emptyset$, forenkles reglen til:
+
+$$
+P(A \cup B) = P(A) + P(B)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Additionsreglen med kort ⚡</summary>
+
+Vi trækker ét kort fra en standard bunke med 52 kort.
+
+- $A$ = "trække ruder" → $P(A) = \frac{13}{52} = \frac{1}{4}$
+- $B$ = "trække et es" → $P(B) = \frac{4}{52} = \frac{1}{13}$
+- $A \cap B$ = "trække ruder es" → $P(A \cap B) = \frac{1}{52}$
+
+Hvad er sandsynligheden for at trække ruder **eller** es?
+
+$$
+\begin{aligned}
+P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\[6pt]
+&= \frac{13}{52} + \frac{4}{52} - \frac{1}{52} \\[6pt]
+&= \frac{16}{52} \\[6pt]
+&= \frac{4}{13} \approx 0{,}308
+\end{aligned}
+$$
+
+Uden at trække $P(A \cap B)$ fra ville vi have talt ruder es **to gange** — både som "ruder" og som "es".
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Additionsreglen med disjunkte hændelser ⚡</summary>
+
+Vi kaster en terning.
+
+- $A$ = "slå 1 eller 2" → $A = \{1, 2\}$ → $P(A) = \frac{2}{6}$
+- $B$ = "slå 5 eller 6" → $B = \{5, 6\}$ → $P(B) = \frac{2}{6}$
+
+Er $A$ og $B$ disjunkte? Ja! $A \cap B = \emptyset$ — du kan ikke slå fx "1 og 5" på samme tid med én terning.
+
+$$
+P(A \cup B) = P(A) + P(B) = \frac{2}{6} + \frac{2}{6} = \frac{4}{6} = \frac{2}{3}
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Du kaster en fair terning. Opskriv udfaldsrummet, og bestem sandsynligheden for:
+a) at slå et ulige tal.
+b) at slå et tal der er mindst 3.
+c) at slå et tal der er delbart med 3.
+
+**Opgave 2:** En pose indeholder 5 røde, 3 blå og 2 grønne kugler. Du trækker én kugle tilfældigt. Bestem sandsynligheden for:
+a) at trække en rød kugle.
+b) at trække en kugle, der **ikke** er grøn.
+c) at trække en rød **eller** blå kugle.
+
+**Opgave 3:** To fair terninger kastes. Find sandsynligheden for:
+a) at summen er 11.
+b) at summen er mindst 10.
+c) at begge terninger viser det samme tal.
+
+**Opgave 4:** I en klasse med 28 elever spiller 15 fodbold, 10 håndbold, og 4 spiller begge dele. Hvad er sandsynligheden for, at en tilfældig elev spiller fodbold **eller** håndbold?
+
+**Opgave 5:** Forklar med egne ord forskellen mellem et generelt sandsynlighedsfelt og et symmetrisk sandsynlighedsfelt (Laplace-model). Giv et eksempel på hvert.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="sandsynlighed-laplace-1"
+  question="Du trækker ét kort fra en bunke med 52 kort. Hvad er sandsynligheden for at trække en spar?"
+  options={[
+    "1/52",
+    "1/13",
+    "1/4",
+    "4/13"
+  ]}
+  correctIndex={2}
+  hint="Der er 4 kulører i en kortbunke, hver med 13 kort."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="sandsynlighed-komplement-1"
+  question="Sandsynligheden for regn i morgen er 0,35. Hvad er sandsynligheden for, at det IKKE regner?"
+  options={[
+    "0,35",
+    "0,50",
+    "0,65",
+    "1,35"
+  ]}
+  correctIndex={2}
+  hint="Brug komplementærreglen: P(ikke A) = 1 - P(A)."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="sandsynlighed-addition-1"
+  question="P(A) = 0,4 og P(B) = 0,3 og P(A ∩ B) = 0,1. Hvad er P(A ∪ B)?"
+  options={[
+    "0,7",
+    "0,6",
+    "0,8",
+    "0,5"
+  ]}
+  correctIndex={1}
+  hint="Brug additionsreglen: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)."
+/>

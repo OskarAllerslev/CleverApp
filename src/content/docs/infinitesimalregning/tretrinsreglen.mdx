@@ -1,32 +1,443 @@
 ---
 title: "Tretrinsreglen"
 level: "Matematik B"
-order: 2
-description: "Tretrinsreglen er en systematisk proces i tre trin til at bevise og finde differentialkvotienten for..."
+order: 1
+description: "Lær at differentiere fra bunden med tretrinsreglen – forstå differenskvotienten og grænseovergangen. Optjen +150 XP!"
 ---
 
-# Tretrinsreglen
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Tretrinsreglen** på Matematik B-niveau.
+# Tretrinsreglen – Differentiering fra bunden 🎯
 
-## Introduktion
+Forestil dig, at du kører i bil og kigger på speedometeret. Det viser din **øjeblikkelige hastighed** – altså hvor hurtigt du kører *lige nu*. Men hvordan kan man egentlig beregne en hastighed i ét enkelt øjeblik? Du har jo brug for to tidspunkter for at måle en strækning og en tid!
 
-Tretrinsreglen er en systematisk proces i tre trin til at bevise og finde differentialkvotienten for en given funktion.
+Det er præcis dette problem, som **tretrinsreglen** løser. Den giver os et værktøj til at finde den øjeblikkelige ændringshastighed for enhver funktion – og det er kernen i al differentialregning. 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Differenskvotienten – den gennemsnitlige hældning
+
+Lad os starte med noget velkendt. Hvis vi har en funktion $f(x)$ og to punkter på grafen, kan vi beregne hældningen af den rette linje (kaldet en <Term definition="En ret linje der skærer en kurve i to punkter">sekant</Term>) mellem dem.
+
+Vælg punkterne $(x_0, f(x_0))$ og $(x_0 + h, f(x_0 + h))$, hvor $h$ er afstanden mellem de to $x$-værdier.
+
+Hældningen af sekanten – kaldet <Term definition="Forholdet mellem tilvæksten i funktionsværdi og tilvæksten i x, dvs. den gennemsnitlige ændringshastighed">differenskvotienten</Term> – er:
 
 $$
-1) \ \Delta y = f(x_0+h)-f(x_0), \quad 2) \ \frac{\Delta y}{h}, \quad 3) \ \lim_{h \to 0} \frac{\Delta y}{h}
+\frac{\Delta y}{\Delta x} = \frac{f(x_0 + h) - f(x_0)}{h}
 $$
 
-## Hvad skal vi lære?
+Denne brøk måler den **gennemsnitlige ændringshastighed** for $f$ i intervallet fra $x_0$ til $x_0 + h$.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Intuition:** Tænk på det som gennemsnitsfarten over en strækning. Hvis $f(t)$ beskriver position som funktion af tid, så er differenskvotienten lig med gennemsnitshastigheden mellem tidspunkt $t_0$ og $t_0 + h$.
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+</div>
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+---
+
+<div className="teori-box">
+
+### Teori: Grænseovergangen – fra gennemsnit til øjeblik
+
+Nu kommer det geniale trick: Hvad sker der, når vi lader $h$ blive **mindre og mindre** – altså når vi rykker de to punkter tættere og tættere på hinanden?
+
+Sekanten nærmer sig en <Term definition="En ret linje der netop rører en kurve i ét punkt og har samme hældning som kurven i det punkt">tangent</Term> til grafen i punktet $(x_0, f(x_0))$.
+
+Vi skriver dette som en <Term definition="Den værdi et udtryk nærmer sig, når en variabel nærmer sig en bestemt værdi">grænseværdi</Term>:
+
+$$
+f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}
+$$
+
+Denne grænseværdi – hvis den eksisterer – kaldes den <Term definition="Den øjeblikkelige ændringshastighed af en funktion, svarende til tangentens hældning i et punkt">afledede</Term> af $f$ i punktet $x_0$ og skrives $f'(x_0)$.
+
+**Hvad betyder det geometrisk?**
+- Differenskvotienten er hældningen af **sekanten** (linjen gennem to punkter)
+- Den afledede $f'(x_0)$ er hældningen af **tangenten** (linjen der rører kurven i ét punkt)
+
+Grænseovergangen $h \to 0$ er broen fra gennemsnit til øjeblik! ⚡
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Tretrinsreglen – de 3 trin
+
+<Term definition="En systematisk metode i tre trin til at finde den afledede funktion ved hjælp af differenskvotienten og grænseovergang">Tretrinsreglen</Term> er en opskrift på at finde $f'(x)$ for en given funktion $f(x)$. Den består af præcis tre trin:
+
+**Trin 1: Beregn differensen $f(x+h) - f(x)$**
+
+Indsæt $x+h$ i funktionsforskriften og træk $f(x)$ fra. Reducér udtrykket så meget som muligt.
+
+**Trin 2: Beregn differenskvotienten $\dfrac{f(x+h) - f(x)}{h}$**
+
+Divider resultatet fra trin 1 med $h$. Forkort $h$ hvor det er muligt.
+
+**Trin 3: Bestem grænseværdien $\lim_{h \to 0} \dfrac{f(x+h) - f(x)}{h}$**
+
+Lad $h \to 0$ i udtrykket fra trin 2. Det resultat du får, er den afledede funktion $f'(x)$.
+
+$$
+\boxed{f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}}
+$$
+
+Denne formel er **definitionen** af den afledede – og tretrinsreglen er den systematiske måde at anvende den på.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af $f(x) = x^2$ ⚡</summary>
+
+Vi finder $f'(x)$ for $f(x) = x^2$ ved tretrinsreglen.
+
+**Trin 1:** Beregn $f(x+h) - f(x)$
+
+$$
+\begin{aligned}
+f(x+h) &= (x+h)^2 \\
+&= x^2 + 2xh + h^2
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+f(x+h) - f(x) &= (x^2 + 2xh + h^2) - x^2 \\
+&= 2xh + h^2
+\end{aligned}
+$$
+
+**Trin 2:** Beregn differenskvotienten
+
+$$
+\frac{f(x+h) - f(x)}{h} = \frac{2xh + h^2}{h} = \frac{h(2x + h)}{h} = 2x + h
+$$
+
+Her kan vi forkorte med $h$, fordi $h \neq 0$ (vi lader først $h \to 0$ i trin 3).
+
+**Trin 3:** Bestem grænseværdien
+
+$$
+f'(x) = \lim_{h \to 0} (2x + h) = 2x + 0 = 2x
+$$
+
+**Konklusion:**
+
+$$
+\boxed{f(x) = x^2 \implies f'(x) = 2x}
+$$
+
+Det giver god mening! Funktionen $x^2$ vokser hurtigere og hurtigere, når $x$ bliver større – og netop det afspejler den afledede $2x$, som også vokser med $x$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af $f(x) = x^3$ ⚡</summary>
+
+Vi finder $f'(x)$ for $f(x) = x^3$ ved tretrinsreglen.
+
+**Trin 1:** Beregn $f(x+h) - f(x)$
+
+Først udregner vi $(x+h)^3$:
+
+$$
+\begin{aligned}
+(x+h)^3 &= (x+h)(x+h)^2 \\
+&= (x+h)(x^2 + 2xh + h^2) \\
+&= x^3 + 2x^2h + xh^2 + x^2h + 2xh^2 + h^3 \\
+&= x^3 + 3x^2h + 3xh^2 + h^3
+\end{aligned}
+$$
+
+Dermed:
+
+$$
+\begin{aligned}
+f(x+h) - f(x) &= (x^3 + 3x^2h + 3xh^2 + h^3) - x^3 \\
+&= 3x^2h + 3xh^2 + h^3
+\end{aligned}
+$$
+
+**Trin 2:** Beregn differenskvotienten
+
+$$
+\frac{f(x+h) - f(x)}{h} = \frac{3x^2h + 3xh^2 + h^3}{h} = \frac{h(3x^2 + 3xh + h^2)}{h} = 3x^2 + 3xh + h^2
+$$
+
+**Trin 3:** Bestem grænseværdien
+
+$$
+f'(x) = \lim_{h \to 0} (3x^2 + 3xh + h^2) = 3x^2 + 0 + 0 = 3x^2
+$$
+
+**Konklusion:**
+
+$$
+\boxed{f(x) = x^3 \implies f'(x) = 3x^2}
+$$
+
+Bemærk mønsteret: Eksponenten "rykker ned foran" og eksponenten reduceres med 1!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af $f(x) = 3x^2 + 5x$ ⚡</summary>
+
+Lad os bruge tretrinsreglen på en lidt mere sammensat funktion: $f(x) = 3x^2 + 5x$.
+
+**Trin 1:** Beregn $f(x+h) - f(x)$
+
+$$
+\begin{aligned}
+f(x+h) &= 3(x+h)^2 + 5(x+h) \\
+&= 3(x^2 + 2xh + h^2) + 5x + 5h \\
+&= 3x^2 + 6xh + 3h^2 + 5x + 5h
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+f(x+h) - f(x) &= (3x^2 + 6xh + 3h^2 + 5x + 5h) - (3x^2 + 5x) \\
+&= 6xh + 3h^2 + 5h
+\end{aligned}
+$$
+
+**Trin 2:** Beregn differenskvotienten
+
+$$
+\frac{f(x+h) - f(x)}{h} = \frac{6xh + 3h^2 + 5h}{h} = \frac{h(6x + 3h + 5)}{h} = 6x + 3h + 5
+$$
+
+**Trin 3:** Bestem grænseværdien
+
+$$
+f'(x) = \lim_{h \to 0} (6x + 3h + 5) = 6x + 5
+$$
+
+**Konklusion:**
+
+$$
+\boxed{f(x) = 3x^2 + 5x \implies f'(x) = 6x + 5}
+$$
+
+Læg mærke til, at vi kunne have differentieret hvert led for sig: $(3x^2)' = 6x$ og $(5x)' = 5$. Det er netop **sumreglen**, som du lærer i næste lektion!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Mønsteret – differentiation af $f(x) = x^n$ (potensreglen) ⚡</summary>
+
+Lad os samle mønsteret fra de foregående eksempler:
+
+| $f(x)$ | $f'(x)$ |
+|---------|----------|
+| $x^1$  | $1 = 1 \cdot x^0$ |
+| $x^2$  | $2x = 2 \cdot x^1$ |
+| $x^3$  | $3x^2 = 3 \cdot x^2$ |
+
+Mønsteret er tydeligt: eksponenten flyttes ned som en faktor, og eksponenten reduceres med 1.
+
+**Den generelle potensregel:**
+
+$$
+\boxed{f(x) = x^n \implies f'(x) = n \cdot x^{n-1}}
+$$
+
+**Bevis med tretrinsreglen (for positive heltal $n$):**
+
+Vi bruger den binomiske formel:
+
+$$
+(x+h)^n = x^n + n \cdot x^{n-1} \cdot h + \binom{n}{2} x^{n-2} h^2 + \cdots + h^n
+$$
+
+**Trin 1:**
+
+$$
+f(x+h) - f(x) = n \cdot x^{n-1} \cdot h + \underbrace{\binom{n}{2} x^{n-2} h^2 + \cdots + h^n}_{\text{alle led indeholder } h^2 \text{ eller højere}}
+$$
+
+**Trin 2:**
+
+$$
+\frac{f(x+h) - f(x)}{h} = n \cdot x^{n-1} + \underbrace{\binom{n}{2} x^{n-2} h + \cdots + h^{n-1}}_{\text{alle led indeholder } h \text{ som faktor}}
+$$
+
+**Trin 3:**
+
+$$
+f'(x) = \lim_{h \to 0} \left( n \cdot x^{n-1} + \text{led med } h \right) = n \cdot x^{n-1}
+$$
+
+Alle led undtagen det første forsvinder, når $h \to 0$. Beviset er fuldført! ✅
+
+Potensreglen gælder faktisk for alle reelle eksponenter $n$, men beviset for ikke-heltal kræver mere avancerede teknikker.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af en konstant $f(x) = c$ ⚡</summary>
+
+Hvad er den afledede af en konstant funktion, fx $f(x) = 7$?
+
+**Trin 1:** Beregn $f(x+h) - f(x)$
+
+$$
+f(x+h) - f(x) = 7 - 7 = 0
+$$
+
+**Trin 2:** Beregn differenskvotienten
+
+$$
+\frac{f(x+h) - f(x)}{h} = \frac{0}{h} = 0
+$$
+
+**Trin 3:** Bestem grænseværdien
+
+$$
+f'(x) = \lim_{h \to 0} 0 = 0
+$$
+
+**Konklusion:**
+
+$$
+\boxed{f(x) = c \implies f'(x) = 0}
+$$
+
+Det giver perfekt mening: en konstant funktion har en vandret graf – altså hældning 0 overalt!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af $f(x) = 5x + 3$ ⚡</summary>
+
+Vi differentierer den lineære funktion $f(x) = 5x + 3$.
+
+**Trin 1:** Beregn $f(x+h) - f(x)$
+
+$$
+\begin{aligned}
+f(x+h) - f(x) &= (5(x+h) + 3) - (5x + 3) \\
+&= 5x + 5h + 3 - 5x - 3 \\
+&= 5h
+\end{aligned}
+$$
+
+**Trin 2:** Beregn differenskvotienten
+
+$$
+\frac{f(x+h) - f(x)}{h} = \frac{5h}{h} = 5
+$$
+
+**Trin 3:** Bestem grænseværdien
+
+$$
+f'(x) = \lim_{h \to 0} 5 = 5
+$$
+
+**Konklusion:**
+
+$$
+\boxed{f(x) = 5x + 3 \implies f'(x) = 5}
+$$
+
+Den afledede af en lineær funktion $f(x) = ax + b$ er konstanten $a$ – hældningskoefficienten. Linjen har jo samme hældning overalt!
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1: Tretrinsreglen trin for trin**
+
+Brug tretrinsreglen til at finde $f'(x)$ for $f(x) = x^2 + 4x$. Skriv alle tre trin tydeligt op.
+
+**Opgave 2: Kubisk funktion**
+
+Brug tretrinsreglen til at differentiere $f(x) = 2x^3$. Husk at udregne $(x+h)^3$ først.
+
+**Opgave 3: Differenskvotienten som gennemsnitshældning**
+
+For funktionen $f(x) = x^2$ beregnes differenskvotienten i $x_0 = 1$ med $h = 0{,}1$, $h = 0{,}01$ og $h = 0{,}001$. Hvad nærmer værdien sig? Sammenlign med $f'(1)$.
+
+**Opgave 4: Tangentens hældning**
+
+Find hældningen af tangenten til $f(x) = x^3 - 2x$ i punktet $x = 2$ ved at beregne $f'(2)$.
+
+**Opgave 5: Potensreglen**
+
+Brug potensreglen til at differentiere:
+- a) $f(x) = x^5$
+- b) $g(x) = x^{10}$
+- c) $h(x) = x^{-1}$ (omskriv eventuelt til $\frac{1}{x}$)
+
+**Opgave 6: Grafisk forståelse**
+
+Forklar med ord, hvorfor $f'(x) = 0$ for en konstant funktion. Hvad betyder det geometrisk?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="tretrinsregel-quiz-1"
+  question="Hvad udtrykker differenskvotienten geometrisk?"
+  options={[
+    "Hældningen af tangenten i et punkt",
+    "Hældningen af sekanten mellem to punkter",
+    "Arealet under grafen",
+    "Funktionens maksimumværdi"
+  ]}
+  correctIndex={1}
+  hint="Tænk på, at differenskvotienten bruger to punkter – sekanten går netop gennem to punkter."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="tretrinsregel-quiz-2"
+  question="Hvad er den afledede af $f(x) = x^4$ ifølge potensreglen?"
+  options={[
+    "$4x^4$",
+    "$4x^3$",
+    "$3x^4$",
+    "$x^3$"
+  ]}
+  correctIndex={1}
+  hint="Potensreglen siger: eksponenten rykker ned foran, og eksponenten reduceres med 1."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="tretrinsregel-quiz-3"
+  question="Hvad er trin 2 i tretrinsreglen?"
+  options={[
+    "Beregn grænseværdien for $h \\to 0$",
+    "Beregn $f(x+h)$",
+    "Divider $f(x+h) - f(x)$ med $h$ og forkort",
+    "Tegn tangenten til grafen"
+  ]}
+  correctIndex={2}
+  hint="Trin 1 er differensen, trin 2 er at dividere med h, og trin 3 er grænseovergangen."
+/>

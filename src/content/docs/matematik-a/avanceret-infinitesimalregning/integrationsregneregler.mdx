@@ -2,31 +2,433 @@
 title: "Integrationsregneregler"
 level: "Matematik A"
 order: 2
-description: "Integration er den omvendte operation af differentiation. Her lærer du om ubestemte og bestemte inte..."
+description: "Mester stamfunktioner, bestemte integraler og areal under kurver – din integration-toolkit! Optjen +150 XP!"
 ---
 
-# Integrationsregneregler
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Integrationsregneregler** på Matematik A-niveau.
+# Integrationsregneregler 🎯
 
-## Introduktion
+Differentialregning handler om at finde hældninger. Integration er den *omvendte* proces — vi samler uendeligt mange uendeligt små bidrag op til et hele. Det er som at bygge et puslespil ud af uendeligt mange brikker. I dette kapitel lærer du regnereglerne, der gør dig til en integrations-mester!
 
-Integration er den omvendte operation af differentiation. Her lærer du om ubestemte og bestemte integraler samt grundlæggende regneregler.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Stamfunktion og ubestemt integral
+
+En <Term definition="En funktion F(x), hvis afledede er f(x), altså F'(x) = f(x)">stamfunktion</Term> til $f(x)$ er en funktion $F(x)$, hvor:
 
 $$
-\int (f(x) \pm g(x)) dx = \int f(x)dx \pm \int g(x)dx
+F'(x) = f(x)
 $$
 
-## Hvad skal vi lære?
+Altså: at finde en stamfunktion er det omvendte af at differentiere.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Eksempel:** En stamfunktion til $f(x) = 2x$ er $F(x) = x^2$, fordi $(x^2)' = 2x$.
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+Men vent — $G(x) = x^2 + 5$ er *også* en stamfunktion til $2x$, for $(x^2 + 5)' = 2x$. Faktisk er $x^2 + C$ en stamfunktion for enhver konstant $C$.
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+Det <Term definition="Mængden af alle stamfunktioner til f(x), skrevet som ∫f(x)dx = F(x) + C">ubestemte integral</Term> skrives:
+
+$$
+\int f(x) \, dx = F(x) + C
+$$
+
+Her er:
+- $\int$ integraltegnet (et stiliseret S for "summa")
+- $f(x)$ er <Term definition="Den funktion der integreres">integranden</Term>
+- $dx$ angiver, at vi integrerer med hensyn til $x$
+- $C$ er <Term definition="En vilkårlig konstant der tilføjes, fordi differentiering fjerner konstanter">integrationskonstanten</Term>
+
+**Hvorfor $+C$?** Fordi differentiation "sletter" konstanter: $(F(x) + C)' = F'(x) = f(x)$. Derfor kan vi ikke vide, hvilken konstant der var der fra starten.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Standardstamfunktioner
+
+Her er de vigtigste stamfunktioner, du skal kende:
+
+| $f(x)$ | $\int f(x) \, dx$ | Kommentar |
+|---|---|---|
+| $x^n$ $(n \neq -1)$ | $\frac{x^{n+1}}{n+1} + C$ | Potensreglen |
+| $\frac{1}{x}$ | $\ln|x| + C$ | Specialtilfælde for $n = -1$ |
+| $e^x$ | $e^x + C$ | Eksponentialfunktionen er sin egen stamfunktion |
+| $e^{kx}$ | $\frac{1}{k} e^{kx} + C$ | Kædereglen baglæns |
+| $\sin(x)$ | $-\cos(x) + C$ | Bemærk minustegnet! |
+| $\cos(x)$ | $\sin(x) + C$ | |
+| $a^x$ | $\frac{a^x}{\ln(a)} + C$ | Generel eksponentiel |
+| $1$ | $x + C$ | Konstant funktion |
+
+**Vigtig pointe:** Du kan altid tjekke et integral ved at differentiere resultatet! Hvis $F'(x) = f(x)$, har du regnet rigtigt.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find stamfunktioner ⚡</summary>
+
+**Find** $\int (3x^4 + 2e^x - \sin(x)) \, dx$.
+
+Vi integrerer led for led:
+
+$$
+\begin{aligned}
+\int (3x^4 + 2e^x - \sin(x)) \, dx &= 3 \cdot \int x^4 \, dx + 2 \cdot \int e^x \, dx - \int \sin(x) \, dx \\
+&= 3 \cdot \frac{x^5}{5} + 2 \cdot e^x - (-\cos(x)) + C \\
+&= \frac{3x^5}{5} + 2e^x + \cos(x) + C
+\end{aligned}
+$$
+
+**Tjek:** Vi differentierer:
+
+$$
+\left(\frac{3x^5}{5} + 2e^x + \cos(x)\right)' = 3x^4 + 2e^x - \sin(x) \checkmark
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Regneregler for integration
+
+**1. Konstantreglen:** En konstant faktor kan flyttes uden for integraltegnet:
+
+$$
+\int k \cdot f(x) \, dx = k \cdot \int f(x) \, dx
+$$
+
+**2. Sumreglen:** Integralet af en sum er summen af integralerne:
+
+$$
+\int \bigl[f(x) + g(x)\bigr] \, dx = \int f(x) \, dx + \int g(x) \, dx
+$$
+
+**3. Differensreglen:** Tilsvarende for differens:
+
+$$
+\int \bigl[f(x) - g(x)\bigr] \, dx = \int f(x) \, dx - \int g(x) \, dx
+$$
+
+**4. Potensreglen for integration:** For $n \neq -1$:
+
+$$
+\int x^n \, dx = \frac{x^{n+1}}{n+1} + C
+$$
+
+Reglen gælder for alle reelle $n \neq -1$, altså også for negative og brøk-eksponenter!
+
+**Eksempler på potensreglen:**
+
+$$
+\int x^{-3} \, dx = \frac{x^{-2}}{-2} + C = -\frac{1}{2x^2} + C
+$$
+
+$$
+\int \sqrt{x} \, dx = \int x^{1/2} \, dx = \frac{x^{3/2}}{3/2} + C = \frac{2}{3}x^{3/2} + C
+$$
+
+$$
+\int \frac{1}{x^4} \, dx = \int x^{-4} \, dx = \frac{x^{-3}}{-3} + C = -\frac{1}{3x^3} + C
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Regneregler i aktion ⚡</summary>
+
+**Find** $\int \left(5x^3 - \frac{2}{x^2} + 7\sqrt{x}\right) \, dx$.
+
+**Trin 1:** Omskriv til potensform:
+
+$$
+\int \left(5x^3 - 2x^{-2} + 7x^{1/2}\right) \, dx
+$$
+
+**Trin 2:** Anvend sum- og konstantreglen:
+
+$$
+= 5 \int x^3 \, dx - 2 \int x^{-2} \, dx + 7 \int x^{1/2} \, dx
+$$
+
+**Trin 3:** Anvend potensreglen på hvert led:
+
+$$
+\begin{aligned}
+&= 5 \cdot \frac{x^4}{4} - 2 \cdot \frac{x^{-1}}{-1} + 7 \cdot \frac{x^{3/2}}{3/2} + C \\
+&= \frac{5x^4}{4} + \frac{2}{x} + \frac{14}{3}x^{3/2} + C
+\end{aligned}
+$$
+
+**Tjek:** Differentiér og se, at du får den oprindelige integrand!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Det bestemte integral
+
+Det <Term definition="Integralet med øvre og nedre grænse, der giver et bestemt tal (areal med fortegn)">bestemte integral</Term> fra $a$ til $b$ skrives:
+
+$$
+\int_a^b f(x) \, dx = \bigl[F(x)\bigr]_a^b = F(b) - F(a)
+$$
+
+hvor $F$ er en stamfunktion til $f$. Bemærk, at integrationskonstanten $C$ forsvinder:
+
+$$
+(F(b) + C) - (F(a) + C) = F(b) - F(a)
+$$
+
+**Geometrisk fortolkning:** Det bestemte integral $\int_a^b f(x) \, dx$ giver det *fortegnede areal* mellem grafen for $f$ og $x$-aksen:
+
+- Når $f(x) \geq 0$: arealet tæller **positivt** (over $x$-aksen)
+- Når $f(x) < 0$: arealet tæller **negativt** (under $x$-aksen)
+
+**Regneregler for bestemte integraler:**
+
+$$
+\int_a^a f(x) \, dx = 0
+$$
+
+$$
+\int_a^b f(x) \, dx = -\int_b^a f(x) \, dx
+$$
+
+$$
+\int_a^b f(x) \, dx + \int_b^c f(x) \, dx = \int_a^c f(x) \, dx
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af bestemt integral ⚡</summary>
+
+**Beregn** $\int_1^3 (2x^2 + 1) \, dx$.
+
+**Trin 1:** Find stamfunktionen:
+
+$$
+F(x) = \frac{2x^3}{3} + x
+$$
+
+**Trin 2:** Indsæt grænserne:
+
+$$
+\begin{aligned}
+\int_1^3 (2x^2 + 1) \, dx &= \left[\frac{2x^3}{3} + x\right]_1^3 \\
+&= \underbrace{\left(\frac{2 \cdot 27}{3} + 3\right)}_{\text{øvre grænse } x=3} - \underbrace{\left(\frac{2 \cdot 1}{3} + 1\right)}_{\text{nedre grænse } x=1} \\
+&= \left(18 + 3\right) - \left(\frac{2}{3} + 1\right) \\
+&= 21 - \frac{5}{3} \\
+&= \frac{63 - 5}{3} \\
+&= \frac{58}{3}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Areal under en kurve
+
+For at finde det **geometriske areal** (altid positivt) mellem grafen for $f(x)$ og $x$-aksen på intervallet $[a, b]$ bruger vi:
+
+$$
+A = \int_a^b |f(x)| \, dx
+$$
+
+**Praksis:** Hvis $f(x)$ skifter fortegn på $[a, b]$, skal vi dele integralet op ved nulpunkterne.
+
+**Eksempel:** Hvis $f(x) \geq 0$ på $[a, c]$ og $f(x) \leq 0$ på $[c, b]$, så:
+
+$$
+A = \int_a^c f(x) \, dx - \int_c^b f(x) \, dx
+$$
+
+Vi trækker det negative bidrag fra (eller lægger dets absolutte værdi til).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Areal med fortegnsskift ⚡</summary>
+
+**Find arealet mellem $f(x) = x^2 - 4$ og $x$-aksen på intervallet $[-3, 3]$.**
+
+**Trin 1:** Find nulpunkter: $x^2 - 4 = 0 \Rightarrow x = \pm 2$.
+
+**Trin 2:** Bestem fortegn:
+- $f(x) \geq 0$ for $x \in [-3, -2]$ og $x \in [2, 3]$ (over $x$-aksen)
+- $f(x) \leq 0$ for $x \in [-2, 2]$ (under $x$-aksen)
+
+**Trin 3:** Del integralet op:
+
+$$
+A = \int_{-3}^{-2} (x^2-4) \, dx + \left|\int_{-2}^{2} (x^2-4) \, dx\right| + \int_{2}^{3} (x^2-4) \, dx
+$$
+
+**Beregn hvert delintegral:**
+
+$$
+\int_{-3}^{-2} (x^2-4) \, dx = \left[\frac{x^3}{3} - 4x\right]_{-3}^{-2} = \left(-\frac{8}{3}+8\right) - \left(-9+12\right) = \frac{16}{3} - 3 = \frac{7}{3}
+$$
+
+$$
+\int_{-2}^{2} (x^2-4) \, dx = \left[\frac{x^3}{3} - 4x\right]_{-2}^{2} = \left(\frac{8}{3}-8\right) - \left(-\frac{8}{3}+8\right) = -\frac{32}{3}
+$$
+
+$$
+\int_{2}^{3} (x^2-4) \, dx = \left[\frac{x^3}{3} - 4x\right]_{2}^{3} = (9-12) - \left(\frac{8}{3}-8\right) = -3 + \frac{16}{3} = \frac{7}{3}
+$$
+
+**Trin 4:** Saml op (brug absolutværdi for det negative delintegral):
+
+$$
+A = \frac{7}{3} + \frac{32}{3} + \frac{7}{3} = \frac{46}{3}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Areal mellem to kurver
+
+Arealet mellem graferne for $f(x)$ og $g(x)$ på $[a, b]$, hvor $f(x) \geq g(x)$, er:
+
+$$
+A = \int_a^b \bigl[f(x) - g(x)\bigr] \, dx
+$$
+
+Her er $f$ den "øverste" kurve og $g$ den "nederste".
+
+**Hvis kurverne krydser hinanden** i $[a,b]$, skal vi finde skæringspunkterne og dele op — præcis som ved areal med fortegnsskift.
+
+**Generel formel:**
+
+$$
+A = \int_a^b |f(x) - g(x)| \, dx
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Areal mellem to kurver ⚡</summary>
+
+**Find arealet mellem $f(x) = x^2$ og $g(x) = x + 2$ på det interval, hvor de afgrænser et lukket areal.**
+
+**Trin 1:** Find skæringspunkterne:
+
+$$
+x^2 = x + 2 \implies x^2 - x - 2 = 0 \implies (x-2)(x+1) = 0
+$$
+
+Skæringspunkter: $x = -1$ og $x = 2$.
+
+**Trin 2:** Afgør hvem der er øverst. For $x = 0$: $f(0) = 0$ og $g(0) = 2$, så $g(x) \geq f(x)$ på $[-1, 2]$.
+
+**Trin 3:** Beregn arealet:
+
+$$
+\begin{aligned}
+A &= \int_{-1}^{2} \bigl[g(x) - f(x)\bigr] \, dx \\
+&= \int_{-1}^{2} \bigl[(x+2) - x^2\bigr] \, dx \\
+&= \int_{-1}^{2} (x + 2 - x^2) \, dx \\
+&= \left[\frac{x^2}{2} + 2x - \frac{x^3}{3}\right]_{-1}^{2} \\
+&= \left(2 + 4 - \frac{8}{3}\right) - \left(\frac{1}{2} - 2 + \frac{1}{3}\right) \\
+&= \frac{10}{3} - \left(-\frac{7}{6}\right) \\
+&= \frac{10}{3} + \frac{7}{6} \\
+&= \frac{20}{6} + \frac{7}{6} \\
+&= \frac{27}{6} = \frac{9}{2}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Find $\int (4x^3 - 6x + 2) \, dx$.
+
+**Opgave 2:** Beregn $\int_0^2 (3x^2 - 2x) \, dx$.
+
+**Opgave 3:** Find $\int \left(\frac{3}{\sqrt{x}} + e^{2x}\right) \, dx$. (Hint: Omskriv $\frac{3}{\sqrt{x}} = 3x^{-1/2}$.)
+
+**Opgave 4:** Beregn det geometriske areal mellem $f(x) = \sin(x)$ og $x$-aksen på $[0, 2\pi]$.
+
+**Opgave 5:** Find arealet mellem $f(x) = 4 - x^2$ og $g(x) = x^2$ på det interval, hvor de afgrænser et lukket areal.
+
+**Opgave 6:** Beregn $\int_1^4 \frac{5}{x} \, dx$.
+
+**Opgave 7:** Vis, at $\int_0^1 x^n \, dx = \frac{1}{n+1}$ for $n > 0$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="stamfunktion-grundlag"
+  question="Hvad er en stamfunktion til $f(x) = 3x^2$?"
+  options={[
+    "$6x + C$",
+    "$x^3 + C$",
+    "$x^3$",
+    "$\\frac{3x^3}{3} = x^3 + C$"
+  ]}
+  correctIndex={1}
+  hint="En stamfunktion F(x) opfylder F'(x) = f(x). Differentiér svarmuligheder og se, hvad der giver 3x²."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="bestemt-integral-beregning"
+  question="Hvad er $\int_0^2 x \, dx$?"
+  options={[
+    "1",
+    "2",
+    "4",
+    "0"
+  ]}
+  correctIndex={1}
+  hint="Stamfunktionen til x er x²/2. Indsæt grænserne."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="areal-mellem-kurver"
+  question="Arealet mellem $f(x)$ (øverst) og $g(x)$ (nederst) på $[a, b]$ beregnes som..."
+  options={[
+    "$\\int_a^b f(x) \\cdot g(x) \\, dx$",
+    "$\\int_a^b [f(x) + g(x)] \\, dx$",
+    "$\\int_a^b [f(x) - g(x)] \\, dx$",
+    "$\\int_a^b f(x) \\, dx \\cdot \\int_a^b g(x) \\, dx$"
+  ]}
+  correctIndex={2}
+  hint="Vi finder 'afstanden' mellem kurverne ved at trække den nederste fra den øverste."
+/>

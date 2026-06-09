@@ -2,31 +2,375 @@
 title: "Sinus, cosinus og tangens"
 level: "Matematik C"
 order: 3
-description: "De trigonometriske funktioner sinus, cosinus og tangens beskriver forholdet mellem siderne og vinkle..."
+description: "Mestr de trigonometriske funktioner i retvinklede trekanter og enhedscirklen. Optjen +150 XP!"
 ---
 
-# Sinus, cosinus og tangens
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Sinus, cosinus og tangens** på Matematik C-niveau.
+# Sinus, cosinus og tangens 🎯
 
-## Introduktion
+Trigonometri — læren om trekanters vinkler og sider — er et af matematikkens mest anvendte værktøjer. Fra GPS-navigation til computergrafik, fra arkitektur til astronomi: trigonometrien er overalt. I dette kapitel lærer du de tre grundlæggende trigonometriske funktioner, og du får et nyt, mægtigt våben i dit matematik-arsenal! 💪
 
-De trigonometriske funktioner sinus, cosinus og tangens beskriver forholdet mellem siderne og vinklerne i en retvinklet trekant.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Definitioner i den retvinklede trekant
+
+I en retvinklet trekant definerer vi tre <Term definition="Funktioner der beskriver forholdet mellem vinkler og sidelængder i en trekant: sinus, cosinus og tangens.">trigonometriske funktioner</Term> ud fra en spids vinkel $v$:
 
 $$
-\sin(A) = \frac{\text{modstående}}{\text{hypotenuse}}, \quad \cos(A) = \frac{\text{hosliggende}}{\text{hypotenuse}}
+\sin(v) = \frac{\text{modstående katete}}{\text{hypotenuse}}, \quad \cos(v) = \frac{\text{hosliggende katete}}{\text{hypotenuse}}, \quad \tan(v) = \frac{\text{modstående katete}}{\text{hosliggende katete}}
 $$
 
-## Hvad skal vi lære?
+**Huskeregel: "SoH-CaH-ToA"**
+- **S**inus = **o**verstående / **H**ypotenuse
+- **C**osinus = **a**djacent (hosliggende) / **H**ypotenuse
+- **T**angens = **o**verstående / **A**djacent (hosliggende)
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Lad os kalde den modstående katete $a$, den hosliggende katete $b$, og hypotenusen $c$:
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+$$
+\sin(v) = \frac{a}{c}, \quad \cos(v) = \frac{b}{c}, \quad \tan(v) = \frac{a}{b}
+$$
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+**Vigtige værdier at kende:**
+
+| $v$ | $\sin(v)$ | $\cos(v)$ | $\tan(v)$ |
+|-----|-----------|-----------|-----------|
+| $0°$ | $0$ | $1$ | $0$ |
+| $30°$ | $\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $\frac{1}{\sqrt{3}}$ |
+| $45°$ | $\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{2}}{2}$ | $1$ |
+| $60°$ | $\frac{\sqrt{3}}{2}$ | $\frac{1}{2}$ | $\sqrt{3}$ |
+| $90°$ | $1$ | $0$ | udef. |
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Enhedscirklen
+
+<Term definition="En cirkel med centrum i origo (0, 0) og radius 1. Bruges til at udvide trigonometriske funktioner til alle vinkler.">Enhedscirklen</Term> er en cirkel med centrum i origo og radius $1$. Den giver os en elegant måde at definere sinus og cosinus for **alle** vinkler — ikke kun spidse vinkler.
+
+For en vinkel $v$ (målt mod uret fra den positive $x$-akse) bestemmer vi et punkt $P$ på enhedscirklen. Koordinaterne til $P$ er:
+
+$$
+P = (\cos(v), \sin(v))
+$$
+
+Det vil sige:
+- **$\cos(v)$** er $x$-koordinaten til punktet på enhedscirklen
+- **$\sin(v)$** er $y$-koordinaten til punktet på enhedscirklen
+
+**Fortegnsregler i de fire kvadranter:**
+
+| Kvadrant | Vinkelinterval | $\sin(v)$ | $\cos(v)$ |
+|----------|---------------|-----------|-----------|
+| I | $0° < v < 90°$ | $+$ | $+$ |
+| II | $90° < v < 180°$ | $+$ | $-$ |
+| III | $180° < v < 270°$ | $-$ | $-$ |
+| IV | $270° < v < 360°$ | $-$ | $+$ |
+
+I enhedscirklen kan vi også se tangens som:
+
+$$
+\tan(v) = \frac{\sin(v)}{\cos(v)}
+$$
+
+Denne definition virker for alle vinkler, hvor $\cos(v) \neq 0$.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Grundrelationen $\sin^2(v) + \cos^2(v) = 1$
+
+Den vigtigste identitet i trigonometrien er <Term definition="Sammenhængen sin²(v) + cos²(v) = 1, som gælder for alle vinkler v.">grundrelationen</Term>:
+
+$$
+\sin^2(v) + \cos^2(v) = 1
+$$
+
+**Bevis via enhedscirklen:**
+
+Punktet $P = (\cos(v), \sin(v))$ ligger på enhedscirklen med radius $1$. Cirklens ligning er $x^2 + y^2 = 1$. Da $x = \cos(v)$ og $y = \sin(v)$:
+
+$$
+\cos^2(v) + \sin^2(v) = 1 \quad \blacksquare
+$$
+
+**Bevis via Pythagoras:**
+
+I en retvinklet trekant med hypotenuse $c$, modstående katete $a$ og hosliggende katete $b$ gælder $a^2 + b^2 = c^2$. Vi dividerer begge sider med $c^2$:
+
+$$
+\frac{a^2}{c^2} + \frac{b^2}{c^2} = 1 \implies \left(\frac{a}{c}\right)^2 + \left(\frac{b}{c}\right)^2 = 1 \implies \sin^2(v) + \cos^2(v) = 1 \quad \blacksquare
+$$
+
+**Nyttige omskrivninger:**
+
+$$
+\sin^2(v) = 1 - \cos^2(v), \quad \cos^2(v) = 1 - \sin^2(v)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en side med sinus ⚡</summary>
+
+**Opgave:** I en retvinklet trekant er hypotenusen $c = 10$ og vinklen $v = 30°$. Find den modstående katete $a$.
+
+**Løsning:**
+
+Vi bruger definitionen af sinus:
+
+$$
+\sin(v) = \frac{a}{c}
+$$
+
+Vi isolerer $a$:
+
+$$
+\begin{aligned}
+a &= c \cdot \sin(v) \\
+&= 10 \cdot \sin(30°) \\
+&= 10 \cdot 0{,}5 \\
+&= 5
+\end{aligned}
+$$
+
+**Svar:** Den modstående katete er $a = 5$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en side med cosinus ⚡</summary>
+
+**Opgave:** I en retvinklet trekant er hypotenusen $c = 20$ og vinklen $v = 60°$. Find den hosliggende katete $b$.
+
+**Løsning:**
+
+Vi bruger definitionen af cosinus:
+
+$$
+\cos(v) = \frac{b}{c}
+$$
+
+Vi isolerer $b$:
+
+$$
+\begin{aligned}
+b &= c \cdot \cos(v) \\
+&= 20 \cdot \cos(60°) \\
+&= 20 \cdot 0{,}5 \\
+&= 10
+\end{aligned}
+$$
+
+**Svar:** Den hosliggende katete er $b = 10$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en vinkel med tangens ⚡</summary>
+
+**Opgave:** I en retvinklet trekant er den modstående katete $a = 7$ og den hosliggende katete $b = 7$. Find vinklen $v$.
+
+**Løsning:**
+
+Vi bruger tangens:
+
+$$
+\tan(v) = \frac{a}{b} = \frac{7}{7} = 1
+$$
+
+Vi finder vinklen med den inverse tangens-funktion:
+
+$$
+v = \tan^{-1}(1) = 45°
+$$
+
+**Svar:** Vinklen er $v = 45°$.
+
+Det giver god mening — når begge kateter er lige lange, er trekanten en ligebenet retvinklet trekant med to $45°$-vinkler.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find hypotenusen når du kender en katete og en vinkel ⚡</summary>
+
+**Opgave:** I en retvinklet trekant er den ene katete $a = 12$ (modstående til vinklen $v$), og $v = 37°$. Find hypotenusen $c$.
+
+**Løsning:**
+
+Vi bruger sinus:
+
+$$
+\sin(v) = \frac{a}{c} \implies c = \frac{a}{\sin(v)}
+$$
+
+Vi indsætter:
+
+$$
+\begin{aligned}
+c &= \frac{12}{\sin(37°)} \\
+&= \frac{12}{0{,}6018} \\
+&\approx 19{,}94
+\end{aligned}
+$$
+
+**Svar:** Hypotenusen er $c \approx 19{,}9$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Brug grundrelationen ⚡</summary>
+
+**Opgave:** Givet at $\sin(v) = \frac{3}{5}$ og $v$ er en spids vinkel. Find $\cos(v)$ og $\tan(v)$.
+
+**Løsning:**
+
+Vi bruger grundrelationen $\sin^2(v) + \cos^2(v) = 1$:
+
+$$
+\begin{aligned}
+\cos^2(v) &= 1 - \sin^2(v) \\
+&= 1 - \left(\frac{3}{5}\right)^2 \\
+&= 1 - \frac{9}{25} \\
+&= \frac{25 - 9}{25} \\
+&= \frac{16}{25}
+\end{aligned}
+$$
+
+Da $v$ er en spids vinkel, er $\cos(v) > 0$:
+
+$$
+\cos(v) = \sqrt{\frac{16}{25}} = \frac{4}{5}
+$$
+
+Nu finder vi tangens:
+
+$$
+\tan(v) = \frac{\sin(v)}{\cos(v)} = \frac{3/5}{4/5} = \frac{3}{4}
+$$
+
+**Svar:** $\cos(v) = \frac{4}{5}$ og $\tan(v) = \frac{3}{4}$.
+
+Bemærk: Vi genkender den pytagoræiske tripel $(3, 4, 5)$!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Praktisk anvendelse — højde på et tårn ⚡</summary>
+
+**Opgave:** Fra et punkt $50$ m fra foden af et tårn måler man en <Term definition="Vinklen op fra vandret til en synslinje, der peger opad.">elevationsvinkel</Term> på $35°$ til toppen af tårnet. Hvor højt er tårnet?
+
+**Løsning:**
+
+Vi har en retvinklet trekant, hvor:
+- Den hosliggende katete (afstanden) er $b = 50$ m
+- Den modstående katete (tårnets højde) er $a$ (ubekendt)
+- Vinklen er $v = 35°$
+
+Vi bruger tangens:
+
+$$
+\tan(35°) = \frac{a}{50}
+$$
+
+Vi isolerer $a$:
+
+$$
+\begin{aligned}
+a &= 50 \cdot \tan(35°) \\
+&= 50 \cdot 0{,}7002 \\
+&\approx 35{,}0
+\end{aligned}
+$$
+
+**Svar:** Tårnet er ca. $35{,}0$ m højt.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** I en retvinklet trekant er hypotenusen $c = 15$ og vinklen $v = 42°$. Find den modstående katete $a$ og den hosliggende katete $b$.
+
+**Opgave 2:** I en retvinklet trekant er kateterne $a = 8$ og $b = 6$. Find alle tre vinkler i trekanten. *(Hint: Brug $\tan^{-1}$)*
+
+**Opgave 3:** Givet at $\cos(v) = \frac{5}{13}$ og $v$ er spids. Find $\sin(v)$ og $\tan(v)$.
+
+**Opgave 4:** Fra toppen af en $40$ m høj bygning ser man ned mod et punkt på jorden med en depressionsvinkel på $25°$. Hvor langt fra bygningens fod er punktet?
+
+**Opgave 5:** Et punkt $P$ på enhedscirklen har vinklen $v = 150°$. Bestem $\cos(150°)$ og $\sin(150°)$ uden lommeregner. *(Hint: Brug symmetri med $30°$-vinklen)*
+
+**Opgave 6:** Vis, at $\tan(v) = \frac{\sin(v)}{\cos(v)}$ ved hjælp af definitionerne i den retvinklede trekant.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="sinus-cosinus-tan-q1"
+  question="I en retvinklet trekant med hypotenuse c og vinkel v, hvad er sin(v)?"
+  options={[
+    "Hosliggende katete / hypotenuse",
+    "Modstående katete / hypotenuse",
+    "Modstående katete / hosliggende katete",
+    "Hypotenuse / modstående katete"
+  ]}
+  correctIndex={1}
+  hint="Husk SoH: Sinus = overstående (modstående) / Hypotenuse."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="sinus-cosinus-tan-q2"
+  question="Hvad er cos(60°)?"
+  options={[
+    "√3/2",
+    "1",
+    "1/2",
+    "√2/2"
+  ]}
+  correctIndex={2}
+  hint="Kig i tabellen over vigtige trigonometriske værdier."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="sinus-cosinus-tan-q3"
+  question="Hvis sin(v) = 0,6, hvad er cos²(v)?"
+  options={[
+    "0,36",
+    "0,4",
+    "0,64",
+    "0,8"
+  ]}
+  correctIndex={2}
+  hint="Brug grundrelationen: sin²(v) + cos²(v) = 1, dvs. cos²(v) = 1 - sin²(v)."
+/>

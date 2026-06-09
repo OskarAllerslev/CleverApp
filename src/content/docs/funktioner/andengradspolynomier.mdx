@@ -2,31 +2,440 @@
 title: "Andengradspolynomier"
 level: "Matematik C"
 order: 3
-description: "Grafen for et andengradspolynomium er en parabel. Vi lærer om toppunktets koordinater og rødder ved ..."
+description: "Mestr parablen, diskriminanten og toppunktet — knæk den kvadratiske kode! Optjen +150 XP!"
 ---
 
-# Andengradspolynomier
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Andengradspolynomier** på Matematik C-niveau.
+# Andengradspolynomier 🎯
 
-## Introduktion
+Nu tager vi springet fra rette linjer til **buede kurver**. Andengradspolynomier — også kaldet kvadratiske funktioner — dukker op overalt: i kast med bolde, i økonomi (omsætning og profit) og i broers form. Parablen er en af matematikkens mest elegante kurver!
 
-Grafen for et andengradspolynomium er en parabel. Vi lærer om toppunktets koordinater og rødder ved hjælp af diskriminanten $d$.
+Gør dig klar til at knække den kvadratiske kode og level op til parabel-mester! 🏆
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Andengradspolynomiets grundform
+
+Et <Term definition="En funktion af formen f(x) = ax² + bx + c, hvor a ≠ 0. Grafen er en parabel.">andengradspolynomium</Term> har forskriften:
 
 $$
-f(x) = ax^2 + bx + c, \quad d = b^2 - 4ac
+f(x) = ax^2 + bx + c \quad (a \neq 0)
 $$
 
-## Hvad skal vi lære?
+hvor $a$, $b$ og $c$ er konstanter.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Grafen for et andengradspolynomium er en <Term definition="En symmetrisk U-formet kurve. Åbner opad hvis a > 0 og nedad hvis a < 0.">parabel</Term>.
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+**Hvad styrer parablens form?**
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+| Koefficient | Effekt |
+|---|---|
+| $a > 0$ | Parablen åbner **opad** (glad smiley 😊) |
+| $a < 0$ | Parablen åbner **nedad** (sur smiley 😞) |
+| stort $\|a\|$ | Parablen er **smal** (stejle sider) |
+| lille $\|a\|$ | Parablen er **bred** (flade sider) |
+| $c$ | Parablens skæring med $y$-aksen: $(0, c)$ |
+
+**Skæring med y-aksen:**
+
+$$
+f(0) = a \cdot 0^2 + b \cdot 0 + c = c
+$$
+
+Parablen skærer altid $y$-aksen i punktet $(0, c)$.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Diskriminanten og nulpunkter
+
+For at finde parablens <Term definition="De x-værdier hvor f(x) = 0, dvs. hvor grafen skærer x-aksen">nulpunkter</Term> (rødderne) løser vi ligningen:
+
+$$
+ax^2 + bx + c = 0
+$$
+
+Her bruger vi <Term definition="Diskriminanten d = b² - 4ac afgør hvor mange løsninger (nulpunkter) andengradsligningen har">diskriminanten</Term>:
+
+$$
+d = b^2 - 4ac
+$$
+
+**Diskriminantens tre tilfælde:**
+
+| Diskriminant | Antal nulpunkter | Grafisk betydning |
+|---|---|---|
+| $d > 0$ | **To** nulpunkter | Parablen skærer $x$-aksen i to punkter |
+| $d = 0$ | **Ét** nulpunkt (dobbeltrod) | Parablen rører $x$-aksen i ét punkt |
+| $d < 0$ | **Ingen** nulpunkter | Parablen rører aldrig $x$-aksen |
+
+**Nulpunktsformlen** (også kaldet diskriminantformlen):
+
+$$
+x = \frac{-b \pm \sqrt{d}}{2a} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+Når $d > 0$ giver dette to løsninger:
+
+$$
+x_1 = \frac{-b + \sqrt{d}}{2a} \quad \text{og} \quad x_2 = \frac{-b - \sqrt{d}}{2a}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find nulpunkter med diskriminantformlen ⚡</summary>
+
+**Opgave:** Find nulpunkterne for $f(x) = 2x^2 - 8x + 6$.
+
+**Løsning:**
+
+**Trin 1:** Identificer koefficienterne:
+
+$$
+a = 2, \quad b = -8, \quad c = 6
+$$
+
+**Trin 2:** Beregn diskriminanten:
+
+$$
+\begin{aligned}
+d &= b^2 - 4ac \\
+&= (-8)^2 - 4 \cdot 2 \cdot 6 \\
+&= 64 - 48 \\
+&= 16
+\end{aligned}
+$$
+
+Da $d = 16 > 0$, er der **to nulpunkter**.
+
+**Trin 3:** Beregn nulpunkterne:
+
+$$
+\begin{aligned}
+x &= \frac{-b \pm \sqrt{d}}{2a} = \frac{-(-8) \pm \sqrt{16}}{2 \cdot 2} = \frac{8 \pm 4}{4}
+\end{aligned}
+$$
+
+$$
+x_1 = \frac{8 + 4}{4} = \frac{12}{4} = 3
+$$
+
+$$
+x_2 = \frac{8 - 4}{4} = \frac{4}{4} = 1
+$$
+
+**Nulpunkterne er $x = 1$ og $x = 3$.**
+
+**Kontrol:** $f(1) = 2 \cdot 1 - 8 + 6 = 0$ ✓ og $f(3) = 2 \cdot 9 - 24 + 6 = 0$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Diskriminant lig nul (dobbeltrod) ⚡</summary>
+
+**Opgave:** Find nulpunkterne for $f(x) = x^2 - 6x + 9$.
+
+**Løsning:**
+
+**Trin 1:** Koefficienterne: $a = 1$, $b = -6$, $c = 9$.
+
+**Trin 2:** Diskriminanten:
+
+$$
+d = (-6)^2 - 4 \cdot 1 \cdot 9 = 36 - 36 = 0
+$$
+
+Da $d = 0$, er der **præcis ét nulpunkt** (en dobbeltrod).
+
+**Trin 3:** Nulpunktet:
+
+$$
+x = \frac{-(-6)}{2 \cdot 1} = \frac{6}{2} = 3
+$$
+
+**Nulpunktet er $x = 3$.**
+
+Vi kan verificere: $f(x) = x^2 - 6x + 9 = (x - 3)^2$, som kun er $0$ for $x = 3$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Toppunkt
+
+<Term definition="Det højeste eller laveste punkt på parablen. For a > 0 er toppunktet et minimum, for a < 0 er det et maksimum.">Toppunktet</Term> er parablens højeste eller laveste punkt. Det har koordinaterne:
+
+$$
+T = \left(x_T,\ y_T\right)
+$$
+
+hvor:
+
+$$
+x_T = -\frac{b}{2a}
+$$
+
+$$
+y_T = f(x_T) = -\frac{b^2 - 4ac}{4a} = -\frac{d}{4a}
+$$
+
+**Fortolkning:**
+
+- Hvis $a > 0$: Toppunktet er et **minimum** (parablen åbner opad)
+- Hvis $a < 0$: Toppunktet er et **maksimum** (parablen åbner nedad)
+
+**Symmetriakse:**
+
+Parablen er <Term definition="En lodret linje x = x_T, der deler parablen i to spejlbilleder">symmetrisk</Term> omkring den lodrette linje $x = x_T$. Det betyder at nulpunkterne (hvis de eksisterer) ligger symmetrisk omkring toppunktet.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find toppunktet ⚡</summary>
+
+**Opgave:** Find toppunktet for $f(x) = -x^2 + 4x + 5$.
+
+**Løsning:**
+
+**Trin 1:** Koefficienterne: $a = -1$, $b = 4$, $c = 5$.
+
+**Trin 2:** Find $x_T$:
+
+$$
+x_T = -\frac{b}{2a} = -\frac{4}{2 \cdot (-1)} = -\frac{4}{-2} = 2
+$$
+
+**Trin 3:** Find $y_T$ ved at indsætte $x_T = 2$:
+
+$$
+\begin{aligned}
+y_T &= f(2) \\
+&= -(2)^2 + 4 \cdot 2 + 5 \\
+&= -4 + 8 + 5 \\
+&= 9
+\end{aligned}
+$$
+
+**Toppunktet er $T = (2, 9)$.**
+
+Da $a = -1 < 0$, åbner parablen **nedad**, så toppunktet er et **maksimum**. Den største værdi funktionen kan antage, er $f(2) = 9$.
+
+Værdimængden er $V_f = ]-\infty, 9]$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Faktorisering
+
+Når vi kender nulpunkterne $x_1$ og $x_2$, kan vi skrive andengradspolynomiet på <Term definition="Formen f(x) = a(x - x₁)(x - x₂), hvor x₁ og x₂ er nulpunkterne">faktoriseret form</Term>:
+
+$$
+f(x) = a(x - x_1)(x - x_2)
+$$
+
+**De tre tilfælde:**
+
+| Diskriminant | Faktoriseret form |
+|---|---|
+| $d > 0$ | $f(x) = a(x - x_1)(x - x_2)$ |
+| $d = 0$ | $f(x) = a(x - x_1)^2$ |
+| $d < 0$ | Kan **ikke** faktoriseres med reelle tal |
+
+**Sammenhæng mellem rødder og koefficienter (Vietas formler):**
+
+Hvis $x_1$ og $x_2$ er rødderne for $ax^2 + bx + c = 0$, gælder:
+
+$$
+x_1 + x_2 = -\frac{b}{a} \quad \text{og} \quad x_1 \cdot x_2 = \frac{c}{a}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Faktoriser et andengradspolynomium ⚡</summary>
+
+**Opgave:** Faktoriser $f(x) = 3x^2 - 12x + 9$.
+
+**Løsning:**
+
+**Trin 1:** Find nulpunkterne. Vi har $a = 3$, $b = -12$, $c = 9$.
+
+$$
+d = (-12)^2 - 4 \cdot 3 \cdot 9 = 144 - 108 = 36
+$$
+
+$$
+x = \frac{12 \pm \sqrt{36}}{6} = \frac{12 \pm 6}{6}
+$$
+
+$$
+x_1 = \frac{12 + 6}{6} = 3 \quad \text{og} \quad x_2 = \frac{12 - 6}{6} = 1
+$$
+
+**Trin 2:** Skriv den faktoriserede form:
+
+$$
+f(x) = 3(x - 1)(x - 3)
+$$
+
+**Kontrol:** Vi ganger ud:
+
+$$
+\begin{aligned}
+3(x - 1)(x - 3) &= 3(x^2 - 3x - x + 3) \\
+&= 3(x^2 - 4x + 3) \\
+&= 3x^2 - 12x + 9 \quad \checkmark
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Praktisk anvendelse — kastet bold ⚡</summary>
+
+**Opgave:** En bold kastes lodret op. Højden $h$ (i meter) efter $t$ sekunder er:
+
+$$
+h(t) = -5t^2 + 20t + 1{,}5
+$$
+
+a) Hvad er boldens starthøjde?
+b) Hvornår når bolden sit højeste punkt, og hvad er den maksimale højde?
+c) Hvornår rammer bolden jorden?
+
+**Løsning:**
+
+**a) Starthøjde:** Vi sætter $t = 0$:
+
+$$
+h(0) = -5 \cdot 0 + 20 \cdot 0 + 1{,}5 = 1{,}5 \text{ m}
+$$
+
+Bolden kastes fra $1{,}5$ meters højde.
+
+**b) Toppunkt:** Vi har $a = -5$ og $b = 20$:
+
+$$
+t_T = -\frac{20}{2 \cdot (-5)} = -\frac{20}{-10} = 2 \text{ s}
+$$
+
+$$
+h(2) = -5 \cdot 4 + 20 \cdot 2 + 1{,}5 = -20 + 40 + 1{,}5 = 21{,}5 \text{ m}
+$$
+
+Bolden når sin maksimale højde på $21{,}5$ m efter $2$ sekunder.
+
+**c) Bolden rammer jorden** når $h(t) = 0$:
+
+$$
+d = 20^2 - 4 \cdot (-5) \cdot 1{,}5 = 400 + 30 = 430
+$$
+
+$$
+t = \frac{-20 \pm \sqrt{430}}{2 \cdot (-5)} = \frac{-20 \pm 20{,}74}{-10}
+$$
+
+$$
+t_1 = \frac{-20 + 20{,}74}{-10} = \frac{0{,}74}{-10} = -0{,}074 \quad (\text{forkastes, } t \geq 0)
+$$
+
+$$
+t_2 = \frac{-20 - 20{,}74}{-10} = \frac{-40{,}74}{-10} = 4{,}074 \text{ s}
+$$
+
+Bolden rammer jorden efter ca. $4{,}1$ sekunder.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn diskriminanten og find nulpunkterne for:
+
+a) $f(x) = x^2 - 5x + 6$
+
+b) $g(x) = 2x^2 + 4x - 6$
+
+c) $h(x) = x^2 + 2x + 5$
+
+**Opgave 2:** Find toppunktet for $f(x) = 2x^2 - 8x + 3$. Er toppunktet et maksimum eller et minimum?
+
+**Opgave 3:** Faktoriser $f(x) = x^2 - 9$.
+
+**Opgave 4:** Bestem forskriften for et andengradspolynomium med nulpunkterne $x = -1$ og $x = 5$, som går gennem punktet $(0, -10)$.
+
+**Opgave 5:** En rektangulær indhegning har tre sider af hegn og en mur som fjerde side. Der er 60 m hegn til rådighed. Opstil et udtryk for arealet som funktion af bredden $x$, og find det maksimale areal.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="andengradspoly-quiz-1"
+  question="Hvad er diskriminanten for f(x) = x² + 4x + 4?"
+  options={[
+    "0",
+    "8",
+    "32",
+    "-12"
+  ]}
+  correctIndex={0}
+  hint="Beregn d = b² - 4ac med a=1, b=4, c=4."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="andengradspoly-quiz-2"
+  question="Hvis a < 0 i f(x) = ax² + bx + c, hvad gælder da for parablen?"
+  options={[
+    "Parablen åbner opad",
+    "Parablen åbner nedad",
+    "Parablen er en ret linje",
+    "Parablen har altid to nulpunkter"
+  ]}
+  correctIndex={1}
+  hint="Tænk over hvad fortegnet af a styrer."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="andengradspoly-quiz-3"
+  question="Toppunktets x-koordinat for f(x) = 3x² - 12x + 7 er?"
+  options={[
+    "x = -2",
+    "x = 4",
+    "x = 2",
+    "x = 12"
+  ]}
+  correctIndex={2}
+  hint="Brug formlen x_T = -b/(2a)."
+/>

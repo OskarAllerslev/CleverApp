@@ -2,31 +2,503 @@
 title: "Regression"
 level: "Matematik C"
 order: 5
-description: "Regression handler om at finde den bedste matematiske model (lineær, eksponentiel eller potens), der..."
+description: "Lær at finde den bedste model til dine data med lineær, eksponentiel og potensregression. Optjen +150 XP!"
 ---
 
-# Regression
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Regression** på Matematik C-niveau.
+# Regression 📊
 
-## Introduktion
+I den virkelige verden har vi sjældent en formel fra start — vi har **data**. Regression handler om at finde den matematiske funktion, der **bedst** beskriver en samling datapunkter. Det er et af de mest anvendte værktøjer i alt fra videnskab til erhvervsliv.
 
-Regression handler om at finde den bedste matematiske model (lineær, eksponentiel eller potens), der passer til et givet sæt af empiriske datapunkter.
+Tænk på regression som at lægge den perfekte kurve hen over dine datapunkter. Jo bedre kurven passer, jo mere XP får du! 🎯
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Hvad er regression?
+
+<Term definition="En statistisk metode, der finder den matematiske funktion, som bedst tilpasser sig et sæt datapunkter">Regression</Term> er en metode til at bestemme den funktion, der bedst beskriver en sammenhæng mellem to variable ud fra observerede datapunkter.
+
+**Grundideen:**
+
+Vi har $n$ datapunkter $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$ og vil finde en funktion $f(x)$, der passer bedst muligt til data.
+
+**Tre hovedtyper regression i Matematik C:**
+
+| Regressionstype | Funktionstype | Hvornår bruges den? |
+|---|---|---|
+| Lineær | $f(x) = ax + b$ | Data følger en ret linje |
+| Eksponentiel | $f(x) = b \cdot a^x$ | Data vokser/aftager med en fast procent |
+| Potens | $f(x) = b \cdot x^a$ | Sammenhæng mellem to størrelser med potenslov |
+
+**Vigtigt:** Regression giver **altid** et resultat, men det er op til os at vurdere, om modellen faktisk giver mening for det fænomen, vi undersøger.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Mindste kvadraters metode — intuitionen
+
+Hvordan finder vi den "bedste" linje? Vi bruger <Term definition="En metode der minimerer summen af de kvadrerede afstande (residualer) mellem datapunkterne og den tilpassede kurve">mindste kvadraters metode</Term> (MKM).
+
+**Ideen i ord:**
+
+For hvert datapunkt $(x_i, y_i)$ beregner vi forskellen mellem den **observerede** $y$-værdi og den **forudsagte** værdi $f(x_i)$. Denne forskel kaldes et <Term definition="Forskellen mellem en observeret værdi og den værdi, modellen forudsiger: residual = y_i - f(x_i)">residual</Term>:
 
 $$
-y approx ax + b \quad (R^2 \approx 1)
+e_i = y_i - f(x_i)
 $$
 
-## Hvad skal vi lære?
+Vi **kvadrerer** residualerne (så negative og positive fejl tæller lige meget) og **summerer** dem:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+S = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (y_i - f(x_i))^2
+$$
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+Den bedste tilpasning er den, der **minimerer** $S$.
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+**Hvorfor kvadrerer vi?**
+
+- Positive og negative afvigelser skal tælle lige meget
+- Store afvigelser straffes hårdere end små (en afvigelse på $4$ bidrager med $16$, ikke $4$)
+- Matematisk er kvadratfunktionen differentiabel, hvilket gør optimering mulig
+
+**Visuelt:** Tænk på residualerne som lodrette afstande fra datapunkterne ned (eller op) til linjen. Vi vil gøre de samlede "kvadratiske afstande" så små som muligt.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Lineær regression
+
+Ved <Term definition="Regression hvor man tilpasser en ret linje y = ax + b til datapunkterne">lineær regression</Term> finder vi den rette linje $f(x) = ax + b$, der minimerer summen af kvadrerede residualer.
+
+**Formlerne** (du behøver normalt **ikke** beregne disse i hånden — brug CAS/lommeregner):
+
+$$
+a = \frac{n \sum x_i y_i - \sum x_i \sum y_i}{n \sum x_i^2 - \left(\sum x_i\right)^2}
+$$
+
+$$
+b = \bar{y} - a\bar{x}
+$$
+
+hvor $\bar{x}$ og $\bar{y}$ er gennemsnittene af $x$- og $y$-værdierne.
+
+**I praksis:** Brug CAS-værktøjet til at bestemme $a$ og $b$. Det vigtige er at du:
+
+1. Kan **indtaste data** korrekt
+2. Kan **aflæse** resultaterne ($a$, $b$ og $r^2$)
+3. Kan **fortolke** parametrene i kontekst
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Lineær regression med CAS ⚡</summary>
+
+**Opgave:** En virksomheds omsætning (i mio. kr.) over 5 år er målt:
+
+| År ($x$) | $1$ | $2$ | $3$ | $4$ | $5$ |
+|---|---|---|---|---|---|
+| Omsætning ($y$) | $2{,}3$ | $2{,}8$ | $3{,}1$ | $3{,}7$ | $4{,}0$ |
+
+Bestem den lineære regressionsmodel.
+
+**Løsning:**
+
+Vi beregner de nødvendige summer (eller bruger CAS direkte):
+
+$$
+\bar{x} = \frac{1+2+3+4+5}{5} = 3 \quad \text{og} \quad \bar{y} = \frac{2{,}3+2{,}8+3{,}1+3{,}7+4{,}0}{5} = 3{,}18
+$$
+
+Med CAS får vi:
+
+$$
+a \approx 0{,}43 \quad \text{og} \quad b \approx 1{,}89
+$$
+
+**Regressionslinjen er:**
+
+$$
+f(x) = 0{,}43x + 1{,}89
+$$
+
+**Fortolkning:**
+- $a = 0{,}43$: Omsætningen stiger med ca. $0{,}43$ mio. kr. pr. år
+- $b = 1{,}89$: Modellenens estimat for "år 0" er $1{,}89$ mio. kr.
+
+**Forudsigelse for år 7:**
+
+$$
+f(7) = 0{,}43 \cdot 7 + 1{,}89 = 3{,}01 + 1{,}89 = 4{,}90 \text{ mio. kr.}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Eksponentiel regression
+
+Ved <Term definition="Regression hvor man tilpasser en eksponentiel funktion f(x) = b · aˣ til datapunkterne">eksponentiel regression</Term> finder vi konstanter $a$ og $b$ i:
+
+$$
+f(x) = b \cdot a^x
+$$
+
+**Metoden (i praksis):**
+
+Vi kan transformere den eksponentielle model til en lineær ved at tage logaritmen:
+
+$$
+\ln(y) = \ln(b) + x \cdot \ln(a)
+$$
+
+Sætter vi $Y = \ln(y)$, $A = \ln(a)$ og $B = \ln(b)$, får vi:
+
+$$
+Y = Ax + B
+$$
+
+som er lineær! Vi kan altså:
+
+1. Beregne $\ln(y_i)$ for alle datapunkter
+2. Udføre **lineær regression** på $(x_i, \ln(y_i))$
+3. Omregne: $a = e^A$ og $b = e^B$
+
+**I praksis bruger vi bare CAS**, der automatisk udfører eksponentiel regression.
+
+**Hvornår vælges eksponentiel regression?**
+
+- Data ser ud til at vokse/aftage med en **fast procentuel** rate
+- På **enkeltlogaritmisk** papir ligger data tilnærmelsesvist på en ret linje
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Eksponentiel regression ⚡</summary>
+
+**Opgave:** En bakteriekultur måles over tid:
+
+| Tid ($t$ timer) | $0$ | $1$ | $2$ | $3$ | $4$ |
+|---|---|---|---|---|---|
+| Antal ($N$) | $100$ | $122$ | $150$ | $182$ | $223$ |
+
+Bestem en eksponentiel model.
+
+**Løsning:**
+
+**Trin 1:** Vi beregner $\ln(N)$:
+
+| $t$ | $0$ | $1$ | $2$ | $3$ | $4$ |
+|---|---|---|---|---|---|
+| $\ln(N)$ | $4{,}605$ | $4{,}804$ | $5{,}011$ | $5{,}204$ | $5{,}407$ |
+
+**Trin 2:** Vi udfører lineær regression på $(t, \ln(N))$:
+
+Vi finder: hældning $A \approx 0{,}200$ og skæring $B \approx 4{,}605$.
+
+**Trin 3:** Vi omregner:
+
+$$
+a = e^{0{,}200} \approx 1{,}221 \quad \text{og} \quad b = e^{4{,}605} \approx 100
+$$
+
+**Modellen er:**
+
+$$
+N(t) = 100 \cdot 1{,}221^t
+$$
+
+**Fortolkning:** Begyndelsesværdien er $100$ bakterier, og antallet vokser med ca. $22{,}1\%$ pr. time.
+
+**Fordoblingstid:**
+
+$$
+T_2 = \frac{\ln(2)}{\ln(1{,}221)} = \frac{0{,}693}{0{,}200} \approx 3{,}5 \text{ timer}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Potensregression
+
+Ved <Term definition="Regression hvor man tilpasser en potensfunktion f(x) = b · xᵃ til datapunkterne">potensregression</Term> finder vi konstanter $a$ og $b$ i:
+
+$$
+f(x) = b \cdot x^a
+$$
+
+**Metoden:**
+
+Vi transformerer ved at tage logaritmen:
+
+$$
+\ln(y) = \ln(b) + a \cdot \ln(x)
+$$
+
+Sætter vi $Y = \ln(y)$ og $X = \ln(x)$, får vi:
+
+$$
+Y = aX + \ln(b)
+$$
+
+Vi udfører lineær regression på $(\ln(x_i), \ln(y_i))$ og aflæser $a$ (hældningen) og $b = e^{\text{skæring}}$.
+
+**Hvornår vælges potensregression?**
+
+- Sammenhængen beskrives naturligt som en potenslov
+- På **dobbeltlogaritmisk** papir ligger data tilnærmelsesvist på en ret linje
+- Eksempler: areal som funktion af sidelængde, stofskifte som funktion af kropsvægt
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Potensregression ⚡</summary>
+
+**Opgave:** Sammenhængen mellem et dyrs kropsvægt $W$ (kg) og dets daglige energibehov $E$ (kcal) er målt:
+
+| $W$ | $5$ | $10$ | $20$ | $50$ | $100$ |
+|---|---|---|---|---|---|
+| $E$ | $250$ | $400$ | $640$ | $1200$ | $1900$ |
+
+Find en potensmodel.
+
+**Løsning:**
+
+**Trin 1:** Beregn $\ln(W)$ og $\ln(E)$:
+
+| $\ln(W)$ | $1{,}61$ | $2{,}30$ | $3{,}00$ | $3{,}91$ | $4{,}61$ |
+|---|---|---|---|---|---|
+| $\ln(E)$ | $5{,}52$ | $5{,}99$ | $6{,}46$ | $7{,}09$ | $7{,}55$ |
+
+**Trin 2:** Lineær regression på $(\ln(W), \ln(E))$:
+
+Hældning $a \approx 0{,}68$ og skæring $\ln(b) \approx 4{,}42$.
+
+**Trin 3:** Omregn: $b = e^{4{,}42} \approx 83$.
+
+**Modellen er:**
+
+$$
+E(W) = 83 \cdot W^{0{,}68}
+$$
+
+**Fortolkning:** Energibehovet vokser med kropsvægten opløftet i $0{,}68$. Det betyder, at en fordobling af vægten **ikke** fordobler energibehovet — det stiger kun med faktoren $2^{0{,}68} \approx 1{,}6$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Forklaringsgraden r²
+
+<Term definition="Et mål mellem 0 og 1 for, hvor stor en del af variationen i data der forklares af regressionsmodellen. r² = 1 er perfekt tilpasning.">Forklaringsgraden</Term> (eller determinationskoefficienten) $r^2$ måler, hvor godt modellen passer til data.
+
+$$
+r^2 = 1 - \frac{\sum (y_i - f(x_i))^2}{\sum (y_i - \bar{y})^2}
+$$
+
+**Fortolkning:**
+
+| $r^2$-værdi | Fortolkning |
+|---|---|
+| $r^2 = 1$ | Perfekt tilpasning — alle punkter ligger på kurven |
+| $r^2 \geq 0{,}9$ | Rigtig god tilpasning |
+| $r^2 \approx 0{,}7$ | Moderat tilpasning |
+| $r^2 \approx 0{,}3$ | Dårlig tilpasning |
+| $r^2 = 0$ | Modellen forklarer intet — ingen sammenhæng |
+
+**I praksis:**
+
+- $r^2$ angives automatisk af CAS-værktøjet
+- En høj $r^2$ betyder, at modellen **forklarer** en stor del af variationen i data
+- $r^2 = 0{,}85$ betyder: "$85\%$ af variationen i data forklares af modellen"
+
+**Korrelationskoefficienten $r$:**
+
+For lineær regression bruges også <Term definition="Et mål mellem -1 og 1 for styrken og retningen af den lineære sammenhæng. r > 0 er positiv korrelation, r < 0 er negativ.">korrelationskoefficienten</Term> $r = \pm\sqrt{r^2}$, der har fortegn:
+
+- $r > 0$: Positiv sammenhæng (begge variable stiger sammen)
+- $r < 0$: Negativ sammenhæng (den ene stiger, den anden falder)
+- $|r|$ tæt på $1$: Stærk lineær sammenhæng
+- $|r|$ tæt på $0$: Svag eller ingen lineær sammenhæng
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammenlign regressionsmodeller ⚡</summary>
+
+**Opgave:** For et datasæt giver CAS følgende regressioner:
+
+| Model | Forskrift | $r^2$ |
+|---|---|---|
+| Lineær | $f(x) = 3{,}2x + 1{,}5$ | $0{,}87$ |
+| Eksponentiel | $f(x) = 2{,}1 \cdot 1{,}35^x$ | $0{,}98$ |
+| Potens | $f(x) = 1{,}8 \cdot x^{1{,}4}$ | $0{,}93$ |
+
+Hvilken model passer bedst?
+
+**Løsning:**
+
+Vi sammenligner $r^2$-værdierne:
+
+- Lineær: $r^2 = 0{,}87$ — God, men ikke den bedste
+- Eksponentiel: $r^2 = 0{,}98$ — **Bedst** tilpasning
+- Potens: $r^2 = 0{,}93$ — Rigtig god
+
+Den **eksponentielle model** $f(x) = 2{,}1 \cdot 1{,}35^x$ passer bedst, da den har den højeste $r^2$-værdi på $0{,}98$. Det betyder at $98\%$ af variationen i data forklares af modellen.
+
+**Men husk:** Statistisk bedste model er ikke altid den fagligt mest meningsfulde. Overvej altid om modellen giver mening i konteksten!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fuld regressionsanalyse — fra data til model ⚡</summary>
+
+**Opgave:** En webshops besøgstal ($y$, i tusinder) de første 6 måneder er:
+
+| Måned ($x$) | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
+|---|---|---|---|---|---|---|
+| Besøg ($y$) | $1{,}2$ | $1{,}8$ | $2{,}7$ | $4{,}0$ | $5{,}9$ | $8{,}9$ |
+
+a) Udfør lineær og eksponentiel regression.
+b) Hvilken model passer bedst?
+c) Forudsig besøgstallet for måned 8.
+
+**Løsning:**
+
+**a) Lineær regression:**
+
+Med CAS: $f(x) = 1{,}50x - 0{,}77$, $r^2 = 0{,}95$.
+
+**Eksponentiel regression:**
+
+Vi beregner $\ln(y)$:
+
+| $x$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
+|---|---|---|---|---|---|---|
+| $\ln(y)$ | $0{,}18$ | $0{,}59$ | $0{,}99$ | $1{,}39$ | $1{,}77$ | $2{,}19$ |
+
+Lineær regression på $(x, \ln(y))$ giver: hældning $\approx 0{,}397$, skæring $\approx -0{,}19$.
+
+Altså: $a = e^{0{,}397} \approx 1{,}49$ og $b = e^{-0{,}19} \approx 0{,}83$.
+
+Med CAS: $g(x) = 0{,}83 \cdot 1{,}49^x$, $r^2 = 0{,}999$.
+
+**b)** Den eksponentielle model passer **markant bedre** ($r^2 = 0{,}999$ vs. $r^2 = 0{,}95$).
+
+**c)** Forudsigelse for måned 8:
+
+$$
+g(8) = 0{,}83 \cdot 1{,}49^8 = 0{,}83 \cdot 19{,}7 \approx 16{,}3 \text{ tusind besøg}
+$$
+
+**Advarsel:** Ekstrapolation (forudsigelse uden for datas interval) skal altid tages med forbehold. Eksponentiel vækst kan sjældent fortsætte ubegrænset.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Følgende data er givet:
+
+| $x$ | $1$ | $3$ | $5$ | $7$ | $9$ |
+|---|---|---|---|---|---|
+| $y$ | $4$ | $10$ | $14$ | $22$ | $26$ |
+
+a) Bestem den lineære regressionsmodel $f(x) = ax + b$ (brug CAS).
+b) Beregn $r^2$ og vurder tilpasningen.
+c) Forudsig $y$ for $x = 12$.
+
+**Opgave 2:** En population vokser eksponentielt. Data:
+
+| Tid (år) | $0$ | $5$ | $10$ | $15$ | $20$ |
+|---|---|---|---|---|---|
+| Population | $1000$ | $1340$ | $1790$ | $2400$ | $3210$ |
+
+Bestem en eksponentiel model og beregn fordoblingstiden.
+
+**Opgave 3:** Bestem om følgende data bedst beskrives med lineær, eksponentiel eller potensregression (brug $r^2$-værdier):
+
+| $x$ | $2$ | $4$ | $6$ | $8$ | $10$ |
+|---|---|---|---|---|---|
+| $y$ | $6{,}3$ | $17{,}8$ | $32{,}6$ | $50{,}4$ | $70{,}7$ |
+
+**Opgave 4:** Forklar med egne ord, hvad det betyder at en regressionsmodel har $r^2 = 0{,}72$.
+
+**Opgave 5:** Diskuter: Kan man altid stole på en regressionsmodel, der har $r^2 = 0{,}99$? Giv eksempler på, hvornår man skal være forsigtig.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="regression-quiz-1"
+  question="Hvad minimerer mindste kvadraters metode?"
+  options={[
+    "Summen af residualerne",
+    "Summen af de kvadrerede residualer",
+    "Det største residual",
+    "Antallet af datapunkter over linjen"
+  ]}
+  correctIndex={1}
+  hint="Metoden hedder 'mindste KVADRATERS metode' — hvad kvadreres?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="regression-quiz-2"
+  question="Hvad betyder r² = 0,95?"
+  options={[
+    "95% af datapunkterne ligger på kurven",
+    "Modellen forklarer 95% af variationen i data",
+    "Der er 95% sandsynlighed for at modellen er korrekt",
+    "Modellen har 95% nøjagtighed"
+  ]}
+  correctIndex={1}
+  hint="r² kaldes også forklaringsgraden — hvad 'forklarer' den?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="regression-quiz-3"
+  question="Data danner en ret linje på dobbeltlogaritmisk papir. Hvilken regression bør du vælge?"
+  options={[
+    "Lineær regression",
+    "Eksponentiel regression",
+    "Potensregression",
+    "Ingen af delene"
+  ]}
+  correctIndex={2}
+  hint="Ret linje på dobbeltlogaritmisk papir svarer til en bestemt funktionstype."
+/>

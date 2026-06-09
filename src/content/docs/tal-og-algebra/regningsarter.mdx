@@ -2,31 +2,407 @@
 title: "Regningsarter og parenteser"
 level: "Matematik C"
 order: 1
-description: "Her lærer du om de fire grundlæggende regningsarter (addition, subtraktion, multiplikation og divisi..."
+description: "Mester de fire regningsarter, regnearternes hierarki og parentesregler. Optjen +150 XP!"
 ---
 
-# Regningsarter og parenteser
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Regningsarter og parenteser** på Matematik C-niveau.
+# Regningsarter og parenteser 🎯
 
-## Introduktion
+Velkommen til det allerførste level i din matematik-rejse! Her bygger vi det fundament, som **alt andet** hviler på. Uanset om du skal løse ligninger, arbejde med funktioner eller tackle differentialregning – det hele starter med de fire regningsarter og en solid forståelse af, hvordan parenteser virker.
 
-Her lærer du om de fire grundlæggende regningsarter (addition, subtraktion, multiplikation og division) samt hvordan man hæver og sætter i parenteser.
+Tænk på regningsarter som de grundlæggende "moves" i et spil: Hvis du ikke mestrer dem, kan du ikke klare nogen boss-kampe senere. Lad os komme i gang! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: De fire regningsarter
+
+De fire grundlæggende regningsarter i matematik er:
+
+| Symbol | Regningsart | Eksempel |
+|--------|------------|----------|
+| $+$ | <Term definition="At lægge tal sammen – resultatet kaldes en sum.">Addition</Term> | $3 + 5 = 8$ |
+| $-$ | <Term definition="At trække et tal fra et andet – resultatet kaldes en differens.">Subtraktion</Term> | $9 - 4 = 5$ |
+| $\cdot$ | <Term definition="At gange tal sammen – resultatet kaldes et produkt.">Multiplikation</Term> | $4 \cdot 6 = 24$ |
+| $:$ eller $/$ | <Term definition="At dele et tal med et andet – resultatet kaldes en kvotient.">Division</Term> | $20 : 4 = 5$ |
+
+Disse fire operationer er byggestenene i al regning. Læg mærke til, at addition og subtraktion er **omvendte operationer** – det samme gælder multiplikation og division.
+
+Når vi regner med flere regningsarter i samme udtryk, er det **afgørende** at vi udfører dem i den rigtige rækkefølge.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Regnearternes hierarki (regnehierarki)
+
+Når et udtryk indeholder flere regningsarter, følger vi altid <Term definition="Den faste rækkefølge, hvori regningsarter udføres: parenteser → potenser → multiplikation/division → addition/subtraktion.">regnearternes hierarki</Term>:
+
+**Rækkefølgen er:**
+
+1. **Parenteser** – regn altid det inderste først
+2. **Potenser og rødder** – fx $2^3$ eller $\sqrt{9}$
+3. **Multiplikation og division** – fra venstre mod højre
+4. **Addition og subtraktion** – fra venstre mod højre
+
+En god huskeregel er: **P-P-M/D-A/S** (Parenteser, Potenser, Multiplikation/Division, Addition/Subtraktion).
+
+**Eksempel på hvorfor rækkefølgen er vigtig:**
 
 $$
-a cdot (b + c) = a cdot b + a cdot c
+2 + 3 \cdot 4
 $$
 
-## Hvad skal vi lære?
+Hvis vi **fejlagtigt** regner fra venstre mod højre, får vi $5 \cdot 4 = 20$. Men det er forkert!
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Den korrekte udregning er:
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+$$
+2 + 3 \cdot 4 = 2 + 12 = 14
+$$
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+Vi ganger **først** ($3 \cdot 4 = 12$), og lægger **derefter** sammen ($2 + 12 = 14$).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Regnehierarkiet i praksis ⚡</summary>
+
+**Beregn værdien af udtrykket:**
+
+$$
+5 + 2 \cdot 3^2 - 8 : 4
+$$
+
+**Trin 1: Potenser først**
+
+$$
+5 + 2 \cdot \underbrace{3^2}_{=9} - 8 : 4 = 5 + 2 \cdot 9 - 8 : 4
+$$
+
+**Trin 2: Multiplikation og division (fra venstre mod højre)**
+
+$$
+5 + \underbrace{2 \cdot 9}_{=18} - \underbrace{8 : 4}_{=2} = 5 + 18 - 2
+$$
+
+**Trin 3: Addition og subtraktion (fra venstre mod højre)**
+
+$$
+5 + 18 - 2 = 23 - 2 = 21
+$$
+
+**Svar:** $5 + 2 \cdot 3^2 - 8 : 4 = 21$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Parenteser og parentesregler
+
+<Term definition="Symbolerne ( ) der bruges til at gruppere dele af et udtryk, så de beregnes først.">Parenteser</Term> bruges til at ændre den naturlige rækkefølge i et udtryk. Alt inden i parenteser beregnes først.
+
+**Grundregel:** Når der står et tal foran en parentes, ganges tallet ind på **hvert led** i parentesen:
+
+$$
+a \cdot (b + c) = a \cdot b + a \cdot c
+$$
+
+Dette er den <Term definition="Reglen der siger, at a·(b+c) = a·b + a·c. Multiplikation 'fordeles' over addition.">distributive lov</Term> – en af de vigtigste regler i al algebra.
+
+**Minusfortegn foran parentes:**
+
+Når der står et minus foran en parentes, skifter **alle** fortegn inde i parentesen:
+
+$$
+-(a + b) = -a - b
+$$
+
+$$
+-(a - b) = -a + b
+$$
+
+**Parentes ganget med parentes:**
+
+Når to parenteser ganges sammen, ganges **hvert led** i den første parentes med **hvert led** i den anden:
+
+$$
+(a + b)(c + d) = ac + ad + bc + bd
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Den distributive lov ⚡</summary>
+
+**Beregn:**
+
+$$
+3 \cdot (2x + 5) - 2 \cdot (x - 4)
+$$
+
+**Trin 1: Gang 3 ind i første parentes**
+
+$$
+\underbrace{3 \cdot 2x}_{= 6x} + \underbrace{3 \cdot 5}_{= 15} - 2 \cdot (x - 4)
+$$
+
+$$
+= 6x + 15 - 2 \cdot (x - 4)
+$$
+
+**Trin 2: Gang $-2$ ind i anden parentes (husk fortegnsskift!)**
+
+$$
+6x + 15 + \underbrace{(-2) \cdot x}_{= -2x} + \underbrace{(-2) \cdot (-4)}_{= 8}
+$$
+
+$$
+= 6x + 15 - 2x + 8
+$$
+
+**Trin 3: Saml ens led**
+
+$$
+= (6x - 2x) + (15 + 8) = 4x + 23
+$$
+
+**Svar:** $3 \cdot (2x + 5) - 2 \cdot (x - 4) = 4x + 23$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Parentes ganget med parentes ⚡</summary>
+
+**Udregn:**
+
+$$
+(x + 3)(x - 2)
+$$
+
+Vi bruger reglen om at gange hvert led i den første parentes med hvert led i den anden:
+
+$$
+\begin{aligned}
+(x + 3)(x - 2) &= x \cdot x + x \cdot (-2) + 3 \cdot x + 3 \cdot (-2) \\
+&= x^2 - 2x + 3x - 6 \\
+&= x^2 + x - 6
+\end{aligned}
+$$
+
+**Svar:** $(x + 3)(x - 2) = x^2 + x - 6$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kommutative og associative love
+
+Der er to fundamentale regneregler, der gælder for addition og multiplikation:
+
+**Den <Term definition="Reglen der siger, at rækkefølgen af tallene ikke betyder noget ved addition og multiplikation: a+b = b+a og a·b = b·a.">kommutative lov</Term> (ombytningsreglen):**
+
+$$
+a + b = b + a \qquad \text{og} \qquad a \cdot b = b \cdot a
+$$
+
+Vi kan altså bytte om på tallene ved addition og multiplikation. Eksempel: $3 + 7 = 7 + 3 = 10$.
+
+**Bemærk:** Den kommutative lov gælder **ikke** for subtraktion og division!
+
+$$
+5 - 3 \neq 3 - 5 \qquad \text{og} \qquad 10 : 2 \neq 2 : 10
+$$
+
+**Den <Term definition="Reglen der siger, at grupperingen af tallene ikke betyder noget ved addition og multiplikation: (a+b)+c = a+(b+c).">associative lov</Term> (grupperingsreglen):**
+
+$$
+(a + b) + c = a + (b + c) \qquad \text{og} \qquad (a \cdot b) \cdot c = a \cdot (b \cdot c)
+$$
+
+Vi kan altså gruppere tallene frit ved addition og multiplikation. Eksempel:
+
+$$
+(2 + 3) + 4 = 5 + 4 = 9 = 2 + 7 = 2 + (3 + 4)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Smarte regnestrategier med lovene ⚡</summary>
+
+**Beregn $4 \cdot 17 \cdot 25$ uden lommeregner:**
+
+Vi udnytter den kommutative og associative lov til at omgruppere:
+
+$$
+\begin{aligned}
+4 \cdot 17 \cdot 25 &\overset{\text{kommutativ}}{=} 4 \cdot 25 \cdot 17 \\
+&\overset{\text{associativ}}{=} (4 \cdot 25) \cdot 17 \\
+&= 100 \cdot 17 \\
+&= 1700
+\end{aligned}
+$$
+
+Ved at bytte om på tallene fik vi det nemme produkt $4 \cdot 25 = 100$ først. Smart! 🧠
+
+**Beregn $37 + 58 + 63$:**
+
+$$
+\begin{aligned}
+37 + 58 + 63 &\overset{\text{kommutativ}}{=} 37 + 63 + 58 \\
+&\overset{\text{associativ}}{=} (37 + 63) + 58 \\
+&= 100 + 58 \\
+&= 158
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammensat opgave med alt det lærte ⚡</summary>
+
+**Beregn:**
+
+$$
+4 \cdot (3 + 2)^2 - 3 \cdot (10 - 2 \cdot 3)
+$$
+
+**Trin 1: Inderste parenteser først**
+
+$$
+4 \cdot (3 + 2)^2 - 3 \cdot (10 - \underbrace{2 \cdot 3}_{=6})
+$$
+
+$$
+= 4 \cdot \underbrace{(5)}^{2}_{} - 3 \cdot (10 - 6)
+$$
+
+$$
+= 4 \cdot 5^2 - 3 \cdot 4
+$$
+
+**Trin 2: Potenser**
+
+$$
+4 \cdot \underbrace{5^2}_{=25} - 3 \cdot 4 = 4 \cdot 25 - 3 \cdot 4
+$$
+
+**Trin 3: Multiplikation**
+
+$$
+\underbrace{4 \cdot 25}_{=100} - \underbrace{3 \cdot 4}_{=12} = 100 - 12
+$$
+
+**Trin 4: Subtraktion**
+
+$$
+100 - 12 = 88
+$$
+
+**Svar:** $4 \cdot (3 + 2)^2 - 3 \cdot (10 - 2 \cdot 3) = 88$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn uden lommeregner (brug regnehierarkiet):
+
+a) $3 + 4 \cdot 5$
+
+b) $(3 + 4) \cdot 5$
+
+c) $2 \cdot 3^2 + 4$
+
+d) $20 - 3 \cdot 4 + 2$
+
+**Opgave 2:** Reducer udtrykkene ved at gange parenteserne ud og samle ens led:
+
+a) $5 \cdot (2x - 3)$
+
+b) $4 \cdot (x + 2) - 3 \cdot (x - 1)$
+
+c) $-(3a - 5) + 2 \cdot (a + 4)$
+
+**Opgave 3:** Gang parenteserne sammen og reducer:
+
+a) $(x + 2)(x + 5)$
+
+b) $(x - 3)(x + 3)$
+
+c) $(2x + 1)(x - 4)$
+
+**Opgave 4:** Beregn $25 \cdot 13 \cdot 4$ ved at udnytte den kommutative og associative lov.
+
+**Opgave 5:** Beregn $2 \cdot (5^2 - 3 \cdot (4 + 1)) + 7$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="regningsarter-quiz-1"
+  question="Hvad er værdien af $2 + 3 \cdot 4$?"
+  options={[
+    "14",
+    "20",
+    "24",
+    "10"
+  ]}
+  correctIndex={0}
+  hint="Husk regnehierarkiet: multiplikation udføres før addition."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="regningsarter-quiz-2"
+  question="Hvad er $3 \cdot (x + 4)$ ganget ud?"
+  options={[
+    "$3x + 4$",
+    "$3x + 12$",
+    "$x + 12$",
+    "$3x + 7$"
+  ]}
+  correctIndex={1}
+  hint="Brug den distributive lov: gang 3 ind på begge led i parentesen."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="regningsarter-quiz-3"
+  question="Hvilken af disse regneregler gælder IKKE for subtraktion?"
+  options={[
+    "Den distributive lov",
+    "Den kommutative lov",
+    "Regnehierarkiet",
+    "Potensregler"
+  ]}
+  correctIndex={1}
+  hint="Tænk over: er $5 - 3$ det samme som $3 - 5$?"
+/>

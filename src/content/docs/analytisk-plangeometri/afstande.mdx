@@ -1,32 +1,502 @@
 ---
-title: "Afstande i planen"
+title: "Afstande"
 level: "Matematik B"
 order: 3
-description: "Her lærer du at beregne den korteste afstand fra et punkt til en linje i planen ved hjælp af Hesses ..."
+description: "Beregn afstande mellem punkter, fra punkt til linje og mellem parallelle linjer — præcist og effektivt! Optjen +150 XP!"
 ---
 
-# Afstande i planen
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Afstande i planen** på Matematik B-niveau.
+# Afstande 🎯
 
-## Introduktion
+Afstandsberegning er en af de mest anvendte færdigheder i analytisk plangeometri. Kan du beregne afstande, kan du løse alt fra optimeringsopgaver til tangentproblemer. I dette kapitel mestrer du tre vigtige typer afstande:
 
-Her lærer du at beregne den korteste afstand fra et punkt til en linje i planen ved hjælp af Hesses afstandsformel.
+1. **Afstand mellem to punkter** — fundamentet for al geometri
+2. **Afstand fra punkt til linje** — en nøgleformel du skal kunne i søvne
+3. **Afstand mellem parallelle linjer** — bygger direkte på punkt-til-linje-formlen
 
-## Central Matematisk Formel
+Lad os komme i gang med at levle op dine afstandsfærdigheder! 📏
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Afstand mellem to punkter
+
+<Term definition="Afstanden mellem to punkter er den korteste vej mellem dem — den rette linje.">Afstanden</Term> mellem to punkter $P_1(x_1, y_1)$ og $P_2(x_2, y_2)$ beregnes med <Term definition="Afstandsformlen udledes direkte fra Pythagoras' sætning.">afstandsformlen</Term>:
 
 $$
-dist(P, l) = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}
+|P_1P_2| = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
 $$
 
-## Hvad skal vi lære?
+**Hvorfor virker det?** Formlen er en direkte konsekvens af **Pythagoras' sætning**:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Tegn en retvinklet trekant, hvor:
+- Den vandrette katete har længden $|x_2 - x_1|$
+- Den lodrette katete har længden $|y_2 - y_1|$
+- Hypotenusen er afstanden $|P_1P_2|$
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+Pythagoras giver:
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+$$
+|P_1P_2|^2 = (x_2 - x_1)^2 + (y_2 - y_1)^2
+$$
+
+Tag kvadratroden, og du har afstandsformlen.
+
+**Vigtige egenskaber:**
+- Afstanden er altid $\geq 0$
+- $|P_1P_2| = 0$ kun hvis $P_1 = P_2$
+- Rækkefølgen er ligegyldig: $|P_1P_2| = |P_2P_1|$ (fordi vi kvadrerer differenserne)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand mellem to punkter ⚡</summary>
+
+**Opgave:** Find afstanden mellem $A(2, -3)$ og $B(7, 9)$.
+
+**Løsning:**
+
+$$
+\begin{aligned}
+|AB| &= \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} \\
+&= \sqrt{(7 - 2)^2 + (9 - (-3))^2} \\
+&= \sqrt{5^2 + 12^2} \\
+&= \sqrt{25 + 144} \\
+&= \sqrt{169} \\
+&= 13
+\end{aligned}
+$$
+
+Afstanden er $|AB| = 13$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Brug afstand til at tjekke en trekanttype ⚡</summary>
+
+**Opgave:** En trekant har hjørnerne $A(0, 0)$, $B(4, 0)$ og $C(4, 3)$. Vis, at trekanten er retvinklet, og find arealet.
+
+**Løsning:**
+
+**Trin 1:** Beregn alle tre sidelængder:
+
+$$
+|AB| = \sqrt{(4-0)^2 + (0-0)^2} = \sqrt{16} = 4
+$$
+
+$$
+|BC| = \sqrt{(4-4)^2 + (3-0)^2} = \sqrt{9} = 3
+$$
+
+$$
+|AC| = \sqrt{(4-0)^2 + (3-0)^2} = \sqrt{16 + 9} = \sqrt{25} = 5
+$$
+
+**Trin 2:** Tjek Pythagoras:
+
+$$
+|AB|^2 + |BC|^2 = 4^2 + 3^2 = 16 + 9 = 25 = 5^2 = |AC|^2 \; \checkmark
+$$
+
+Pythagoras er opfyldt, så trekanten er retvinklet med den rette vinkel i $B$.
+
+**Trin 3:** Arealet:
+
+$$
+T = \frac{1}{2} \cdot |AB| \cdot |BC| = \frac{1}{2} \cdot 4 \cdot 3 = 6
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Afstand fra punkt til linje
+
+Afstanden fra et punkt $P_0(x_0, y_0)$ til linjen $\ell: ax + by + c = 0$ er den **korteste** afstand — dvs. den vinkelrette afstand. Formlen er:
+
+$$
+\text{dist}(P_0, \ell) = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}
+$$
+
+Læg mærke til:
+- **Tælleren** $|ax_0 + by_0 + c|$: Indsæt punktets koordinater i venstresiden af linjens ligning og tag den numeriske værdi
+- **Nævneren** $\sqrt{a^2 + b^2}$: Længden af normalvektoren $\vec{n} = \binom{a}{b}$
+- Resultatet er altid $\geq 0$
+
+**Intuitionen:** Vi projicerer vektoren fra et punkt på linjen til $P_0$ ned på normalvektoren. Normalvektoren peger vinkelret på linjen, så projektionen giver netop den vinkelrette afstand.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Afstand fra punkt til linje 🧠</summary>
+
+**Påstand:** Afstanden fra $P_0(x_0, y_0)$ til $\ell: ax + by + c = 0$ er $\frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}$.
+
+**Bevis:**
+
+**Trin 1:** Vælg et vilkårligt punkt $Q(x_Q, y_Q)$ på linjen $\ell$. Så gælder:
+
+$$
+ax_Q + by_Q + c = 0 \quad \Rightarrow \quad c = -ax_Q - by_Q
+$$
+
+**Trin 2:** Den vinkelrette afstand fra $P_0$ til $\ell$ er den numeriske værdi af projektionen af $\overrightarrow{QP_0}$ på normalvektoren $\vec{n} = \binom{a}{b}$:
+
+$$
+\text{dist}(P_0, \ell) = \frac{|\vec{n} \cdot \overrightarrow{QP_0}|}{|\vec{n}|}
+$$
+
+**Trin 3:** Beregn skalarproduktet:
+
+$$
+\vec{n} \cdot \overrightarrow{QP_0} = a(x_0 - x_Q) + b(y_0 - y_Q) = ax_0 + by_0 - ax_Q - by_Q
+$$
+
+**Trin 4:** Indsæt $-ax_Q - by_Q = c$:
+
+$$
+\vec{n} \cdot \overrightarrow{QP_0} = ax_0 + by_0 + c
+$$
+
+**Trin 5:** Længden af normalvektoren:
+
+$$
+|\vec{n}| = \sqrt{a^2 + b^2}
+$$
+
+**Trin 6:** Sæt det hele sammen:
+
+$$
+\text{dist}(P_0, \ell) = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}} \quad \square
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand fra punkt til linje ⚡</summary>
+
+**Opgave:** Find afstanden fra punktet $P(3, -1)$ til linjen $\ell: 4x - 3y + 7 = 0$.
+
+**Løsning:**
+
+**Trin 1:** Identificer $a = 4$, $b = -3$, $c = 7$ og $P_0(x_0, y_0) = (3, -1)$.
+
+**Trin 2:** Indsæt i formlen:
+
+$$
+\begin{aligned}
+\text{dist}(P, \ell) &= \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}} \\
+&= \frac{|4 \cdot 3 + (-3) \cdot (-1) + 7|}{\sqrt{4^2 + (-3)^2}} \\
+&= \frac{|12 + 3 + 7|}{\sqrt{16 + 9}} \\
+&= \frac{|22|}{\sqrt{25}} \\
+&= \frac{22}{5} \\
+&= 4{,}4
+\end{aligned}
+$$
+
+Afstanden er $4{,}4$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand fra origo til en linje ⚡</summary>
+
+**Opgave:** Find afstanden fra origo $O(0, 0)$ til linjen $5x + 12y - 26 = 0$.
+
+**Løsning:**
+
+$$
+\begin{aligned}
+\text{dist}(O, \ell) &= \frac{|5 \cdot 0 + 12 \cdot 0 - 26|}{\sqrt{5^2 + 12^2}} \\
+&= \frac{|-26|}{\sqrt{25 + 144}} \\
+&= \frac{26}{\sqrt{169}} \\
+&= \frac{26}{13} \\
+&= 2
+\end{aligned}
+$$
+
+Afstanden fra origo til linjen er $2$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find afstand når linjen er givet på hældningsform ⚡</summary>
+
+**Opgave:** Find afstanden fra $P(1, 5)$ til linjen $y = 2x - 3$.
+
+**Løsning:**
+
+**Trin 1:** Omskriv linjen til almen form:
+
+$$
+y = 2x - 3 \iff 2x - y - 3 = 0
+$$
+
+Så $a = 2$, $b = -1$, $c = -3$.
+
+**Trin 2:** Indsæt i formlen:
+
+$$
+\begin{aligned}
+\text{dist}(P, \ell) &= \frac{|2 \cdot 1 + (-1) \cdot 5 + (-3)|}{\sqrt{2^2 + (-1)^2}} \\
+&= \frac{|2 - 5 - 3|}{\sqrt{4 + 1}} \\
+&= \frac{|-6|}{\sqrt{5}} \\
+&= \frac{6}{\sqrt{5}} \\
+&= \frac{6\sqrt{5}}{5} \approx 2{,}68
+\end{aligned}
+$$
+
+Afstanden er $\frac{6\sqrt{5}}{5} \approx 2{,}68$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Afstand mellem parallelle linjer
+
+To <Term definition="Parallelle linjer har samme retning (og dermed proportionale normalvektorer) men skærer aldrig hinanden.">parallelle linjer</Term> $\ell_1: ax + by + c_1 = 0$ og $\ell_2: ax + by + c_2 = 0$ (med **samme** $a$ og $b$, men **forskellige** $c$-værdier) har afstanden:
+
+$$
+\text{dist}(\ell_1, \ell_2) = \frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}}
+$$
+
+**Hvorfor virker det?** Vælg et vilkårligt punkt $P_0$ på $\ell_1$. Da $P_0$ ligger på $\ell_1$, gælder $ax_0 + by_0 + c_1 = 0$, dvs. $ax_0 + by_0 = -c_1$.
+
+Afstanden fra $P_0$ til $\ell_2$ er:
+
+$$
+\text{dist}(P_0, \ell_2) = \frac{|ax_0 + by_0 + c_2|}{\sqrt{a^2 + b^2}} = \frac{|-c_1 + c_2|}{\sqrt{a^2 + b^2}} = \frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}}
+$$
+
+**Vigtigt:** Linjerne **skal** have de **nøjagtig samme** koefficienter $a$ og $b$ for at bruge formlen direkte. Hvis de ikke har det, skal du først skalere en af ligningerne.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand mellem parallelle linjer ⚡</summary>
+
+**Opgave:** Find afstanden mellem de parallelle linjer:
+
+$$
+\ell_1: 3x - 4y + 10 = 0 \quad \text{og} \quad \ell_2: 3x - 4y - 5 = 0
+$$
+
+**Løsning:**
+
+**Trin 1:** Kontroller at linjerne er parallelle. Begge har normalvektor $\vec{n} = \binom{3}{-4}$ ✓
+
+**Trin 2:** Aflæs $c_1 = 10$ og $c_2 = -5$.
+
+**Trin 3:** Brug formlen:
+
+$$
+\begin{aligned}
+\text{dist}(\ell_1, \ell_2) &= \frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}} \\
+&= \frac{|10 - (-5)|}{\sqrt{3^2 + (-4)^2}} \\
+&= \frac{|15|}{\sqrt{9 + 16}} \\
+&= \frac{15}{\sqrt{25}} \\
+&= \frac{15}{5} \\
+&= 3
+\end{aligned}
+$$
+
+Afstanden mellem de to linjer er $3$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skalering af parallelle linjer før afstandsberegning ⚡</summary>
+
+**Opgave:** Find afstanden mellem $\ell_1: 2x + y - 3 = 0$ og $\ell_2: 4x + 2y + 8 = 0$.
+
+**Løsning:**
+
+**Trin 1:** Tjek parallelitet. Normalvektorerne er $\vec{n}_1 = \binom{2}{1}$ og $\vec{n}_2 = \binom{4}{2} = 2 \cdot \binom{2}{1}$. Linjerne er parallelle ✓
+
+**Trin 2:** Skaler $\ell_2$ så koefficienterne matcher $\ell_1$. Divider $\ell_2$ med $2$:
+
+$$
+\ell_2: 2x + y + 4 = 0
+$$
+
+**Trin 3:** Nu har vi $a = 2$, $b = 1$, $c_1 = -3$, $c_2 = 4$:
+
+$$
+\begin{aligned}
+\text{dist}(\ell_1, \ell_2) &= \frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}} \\
+&= \frac{|-3 - 4|}{\sqrt{4 + 1}} \\
+&= \frac{7}{\sqrt{5}} \\
+&= \frac{7\sqrt{5}}{5} \approx 3{,}13
+\end{aligned}
+$$
+
+Afstanden er $\frac{7\sqrt{5}}{5} \approx 3{,}13$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kombination — afstand og tangent ⚡</summary>
+
+**Opgave:** Find afstanden fra centrum af cirklen $(x - 2)^2 + (y + 1)^2 = 9$ til linjen $3x + 4y - 12 = 0$. Er linjen tangent, sekant eller ekstern?
+
+**Løsning:**
+
+**Trin 1:** Aflæs cirklens centrum og radius:
+
+- Centrum: $C(2, -1)$
+- Radius: $r = \sqrt{9} = 3$
+
+**Trin 2:** Beregn afstanden fra $C$ til linjen:
+
+$$
+\begin{aligned}
+\text{dist}(C, \ell) &= \frac{|3 \cdot 2 + 4 \cdot (-1) - 12|}{\sqrt{3^2 + 4^2}} \\
+&= \frac{|6 - 4 - 12|}{\sqrt{9 + 16}} \\
+&= \frac{|-10|}{\sqrt{25}} \\
+&= \frac{10}{5} \\
+&= 2
+\end{aligned}
+$$
+
+**Trin 3:** Sammenlign afstanden med radius:
+
+$$
+\text{dist}(C, \ell) = 2 < r = 3
+$$
+
+Da afstanden fra centrum til linjen er **mindre** end radius, er linjen en **sekant** (den skærer cirklen i to punkter).
+
+**Opsummering af reglerne:**
+
+| Afstand vs. radius | Konklusion |
+|---|---|
+| $\text{dist} < r$ | Sekant (2 skæringspunkter) |
+| $\text{dist} = r$ | Tangent (1 skæringspunkt) |
+| $\text{dist} > r$ | Ekstern (0 skæringspunkter) |
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Opsummering af alle tre afstandsformler
+
+Her er de tre afstandsformler samlet:
+
+**1. Afstand mellem to punkter** $P_1(x_1, y_1)$ og $P_2(x_2, y_2)$:
+
+$$
+|P_1P_2| = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+$$
+
+**2. Afstand fra punkt $P_0(x_0, y_0)$ til linje $ax + by + c = 0$:**
+
+$$
+\text{dist}(P_0, \ell) = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}
+$$
+
+**3. Afstand mellem parallelle linjer $ax + by + c_1 = 0$ og $ax + by + c_2 = 0$:**
+
+$$
+\text{dist}(\ell_1, \ell_2) = \frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}}
+$$
+
+**Pro tip 💡:** Formel 3 er et specialtilfælde af formel 2 — du vælger bare et punkt på den ene linje og beregner afstanden til den anden.
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Find afstanden mellem punkterne $A(-2, 5)$ og $B(4, -3)$.
+
+**Opgave 2:** Find afstanden fra punktet $P(1, 2)$ til linjen $3x - 4y + 5 = 0$.
+
+**Opgave 3:** Find afstanden fra punktet $Q(-3, 7)$ til linjen $y = \frac{5}{12}x + 2$. (Husk at omskrive til almen form først.)
+
+**Opgave 4:** Find afstanden mellem de parallelle linjer $\ell_1: x - 2y + 4 = 0$ og $\ell_2: x - 2y - 6 = 0$.
+
+**Opgave 5:** Find afstanden mellem $\ell_1: 3x + y - 1 = 0$ og $\ell_2: 6x + 2y + 5 = 0$. (Husk at skalere!)
+
+**Opgave 6:** En cirkel har centrum $C(5, 3)$ og radius $r = 5$. Afgør om linjen $4x - 3y + 12 = 0$ er tangent, sekant eller ekstern for cirklen.
+
+**Opgave 7:** Trekanten $ABC$ har hjørnerne $A(0, 0)$, $B(6, 0)$ og $C(3, 4)$. Find afstanden fra $C$ til linjen $AB$ og beregn trekantens areal.
+
+**Opgave 8:** Vis, at afstanden fra et vilkårligt punkt på linjen $2x + 3y - 6 = 0$ til linjen $2x + 3y + 7 = 0$ altid er den samme, og beregn denne afstand.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="afstand-quiz-punkter"
+  question="Hvad er afstanden mellem punkterne $A(1, 2)$ og $B(4, 6)$?"
+  options={[
+    "$\\sqrt{7}$",
+    "$7$",
+    "$5$",
+    "$25$"
+  ]}
+  correctIndex={2}
+  hint="$|AB| = \\sqrt{(4-1)^2 + (6-2)^2} = \\sqrt{9 + 16}$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="afstand-quiz-punkt-linje"
+  question="Hvad er afstanden fra punktet $(0, 0)$ til linjen $3x + 4y - 10 = 0$?"
+  options={[
+    "$10$",
+    "$2$",
+    "$\\frac{10}{7}$",
+    "$\\frac{10}{\\sqrt{7}}$"
+  ]}
+  correctIndex={1}
+  hint="$\\frac{|3 \\cdot 0 + 4 \\cdot 0 - 10|}{\\sqrt{9 + 16}} = \\frac{10}{5}$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="afstand-quiz-parallelle"
+  question="Hvad er afstanden mellem de parallelle linjer $2x - y + 3 = 0$ og $2x - y - 2 = 0$?"
+  options={[
+    "$\\frac{5}{\\sqrt{5}} = \\sqrt{5}$",
+    "$5$",
+    "$1$",
+    "$\\frac{1}{\\sqrt{5}}$"
+  ]}
+  correctIndex={0}
+  hint="$\\frac{|3 - (-2)|}{\\sqrt{4 + 1}} = \\frac{5}{\\sqrt{5}}$."
+/>

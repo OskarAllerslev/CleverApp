@@ -1,32 +1,554 @@
 ---
-title: "Normalfordelingens tæthedsfunktion"
+title: "Normalfordeling og tæthedsfunktioner"
 level: "Matematik A"
 order: 1
-description: "Normalfordelingen (eller Gauss-fordelingen) er den vigtigste kontinuerte sandsynlighedsfordeling i s..."
+description: "Forstå den berømte klokkeformede kurve – lær om tæthedsfunktioner, normalfordelingen og z-transformation. Optjen +150 XP!"
 ---
 
-# Normalfordelingens tæthedsfunktion
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Normalfordelingens tæthedsfunktion** på Matematik A-niveau.
+# Normalfordeling og tæthedsfunktioner 🎯
 
-## Introduktion
+Har du nogensinde undret dig over, hvorfor gennemsnitshøjden i en befolkning altid samler sig omkring ét tal, mens ekstreme højder er sjældne? Eller hvorfor eksamenskarakterer ofte danner en symmetrisk "klokke"? Svaret er **normalfordelingen** — naturens mest elegante mønster.
 
-Normalfordelingen (eller Gauss-fordelingen) er den vigtigste kontinuerte sandsynlighedsfordeling i statistikken.
+I dette kapitel går vi fra diskrete sandsynligheder (som du kender fra terningkast) til den **kontinuerte verden**, hvor sandsynlighed måles som *arealer under kurver*. Det er et fundamentalt skift i tankegang — og det åbner døren til kraftfulde statistiske metoder.
 
-## Central Matematisk Formel
+Gør dig klar til at level up din statistikforståelse! 🚀
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Fra diskret til kontinuert sandsynlighed
+
+Når vi arbejder med en diskret stokastisk variabel (fx antal 6'ere i tre terningkast), kan vi angive sandsynligheden for hvert enkelt udfald: $P(X = 0)$, $P(X = 1)$ osv.
+
+Men hvad gør vi, når den stokastiske variabel er <Term definition="En stokastisk variabel der kan antage alle værdier i et interval, fx højde, vægt eller tid">kontinuert</Term>? Fx "hvad er sandsynligheden for, at en tilfældigt valgt person er *præcis* 178,000... cm høj?" — svaret er faktisk $0$! Der er uendeligt mange mulige værdier.
+
+**Nøgleindsigt:** For kontinuerte variable giver det kun mening at tale om sandsynligheden for, at værdien falder i et *interval*:
 
 $$
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+P(a \leq X \leq b)
 $$
 
-## Hvad skal vi lære?
+Denne sandsynlighed beregnes som **arealet under en kurve** — og den kurve kalder vi en <Term definition="En funktion f(x) ≥ 0 hvor arealet under hele kurven er 1, og arealet over et interval giver sandsynligheden for at X falder i det interval">tæthedsfunktion</Term>.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+</div>
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+---
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+<div className="teori-box">
+
+### Teori: Tæthedsfunktionen $f(x)$
+
+En tæthedsfunktion $f(x)$ for en kontinuert stokastisk variabel $X$ opfylder to krav:
+
+**Krav 1:** Funktionen er aldrig negativ:
+
+$$
+f(x) \geq 0 \quad \text{for alle } x
+$$
+
+**Krav 2:** Det samlede areal under kurven er præcis 1:
+
+$$
+\int_{-\infty}^{\infty} f(x) \, dx = 1
+$$
+
+Dette svarer til, at den samlede sandsynlighed er 100 % — *noget* skal jo ske!
+
+**Sandsynlighed som areal:**
+
+$$
+P(a \leq X \leq b) = \int_a^b f(x) \, dx
+$$
+
+Sandsynligheden for at $X$ lander mellem $a$ og $b$ er altså arealet under $f(x)$ fra $a$ til $b$.
+
+**Vigtigt:** Værdien $f(x)$ er *ikke* en sandsynlighed i sig selv — den er en *tæthed*. Tænk på det som en "sandsynlighedstæthed": jo højere $f(x)$ er i et punkt, desto mere sandsynligt er det at $X$ lander *tæt på* det punkt.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Simpel tæthedsfunktion ⚡</summary>
+
+**Opgave:** En kontinuert stokastisk variabel $X$ har tæthedsfunktionen:
+
+$$
+f(x) = \begin{cases} \frac{1}{4}x & \text{for } 0 \leq x \leq 2\sqrt{1} \\ 0 & \text{ellers} \end{cases}
+$$
+
+Vent — lad os bruge en endnu simplere: $f(x) = \frac{1}{2}x$ for $0 \leq x \leq 2$ og $0$ ellers.
+
+**Tjek at det er en gyldig tæthedsfunktion:**
+
+$$
+\int_0^2 \frac{1}{2}x \, dx = \frac{1}{2} \cdot \left[\frac{x^2}{2}\right]_0^2 = \frac{1}{2} \cdot \frac{4}{2} = \frac{1}{2} \cdot 2 = 1 \quad \checkmark
+$$
+
+**Beregn $P(1 \leq X \leq 2)$:**
+
+$$
+\begin{aligned}
+P(1 \leq X \leq 2) &= \int_1^2 \frac{1}{2}x \, dx \\
+&= \frac{1}{2} \cdot \left[\frac{x^2}{2}\right]_1^2 \\
+&= \frac{1}{2} \cdot \left(\frac{4}{2} - \frac{1}{2}\right) \\
+&= \frac{1}{2} \cdot \frac{3}{2} \\
+&= \frac{3}{4} = 0{,}75
+\end{aligned}
+$$
+
+**Fortolkning:** Der er 75 % sandsynlighed for, at $X$ lander mellem 1 og 2. Bemærk at tætheden er størst ved $x = 2$, så store værdier er mere sandsynlige end små.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Normalfordelingen $N(\mu, \sigma^2)$
+
+<Term definition="En symmetrisk, klokkeformet sandsynlighedsfordeling, der er fuldstændigt bestemt af middelværdien μ og variansen σ²">Normalfordelingen</Term> er den vigtigste kontinuerte sandsynlighedsfordeling i hele statistikken. Den opstår naturligt, når mange små, uafhængige faktorer bidrager til en samlet effekt (fx genetik, miljø og kost påvirker tilsammen en persons højde).
+
+Tæthedsfunktionen for normalfordelingen $N(\mu, \sigma^2)$ er:
+
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
+
+Denne formel ser vild ud — men du behøver ikke at huske den! Det vigtige er at forstå, hvad de to parametre gør:
+
+| Parameter | Symbol | Betydning |
+|-----------|--------|-----------|
+| **Middelværdi** | $\mu$ | Kurvens centrum — det mest sandsynlige område |
+| **Spredning** | $\sigma$ | Kurvens bredde — hvor spredt data er |
+
+**Egenskaber ved normalfordelingskurven:**
+- Den er **symmetrisk** omkring $\mu$
+- Den er **klokkeformet** — højest ved $\mu$, falder mod begge sider
+- Den nærmer sig 0, men rører aldrig $x$-aksen
+- **Arealet** under hele kurven er præcis 1
+- $\sigma$ bestemmer, hvor "bred" eller "smal" klokken er
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Normalfordeling i praksis ⚡</summary>
+
+**Situation:** Højden for voksne danske mænd er tilnærmelsesvist normalfordelt med $\mu = 181$ cm og $\sigma = 7$ cm. Vi skriver:
+
+$$
+X \sim N(181, 7^2)
+$$
+
+Det betyder:
+- De fleste mænd har en højde *tæt på* 181 cm
+- En spredning på 7 cm fortæller os, at de fleste ligger inden for ca. 7 cm af gennemsnittet
+- Meget få mænd er over 200 cm eller under 160 cm
+
+**Hvad fortæller kurven os?**
+
+Tæthedsfunktionen er højest ved $x = 181$ — det er det mest "tætte" område. Når vi bevæger os væk fra 181, falder kurven symmetrisk. Det svarer til, at de fleste mænd har en højde tæt på gennemsnittet, og ekstreme højder er sjældne.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Standardnormalfordelingen $N(0, 1)$
+
+<Term definition="Normalfordelingen med middelværdi 0 og spredning 1, ofte betegnet med Z">Standardnormalfordelingen</Term> er den specielle normalfordeling med:
+
+$$
+\mu = 0 \quad \text{og} \quad \sigma = 1
+$$
+
+Vi skriver $Z \sim N(0, 1)$ og kalder $Z$ en standardnormalfordelt variabel.
+
+**Hvorfor er den vigtig?**
+
+Enhver normalfordelt variabel $X \sim N(\mu, \sigma^2)$ kan omregnes til en standardnormalfordelt variabel. Det betyder, at vi kun behøver **én tabel** (standardnormaltabellen) til at beregne sandsynligheder for *alle* normalfordelinger!
+
+Tæthedsfunktionen for $N(0,1)$ skrives traditionelt $\varphi(z)$:
+
+$$
+\varphi(z) = \frac{1}{\sqrt{2\pi}} \cdot e^{-\frac{z^2}{2}}
+$$
+
+Og den kumulative fordelingsfunktion (arealet til venstre for $z$) skrives $\Phi(z)$:
+
+$$
+\Phi(z) = P(Z \leq z) = \int_{-\infty}^{z} \varphi(t) \, dt
+$$
+
+Det er netop $\Phi(z)$ vi slår op i tabellen!
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Z-transformation — broen til tabellen
+
+For at bruge standardnormaltabellen skal vi <Term definition="Processen hvor man omregner en normalfordelt variabel X ~ N(μ,σ²) til en standardnormalfordelt variabel Z ~ N(0,1)">z-transformere</Term>. Formlen er:
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+**Hvad gør formlen?**
+1. $x - \mu$: Forskyder fordelingen, så centrum ligger i 0
+2. Division med $\sigma$: Skalerer, så spredningen bliver 1
+
+**Resultat:** Hvis $X \sim N(\mu, \sigma^2)$, så er:
+
+$$
+Z = \frac{X - \mu}{\sigma} \sim N(0, 1)
+$$
+
+**Sandsynligheder beregnes nu via tabellen:**
+
+$$
+P(X \leq x) = P\!\left(Z \leq \frac{x - \mu}{\sigma}\right) = \Phi\!\left(\frac{x - \mu}{\sigma}\right)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Z-transformation med højdedata ⚡</summary>
+
+**Opgave:** Højden for voksne danske kvinder er normalfordelt: $X \sim N(168, 6^2)$. Find sandsynligheden for, at en tilfældigt valgt kvinde er højst 174 cm høj.
+
+**Løsning:**
+
+Vi z-transformerer $x = 174$:
+
+$$
+\begin{aligned}
+z &= \frac{x - \mu}{\sigma} \\
+&= \frac{174 - 168}{6} \\
+&= \frac{6}{6} \\
+&= 1{,}00
+\end{aligned}
+$$
+
+Nu slår vi op i tabellen:
+
+$$
+P(X \leq 174) = \Phi(1{,}00) = 0{,}8413
+$$
+
+**Svar:** Der er ca. 84,1 % sandsynlighed for, at en tilfældigt valgt dansk kvinde er højst 174 cm.
+
+**Fortolkning:** En $z$-værdi på 1,00 betyder, at 174 cm ligger præcis **én spredning over gennemsnittet**. Ifølge 68-95-99.7-reglen (som vi ser om lidt) er ca. 84 % af alle værdier under dette punkt — og det passer!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sandsynlighed for et interval ⚡</summary>
+
+**Opgave:** Med $X \sim N(168, 6^2)$ — find $P(162 \leq X \leq 174)$.
+
+**Løsning:**
+
+Vi z-transformerer begge grænser:
+
+$$
+z_1 = \frac{162 - 168}{6} = \frac{-6}{6} = -1{,}00
+$$
+
+$$
+z_2 = \frac{174 - 168}{6} = \frac{6}{6} = 1{,}00
+$$
+
+Nu bruger vi formlen for intervalsandsynlighed:
+
+$$
+\begin{aligned}
+P(162 \leq X \leq 174) &= P(-1{,}00 \leq Z \leq 1{,}00) \\
+&= \Phi(1{,}00) - \Phi(-1{,}00) \\
+&= 0{,}8413 - 0{,}1587 \\
+&= 0{,}6826
+\end{aligned}
+$$
+
+**Svar:** Ca. 68,3 % af danske kvinder har en højde mellem 162 cm og 174 cm.
+
+Bemærk: $\Phi(-1{,}00) = 1 - \Phi(1{,}00) = 1 - 0{,}8413 = 0{,}1587$ på grund af symmetrien!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: 68-95-99.7-reglen (den empiriske regel)
+
+<Term definition="Tommelfingerregel der siger at ca. 68%, 95% og 99.7% af data i en normalfordeling ligger inden for henholdsvis 1, 2 og 3 standardafvigelser fra middelværdien">68-95-99.7-reglen</Term> er en fantastisk tommelfingerregel, der gælder for alle normalfordelinger:
+
+| Interval | Andel af data |
+|----------|---------------|
+| $\mu \pm 1\sigma$ | ca. **68,3 %** |
+| $\mu \pm 2\sigma$ | ca. **95,4 %** |
+| $\mu \pm 3\sigma$ | ca. **99,7 %** |
+
+**I formler:**
+
+$$
+P(\mu - \sigma \leq X \leq \mu + \sigma) \approx 0{,}683
+$$
+
+$$
+P(\mu - 2\sigma \leq X \leq \mu + 2\sigma) \approx 0{,}954
+$$
+
+$$
+P(\mu - 3\sigma \leq X \leq \mu + 3\sigma) \approx 0{,}997
+$$
+
+**Hvad betyder det i praksis?**
+- Ca. 2 ud af 3 observationer ligger inden for $\pm 1\sigma$ af gennemsnittet
+- Næsten alle (95 %) ligger inden for $\pm 2\sigma$
+- Kun ca. 3 ud af 1000 observationer falder uden for $\pm 3\sigma$ — disse er *ekstremt* usædvanlige!
+
+Denne regel er utrolig nyttig til hurtigt at vurdere, om en observation er "normal" eller "usædvanlig".
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: 68-95-99.7-reglen med IQ-scores ⚡</summary>
+
+**Situation:** IQ-scores er normalfordelt med $\mu = 100$ og $\sigma = 15$, altså $X \sim N(100, 15^2)$.
+
+**Spørgsmål:** Mellem hvilke værdier ligger de midterste 95 % af IQ-scorerne?
+
+**Løsning med 68-95-99.7-reglen:**
+
+De midterste 95 % svarer til intervallet $\mu \pm 2\sigma$:
+
+$$
+\begin{aligned}
+\text{Nedre grænse:} \quad &\mu - 2\sigma = 100 - 2 \cdot 15 = 100 - 30 = 70 \\
+\text{Øvre grænse:} \quad &\mu + 2\sigma = 100 + 2 \cdot 15 = 100 + 30 = 130
+\end{aligned}
+$$
+
+**Svar:** Ca. 95 % af alle IQ-scores ligger mellem 70 og 130.
+
+**Fortolkning:** En person med IQ over 130 tilhører de øverste 2,5 % — det er ret usædvanligt. En IQ under 70 er tilsvarende sjælden (de nederste 2,5 %).
+
+**Hvad med de midterste 68 %?**
+
+$$
+\mu \pm 1\sigma = 100 \pm 15 = [85, 115]
+$$
+
+Altså har ca. 2 ud af 3 mennesker en IQ mellem 85 og 115.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Aflæsning i standardnormaltabellen
+
+Standardnormaltabellen giver dig $\Phi(z) = P(Z \leq z)$ — altså arealet til **venstre** for $z$ under $N(0,1)$-kurven.
+
+**Sådan bruger du tabellen:**
+
+1. Find $z$-værdiets heltal og første decimal i **rækken** (fx 1,0)
+2. Find anden decimal i **kolonnen** (fx 0,05 for $z = 1{,}05$)
+3. Aflæs sandsynligheden i krydsfeltet
+
+**Nyttige regneregler:**
+
+| Situation | Formel |
+|-----------|--------|
+| $P(Z \leq z)$ | $\Phi(z)$ — aflæs direkte |
+| $P(Z \geq z)$ | $1 - \Phi(z)$ |
+| $P(Z \leq -z)$ | $1 - \Phi(z)$ (symmetri) |
+| $P(a \leq Z \leq b)$ | $\Phi(b) - \Phi(a)$ |
+
+**Symmetriegenskaben** er nøglen til at håndtere negative $z$-værdier:
+
+$$
+\Phi(-z) = 1 - \Phi(z)
+$$
+
+Dette gælder fordi normalfordelingen er symmetrisk om 0.
+
+**Eksempel på tabelaflæsning:**
+
+For $z = 1{,}96$:
+- Række: 1,9
+- Kolonne: 0,06
+- Aflæsning: $\Phi(1{,}96) = 0{,}9750$
+
+Det vil sige, at 97,5 % af alle værdier i en standardnormalfordeling er mindre end 1,96.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Komplet opgave med tabelaflæsning ⚡</summary>
+
+**Opgave:** En maskine producerer skruer med en længde, der er normalfordelt: $X \sim N(50, 0{,}4^2)$ mm. En skrue kasseres, hvis den er kortere end 49,2 mm eller længere end 50,6 mm. Hvor stor en andel kasseres?
+
+**Løsning:**
+
+Vi skal finde $P(X < 49{,}2) + P(X > 50{,}6)$.
+
+**Trin 1:** Z-transformér begge grænser:
+
+$$
+z_1 = \frac{49{,}2 - 50}{0{,}4} = \frac{-0{,}8}{0{,}4} = -2{,}00
+$$
+
+$$
+z_2 = \frac{50{,}6 - 50}{0{,}4} = \frac{0{,}6}{0{,}4} = 1{,}50
+$$
+
+**Trin 2:** Slå op i tabellen:
+
+$$
+\Phi(2{,}00) = 0{,}9772 \quad \Rightarrow \quad \Phi(-2{,}00) = 1 - 0{,}9772 = 0{,}0228
+$$
+
+$$
+\Phi(1{,}50) = 0{,}9332
+$$
+
+**Trin 3:** Beregn kasseringsandelen:
+
+$$
+\begin{aligned}
+P(\text{kasseret}) &= P(X < 49{,}2) + P(X > 50{,}6) \\
+&= \Phi(-2{,}00) + (1 - \Phi(1{,}50)) \\
+&= 0{,}0228 + (1 - 0{,}9332) \\
+&= 0{,}0228 + 0{,}0668 \\
+&= 0{,}0896
+\end{aligned}
+$$
+
+**Svar:** Ca. 9,0 % af skruerne kasseres. Bemærk at flere kasseres for at være for lange ($6{,}7\%$) end for korte ($2{,}3\%$), fordi grænsen er skævt placeret i forhold til middelværdien.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Bevis: Symmetriegenskaben $\Phi(-z) = 1 - \Phi(z)$ ⚡</summary>
+
+**Påstand:** $\Phi(-z) = 1 - \Phi(z)$
+
+**Bevis:**
+
+Vi udnytter at tæthedsfunktionen $\varphi(t) = \frac{1}{\sqrt{2\pi}}e^{-t^2/2}$ er en **lige funktion**: $\varphi(-t) = \varphi(t)$.
+
+$$
+\begin{aligned}
+\Phi(-z) &= \int_{-\infty}^{-z} \varphi(t) \, dt \\
+&\overset{u = -t}{=} \int_{\infty}^{z} \varphi(-u)(-du) \\
+&= \int_z^{\infty} \varphi(u) \, du \\
+&= 1 - \int_{-\infty}^{z} \varphi(u) \, du \\
+&= 1 - \Phi(z) \quad \blacksquare
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1 — Grundlæggende z-transformation:**
+Vægten af nyfødte børn er normalfordelt med $\mu = 3{,}5$ kg og $\sigma = 0{,}5$ kg.
+a) Z-transformér værdien $x = 4{,}0$ kg.
+b) Z-transformér værdien $x = 2{,}8$ kg.
+c) Beregn $P(X \leq 4{,}0)$ ved hjælp af tabellen.
+
+**Opgave 2 — Intervalsandsynlighed:**
+En elevator har en maksimal belastning, der modelleres som $X \sim N(800, 50^2)$ kg.
+a) Find sandsynligheden for, at belastningen er mellem 750 kg og 850 kg.
+b) Find sandsynligheden for, at belastningen overstiger 900 kg.
+c) Brug 68-95-99.7-reglen til at verificere dit svar i a).
+
+**Opgave 3 — Kassering:**
+Længden af producerede søm er normalfordelt: $X \sim N(30, 0{,}3^2)$ mm. Et søm kasseres, hvis det afviger mere end 0,5 mm fra 30 mm.
+a) Opskriv kasseringsbetingelsen som en sandsynlighed.
+b) Beregn kasseringsandelen.
+
+**Opgave 4 — Omvendt opslag:**
+En stokastisk variabel $X \sim N(200, 25^2)$. Find den værdi $x_0$, så $P(X \leq x_0) = 0{,}95$.
+*Hint:* Find først $z_0$ fra tabellen, og brug derefter $x_0 = \mu + z_0 \cdot \sigma$.
+
+**Opgave 5 — 68-95-99.7-reglen:**
+Dagligt salg i en butik er normalfordelt med $\mu = 12{.}000$ kr og $\sigma = 2{.}000$ kr.
+a) Mellem hvilke beløb ligger de midterste 68 % af dagene?
+b) Hvad er sandsynligheden for en dag med salg over 16.000 kr?
+c) Hvor usædvanligt er et salg på 18.000 kr?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="normalfordeling-taethed-q1"
+  question="Hvad angiver værdien f(x) i en tæthedsfunktion?"
+  options={[
+    "Sandsynligheden for at X er præcis lig x",
+    "Sandsynlighedstætheden — jo højere f(x), desto mere sandsynligt lander X tæt på x",
+    "Arealet under kurven fra 0 til x",
+    "Middelværdien af fordelingen"
+  ]}
+  correctIndex={1}
+  hint="Husk: for en kontinuert variabel er P(X = x) altid 0. Tætheden fortæller om sandsynlighedskoncentrationen."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="normalfordeling-taethed-q2"
+  question="Hvis X ~ N(50, 4²), hvad er z-værdien for x = 58?"
+  options={[
+    "z = 8",
+    "z = 4",
+    "z = 2",
+    "z = 0,5"
+  ]}
+  correctIndex={2}
+  hint="Brug formlen z = (x - μ) / σ. Husk at σ = 4, ikke σ² = 16."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="normalfordeling-taethed-q3"
+  question="Ifølge 68-95-99.7-reglen: ca. hvor stor en procentdel af observationerne i en normalfordeling ligger UDEN for μ ± 2σ?"
+  options={[
+    "Ca. 32 %",
+    "Ca. 5 %",
+    "Ca. 0,3 %",
+    "Ca. 10 %"
+  ]}
+  correctIndex={1}
+  hint="Hvis 95,4 % ligger INDEN for μ ± 2σ, hvor meget ligger så uden for?"
+/>

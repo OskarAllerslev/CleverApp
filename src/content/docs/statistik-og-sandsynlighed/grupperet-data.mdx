@@ -2,31 +2,432 @@
 title: "Grupperet data"
 level: "Matematik C"
 order: 2
-description: "Når datamængden er stor, grupperer vi observationerne i intervaller. Vi lærer at tegne histogrammer ..."
+description: "Mestr intervalmidtpunkter, sumkurver og kvartilbestemmelse fra grupperet data. Optjen +150 XP!"
 ---
 
-# Grupperet data
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Grupperet data** på Matematik C-niveau.
+# Grupperet data 📊
 
-## Introduktion
+Når du har mange observationer — fx 200 elevers resultater på en prøve — giver det sjældent mening at liste hvert enkelt tal. I stedet **grupperer** vi data i intervaller. Det giver overblik, men vi mister information om de præcise værdier.
 
-Når datamængden er stor, grupperer vi observationerne i intervaller. Vi lærer at tegne histogrammer og sumkurver samt finde kvartiler ud fra sumkurven.
+I dette kapitel lærer du at arbejde med <Term definition="Data der er organiseret i klasser/intervaller, hvor man kender antallet af observationer i hvert interval, men ikke de individuelle værdier.">grupperet data</Term>: beregne gennemsnit, tegne sumkurver og aflæse kvartiler. Level up! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Fra ugrupperet til grupperet data
+
+Når vi grupperer data, opdeler vi tallinjen i **klasser** (intervaller) og tæller, hvor mange observationer der falder i hver klasse.
+
+**Eksempel på en frekvensoversigt:**
+
+| Klasse (interval) | Hyppighed |
+|:-:|:-:|
+| $[0 ; 10[$ | 5 |
+| $[10 ; 20[$ | 12 |
+| $[20 ; 30[$ | 18 |
+| $[30 ; 40[$ | 10 |
+| $[40 ; 50]$ | 5 |
+
+Notationen $[10 ; 20[$ betyder "fra og med 10 til, men ikke med 20". Det sikrer, at hvert interval er entydigt.
+
+**Klassebredden** er længden af hvert interval. I eksemplet ovenfor er klassebredden $10$ for alle klasser.
+
+**Fordele:** Overskueligt, let at visualisere i histogrammer.
+
+**Ulemper:** Vi kender ikke de præcise observationer — kun hvilke intervaller de ligger i.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Intervalmidtpunkter
+
+Da vi ikke kender de præcise værdier i hvert interval, antager vi, at observationerne er jævnt fordelt. Vi repræsenterer derfor alle observationer i et interval med <Term definition="Midten af et interval, beregnet som gennemsnittet af intervallets nedre og øvre grænse.">intervalmidtpunktet</Term>:
 
 $$
-[x_i, x_{i+1}[
+m_i = \frac{\text{nedre grænse} + \text{øvre grænse}}{2}
 $$
 
-## Hvad skal vi lære?
+For intervallet $[10 ; 20[$ er midtpunktet:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+m = \frac{10 + 20}{2} = 15
+$$
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+Intervalmidtpunktet bruges som "repræsentant" for alle observationer i intervallet, når vi beregner gennemsnit og andre mål.
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af intervalmidtpunkter ⚡</summary>
+
+Vi har følgende gruppering af data:
+
+| Klasse | Nedre grænse | Øvre grænse | Midtpunkt $m_i$ |
+|:-:|:-:|:-:|:-:|
+| $[0 ; 10[$ | $0$ | $10$ | $\frac{0+10}{2} = 5$ |
+| $[10 ; 20[$ | $10$ | $20$ | $\frac{10+20}{2} = 15$ |
+| $[20 ; 30[$ | $20$ | $30$ | $\frac{20+30}{2} = 25$ |
+| $[30 ; 40[$ | $30$ | $40$ | $\frac{30+40}{2} = 35$ |
+| $[40 ; 50]$ | $40$ | $50$ | $\frac{40+50}{2} = 45$ |
+
+Disse midtpunkter bruger vi nu i beregninger, som om alle observationer i intervallet havde netop den værdi.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Gennemsnit for grupperet data
+
+Når data er grupperet, kan vi ikke beregne det præcise gennemsnit — men vi kan give et godt **estimat** ved at bruge intervalmidtpunkterne.
+
+Formlen for det <Term definition="Et tilnærmet gennemsnit beregnet ud fra grupperet data ved at bruge intervalmidtpunkter som repræsentanter for observationerne.">estimerede gennemsnit</Term> er:
+
+$$
+\bar{x} \approx \frac{\sum_{i=1}^{k} m_i \cdot h_i}{\sum_{i=1}^{k} h_i} = \frac{m_1 \cdot h_1 + m_2 \cdot h_2 + \cdots + m_k \cdot h_k}{n}
+$$
+
+Her er:
+- $m_i$ = intervalmidtpunktet for klasse $i$
+- $h_i$ = hyppigheden (antal observationer) i klasse $i$
+- $k$ = antallet af klasser
+- $n$ = det samlede antal observationer
+
+**Intuition:** Vi "vægter" hvert midtpunkt med, hvor mange observationer der ligger i det interval. Intervaller med mange observationer tæller mere.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Gennemsnit for grupperet data ⚡</summary>
+
+50 elever har fået deres prøveresultater grupperet:
+
+| Klasse | Midtpunkt $m_i$ | Hyppighed $h_i$ | $m_i \cdot h_i$ |
+|:-:|:-:|:-:|:-:|
+| $[0 ; 10[$ | $5$ | $5$ | $25$ |
+| $[10 ; 20[$ | $15$ | $12$ | $180$ |
+| $[20 ; 30[$ | $25$ | $18$ | $450$ |
+| $[30 ; 40[$ | $35$ | $10$ | $350$ |
+| $[40 ; 50]$ | $45$ | $5$ | $225$ |
+| **I alt** | | **50** | **1230** |
+
+Nu beregner vi det estimerede gennemsnit:
+
+$$
+\begin{aligned}
+\bar{x} &\approx \frac{\sum m_i \cdot h_i}{\sum h_i} \\[6pt]
+&= \frac{25 + 180 + 450 + 350 + 225}{50} \\[6pt]
+&= \frac{1230}{50} \\[6pt]
+&= 24{,}6
+\end{aligned}
+$$
+
+Det estimerede gennemsnit er altså $24{,}6$ point.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kumuleret hyppighed og sumkurve
+
+<Term definition="Den samlede (opadderede) hyppighed op til og med en bestemt klasse. Viser hvor mange observationer der ligger under en given grænse.">Kumuleret hyppighed</Term> er den løbende sum af hyppigheder: for hver klasse tæller du alle observationer fra starten op til og med den pågældende klasse.
+
+<Term definition="En graf der viser den kumulerede frekvens (eller hyppighed) som funktion af klassernes øvre grænser. Bruges til at aflæse median og kvartiler.">Sumkurven</Term> (også kaldet den kumulative frekvensfunktion) er en grafisk fremstilling af den kumulerede hyppighed (eller kumulerede frekvens).
+
+**Sådan tegner du en sumkurve:**
+
+1. Beregn den kumulerede hyppighed for hver klasse.
+2. Plot punkterne $(\text{øvre grænse}, \text{kumuleret hyppighed})$.
+3. Forbind punkterne med rette linjer (lineær interpolation).
+4. Start altid i $(x_{\min}, 0)$ — ingen observationer er kumuleret ved datasættets start.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tegning af sumkurve ⚡</summary>
+
+Vi bruger datasættet fra før:
+
+| Klasse | Hyppighed $h_i$ | Kumuleret hyppighed | Kumuleret frekvens |
+|:-:|:-:|:-:|:-:|
+| $[0 ; 10[$ | $5$ | $5$ | $\frac{5}{50} = 0{,}10$ |
+| $[10 ; 20[$ | $12$ | $5 + 12 = 17$ | $\frac{17}{50} = 0{,}34$ |
+| $[20 ; 30[$ | $18$ | $17 + 18 = 35$ | $\frac{35}{50} = 0{,}70$ |
+| $[30 ; 40[$ | $10$ | $35 + 10 = 45$ | $\frac{45}{50} = 0{,}90$ |
+| $[40 ; 50]$ | $5$ | $45 + 5 = 50$ | $\frac{50}{50} = 1{,}00$ |
+
+**Punkter til sumkurven:**
+
+$$
+(0,\; 0), \quad (10,\; 5), \quad (20,\; 17), \quad (30,\; 35), \quad (40,\; 45), \quad (50,\; 50)
+$$
+
+```
+Kumuleret
+hyppighed
+   50 |                                    ●
+   45 |                              ●----/
+   35 |                  ●----------/
+   17 |          ●------/
+    5 |    ●----/
+    0 ●---/
+      +----+----+----+----+----+----→ Værdi
+      0   10   20   30   40   50
+```
+
+Sumkurven stiger stejlest, hvor der er flest observationer (klassen $[20 ; 30[$).
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kvartiler fra sumkurven
+
+Sumkurven er et kraftfuldt værktøj, fordi du kan aflæse **median og kvartiler** direkte fra den!
+
+**Fremgangsmåde:**
+
+1. Beregn $25\%$, $50\%$ og $75\%$ af det samlede antal observationer $n$.
+2. Find disse værdier på $y$-aksen (kumuleret hyppighed).
+3. Gå vandret til sumkurven og derefter lodret ned til $x$-aksen.
+4. De aflæste $x$-værdier er $Q_1$, $Q_2$ og $Q_3$.
+
+**Med formler (lineær interpolation):**
+
+Hvis $Q_1$ ligger i klassen $[a ; b[$ med kumuleret hyppighed $F_{før}$ ved den nedre grænse og $F_{efter}$ ved den øvre grænse, så:
+
+$$
+Q_1 = a + \frac{0{,}25 \cdot n - F_{\text{før}}}{F_{\text{efter}} - F_{\text{før}}} \cdot (b - a)
+$$
+
+Tilsvarende formler gælder for medianen (med $0{,}50 \cdot n$) og $Q_3$ (med $0{,}75 \cdot n$).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kvartiler fra sumkurven ⚡</summary>
+
+Vi bruger sumkurven fra det forrige eksempel med $n = 50$ observationer.
+
+**Find $Q_1$:** Vi søger den værdi, hvor $0{,}25 \cdot 50 = 12{,}5$ observationer er kumuleret.
+
+$12{,}5$ ligger mellem kumuleret hyppighed $5$ (ved $x = 10$) og $17$ (ved $x = 20$). Altså ligger $Q_1$ i intervallet $[10 ; 20[$.
+
+$$
+\begin{aligned}
+Q_1 &= 10 + \frac{12{,}5 - 5}{17 - 5} \cdot (20 - 10) \\[6pt]
+&= 10 + \frac{7{,}5}{12} \cdot 10 \\[6pt]
+&= 10 + 6{,}25 \\[6pt]
+&= 16{,}25
+\end{aligned}
+$$
+
+**Find medianen ($Q_2$):** Vi søger $0{,}50 \cdot 50 = 25$ observationer.
+
+$25$ ligger mellem $17$ (ved $x = 20$) og $35$ (ved $x = 30$). Altså ligger medianen i $[20 ; 30[$.
+
+$$
+\begin{aligned}
+Q_2 &= 20 + \frac{25 - 17}{35 - 17} \cdot (30 - 20) \\[6pt]
+&= 20 + \frac{8}{18} \cdot 10 \\[6pt]
+&= 20 + 4{,}44 \\[6pt]
+&\approx 24{,}4
+\end{aligned}
+$$
+
+**Find $Q_3$:** Vi søger $0{,}75 \cdot 50 = 37{,}5$ observationer.
+
+$37{,}5$ ligger mellem $35$ (ved $x = 30$) og $45$ (ved $x = 40$). Altså ligger $Q_3$ i $[30 ; 40[$.
+
+$$
+\begin{aligned}
+Q_3 &= 30 + \frac{37{,}5 - 35}{45 - 35} \cdot (40 - 30) \\[6pt]
+&= 30 + \frac{2{,}5}{10} \cdot 10 \\[6pt]
+&= 30 + 2{,}5 \\[6pt]
+&= 32{,}5
+\end{aligned}
+$$
+
+**Opsummering:**
+
+| Mål | Værdi |
+|:-:|:-:|
+| $Q_1$ | $16{,}25$ |
+| Median ($Q_2$) | $\approx 24{,}4$ |
+| $Q_3$ | $32{,}5$ |
+| IQR | $32{,}5 - 16{,}25 = 16{,}25$ |
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Komplet opgave med grupperet data ⚡</summary>
+
+En virksomhed har registreret medarbejdernes daglige transporttid (i minutter):
+
+| Transporttid (min) | Hyppighed |
+|:-:|:-:|
+| $[0 ; 15[$ | 8 |
+| $[15 ; 30[$ | 15 |
+| $[30 ; 45[$ | 22 |
+| $[45 ; 60[$ | 12 |
+| $[60 ; 90]$ | 3 |
+| **I alt** | **60** |
+
+**a) Estimeret gennemsnit:**
+
+| Klasse | $m_i$ | $h_i$ | $m_i \cdot h_i$ |
+|:-:|:-:|:-:|:-:|
+| $[0 ; 15[$ | $7{,}5$ | $8$ | $60$ |
+| $[15 ; 30[$ | $22{,}5$ | $15$ | $337{,}5$ |
+| $[30 ; 45[$ | $37{,}5$ | $22$ | $825$ |
+| $[45 ; 60[$ | $52{,}5$ | $12$ | $630$ |
+| $[60 ; 90]$ | $75$ | $3$ | $225$ |
+| **I alt** | | **60** | **2077,5** |
+
+$$
+\bar{x} \approx \frac{2077{,}5}{60} \approx 34{,}6 \text{ minutter}
+$$
+
+**b) Kumuleret hyppighed og median:**
+
+| Klasse | Hyppighed | Kumuleret |
+|:-:|:-:|:-:|
+| $[0 ; 15[$ | $8$ | $8$ |
+| $[15 ; 30[$ | $15$ | $23$ |
+| $[30 ; 45[$ | $22$ | $45$ |
+| $[45 ; 60[$ | $12$ | $57$ |
+| $[60 ; 90]$ | $3$ | $60$ |
+
+Medianen svarer til $0{,}50 \cdot 60 = 30$ observationer. Kumuleret $23$ ved $x = 30$ og $45$ ved $x = 45$. Medianen er i $[30 ; 45[$:
+
+$$
+Q_2 = 30 + \frac{30 - 23}{45 - 23} \cdot 15 = 30 + \frac{7}{22} \cdot 15 \approx 30 + 4{,}8 = 34{,}8 \text{ min}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Histogram
+
+Et <Term definition="En søjlediagram for grupperet data, hvor søjlernes areal (ikke højde) repræsenterer hyppigheden i hvert interval.">histogram</Term> er den grafiske fremstilling af grupperet data.
+
+**Vigtige regler:**
+
+- Søjlerne rører hinanden (ingen mellemrum) — for at vise, at data er kontinuert.
+- Hvis alle klasser har **samme bredde**: søjlens højde viser hyppigheden direkte.
+- Hvis klasserne har **forskellig bredde**: det er **arealet** af søjlen, der repræsenterer hyppigheden. Højden er da hyppighedstætheden: $\frac{h_i}{\text{klassebredde}}$.
+
+Histogrammet og sumkurven supplerer hinanden: histogrammet viser fordelingens form, sumkurven gør det nemt at aflæse kvartiler.
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Et datasæt er grupperet som følger:
+
+| Klasse | Hyppighed |
+|:-:|:-:|
+| $[0 ; 5[$ | 4 |
+| $[5 ; 10[$ | 9 |
+| $[10 ; 15[$ | 14 |
+| $[15 ; 20[$ | 8 |
+| $[20 ; 25]$ | 5 |
+
+a) Beregn intervalmidtpunkterne.
+b) Estimér gennemsnittet.
+c) Lav en tabel over kumuleret hyppighed.
+
+**Opgave 2:** Brug tabellen fra opgave 1 til at bestemme $Q_1$, medianen og $Q_3$ ved lineær interpolation.
+
+**Opgave 3:** 100 elever har fået deres springhøjde (i cm) grupperet:
+
+| Klasse | Hyppighed |
+|:-:|:-:|
+| $[100 ; 110[$ | 10 |
+| $[110 ; 120[$ | 25 |
+| $[120 ; 130[$ | 35 |
+| $[130 ; 140[$ | 20 |
+| $[140 ; 150]$ | 10 |
+
+a) Estimér gennemsnittet.
+b) Tegn sumkurven og aflæs medianen.
+c) Bestem kvartilbredden.
+
+**Opgave 4:** Forklar med egne ord, hvorfor gennemsnittet for grupperet data kun er et *estimat* og ikke den præcise værdi.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="grupperet-midtpunkt-1"
+  question="Hvad er intervalmidtpunktet for klassen [20 ; 30[?"
+  options={[
+    "20",
+    "30",
+    "25",
+    "10"
+  ]}
+  correctIndex={2}
+  hint="Midtpunktet er gennemsnittet af nedre og øvre grænse."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="grupperet-gennemsnit-1"
+  question="Når vi beregner gennemsnit for grupperet data, hvad bruger vi da som repræsentant for observationerne i hvert interval?"
+  options={[
+    "Den nedre grænse",
+    "Den øvre grænse",
+    "Intervalmidtpunktet",
+    "Hyppigheden"
+  ]}
+  correctIndex={2}
+  hint="Vi antager, at observationerne ligger jævnt fordelt i intervallet."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="grupperet-sumkurve-1"
+  question="Du vil finde medianen fra en sumkurve med 80 observationer. Hvilket tal aflæser du på y-aksen?"
+  options={[
+    "80",
+    "50",
+    "40",
+    "20"
+  ]}
+  correctIndex={2}
+  hint="Medianen er det punkt, hvor 50 % af observationerne er kumuleret. Hvad er 50 % af 80?"
+/>

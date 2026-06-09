@@ -1,32 +1,391 @@
 ---
-title: "Pythagoras' læresætning"
+title: "Pythagoras' sætning"
 level: "Matematik C"
 order: 2
-description: "Pythagoras' sætning er en af geometriens vigtigste sætninger. Den gælder kun for retvinklede trekant..."
+description: "Mestr Pythagoras' sætning, beviset, og dens anvendelser. Optjen +150 XP!"
 ---
 
-# Pythagoras' læresætning
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Pythagoras' læresætning** på Matematik C-niveau.
+# Pythagoras' sætning 🎯
 
-## Introduktion
+For over 2500 år siden opdagede den græske matematiker Pythagoras en sammenhæng, der har forandret matematikken for evigt. Det er en af de mest berømte sætninger i hele matematikken — og den er stadig lige så nyttig i dag, som den var dengang. Klar til at besejre denne **boss**? ⚔️
 
-Pythagoras' sætning er en af geometriens vigtigste sætninger. Den gælder kun for retvinklede trekanter, hvor $c$ er hypotenusen.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Pythagoras' sætning
+
+I en <Term definition="En trekant med en ret vinkel (90°). Den længste side (over for den rette vinkel) kaldes hypotenusen.">retvinklet trekant</Term> med kateter $a$ og $b$ samt hypotenuse $c$ gælder:
 
 $$
 a^2 + b^2 = c^2
 $$
 
-## Hvad skal vi lære?
+Her er:
+- $a$ og $b$ de to <Term definition="De to sider i en retvinklet trekant, der støder op til den rette vinkel.">kateter</Term> (siderne ved den rette vinkel)
+- $c$ er <Term definition="Den længste side i en retvinklet trekant — siden over for den rette vinkel.">hypotenusen</Term> (den længste side, over for den rette vinkel)
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Sagt med ord:** Summen af kateternes kvadrater er lig hypotenusens kvadrat.
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+Man kan også omskrive formlen til at finde en katete, hvis man kender hypotenusen og den anden katete:
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+$$
+a = \sqrt{c^2 - b^2}, \quad b = \sqrt{c^2 - a^2}
+$$
+
+Og selvfølgelig til at finde hypotenusen:
+
+$$
+c = \sqrt{a^2 + b^2}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Geometrisk bevis for Pythagoras' sætning 🧠</summary>
+
+Der findes over 400 forskellige beviser for Pythagoras' sætning! Her præsenterer vi det klassiske **geometriske bevis** med to kvadrater.
+
+**Bevisidé:** Vi konstruerer et stort kvadrat med sidelængde $(a + b)$ på to forskellige måder.
+
+**Metode 1:** Vi lægger fire kopier af den retvinklede trekant (med kateter $a$ og $b$) inde i det store kvadrat, så de danner et indre kvadrat med sidelængde $c$.
+
+Arealet af det store kvadrat er:
+
+$$
+(a + b)^2 = a^2 + 2ab + b^2
+$$
+
+Arealet kan også beregnes som summen af de fire trekanter plus det indre kvadrat:
+
+$$
+4 \cdot \frac{1}{2}ab + c^2 = 2ab + c^2
+$$
+
+**Metode 2:** Vi sætter de to udtryk lig hinanden:
+
+$$
+\begin{aligned}
+a^2 + 2ab + b^2 &= 2ab + c^2 \\
+\overset{\text{fratræk } 2ab}{\implies} a^2 + b^2 &= c^2 \quad \blacksquare
+\end{aligned}
+$$
+
+Elegant, ikke? To simple areal-beregninger giver os et af matematikkens mest berømte resultater.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find hypotenusen ⚡</summary>
+
+**Opgave:** En retvinklet trekant har kateter $a = 3$ og $b = 4$. Find hypotenusen $c$.
+
+**Løsning:**
+
+Vi bruger Pythagoras' sætning:
+
+$$
+\begin{aligned}
+c^2 &= a^2 + b^2 \\
+&= 3^2 + 4^2 \\
+&= 9 + 16 \\
+&= 25
+\end{aligned}
+$$
+
+Vi tager kvadratroden:
+
+$$
+c = \sqrt{25} = 5
+$$
+
+**Svar:** Hypotenusen er $c = 5$.
+
+Tallene $(3, 4, 5)$ er et eksempel på en <Term definition="Et sæt af tre positive heltal, der opfylder Pythagoras' sætning, fx (3, 4, 5) og (5, 12, 13).">pytagoræisk tripel</Term> — tre heltal der opfylder Pythagoras' sætning.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en katete ⚡</summary>
+
+**Opgave:** En retvinklet trekant har hypotenusen $c = 13$ og den ene katete $a = 5$. Find den anden katete $b$.
+
+**Løsning:**
+
+Vi isolerer $b$ i Pythagoras' sætning:
+
+$$
+\begin{aligned}
+a^2 + b^2 &= c^2 \\
+b^2 &= c^2 - a^2 \\
+&= 13^2 - 5^2 \\
+&= 169 - 25 \\
+&= 144
+\end{aligned}
+$$
+
+Vi tager kvadratroden:
+
+$$
+b = \sqrt{144} = 12
+$$
+
+**Svar:** Den manglende katete er $b = 12$.
+
+$(5, 12, 13)$ er endnu en pytagoræisk tripel!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Den omvendte Pythagoras
+
+Pythagoras' sætning virker også "den anden vej": Vi kan bruge den til at **afgøre om en trekant er retvinklet**.
+
+Givet en trekant med sidelængder $a$, $b$ og $c$ (hvor $c$ er den længste side):
+
+- Hvis $a^2 + b^2 = c^2$: trekanten er **retvinklet** (ret vinkel over for $c$)
+- Hvis $a^2 + b^2 > c^2$: trekanten er **spidsvinklet** (alle vinkler er under $90°$)
+- Hvis $a^2 + b^2 < c^2$: trekanten er **stumpvinklet** (én vinkel er over $90°$)
+
+Denne udvidelse giver os et kraftfuldt værktøj til at klassificere trekanter alene ud fra deres sidelængder.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Er trekanten retvinklet? ⚡</summary>
+
+**Opgave:** En trekant har sidelængderne $7$, $24$ og $25$. Er den retvinklet?
+
+**Løsning:**
+
+Den længste side er $c = 25$. Vi tjekker om $a^2 + b^2 = c^2$:
+
+$$
+\begin{aligned}
+a^2 + b^2 &= 7^2 + 24^2 \\
+&= 49 + 576 \\
+&= 625
+\end{aligned}
+$$
+
+$$
+c^2 = 25^2 = 625
+$$
+
+Da $a^2 + b^2 = c^2$, altså $625 = 625$, er trekanten **retvinklet**. ✓
+
+Den rette vinkel er over for den længste side (over for siden med længde 25).
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Klassificér trekanten ⚡</summary>
+
+**Opgave:** Bestem om en trekant med sidelængderne $5$, $6$ og $9$ er spidsvinklet, retvinklet eller stumpvinklet.
+
+**Løsning:**
+
+Den længste side er $c = 9$. Vi sammenligner $a^2 + b^2$ med $c^2$:
+
+$$
+a^2 + b^2 = 5^2 + 6^2 = 25 + 36 = 61
+$$
+
+$$
+c^2 = 9^2 = 81
+$$
+
+Da $a^2 + b^2 < c^2$ (nemlig $61 < 81$), er trekanten **stumpvinklet**.
+
+Den stumpe vinkel sidder over for den længste side.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Pythagoras i koordinatsystemet — Afstandsformlen
+
+Pythagoras' sætning giver os en formel til at beregne <Term definition="Den rette linje-afstand mellem to punkter i koordinatsystemet.">afstanden</Term> mellem to punkter $P_1(x_1, y_1)$ og $P_2(x_2, y_2)$ i et koordinatsystem:
+
+$$
+d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+$$
+
+**Hvorfor virker det?**
+
+Tænk på det horisontale stykke $|x_2 - x_1|$ som den ene katete og det vertikale stykke $|y_2 - y_1|$ som den anden katete. Afstanden $d$ er hypotenusen i den retvinklede trekant, der dannes.
+
+$$
+d^2 = \underbrace{(x_2 - x_1)^2}_{\text{vandret}} + \underbrace{(y_2 - y_1)^2}_{\text{lodret}}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand mellem to punkter ⚡</summary>
+
+**Opgave:** Find afstanden mellem punkterne $A(1, 2)$ og $B(4, 6)$.
+
+**Løsning:**
+
+Vi bruger afstandsformlen med $x_1 = 1$, $y_1 = 2$, $x_2 = 4$, $y_2 = 6$:
+
+$$
+\begin{aligned}
+d &= \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \\
+&= \sqrt{(4 - 1)^2 + (6 - 2)^2} \\
+&= \sqrt{3^2 + 4^2} \\
+&= \sqrt{9 + 16} \\
+&= \sqrt{25} \\
+&= 5
+\end{aligned}
+$$
+
+**Svar:** Afstanden mellem $A$ og $B$ er $5$.
+
+Bemærk: Vi genkender tripletn $(3, 4, 5)$ igen!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Diagonal i et rektangel ⚡</summary>
+
+**Opgave:** Et rektangel har sidelængderne $8$ cm og $6$ cm. Find længden af diagonalen.
+
+**Løsning:**
+
+Diagonalen deler rektanglet i to retvinklede trekanter, hvor sidelængderne er kateterne og diagonalen er hypotenusen.
+
+$$
+\begin{aligned}
+d^2 &= 8^2 + 6^2 \\
+&= 64 + 36 \\
+&= 100
+\end{aligned}
+$$
+
+$$
+d = \sqrt{100} = 10 \text{ cm}
+$$
+
+**Svar:** Diagonalen er $10$ cm lang.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Stige mod en mur ⚡</summary>
+
+**Opgave:** En $5$ m lang stige læner op ad en mur. Stigen rører muren $4$ m over jorden. Hvor langt fra muren står stigens fod?
+
+**Løsning:**
+
+Stigen, muren og jorden danner en retvinklet trekant. Stigen er hypotenusen ($c = 5$), muren er den ene katete ($a = 4$), og afstanden fra muren er den anden katete ($b$).
+
+$$
+\begin{aligned}
+b^2 &= c^2 - a^2 \\
+&= 5^2 - 4^2 \\
+&= 25 - 16 \\
+&= 9
+\end{aligned}
+$$
+
+$$
+b = \sqrt{9} = 3 \text{ m}
+$$
+
+**Svar:** Stigens fod står $3$ m fra muren.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** En retvinklet trekant har kateter $a = 6$ og $b = 8$. Find hypotenusen $c$.
+
+**Opgave 2:** En retvinklet trekant har hypotenusen $c = 17$ og den ene katete $a = 8$. Find den anden katete $b$.
+
+**Opgave 3:** Afgør om en trekant med sidelængderne $8$, $15$ og $17$ er retvinklet. Begrund dit svar.
+
+**Opgave 4:** Afgør om en trekant med sidelængderne $4$, $5$ og $7$ er spidsvinklet, retvinklet eller stumpvinklet.
+
+**Opgave 5:** Find afstanden mellem punkterne $P(2, 3)$ og $Q(7, 15)$.
+
+**Opgave 6:** Et kvadratisk rum har sidelængden $4$ m. Hvor lang er diagonalen?
+
+**Opgave 7:** En kasse er $3$ m lang, $4$ m bred og $12$ m høj. Find afstanden fra et hjørne i bunden til det diagonalt modsatte hjørne i toppen. *(Hint: Brug Pythagoras to gange!)*
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="pythagoras-q1"
+  question="En retvinklet trekant har kateterne a = 5 og b = 12. Hvad er hypotenusen c?"
+  options={[
+    "17",
+    "13",
+    "14",
+    "15"
+  ]}
+  correctIndex={1}
+  hint="Brug formlen c = √(a² + b²) og beregn 5² + 12²."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="pythagoras-q2"
+  question="En trekant har sidelængderne 6, 8 og 11. Hvad kan du sige om trekanten?"
+  options={[
+    "Den er retvinklet",
+    "Den er spidsvinklet",
+    "Den er stumpvinklet",
+    "Det kan ikke afgøres"
+  ]}
+  correctIndex={2}
+  hint="Sammenlign a² + b² med c², hvor c er den længste side."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="pythagoras-q3"
+  question="Hvad er afstanden mellem punkterne A(0, 0) og B(3, 4)?"
+  options={[
+    "7",
+    "5",
+    "25",
+    "12"
+  ]}
+  correctIndex={1}
+  hint="Brug afstandsformlen d = √((x₂-x₁)² + (y₂-y₁)²)."
+/>

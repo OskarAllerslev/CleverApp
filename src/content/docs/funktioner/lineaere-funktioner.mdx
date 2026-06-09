@@ -2,31 +2,425 @@
 title: "Lineære funktioner"
 level: "Matematik C"
 order: 2
-description: "Grafen for en lineær funktion er en ret linje. Tallet $a$ er hældningskoefficienten, og $b$ er skæri..."
+description: "Mestr y = ax + b, hældning, skæringspunkter og to-punkts-formlen. Optjen +150 XP!"
 ---
 
-# Lineære funktioner
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Lineære funktioner** på Matematik C-niveau.
+# Lineære funktioner 📏
 
-## Introduktion
+Lineære funktioner er de simpleste og mest anvendte funktioner i matematik. De beskriver **konstant vækst** — en lige linje i koordinatsystemet. Fra mobilabonnementer til fartkontrol: overalt hvor noget vokser med en fast rate, er der en lineær funktion i spil.
 
-Grafen for en lineær funktion er en ret linje. Tallet $a$ er hældningskoefficienten, og $b$ er skæringspunktet med y-aksen.
+Gør dig klar til at mestre den rette linje — det er din første boss-kamp! ⚔️
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Den lineære funktion y = ax + b
+
+En <Term definition="En funktion af formen f(x) = ax + b, hvor a og b er konstanter. Grafen er en ret linje.">lineær funktion</Term> har forskriften:
 
 $$
-f(x) = ax + b, \quad a = \frac{y_2 - y_1}{x_2 - x_1}
+f(x) = ax + b
 $$
 
-## Hvad skal vi lære?
+hvor:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+- $a$ er <Term definition="Hældningskoefficienten angiver, hvor stejlt linjen stiger eller falder. Den fortæller, hvor meget y ændrer sig, når x vokser med 1.">hældningskoefficienten</Term> (også kaldet hældningen)
+- $b$ er <Term definition="Skæringen med y-aksen, dvs. den y-værdi hvor linjen krydser y-aksen (x = 0).">skæringen med y-aksen</Term> (også kaldet y-intercept eller begyndelsesværdi)
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+**Hvad fortæller $a$ og $b$?**
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+| Parameter | Betydning | Effekt på grafen |
+|---|---|---|
+| $a > 0$ | Positiv hældning | Linjen stiger fra venstre mod højre (voksende funktion) |
+| $a < 0$ | Negativ hældning | Linjen falder fra venstre mod højre (aftagende funktion) |
+| $a = 0$ | Ingen hældning | Vandret linje ($f(x) = b$ for alle $x$) |
+| $b$ | Begyndelsesværdi | Linjen krydser $y$-aksen i punktet $(0, b)$ |
+
+**Hældningen som ændringsrate:**
+
+$$
+a = \frac{\Delta y}{\Delta x} = \frac{\text{ændring i } y}{\text{ændring i } x}
+$$
+
+Når $x$ vokser med $1$, vokser $f(x)$ med $a$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Aflæs a og b fra en forskrift ⚡</summary>
+
+**Opgave:** Bestem hældning og skæring med $y$-aksen for $f(x) = -3x + 7$.
+
+**Løsning:**
+
+Vi sammenligner med $f(x) = ax + b$:
+
+$$
+f(x) = \underbrace{-3}_{a}x + \underbrace{7}_{b}
+$$
+
+- Hældningen er $a = -3$. Det betyder at $f(x)$ **falder** med $3$, hver gang $x$ vokser med $1$.
+- Skæringen med $y$-aksen er $b = 7$. Linjen krydser $y$-aksen i punktet $(0, 7)$.
+
+**Kontrol:** $f(0) = -3 \cdot 0 + 7 = 7$ ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring med akserne
+
+**Skæring med y-aksen:** Sæt $x = 0$ ind i forskriften:
+
+$$
+f(0) = a \cdot 0 + b = b
+$$
+
+Skæringspunktet med $y$-aksen er altid $(0, b)$.
+
+**Skæring med x-aksen (nulpunktet):** Sæt $f(x) = 0$ og løs for $x$:
+
+$$
+\begin{aligned}
+ax + b &= 0 \\
+ax &= -b \\
+x &= -\frac{b}{a} \quad (a \neq 0)
+\end{aligned}
+$$
+
+Skæringspunktet med $x$-aksen er $\left(-\frac{b}{a}, 0\right)$.
+
+**Skæring mellem to linjer:** Givet $f(x) = a_1 x + b_1$ og $g(x) = a_2 x + b_2$. Skæringspunktet findes ved at løse:
+
+$$
+\begin{aligned}
+f(x) &= g(x) \\
+a_1 x + b_1 &= a_2 x + b_2 \\
+(a_1 - a_2)x &= b_2 - b_1 \\
+x &= \frac{b_2 - b_1}{a_1 - a_2} \quad (a_1 \neq a_2)
+\end{aligned}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find skæringspunkter ⚡</summary>
+
+**Opgave:** Givet $f(x) = 2x - 4$. Find skæring med begge akser.
+
+**Løsning:**
+
+**Skæring med y-aksen:** Vi sætter $x = 0$:
+
+$$
+f(0) = 2 \cdot 0 - 4 = -4
+$$
+
+Skæringspunkt med $y$-aksen: $(0, -4)$.
+
+**Skæring med x-aksen:** Vi sætter $f(x) = 0$:
+
+$$
+\begin{aligned}
+2x - 4 &= 0 \\
+2x &= 4 \\
+x &= 2
+\end{aligned}
+$$
+
+Skæringspunkt med $x$-aksen: $(2, 0)$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skæring mellem to linjer ⚡</summary>
+
+**Opgave:** Find skæringspunktet mellem $f(x) = 3x + 1$ og $g(x) = -x + 9$.
+
+**Løsning:**
+
+Vi sætter de to udtryk lig hinanden:
+
+$$
+\begin{aligned}
+3x + 1 &= -x + 9 \\
+3x + x &= 9 - 1 \\
+4x &= 8 \\
+x &= 2
+\end{aligned}
+$$
+
+Vi finder $y$-værdien ved at sætte $x = 2$ ind i en af funktionerne:
+
+$$
+f(2) = 3 \cdot 2 + 1 = 7
+$$
+
+**Kontrol:** $g(2) = -2 + 9 = 7$ ✓
+
+Skæringspunktet er $(2, 7)$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: To-punkts-formlen
+
+Hvis vi kender **to punkter** på linjen, $(x_1, y_1)$ og $(x_2, y_2)$, kan vi bestemme forskriften $f(x) = ax + b$.
+
+**Trin 1:** Beregn hældningen:
+
+$$
+a = \frac{y_2 - y_1}{x_2 - x_1}
+$$
+
+**Trin 2:** Find $b$ ved at indsætte ét af punkterne i $y = ax + b$:
+
+$$
+b = y_1 - a \cdot x_1
+$$
+
+Samlet giver dette <Term definition="En formel der bestemmer en lineær funktions forskrift ud fra to kendte punkter på linjen">to-punkts-formlen</Term>:
+
+$$
+y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestem forskrift ud fra to punkter ⚡</summary>
+
+**Opgave:** En ret linje går gennem punkterne $(1, 3)$ og $(4, 9)$. Bestem forskriften.
+
+**Løsning:**
+
+**Trin 1:** Beregn hældningen:
+
+$$
+a = \frac{y_2 - y_1}{x_2 - x_1} = \frac{9 - 3}{4 - 1} = \frac{6}{3} = 2
+$$
+
+**Trin 2:** Find $b$ ved at indsætte $(1, 3)$:
+
+$$
+\begin{aligned}
+y_1 &= a \cdot x_1 + b \\
+3 &= 2 \cdot 1 + b \\
+3 &= 2 + b \\
+b &= 1
+\end{aligned}
+$$
+
+**Forskriften er:** $f(x) = 2x + 1$.
+
+**Kontrol med det andet punkt:** $f(4) = 2 \cdot 4 + 1 = 9$ ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Parallelle og vinkelrette linjer
+
+**Parallelle linjer** har **samme hældning**:
+
+$$
+f(x) = a_1 x + b_1 \quad \text{og} \quad g(x) = a_2 x + b_2 \quad \text{er parallelle} \iff a_1 = a_2
+$$
+
+To parallelle linjer skærer aldrig hinanden (medmindre de er identiske).
+
+**Vinkelrette linjer** har hældninger, der er <Term definition="To tal er hinandens negative reciprokke, hvis deres produkt er -1">hinandens negative reciprokke</Term>:
+
+$$
+f \perp g \iff a_1 \cdot a_2 = -1 \iff a_2 = -\frac{1}{a_1}
+$$
+
+**Huskeregel:** Hvis den ene linje har hældning $a$, har den vinkelrette linje hældning $-\frac{1}{a}$.
+
+| Linje 1 hældning | Vinkelret linje hældning |
+|---|---|
+| $2$ | $-\frac{1}{2}$ |
+| $-3$ | $\frac{1}{3}$ |
+| $\frac{1}{4}$ | $-4$ |
+| $1$ | $-1$ |
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Parallel og vinkelret linje ⚡</summary>
+
+**Opgave:** Givet linjen $l: f(x) = 3x - 2$.
+
+a) Find forskriften for den linje $m$, der er parallel med $l$ og går gennem $(2, 1)$.
+
+b) Find forskriften for den linje $n$, der er vinkelret på $l$ og går gennem $(0, 5)$.
+
+**Løsning:**
+
+**a) Parallel linje:**
+
+Parallelle linjer har samme hældning, så $a_m = 3$.
+
+Vi indsætter punktet $(2, 1)$:
+
+$$
+\begin{aligned}
+1 &= 3 \cdot 2 + b \\
+1 &= 6 + b \\
+b &= -5
+\end{aligned}
+$$
+
+Forskriften er $m: g(x) = 3x - 5$.
+
+**b) Vinkelret linje:**
+
+Den vinkelrette hældning er:
+
+$$
+a_n = -\frac{1}{a_l} = -\frac{1}{3}
+$$
+
+Linjen går gennem $(0, 5)$, så $b = 5$:
+
+$$
+n: h(x) = -\frac{1}{3}x + 5
+$$
+
+**Kontrol:** $a_l \cdot a_n = 3 \cdot \left(-\frac{1}{3}\right) = -1$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Lineær model i praksis ⚡</summary>
+
+**Opgave:** Et mobilabonnement koster 79 kr. pr. måned plus 0,50 kr. pr. SMS. Opstil en lineær model for den månedlige pris $P$ som funktion af antal SMS $x$.
+
+**Løsning:**
+
+Vi identificerer parametrene:
+- Startomkostning (fast pris) = 79 kr. → dette er $b$
+- Pris pr. SMS = 0,50 kr. → dette er $a$ (ændringsrate)
+
+**Modellen er:**
+
+$$
+P(x) = 0{,}50x + 79
+$$
+
+**Hvad koster 120 SMS?**
+
+$$
+P(120) = 0{,}50 \cdot 120 + 79 = 60 + 79 = 139 \text{ kr.}
+$$
+
+**Hvor mange SMS for 200 kr.?**
+
+$$
+\begin{aligned}
+200 &= 0{,}50x + 79 \\
+121 &= 0{,}50x \\
+x &= 242 \text{ SMS}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Bestem hældning og skæring med $y$-aksen for:
+
+a) $f(x) = 5x + 2$
+
+b) $g(x) = -\frac{1}{2}x + 4$
+
+c) $h(x) = 7$
+
+**Opgave 2:** Find nulpunktet for $f(x) = 4x - 12$.
+
+**Opgave 3:** Bestem forskriften for den rette linje, der går gennem punkterne $(-2, 5)$ og $(3, -5)$.
+
+**Opgave 4:** Find skæringspunktet mellem $f(x) = 2x + 3$ og $g(x) = -x + 12$.
+
+**Opgave 5:** En linje $l$ har forskriften $f(x) = -2x + 1$.
+
+a) Bestem forskriften for en linje, der er parallel med $l$ og går gennem $(1, 4)$.
+
+b) Bestem forskriften for en linje, der er vinkelret på $l$ og går gennem $(4, 0)$.
+
+**Opgave 6:** En taxa kører en fast startpris på 39 kr. og derefter 12,50 kr. pr. km. Opstil en lineær model for prisen $P(x)$, og beregn prisen for en tur på 15 km.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="lineaer-quiz-1"
+  question="Hvad er hældningen for funktionen f(x) = -4x + 7?"
+  options={[
+    "7",
+    "-4",
+    "4",
+    "-7"
+  ]}
+  correctIndex={1}
+  hint="I f(x) = ax + b er a hældningen."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="lineaer-quiz-2"
+  question="To linjer er parallelle. Den ene har hældning 5. Hvad er den andens hældning?"
+  options={[
+    "-5",
+    "1/5",
+    "5",
+    "-1/5"
+  ]}
+  correctIndex={2}
+  hint="Parallelle linjer har den SAMME hældning."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="lineaer-quiz-3"
+  question="En ret linje går gennem (0, 3) og (2, 7). Hvad er forskriften?"
+  options={[
+    "f(x) = 2x + 3",
+    "f(x) = 3x + 2",
+    "f(x) = 2x + 7",
+    "f(x) = 5x + 3"
+  ]}
+  correctIndex={0}
+  hint="Beregn hældningen med (y2-y1)/(x2-x1), og aflæs b fra punktet (0, 3)."
+/>

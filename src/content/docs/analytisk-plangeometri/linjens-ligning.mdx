@@ -2,31 +2,484 @@
 title: "Linjens ligning"
 level: "Matematik B"
 order: 1
-description: "Linjens ligning i planen kan bestemmes, hvis vi kender et punkt på linjen og en normalvektor, der st..."
+description: "Mester normalvektorer, retningsvektorer og parameterfremstillinger — og bliv klar til analytisk geometri! Optjen +150 XP!"
 ---
 
-# Linjens ligning
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Linjens ligning** på Matematik B-niveau.
+# Linjens ligning 🎯
 
-## Introduktion
+Linjer er den mest grundlæggende byggeblok i analytisk plangeometri. I dette kapitel lærer du **fire forskellige måder** at beskrive en linje på — og du bliver ekspert i at skifte frit mellem dem. Tænk på det som at lære fire sprog for det samme objekt: jo flere du kan, desto stærkere bliver du.
 
-Linjens ligning i planen kan bestemmes, hvis vi kender et punkt på linjen og en normalvektor, der står vinkelret på linjen.
+Når du mestrer linjens ligning, har du nøglen til at løse skæringsproblemer, afstandsberegninger og meget mere. Lad os komme i gang! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Retningsvektor og normalvektor
+
+En linje i planen kan beskrives ved hjælp af to fundamentale vektorer:
+
+**<Term definition="En vektor der er parallel med linjen og angiver linjens retning.">Retningsvektoren</Term>** $\vec{r}$ er en vektor, der peger langs linjen. Hvis en linje går fra punkt $A$ til punkt $B$, er retningsvektoren simpelthen:
 
 $$
-a(x - x_0) + b(y - y_0) = 0 \implies ax + by + c = 0
+\vec{r} = \binom{r_1}{r_2} = \binom{x_B - x_A}{y_B - y_A}
 $$
 
-## Hvad skal vi lære?
+**<Term definition="En vektor der står vinkelret (90°) på linjen.">Normalvektoren</Term>** $\vec{n}$ er en vektor, der står **vinkelret** på linjen. Hvis retningsvektoren er $\vec{r} = \binom{r_1}{r_2}$, så er normalvektoren:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+\vec{n} = \binom{-r_2}{r_1} \quad \text{eller} \quad \vec{n} = \binom{r_2}{-r_1}
+$$
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+Man bytter altså koordinaterne og skifter fortegn på én af dem. Det sikrer, at $\vec{n} \cdot \vec{r} = 0$ (de er ortogonale).
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+**Eksempel på sammenhængen:**
+
+Hvis $\vec{r} = \binom{3}{2}$, så er $\vec{n} = \binom{-2}{3}$, fordi:
+
+$$
+\vec{n} \cdot \vec{r} = (-2) \cdot 3 + 3 \cdot 2 = -6 + 6 = 0 \; \checkmark
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find retnings- og normalvektor for en linje ⚡</summary>
+
+**Opgave:** En linje $\ell$ går gennem punkterne $A(1, 3)$ og $B(4, 7)$. Find retningsvektoren og normalvektoren.
+
+**Løsning:**
+
+**Trin 1:** Find retningsvektoren:
+
+$$
+\vec{r} = \binom{x_B - x_A}{y_B - y_A} = \binom{4 - 1}{7 - 3} = \binom{3}{4}
+$$
+
+**Trin 2:** Find normalvektoren ved at bytte koordinaterne og skifte fortegn på én:
+
+$$
+\vec{n} = \binom{-4}{3}
+$$
+
+**Trin 3:** Tjek at de er vinkelrette:
+
+$$
+\vec{n} \cdot \vec{r} = (-4) \cdot 3 + 3 \cdot 4 = -12 + 12 = 0 \; \checkmark
+$$
+
+Retningsvektoren er $\vec{r} = \binom{3}{4}$ og normalvektoren er $\vec{n} = \binom{-4}{3}$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Linjens ligning på almen form — $ax + by + c = 0$
+
+Den <Term definition="Linjens ligning skrevet som ax + by + c = 0, hvor (a, b) er normalvektoren til linjen.">almene form</Term> for en linje er:
+
+$$
+ax + by + c = 0
+$$
+
+Her er det afgørende at forstå, at **koefficienterne $a$ og $b$ udgør normalvektoren** til linjen:
+
+$$
+\vec{n} = \binom{a}{b}
+$$
+
+**Hvordan finder man ligningen?** Hvis linjen har normalvektor $\vec{n} = \binom{a}{b}$ og passerer gennem punktet $P_0(x_0, y_0)$, er ligningen:
+
+$$
+a(x - x_0) + b(y - y_0) = 0
+$$
+
+som kan omskrives til:
+
+$$
+ax + by + \underbrace{(-ax_0 - by_0)}_{= \, c} = 0
+$$
+
+**Hvorfor virker det?** En vilkårlig punkt $P(x, y)$ ligger på linjen, hvis og kun hvis vektoren $\overrightarrow{P_0P} = \binom{x - x_0}{y - y_0}$ er vinkelret på normalvektoren $\vec{n}$. Det sker præcis, når skalarproduktet er nul:
+
+$$
+\vec{n} \cdot \overrightarrow{P_0P} = a(x - x_0) + b(y - y_0) = 0
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil linjens ligning fra normalvektor og punkt ⚡</summary>
+
+**Opgave:** Find ligningen for linjen med normalvektor $\vec{n} = \binom{2}{-5}$, der passerer gennem $P_0(3, 1)$.
+
+**Løsning:**
+
+**Trin 1:** Indsæt i formlen $a(x - x_0) + b(y - y_0) = 0$:
+
+$$
+2(x - 3) + (-5)(y - 1) = 0
+$$
+
+**Trin 2:** Multiplicer ud:
+
+$$
+2x - 6 - 5y + 5 = 0
+$$
+
+**Trin 3:** Saml konstanterne:
+
+$$
+2x - 5y - 1 = 0
+$$
+
+Linjens ligning er $2x - 5y - 1 = 0$.
+
+**Tjek:** Indsæt $P_0(3, 1)$: $2 \cdot 3 - 5 \cdot 1 - 1 = 6 - 5 - 1 = 0$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil linjens ligning fra to punkter ⚡</summary>
+
+**Opgave:** Find ligningen for linjen gennem $A(2, -1)$ og $B(5, 3)$ på almen form.
+
+**Løsning:**
+
+**Trin 1:** Find retningsvektoren:
+
+$$
+\vec{r} = \binom{5 - 2}{3 - (-1)} = \binom{3}{4}
+$$
+
+**Trin 2:** Find normalvektoren:
+
+$$
+\vec{n} = \binom{-4}{3}
+$$
+
+**Trin 3:** Brug punktet $A(2, -1)$ og normalvektoren:
+
+$$
+-4(x - 2) + 3(y - (-1)) = 0
+$$
+
+**Trin 4:** Multiplicer ud og saml:
+
+$$
+\begin{aligned}
+-4x + 8 + 3y + 3 &= 0 \\
+-4x + 3y + 11 &= 0
+\end{aligned}
+$$
+
+Eller ganget med $-1$: $4x - 3y - 11 = 0$.
+
+**Tjek med begge punkter:**
+- $A(2, -1)$: $4 \cdot 2 - 3 \cdot (-1) - 11 = 8 + 3 - 11 = 0$ ✓
+- $B(5, 3)$: $4 \cdot 5 - 3 \cdot 3 - 11 = 20 - 9 - 11 = 0$ ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Parameterfremstilling for en linje
+
+En <Term definition="En beskrivelse af en linje, hvor hvert punkt udtrykkes som funktion af en parameter t.">parameterfremstilling</Term> beskriver linjens punkter ved hjælp af en parameter $t$:
+
+$$
+\binom{x}{y} = \binom{x_0}{y_0} + t \cdot \binom{r_1}{r_2}, \quad t \in \mathbb{R}
+$$
+
+Her er:
+- $(x_0, y_0)$ et **kendt punkt** på linjen (kaldet støttepunktet)
+- $\binom{r_1}{r_2}$ linjens **retningsvektor**
+- $t$ en **parameter**, der gennemløber alle reelle tal
+
+Skrevet som to separate ligninger:
+
+$$
+\begin{aligned}
+x &= x_0 + t \cdot r_1 \\
+y &= y_0 + t \cdot r_2
+\end{aligned}
+$$
+
+Når $t = 0$, får vi støttepunktet. Når $t = 1$, er vi rykket én retningsvektor frem langs linjen, osv.
+
+**Parameterfremstillingen er kraftfuld**, fordi den gør det nemt at finde konkrete punkter på linjen: man indsætter bare forskellige $t$-værdier.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil parameterfremstilling og find punkter ⚡</summary>
+
+**Opgave:** Linjen $\ell$ går gennem $P_0(2, 5)$ med retningsvektor $\vec{r} = \binom{4}{-3}$. Skriv parameterfremstillingen og find tre punkter på linjen.
+
+**Løsning:**
+
+**Trin 1:** Parameterfremstillingen er:
+
+$$
+\binom{x}{y} = \binom{2}{5} + t \cdot \binom{4}{-3} = \binom{2 + 4t}{5 - 3t}
+$$
+
+**Trin 2:** Find tre punkter ved at vælge $t$-værdier:
+
+| $t$ | $x = 2 + 4t$ | $y = 5 - 3t$ | Punkt |
+|-----|-----------|-----------|-------|
+| $0$ | $2$ | $5$ | $(2, 5)$ |
+| $1$ | $6$ | $2$ | $(6, 2)$ |
+| $-1$ | $-2$ | $8$ | $(-2, 8)$ |
+
+Alle tre punkter ligger på linjen $\ell$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fra almen form til $y = ax + b$ og omvendt
+
+<Term definition="Linjens ligning på formen y = ax + b, hvor a er hældningen og b er y-skæringspunktet.">Hældningsformen</Term> $y = ax + b$ er den form, du kender fra Matematik C. Her er $a$ linjens hældning og $b$ skæringen med $y$-aksen.
+
+**Fra almen form til hældningsform:**
+
+Givet $Ax + By + C = 0$ (med $B \neq 0$):
+
+$$
+\begin{aligned}
+By &= -Ax - C \\
+y &= -\frac{A}{B}x - \frac{C}{B}
+\end{aligned}
+$$
+
+Så hældningen er $a = -\frac{A}{B}$ og skæringen med $y$-aksen er $b = -\frac{C}{B}$.
+
+**Fra hældningsform til almen form:**
+
+Givet $y = ax + b$:
+
+$$
+y = ax + b \iff ax - y + b = 0
+$$
+
+Her er normalvektoren $\vec{n} = \binom{a}{-1}$.
+
+**Sammenhæng med retningsvektoren:**
+
+Hældningen $a$ fortæller os, at retningsvektoren kan skrives som $\vec{r} = \binom{1}{a}$ — for hver gang $x$ vokser med $1$, vokser $y$ med $a$.
+
+**Bemærk:** Lodrette linjer ($x = k$) kan **ikke** skrives på hældningsform, men de kan skrives på almen form: $1 \cdot x + 0 \cdot y - k = 0$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Omskriv mellem formerne ⚡</summary>
+
+**Opgave:** Omskriv linjen $3x - 6y + 12 = 0$ til hældningsform, og find hældning, normalvektor og retningsvektor.
+
+**Løsning:**
+
+**Trin 1:** Isoler $y$:
+
+$$
+\begin{aligned}
+-6y &= -3x - 12 \\
+y &= \frac{-3}{-6}x + \frac{-12}{-6} \\
+y &= \frac{1}{2}x + 2
+\end{aligned}
+$$
+
+**Trin 2:** Aflæs hældning og skæringspunkt:
+
+- Hældning: $a = \frac{1}{2}$
+- $y$-skæring: $b = 2$, dvs. linjen skærer $y$-aksen i $(0, 2)$
+
+**Trin 3:** Find vektorerne:
+
+Fra den almene form $3x - 6y + 12 = 0$:
+
+- Normalvektor: $\vec{n} = \binom{3}{-6}$ (eller reduceret: $\binom{1}{-2}$)
+- Retningsvektor: $\vec{r} = \binom{6}{3}$ (eller reduceret: $\binom{2}{1}$)
+
+**Tjek:** Hældningen fra retningsvektoren: $\frac{r_2}{r_1} = \frac{1}{2}$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Bevis: Hvorfor er $(a, b)$ normalvektoren? 🧠</summary>
+
+**Påstand:** I ligningen $ax + by + c = 0$ er $\vec{n} = \binom{a}{b}$ vinkelret på linjen.
+
+**Bevis:**
+
+Lad $P_1(x_1, y_1)$ og $P_2(x_2, y_2)$ være to vilkårlige punkter på linjen. Så gælder:
+
+$$
+ax_1 + by_1 + c = 0 \quad \text{og} \quad ax_2 + by_2 + c = 0
+$$
+
+Trækker vi den første ligning fra den anden:
+
+$$
+a(x_2 - x_1) + b(y_2 - y_1) = 0
+$$
+
+Vektoren $\overrightarrow{P_1P_2} = \binom{x_2 - x_1}{y_2 - y_1}$ er en retningsvektor for linjen. Ligningen ovenfor siger netop, at:
+
+$$
+\binom{a}{b} \cdot \binom{x_2 - x_1}{y_2 - y_1} = 0
+$$
+
+Skalarproduktet er nul, altså er $\binom{a}{b}$ vinkelret på enhver retningsvektor for linjen. $\square$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Parallelle og vinkelrette linjer
+
+To linjer er **parallelle**, hvis deres normalvektorer (eller retningsvektorer) er proportionale:
+
+$$
+\ell_1 \parallel \ell_2 \iff \vec{n}_1 = k \cdot \vec{n}_2 \quad \text{for et } k \neq 0
+$$
+
+Eller ækvivalent: $a_1 b_2 - a_2 b_1 = 0$ (determinanten er nul).
+
+To linjer er **vinkelrette**, hvis deres normalvektorer er vinkelrette:
+
+$$
+\ell_1 \perp \ell_2 \iff \vec{n}_1 \cdot \vec{n}_2 = 0 \iff a_1 a_2 + b_1 b_2 = 0
+$$
+
+**Alternativt:** Hvis linjerne har hældninger $a_1$ og $a_2$, gælder:
+
+- Parallelle: $a_1 = a_2$
+- Vinkelrette: $a_1 \cdot a_2 = -1$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Er linjerne parallelle eller vinkelrette? ⚡</summary>
+
+**Opgave:** Undersøg om linjerne $\ell_1: 2x + 3y - 5 = 0$ og $\ell_2: 4x + 6y + 1 = 0$ er parallelle, vinkelrette eller ingen af delene.
+
+**Løsning:**
+
+**Trin 1:** Find normalvektorerne:
+
+$$
+\vec{n}_1 = \binom{2}{3}, \quad \vec{n}_2 = \binom{4}{6}
+$$
+
+**Trin 2:** Tjek for proportionalitet (parallelitet):
+
+$$
+\vec{n}_2 = 2 \cdot \vec{n}_1 = 2 \cdot \binom{2}{3} = \binom{4}{6} \; \checkmark
+$$
+
+Da $\vec{n}_2 = 2 \cdot \vec{n}_1$, er linjerne **parallelle**.
+
+**Bemærk:** De er ikke sammenfaldende, fordi $c$-værdierne ikke opfylder samme faktor: $\frac{1}{-5} \neq 2$.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Find retningsvektor og normalvektor for linjen gennem $A(-3, 2)$ og $B(1, 6)$.
+
+**Opgave 2:** Opstil ligningen for linjen med normalvektor $\vec{n} = \binom{5}{-2}$ gennem punktet $(1, 4)$ på almen form.
+
+**Opgave 3:** Omskriv $6x - 3y + 9 = 0$ til hældningsform. Aflæs hældning og skæringspunkt med $y$-aksen.
+
+**Opgave 4:** Skriv parameterfremstillingen for linjen gennem $P_0(0, -2)$ med retningsvektor $\vec{r} = \binom{3}{1}$. Find punktet for $t = 4$.
+
+**Opgave 5:** Linjen $\ell_1$ har ligningen $3x - y + 2 = 0$. Find ligningen for en linje $\ell_2$, der er vinkelret på $\ell_1$ og passerer gennem $(6, 1)$.
+
+**Opgave 6:** Givet linjen $y = -\frac{2}{3}x + 4$. Skriv ligningen på almen form og angiv normalvektor og retningsvektor.
+
+**Opgave 7:** To linjer er givet ved parameterfremstillingerne:
+
+$$
+\ell_1: \binom{x}{y} = \binom{1}{3} + t \cdot \binom{2}{-1}, \quad \ell_2: \binom{x}{y} = \binom{0}{5} + s \cdot \binom{4}{-2}
+$$
+
+Er linjerne parallelle? Begrund dit svar.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="linje-quiz-normalvektor"
+  question="Linjen har ligningen $3x - 7y + 2 = 0$. Hvad er normalvektoren?"
+  options={[
+    "$\\binom{3}{-7}$",
+    "$\\binom{-7}{3}$",
+    "$\\binom{7}{3}$",
+    "$\\binom{3}{7}$"
+  ]}
+  correctIndex={0}
+  hint="I ligningen ax + by + c = 0 er normalvektoren (a, b)."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="linje-quiz-haeldning"
+  question="Hvad er hældningen for linjen $4x - 2y + 10 = 0$?"
+  options={[
+    "$-2$",
+    "$2$",
+    "$\\frac{1}{2}$",
+    "$-\\frac{1}{2}$"
+  ]}
+  correctIndex={1}
+  hint="Isoler y: hældningen er $-A/B$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="linje-quiz-parameterfremstilling"
+  question="En linje har parameterfremstillingen $(x, y) = (3, 1) + t(2, -5)$. Hvilket punkt svarer til $t = 2$?"
+  options={[
+    "$(7, -9)$",
+    "$(5, -4)$",
+    "$(1, 11)$",
+    "$(7, 11)$"
+  ]}
+  correctIndex={0}
+  hint="Indsæt $t = 2$: $x = 3 + 2 \\cdot 2$ og $y = 1 + 2 \\cdot (-5)$."
+/>

@@ -2,31 +2,606 @@
 title: "Optimering og monotoni"
 level: "Matematik B"
 order: 3
-description: "Ved at bestemme monotoniforholdene finder vi, hvor funktionen vokser og aftager, og vi kan optimere ..."
+description: "Find maksimum og minimum som en pro – brug den afledede til at optimere og analysere monotoni. Optjen +150 XP!"
 ---
 
-# Optimering og monotoni
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Optimering og monotoni** på Matematik B-niveau.
+# Optimering og monotoni 🎯
 
-## Introduktion
+Du har nu lært at differentiere funktioner. Men hvad kan vi egentlig **bruge** den afledede til? Svaret er: utroligt meget!
 
-Ved at bestemme monotoniforholdene finder vi, hvor funktionen vokser og aftager, og vi kan optimere funktioner for at finde maksimums- og minimumsværdier.
+En af de vigtigste anvendelser er at finde **maksimum og minimum** for funktioner. Hvornår er overskuddet størst? Hvornår er materialeforbruget mindst? Hvornår flyver raketten højest? Alt dette handler om **optimering** – og nøglen er den afledede funktion. 🔑
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Monotoniforhold – hvornår vokser og aftager en funktion?
+
+Der er en direkte sammenhæng mellem fortegnet af $f'(x)$ og funktionens <Term definition="Beskrivelsen af, hvor en funktion er voksende, aftagende eller konstant">monotoniforhold</Term>:
 
 $$
-f'(x) = 0 \implies x_{\text{ekstremum}}
+\boxed{f'(x) > 0 \implies f \text{ er voksende}}
 $$
 
-## Hvad skal vi lære?
+$$
+\boxed{f'(x) < 0 \implies f \text{ er aftagende}}
+$$
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+\boxed{f'(x) = 0 \implies f \text{ har vandret tangent (stationært punkt)}}
+$$
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+**Intuitionen:** Den afledede måler hældningen af tangenten.
+- Positiv hældning → grafen går opad → funktionen vokser
+- Negativ hældning → grafen går nedad → funktionen aftager
+- Nul hældning → grafen er vandret → et stationært punkt
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+For at bestemme monotoniforholdene laver vi en <Term definition="En systematisk oversigt over fortegnene af f'(x) i forskellige intervaller, som bruges til at bestemme monotoniforhold">monotonilinje</Term> (også kaldet fortegnslinje for $f'$).
+
+**Fremgangsmåde:**
+1. Find $f'(x)$
+2. Løs $f'(x) = 0$ for at finde de stationære punkter
+3. Undersøg fortegnet af $f'(x)$ i intervallerne mellem nulpunkterne
+4. Aflæs monotoniforholdene
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Monotoniforhold for et polynomium ⚡</summary>
+
+**Opgave:** Bestem monotoniforholdene for $f(x) = x^3 - 3x$.
+
+**Trin 1: Find $f'(x)$**
+
+$$
+f'(x) = 3x^2 - 3
+$$
+
+**Trin 2: Løs $f'(x) = 0$**
+
+$$
+\begin{aligned}
+3x^2 - 3 &= 0 \\
+3x^2 &= 3 \\
+x^2 &= 1 \\
+x &= -1 \quad \text{eller} \quad x = 1
+\end{aligned}
+$$
+
+**Trin 3: Undersøg fortegnene**
+
+Vi vælger testpunkter i hvert interval:
+
+| Interval | Testpunkt | $f'(\text{test})$ | Fortegn |
+|----------|-----------|------------|---------|
+| $x < -1$ | $x = -2$ | $3 \cdot 4 - 3 = 9$ | $+$ |
+| $-1 < x < 1$ | $x = 0$ | $3 \cdot 0 - 3 = -3$ | $-$ |
+| $x > 1$ | $x = 2$ | $3 \cdot 4 - 3 = 9$ | $+$ |
+
+**Trin 4: Monotonilinje**
+
+| $x$ | $-\infty$ | | $-1$ | | $1$ | | $+\infty$ |
+|-----|-----------|--|------|--|-----|--|-----------|
+| $f'(x)$ | | $+$ | $0$ | $-$ | $0$ | $+$ | |
+| $f$ | | $\nearrow$ | | $\searrow$ | | $\nearrow$ | |
+
+**Konklusion:**
+- $f$ er **voksende** for $x < -1$ og $x > 1$
+- $f$ er **aftagende** for $-1 < x < 1$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Stationære punkter og ekstrema
+
+Et <Term definition="Et punkt hvor f'(x) = 0, dvs. tangenten er vandret">stationært punkt</Term> er et punkt, hvor $f'(x_0) = 0$. Der findes tre typer:
+
+**1. Lokalt maksimum:**
+$f'$ skifter fortegn fra **positiv til negativ** (funktionen vokser og begynder at aftage).
+
+$$
+f'(x_0) = 0, \quad f'(x) > 0 \text{ for } x < x_0, \quad f'(x) < 0 \text{ for } x > x_0
+$$
+
+**2. Lokalt minimum:**
+$f'$ skifter fortegn fra **negativ til positiv** (funktionen aftager og begynder at vokse).
+
+$$
+f'(x_0) = 0, \quad f'(x) < 0 \text{ for } x < x_0, \quad f'(x) > 0 \text{ for } x > x_0
+$$
+
+**3. Vandret vendetangent (inflektionspunkt):**
+$f'$ skifter **ikke** fortegn. Funktionen fortsætter i samme retning, men med et kort "hvil" hvor tangenten er vandret.
+
+**Huskeregel med emojis:**
+- 📈📉 → lokalt maksimum (bjergtop)
+- 📉📈 → lokalt minimum (dal)
+- 📈📈 eller 📉📉 → vandret vendetangent (plateau)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find ekstrema for $f(x) = x^3 - 3x$ ⚡</summary>
+
+Vi fortsætter med $f(x) = x^3 - 3x$ fra forrige eksempel.
+
+Vi fandt, at $f'(x) = 3x^2 - 3 = 0$ giver $x = -1$ og $x = 1$.
+
+Fra monotonilinjen ved vi:
+
+**I $x = -1$:** $f'$ skifter fra $+$ til $-$, altså har vi et **lokalt maksimum**.
+
+$$
+f(-1) = (-1)^3 - 3(-1) = -1 + 3 = 2
+$$
+
+Lokalt maksimum i $(-1, 2)$.
+
+**I $x = 1$:** $f'$ skifter fra $-$ til $+$, altså har vi et **lokalt minimum**.
+
+$$
+f(1) = 1^3 - 3 \cdot 1 = 1 - 3 = -2
+$$
+
+Lokalt minimum i $(1, -2)$.
+
+**Opsummering:** Funktionen $f(x) = x^3 - 3x$ har:
+- Lokalt maksimum: $(- 1, 2)$
+- Lokalt minimum: $(1, -2)$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Lokale vs. globale ekstrema
+
+Det er vigtigt at skelne mellem <Term definition="Den største/mindste funktionsværdi i en omegn af et punkt">lokale</Term> og <Term definition="Den absolut største/mindste funktionsværdi i hele definitionsmængden eller et givet interval">globale</Term> ekstrema:
+
+- Et **lokalt maksimum** er det højeste punkt *i nærheden* – der kan være højere punkter andetsteds
+- Et **globalt maksimum** er det absolut højeste punkt *i hele definitionsmængden* (eller i et givet interval)
+
+For polynomier af ulige grad (som $x^3 - 3x$) findes der **ingen globale ekstrema**, fordi funktionen vokser mod $+\infty$ og $-\infty$.
+
+For polynomier af lige grad (som $x^4 - 2x^2$) findes der altid et **globalt minimum** (eller maksimum, hvis koefficienten foran den højeste potens er negativ).
+
+**I et lukket interval $[a, b]$:** Det globale maksimum og minimum findes enten:
+1. I et stationært punkt (hvor $f'(x) = 0$), eller
+2. I et af endepunkterne $x = a$ eller $x = b$
+
+**Fremgangsmåde for globale ekstrema i $[a, b]$:**
+1. Find alle stationære punkter i $[a, b]$
+2. Beregn $f$ i alle stationære punkter og i endepunkterne $a$ og $b$
+3. Den største værdi er det globale maksimum, den mindste er det globale minimum
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Globale ekstrema i et lukket interval ⚡</summary>
+
+**Opgave:** Find det globale maksimum og minimum for $f(x) = x^3 - 6x^2 + 9x + 1$ i intervallet $[0, 5]$.
+
+**Trin 1: Find stationære punkter**
+
+$$
+f'(x) = 3x^2 - 12x + 9 = 3(x^2 - 4x + 3) = 3(x - 1)(x - 3)
+$$
+
+$$
+f'(x) = 0 \implies x = 1 \quad \text{eller} \quad x = 3
+$$
+
+Begge ligger i $[0, 5]$. ✅
+
+**Trin 2: Beregn funktionsværdierne**
+
+$$
+\begin{aligned}
+f(0) &= 0 - 0 + 0 + 1 = 1 \\
+f(1) &= 1 - 6 + 9 + 1 = 5 \\
+f(3) &= 27 - 54 + 27 + 1 = 1 \\
+f(5) &= 125 - 150 + 45 + 1 = 21
+\end{aligned}
+$$
+
+**Trin 3: Sammenlign**
+
+| $x$ | $f(x)$ |
+|-----|--------|
+| $0$ | $1$ |
+| $1$ | $5$ |
+| $3$ | $1$ |
+| $5$ | $21$ |
+
+**Konklusion:**
+- Globalt **minimum** er $f(0) = f(3) = 1$ (opnås i $x = 0$ og $x = 3$)
+- Globalt **maksimum** er $f(5) = 21$ (opnås i endepunktet $x = 5$)
+
+Bemærk: Det globale maksimum lå i et **endepunkt**, ikke i et stationært punkt! Derfor er det vigtigt altid at tjekke endepunkterne.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Vandret vendetangent ⚡</summary>
+
+**Opgave:** Undersøg det stationære punkt for $f(x) = x^3$.
+
+**Find $f'(x)$:**
+
+$$
+f'(x) = 3x^2
+$$
+
+**Løs $f'(x) = 0$:**
+
+$$
+3x^2 = 0 \implies x = 0
+$$
+
+**Undersøg fortegnene:**
+
+- For $x < 0$: $f'(x) = 3x^2 > 0$ (positiv!)
+- For $x > 0$: $f'(x) = 3x^2 > 0$ (positiv!)
+
+$f'$ skifter **ikke** fortegn i $x = 0$. Funktionen er voksende på begge sider af $x = 0$.
+
+**Konklusion:** $x = 0$ er en **vandret vendetangent** – hverken maksimum eller minimum. Funktionen "holder en kort pause" i sin vækst, men aftager aldrig.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Optimeringsopgaver – en systematisk fremgangsmåde
+
+<Term definition="Opgaver hvor man skal finde den største eller mindste værdi af en størrelse under givne betingelser">Optimeringsopgaver</Term> er opgaver fra den virkelige verden, hvor du skal finde den bedste løsning – fx det største areal, den mindste omkostning, eller den højeste profit.
+
+**Fremgangsmåde i 5 trin:**
+
+**Trin 1: Forstå problemet**
+Læs opgaven grundigt. Hvad skal optimeres (maks/min)? Hvad er de givne betingelser?
+
+**Trin 2: Indfør variable og opstil funktionen**
+Kald den ubekendte størrelse for $x$. Udtryk det, der skal optimeres, som en funktion $f(x)$. Brug eventuelle betingelser (bindinger) til at reducere til én variabel.
+
+**Trin 3: Bestem definitionsmængden**
+Hvilke værdier giver mening for $x$ i den givne kontekst? (fx længder skal være positive)
+
+**Trin 4: Differentier og find stationære punkter**
+Beregn $f'(x)$, sæt $f'(x) = 0$ og løs.
+
+**Trin 5: Bestem optimum**
+Brug monotonilinjen eller tjek endepunkter til at afgøre, om det stationære punkt er et maksimum eller minimum. Beregn den optimale funktionsværdi og besvar opgavens spørgsmål med ord.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Optimering – indhegning med hegn ⚡</summary>
+
+**Opgave:** En landmand har 120 m hegn og vil indhegne et rektangulært areal op ad en mur. Hegnet bruges kun til de tre sider, der ikke er mur. Hvad er det størst mulige areal?
+
+**Trin 1: Forstå problemet**
+
+Vi har tre sider af hegn: to sider med længde $x$ (vinkelret på muren) og én side med længde $y$ (parallel med muren). Vi skal maksimere arealet.
+
+**Trin 2: Opstil funktionen**
+
+Betingelse (hegn): $2x + y = 120$, altså $y = 120 - 2x$.
+
+Arealet udtrykkes som funktion af $x$:
+
+$$
+A(x) = x \cdot y = x(120 - 2x) = 120x - 2x^2
+$$
+
+**Trin 3: Definitionsmængde**
+
+Længder skal være positive: $x > 0$ og $y > 0$, dvs. $120 - 2x > 0$, altså $x < 60$.
+
+Definitionsmængde: $0 < x < 60$.
+
+**Trin 4: Differentier og find stationære punkter**
+
+$$
+A'(x) = 120 - 4x
+$$
+
+$$
+A'(x) = 0 \implies 120 - 4x = 0 \implies x = 30
+$$
+
+**Trin 5: Bestem optimum**
+
+Monotoniundersøgelse:
+- For $x < 30$: $A'(x) = 120 - 4x > 0$ → voksende
+- For $x > 30$: $A'(x) = 120 - 4x < 0$ → aftagende
+
+$f'$ skifter fra $+$ til $-$, så $x = 30$ giver et **maksimum**.
+
+$$
+y = 120 - 2 \cdot 30 = 60
+$$
+
+$$
+A(30) = 30 \cdot 60 = 1800 \text{ m}^2
+$$
+
+**Svar:** Det størst mulige areal er **1800 m²** med sidelængderne $x = 30$ m og $y = 60$ m.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Optimering – dåse med mindst materiale ⚡</summary>
+
+**Opgave:** En cylinderformet dåse skal rumme $V = 500$ cm³. Find de dimensioner (radius $r$ og højde $h$) der giver det mindste overfladeareal (mindst materialeforbrug).
+
+**Trin 1:** Vi skal minimere overfladearealet $S$ under betingelsen, at volumen er 500 cm³.
+
+**Trin 2: Opstil funktionen**
+
+Volumen: $V = \pi r^2 h = 500 \implies h = \frac{500}{\pi r^2}$
+
+Overfladeareal (top + bund + side):
+
+$$
+S(r) = 2\pi r^2 + 2\pi r h = 2\pi r^2 + 2\pi r \cdot \frac{500}{\pi r^2} = 2\pi r^2 + \frac{1000}{r}
+$$
+
+**Trin 3:** Definitionsmængde: $r > 0$.
+
+**Trin 4: Differentier**
+
+$$
+S'(r) = 4\pi r - \frac{1000}{r^2}
+$$
+
+Sæt $S'(r) = 0$:
+
+$$
+\begin{aligned}
+4\pi r - \frac{1000}{r^2} &= 0 \\
+4\pi r &= \frac{1000}{r^2} \\
+4\pi r^3 &= 1000 \\
+r^3 &= \frac{1000}{4\pi} = \frac{250}{\pi} \\
+r &= \sqrt[3]{\frac{250}{\pi}} \approx 4{,}30 \text{ cm}
+\end{aligned}
+$$
+
+**Trin 5: Bestem optimum**
+
+For $r < \sqrt[3]{\frac{250}{\pi}}$: $S'(r) < 0$ (aftagende).
+
+For $r > \sqrt[3]{\frac{250}{\pi}}$: $S'(r) > 0$ (voksende).
+
+$f'$ skifter fra $-$ til $+$, så det er et **minimum**. ✅
+
+$$
+h = \frac{500}{\pi r^2} = \frac{500}{\pi \left(\frac{250}{\pi}\right)^{2/3}} \approx 8{,}60 \text{ cm}
+$$
+
+Bemærk at $h \approx 2r$, dvs. højden er omtrent lig diameteren – en harmonisk form.
+
+**Svar:** Dåsen bruger mindst materiale, når $r \approx 4{,}30$ cm og $h \approx 8{,}60$ cm.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Optimering – maksimal omsætning ⚡</summary>
+
+**Opgave:** En virksomhed sælger $q$ enheder til prisen $p(q) = 200 - 2q$ kr. pr. enhed. Find den produktionsmængde, der giver den største omsætning.
+
+**Trin 2: Opstil omsætningsfunktionen**
+
+<Term definition="Den samlede indtægt, dvs. pris gange solgte enheder: O = p · q">Omsætningen</Term> er:
+
+$$
+O(q) = p \cdot q = (200 - 2q) \cdot q = 200q - 2q^2
+$$
+
+**Trin 3:** Definitionsmængde: $q > 0$ og $p > 0$, dvs. $200 - 2q > 0$, altså $0 < q < 100$.
+
+**Trin 4: Differentier**
+
+$$
+O'(q) = 200 - 4q
+$$
+
+$$
+O'(q) = 0 \implies 200 - 4q = 0 \implies q = 50
+$$
+
+**Trin 5: Monotoni**
+
+- For $q < 50$: $O'(q) > 0$ → voksende
+- For $q > 50$: $O'(q) < 0$ → aftagende
+
+$O'$ skifter fra $+$ til $-$, så $q = 50$ giver **maksimal omsætning**.
+
+$$
+O(50) = 200 \cdot 50 - 2 \cdot 50^2 = 10000 - 5000 = 5000 \text{ kr.}
+$$
+
+Prisen er: $p(50) = 200 - 100 = 100$ kr. pr. enhed.
+
+**Svar:** Den største omsætning er **5000 kr.**, opnået ved produktion af **50 enheder** til **100 kr.** pr. stk.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Andenafledede-testen (supplerende metode)
+
+I stedet for at lave en fuld monotoniundersøgelse kan man nogle gange bruge <Term definition="Den afledede af den afledede, f''(x), som fortæller om funktionen er konveks eller konkav">den andenafledede</Term> $f''(x)$ til at klassificere stationære punkter:
+
+Hvis $f'(x_0) = 0$, så gælder:
+
+$$
+f''(x_0) < 0 \implies \text{lokalt maksimum i } x_0
+$$
+
+$$
+f''(x_0) > 0 \implies \text{lokalt minimum i } x_0
+$$
+
+$$
+f''(x_0) = 0 \implies \text{testen er uafgørende (brug monotonilinje)}
+$$
+
+**Intuition:** $f''(x)$ måler, om grafen krummer nedad (konkav, $f'' < 0$) eller opad (konveks, $f'' > 0$). Krummer den nedad i et stationært punkt, er det en bjergtop (maksimum). Krummer den opad, er det en dal (minimum).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Andenafledede-testen ⚡</summary>
+
+**Opgave:** Klassificer de stationære punkter for $f(x) = x^4 - 8x^2 + 3$.
+
+**Find $f'(x)$:**
+
+$$
+f'(x) = 4x^3 - 16x = 4x(x^2 - 4) = 4x(x-2)(x+2)
+$$
+
+**Stationære punkter:** $f'(x) = 0$ giver $x = 0$, $x = 2$, $x = -2$.
+
+**Find $f''(x)$:**
+
+$$
+f''(x) = 12x^2 - 16
+$$
+
+**Evaluer:**
+
+$$
+\begin{aligned}
+f''(0) &= 12 \cdot 0 - 16 = -16 < 0 &\implies \text{lokalt maksimum} \\
+f''(2) &= 12 \cdot 4 - 16 = 32 > 0 &\implies \text{lokalt minimum} \\
+f''(-2) &= 12 \cdot 4 - 16 = 32 > 0 &\implies \text{lokalt minimum}
+\end{aligned}
+$$
+
+**Funktionsværdier:**
+
+$$
+\begin{aligned}
+f(0) &= 0 - 0 + 3 = 3 \\
+f(2) &= 16 - 32 + 3 = -13 \\
+f(-2) &= 16 - 32 + 3 = -13
+\end{aligned}
+$$
+
+**Konklusion:**
+- Lokalt maksimum i $(0, 3)$
+- Lokale minima i $(2, -13)$ og $(-2, -13)$
+
+Da $f(x) = x^4 - 8x^2 + 3$ er et fjerdegradspolynomium med positiv førstekoefficient, er de lokale minima også **globale minima**.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1: Monotoniforhold**
+
+Bestem monotoniforholdene for $f(x) = x^3 - 12x + 5$. Angiv de intervaller, hvor $f$ er voksende hhv. aftagende.
+
+**Opgave 2: Ekstrema**
+
+Find og klassificer alle stationære punkter for $g(x) = 2x^3 - 9x^2 + 12x - 4$.
+
+**Opgave 3: Globale ekstrema**
+
+Find det globale maksimum og minimum for $f(x) = x^3 - 3x^2 + 2$ i intervallet $[-1, 4]$.
+
+**Opgave 4: Andenafledede-testen**
+
+Brug andenafledede-testen til at klassificere de stationære punkter for $h(x) = -x^4 + 4x^2$.
+
+**Opgave 5: Optimering – rektangel**
+
+Et rektangel har omkreds 40 cm. Find de sidelængder, der giver det størst mulige areal. Opstil arealfunktionen, differentier, og vis at det er et maksimum.
+
+**Opgave 6: Optimering – kasse uden låg**
+
+Fra et kvadratisk stykke pap med sidelængde 24 cm klippes der lige store kvadrater (med sidelængde $x$) af i hvert hjørne, og siderne foldes op til en kasse uden låg. Bestem $x$, så rumfanget af kassen bliver størst muligt.
+
+**Opgave 7: Vandret vendetangent**
+
+Vis, at $f(x) = x^5$ har et stationært punkt i $x = 0$, og at det hverken er maksimum eller minimum.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="optmon-quiz-1"
+  question="Hvad kan man konkludere, hvis $f'(x) > 0$ i et interval?"
+  options={[
+    "Funktionen har et maksimum i intervallet",
+    "Funktionen er aftagende i intervallet",
+    "Funktionen er voksende i intervallet",
+    "Funktionen er konstant i intervallet"
+  ]}
+  correctIndex={2}
+  hint="Positiv afledet betyder positiv hældning – grafen peger opad."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="optmon-quiz-2"
+  question="Hvornår har en funktion et lokalt maksimum i $x_0$?"
+  options={[
+    "Når $f'(x_0) = 0$ og $f'$ skifter fra negativ til positiv",
+    "Når $f'(x_0) = 0$ og $f'$ skifter fra positiv til negativ",
+    "Når $f'(x_0) > 0$",
+    "Når $f(x_0)$ er det største tal i hele definitionsmængden"
+  ]}
+  correctIndex={1}
+  hint="Et maksimum er en bjergtop: funktionen vokser op til toppen og aftager bagefter."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="optmon-quiz-3"
+  question="I en optimeringsopgave med et lukket interval $[a, b]$, hvor kan det globale maksimum ligge?"
+  options={[
+    "Kun i stationære punkter",
+    "Kun i endepunkterne",
+    "I stationære punkter eller i endepunkterne",
+    "Kun hvor $f''(x) < 0$"
+  ]}
+  correctIndex={2}
+  hint="Husk at tjekke ALLE kandidater: stationære punkter OG endepunkter."
+/>

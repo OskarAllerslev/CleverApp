@@ -1,32 +1,437 @@
 ---
-title: "Potenser og rødder"
+title: "Potens og rod"
 level: "Matematik C"
-order: 4
-description: "Potensregnereglerne gør det muligt at forenkle komplekse udtryk med eksponenter. Rødder er den modsa..."
+order: 3
+description: "Lær potensregneregler, kvadratrødder og n'te rødder – og bliv klar til eksponentiel vækst. Optjen +150 XP!"
 ---
 
-# Potenser og rødder
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Potenser og rødder** på Matematik C-niveau.
+# Potens og rod 🎯
 
-## Introduktion
+Potenser og rødder er matematikerens turbo-knapper! I stedet for at skrive $2 \cdot 2 \cdot 2 \cdot 2 \cdot 2$ kan vi bare skrive $2^5$. Og i stedet for at spørge "hvilket tal ganget med sig selv giver 25?" skriver vi $\sqrt{25}$. I dette kapitel lærer du alle de vigtige regneregler, der gør dig til en potens-ninja. 🥷
 
-Potensregnereglerne gør det muligt at forenkle komplekse udtryk med eksponenter. Rødder er den modsatte operation af potenser.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Potenser – definition og grundregler
+
+En <Term definition="Et tal opløftet i en eksponent: a^n = a·a·a·...·a (n faktorer). Her er a grundtallet og n eksponenten.">potens</Term> er en forkortelse for gentagen multiplikation:
 
 $$
-a^n \cdot a^m = a^{n+m}, \quad \sqrt[n]{a} = a^{\frac{1}{n}}
+a^n = \underbrace{a \cdot a \cdot a \cdots a}_{n \text{ faktorer}}
 $$
 
-## Hvad skal vi lære?
+Her er $a$ <Term definition="Det tal, der ganges med sig selv i en potens.">grundtallet</Term> og $n$ er <Term definition="Tallet der angiver, hvor mange gange grundtallet ganges med sig selv.">eksponenten</Term>.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**De vigtigste potensregneregler:**
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+| Regel | Formel | Eksempel |
+|-------|--------|----------|
+| Multiplikation af potenser (samme grundtal) | $a^m \cdot a^n = a^{m+n}$ | $2^3 \cdot 2^4 = 2^7 = 128$ |
+| Division af potenser (samme grundtal) | $\frac{a^m}{a^n} = a^{m-n}$ | $\frac{5^6}{5^2} = 5^4 = 625$ |
+| Potens af potens | $(a^m)^n = a^{m \cdot n}$ | $(3^2)^4 = 3^8 = 6561$ |
+| Potens af et produkt | $(a \cdot b)^n = a^n \cdot b^n$ | $(2 \cdot 5)^3 = 2^3 \cdot 5^3 = 1000$ |
+| Potens af en brøk | $\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$ | $\left(\frac{3}{4}\right)^2 = \frac{9}{16}$ |
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+**Hvorfor virker $a^m \cdot a^n = a^{m+n}$?**
+
+$$
+a^m \cdot a^n = \underbrace{a \cdot a \cdots a}_{m \text{ stk.}} \cdot \underbrace{a \cdot a \cdots a}_{n \text{ stk.}} = \underbrace{a \cdot a \cdots a}_{m+n \text{ stk.}} = a^{m+n}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Potensregneregler i brug ⚡</summary>
+
+**Forenkl følgende udtryk:**
+
+$$
+\frac{3^5 \cdot 3^2}{3^4}
+$$
+
+**Trin 1: Multiplikationsreglen i tælleren**
+
+$$
+\frac{3^{5+2}}{3^4} = \frac{3^7}{3^4}
+$$
+
+**Trin 2: Divisionsreglen**
+
+$$
+3^{7-4} = 3^3
+$$
+
+**Trin 3: Beregn**
+
+$$
+3^3 = 27
+$$
+
+**Svar:** $\frac{3^5 \cdot 3^2}{3^4} = 27$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Nul- og negative eksponenter
+
+**Nulte potens:**
+
+Enhver potens med eksponenten 0 er lig 1 (undtagen $0^0$, som er udefineret):
+
+$$
+a^0 = 1 \quad \text{for } a \neq 0
+$$
+
+**Hvorfor?** Vi bruger divisionsreglen:
+
+$$
+a^0 = a^{n-n} = \frac{a^n}{a^n} = 1
+$$
+
+**Negative eksponenter:**
+
+En negativ eksponent betyder "tag den reciprokke":
+
+$$
+a^{-n} = \frac{1}{a^n} \quad \text{for } a \neq 0
+$$
+
+**Hvorfor?** Igen fra divisionsreglen:
+
+$$
+a^{-n} = a^{0-n} = \frac{a^0}{a^n} = \frac{1}{a^n}
+$$
+
+**Eksempler:**
+
+$$
+5^0 = 1 \qquad 2^{-3} = \frac{1}{2^3} = \frac{1}{8} \qquad \left(\frac{2}{3}\right)^{-2} = \left(\frac{3}{2}\right)^2 = \frac{9}{4}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Negative eksponenter ⚡</summary>
+
+**Skriv uden negative eksponenter og beregn:**
+
+a) $4^{-2}$
+
+$$
+4^{-2} = \frac{1}{4^2} = \frac{1}{16}
+$$
+
+b) $\left(\frac{1}{3}\right)^{-3}$
+
+$$
+\left(\frac{1}{3}\right)^{-3} = \left(\frac{3}{1}\right)^3 = 3^3 = 27
+$$
+
+c) $2^3 \cdot 2^{-5}$
+
+$$
+2^3 \cdot 2^{-5} = 2^{3+(-5)} = 2^{-2} = \frac{1}{2^2} = \frac{1}{4}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kvadratrødder og n'te rødder
+
+<Term definition="Kvadratroden af a er det ikke-negative tal, der ganget med sig selv giver a. Skrives √a.">Kvadratroden</Term> af et tal $a$ er det ikke-negative tal, der ganget med sig selv giver $a$:
+
+$$
+\sqrt{a} = b \iff b^2 = a \quad \text{og } b \geq 0
+$$
+
+Eksempel: $\sqrt{25} = 5$ fordi $5^2 = 25$.
+
+**Den <Term definition="Den n'te rod af a er det tal, der opløftet i n'te giver a. Skrives som den n'te rod af a.">n'te rod</Term>** generaliserer kvadratroden:
+
+$$
+\sqrt[n]{a} = a^{1/n}
+$$
+
+Eksempler: $\sqrt[3]{8} = 2$ (fordi $2^3 = 8$) og $\sqrt[4]{81} = 3$ (fordi $3^4 = 81$).
+
+**Regneregler for rødder:**
+
+| Regel | Formel |
+|-------|--------|
+| Rod af et produkt | $\sqrt{a \cdot b} = \sqrt{a} \cdot \sqrt{b}$ |
+| Rod af en brøk | $\sqrt{\frac{a}{b}} = \frac{\sqrt{a}}{\sqrt{b}}$ |
+| Rod som potens | $\sqrt[n]{a} = a^{1/n}$ |
+| Rod af potens | $\sqrt[n]{a^m} = a^{m/n}$ |
+
+**Vigtig sammenhæng:** Rødder er det **omvendte** af potenser. At tage kvadratroden er det modsatte af at opløfte i anden.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Forenkling med rodregler ⚡</summary>
+
+**Forenkl:**
+
+$$
+\sqrt{72}
+$$
+
+**Trin 1: Faktoriser 72 så vi finder et perfekt kvadrat**
+
+$$
+72 = 36 \cdot 2
+$$
+
+**Trin 2: Brug reglen $\sqrt{a \cdot b} = \sqrt{a} \cdot \sqrt{b}$**
+
+$$
+\sqrt{72} = \sqrt{36 \cdot 2} = \sqrt{36} \cdot \sqrt{2} = 6\sqrt{2}
+$$
+
+**Svar:** $\sqrt{72} = 6\sqrt{2}$
+
+---
+
+**Forenkl:**
+
+$$
+\sqrt{50} + \sqrt{18}
+$$
+
+**Trin 1: Forenkl hver rod**
+
+$$
+\sqrt{50} = \sqrt{25 \cdot 2} = 5\sqrt{2}
+$$
+
+$$
+\sqrt{18} = \sqrt{9 \cdot 2} = 3\sqrt{2}
+$$
+
+**Trin 2: Læg sammen (ens led)**
+
+$$
+5\sqrt{2} + 3\sqrt{2} = 8\sqrt{2}
+$$
+
+**Svar:** $\sqrt{50} + \sqrt{18} = 8\sqrt{2}$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Rationalisering af nævneren
+
+At <Term definition="At fjerne rødder fra nævneren i en brøk ved at gange tæller og nævner med et passende udtryk.">rationalisere</Term> nævneren betyder at omskrive en brøk, så der ikke er nogen rødder i nævneren.
+
+**Simpel rationalisering:**
+
+Hvis nævneren er $\sqrt{a}$, ganger vi tæller og nævner med $\sqrt{a}$:
+
+$$
+\frac{b}{\sqrt{a}} = \frac{b}{\sqrt{a}} \cdot \frac{\sqrt{a}}{\sqrt{a}} = \frac{b\sqrt{a}}{a}
+$$
+
+**Rationalisering med konjugat:**
+
+Hvis nævneren er $\sqrt{a} + \sqrt{b}$, ganger vi med <Term definition="Det konjugerede udtryk – hvor vi skifter fortegn mellem to led. Konjugatet af (√a + √b) er (√a − √b).">konjugatet</Term> $\sqrt{a} - \sqrt{b}$:
+
+$$
+\frac{c}{\sqrt{a} + \sqrt{b}} \cdot \frac{\sqrt{a} - \sqrt{b}}{\sqrt{a} - \sqrt{b}} = \frac{c(\sqrt{a} - \sqrt{b})}{a - b}
+$$
+
+Dette virker fordi $(\sqrt{a} + \sqrt{b})(\sqrt{a} - \sqrt{b}) = a - b$ (tredje kvadratsætning).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Rationalisering ⚡</summary>
+
+**a) Rationaliser nævneren i:**
+
+$$
+\frac{6}{\sqrt{3}}
+$$
+
+Vi ganger tæller og nævner med $\sqrt{3}$:
+
+$$
+\frac{6}{\sqrt{3}} = \frac{6 \cdot \sqrt{3}}{\sqrt{3} \cdot \sqrt{3}} = \frac{6\sqrt{3}}{3} = 2\sqrt{3}
+$$
+
+**b) Rationaliser nævneren i:**
+
+$$
+\frac{4}{\sqrt{5} - \sqrt{3}}
+$$
+
+Vi ganger med konjugatet $\sqrt{5} + \sqrt{3}$:
+
+$$
+\begin{aligned}
+\frac{4}{\sqrt{5} - \sqrt{3}} \cdot \frac{\sqrt{5} + \sqrt{3}}{\sqrt{5} + \sqrt{3}} &= \frac{4(\sqrt{5} + \sqrt{3})}{(\sqrt{5})^2 - (\sqrt{3})^2} \\
+&= \frac{4(\sqrt{5} + \sqrt{3})}{5 - 3} \\
+&= \frac{4(\sqrt{5} + \sqrt{3})}{2} \\
+&= 2(\sqrt{5} + \sqrt{3}) \\
+&= 2\sqrt{5} + 2\sqrt{3}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Potenser med brøk-eksponenter ⚡</summary>
+
+**Forenkl:**
+
+$$
+8^{2/3}
+$$
+
+**Trin 1: Omskriv 8 som en potens**
+
+$$
+8 = 2^3
+$$
+
+**Trin 2: Brug potens-af-potens-reglen**
+
+$$
+8^{2/3} = (2^3)^{2/3} = 2^{3 \cdot \frac{2}{3}} = 2^2 = 4
+$$
+
+**Alternativt:**
+
+$$
+8^{2/3} = \left(\sqrt[3]{8}\right)^2 = 2^2 = 4
+$$
+
+**Svar:** $8^{2/3} = 4$
+
+---
+
+**Forenkl:**
+
+$$
+\frac{x^{3/2} \cdot x^{1/2}}{x^{-1}}
+$$
+
+**Trin 1: Multiplikationsreglen i tælleren**
+
+$$
+\frac{x^{3/2 + 1/2}}{x^{-1}} = \frac{x^2}{x^{-1}}
+$$
+
+**Trin 2: Divisionsreglen**
+
+$$
+x^{2-(-1)} = x^{2+1} = x^3
+$$
+
+**Svar:** $\frac{x^{3/2} \cdot x^{1/2}}{x^{-1}} = x^3$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn uden lommeregner:
+
+a) $2^5$ &emsp; b) $(-3)^3$ &emsp; c) $10^0$ &emsp; d) $5^{-2}$
+
+**Opgave 2:** Forenkl med potensregneregler (skriv som én potens):
+
+a) $7^3 \cdot 7^5$
+
+b) $\frac{4^9}{4^6}$
+
+c) $(2^3)^4$
+
+d) $\frac{a^5 \cdot a^{-2}}{a^4}$
+
+**Opgave 3:** Forenkl rødderne:
+
+a) $\sqrt{48}$ &emsp; b) $\sqrt{200}$ &emsp; c) $\sqrt{12} + \sqrt{27}$
+
+**Opgave 4:** Rationaliser nævneren:
+
+a) $\frac{10}{\sqrt{5}}$
+
+b) $\frac{3}{\sqrt{7} + 2}$
+
+**Opgave 5:** Beregn:
+
+a) $27^{1/3}$ &emsp; b) $16^{3/4}$ &emsp; c) $\left(\frac{1}{4}\right)^{-1/2}$
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="potens-quiz-1"
+  question="Hvad er $2^3 \cdot 2^4$?"
+  options={[
+    "$2^{12}$",
+    "$4^7$",
+    "$2^7$",
+    "$2^{7/12}$"
+  ]}
+  correctIndex={2}
+  hint="Ved multiplikation af potenser med samme grundtal lægges eksponenterne sammen."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="potens-quiz-2"
+  question="Hvad er $5^{-2}$?"
+  options={[
+    "$-25$",
+    "$-10$",
+    "$\\frac{1}{25}$",
+    "$\\frac{1}{10}$"
+  ]}
+  correctIndex={2}
+  hint="En negativ eksponent betyder 'tag den reciprokke': $a^{-n} = \\frac{1}{a^n}$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="potens-quiz-3"
+  question="Hvad er $\sqrt{75}$ forenklet?"
+  options={[
+    "$3\\sqrt{5}$",
+    "$5\\sqrt{3}$",
+    "$15\\sqrt{5}$",
+    "$25\\sqrt{3}$"
+  ]}
+  correctIndex={1}
+  hint="Faktoriser 75 = 25·3 og brug at $\\sqrt{25} = 5$."
+/>

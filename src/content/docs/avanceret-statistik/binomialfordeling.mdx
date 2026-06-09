@@ -2,31 +2,567 @@
 title: "Binomialfordeling"
 level: "Matematik B"
 order: 1
-description: "Binomialfordelingen beskriver sandsynligheden for at få præcis r succeser i n uafhængige forsøg, hvo..."
+description: "Mestr binomialfordelingen – fra Bernoulli-forsøg til binomialtest. Optjen +150 XP!"
 ---
 
-# Binomialfordeling
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Binomialfordeling** på Matematik B-niveau.
+# Binomialfordeling 🎯
 
-## Introduktion
+Forestil dig, at du kaster en mønt 10 gange og tæller antallet af "plat". Eller at du gætter på 20 multiple-choice-spørgsmål og tæller, hvor mange du rammer rigtigt. I begge tilfælde gentager du det *samme* forsøg flere gange og tæller *succeser*. Det er præcis det, binomialfordelingen beskriver – og den er dit stærkeste værktøj, når du skal beregne sandsynligheder i denne type situationer.
 
-Binomialfordelingen beskriver sandsynligheden for at få præcis r succeser i n uafhængige forsøg, hvor sandsynligheden for succes i hvert forsøg er p.
+Lad os bygge forståelsen op trin for trin – fra det enkelte forsøg til den fulde fordeling. 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Bernoulli-forsøg
+
+Et <Term definition="Et forsøg med præcis to mulige udfald: succes og fiasko.">Bernoulli-forsøg</Term> er den simpleste byggesten i sandsynlighedsregning. Det er et forsøg med præcis **to mulige udfald**:
+
+- **Succes** (det udfald vi er interesserede i) – med sandsynlighed $p$
+- **Fiasko** (det andet udfald) – med sandsynlighed $1-p$
+
+Vi kalder ofte $1-p$ for $q$, så $q = 1-p$.
+
+**Eksempler på Bernoulli-forsøg:**
+
+| Forsøg | Succes | Fiasko | $p$ |
+|--------|--------|--------|-----|
+| Møntkast | Plat | Krone | $0{,}5$ |
+| Terningkast (slå 6) | Slår 6 | Slår ikke 6 | $\frac{1}{6}$ |
+| Multiple choice (4 valg) | Rigtigt svar | Forkert svar | $0{,}25$ |
+| Kvalitetskontrol | Defekt produkt | OK produkt | $0{,}02$ |
+
+Et enkelt Bernoulli-forsøg har:
+- **Middelværdi:** $\mu = p$
+- **Varians:** $\sigma^2 = p(1-p) = pq$
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fra Bernoulli til Binomial
+
+Når vi gentager et Bernoulli-forsøg $n$ gange **uafhængigt** af hinanden, og vi tæller antallet af succeser $X$, så følger $X$ en <Term definition="En diskret sandsynlighedsfordeling, der beskriver antallet af succeser i n uafhængige Bernoulli-forsøg.">binomialfordeling</Term>.
+
+Vi skriver:
 
 $$
-P(X = r) = K(n, r) \cdot p^r \cdot (1 - p)^{n - r}
+X \sim b(n, p)
 $$
 
-## Hvad skal vi lære?
+og læser det som: "$X$ er binomialfordelt med $n$ forsøg og succesandsynlighed $p$".
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**De fire betingelser** for en binomialfordeling:
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+1. **Fast antal forsøg:** Vi udfører præcis $n$ forsøg.
+2. **To udfald:** Hvert forsøg har kun to mulige udfald (succes/fiasko).
+3. **Konstant sandsynlighed:** Sandsynligheden $p$ for succes er den **samme** i hvert forsøg.
+4. **Uafhængighed:** Udfaldene af de enkelte forsøg påvirker ikke hinanden.
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+Den stokastiske variabel $X$ kan antage værdierne $0, 1, 2, \ldots, n$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Er det binomialfordelt? ⚡</summary>
+
+**Afgør om følgende situationer kan beskrives med en binomialfordeling:**
+
+**Situation 1:** Du kaster en terning 12 gange og tæller antallet af 6'ere.
+
+✅ **Ja!** Her er $n=12$, succes = "slå 6", $p = \frac{1}{6}$, og kastene er uafhængige. Alle fire betingelser er opfyldt, så $X \sim b\!\left(12, \frac{1}{6}\right)$.
+
+**Situation 2:** Du trækker 5 kort fra en bunke på 52 kort (uden tilbagelægning) og tæller antallet af esser.
+
+❌ **Nej!** Sandsynligheden ændrer sig efter hvert træk (uden tilbagelægning), så betingelse 3 og 4 er ikke opfyldt. Her ville man i stedet bruge den hypergeometriske fordeling.
+
+**Situation 3:** En fabrik producerer pærer, hvor 3% er defekte. Du tester 50 tilfældigt udvalgte pærer.
+
+✅ **Ja!** (tilnærmet) Her er $n=50$, $p=0{,}03$. Selvom vi teknisk set trækker uden tilbagelægning, er produktionen så stor, at sandsynligheden næsten er konstant. Vi bruger $X \sim b(50;\, 0{,}03)$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Binomialkoefficienten
+
+Før vi kan beregne sandsynligheder, har vi brug for at tælle: **På hvor mange måder kan vi vælge $k$ succeser blandt $n$ forsøg?**
+
+Svaret er <Term definition="Antallet af måder at vælge k elementer ud af n, uden hensyn til rækkefølge. Skrives C(n,k) eller 'n over k'.">binomialkoefficienten</Term>, som skrives:
+
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
+hvor $n!$ (udtales "$n$ fakultet") er produktet af alle positive hele tal op til $n$:
+
+$$
+n! = n \cdot (n-1) \cdot (n-2) \cdots 2 \cdot 1
+$$
+
+Vi definerer desuden $0! = 1$.
+
+**Vigtigt:** Binomialkoefficienten $\binom{n}{k}$ angiver antallet af kombinationer – altså antallet af måder at vælge $k$ elementer ud af $n$ **uden hensyn til rækkefølge**.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af binomialkoefficienter ⚡</summary>
+
+**Beregn $\binom{5}{2}$:**
+
+$$
+\binom{5}{2} = \frac{5!}{2!(5-2)!} = \frac{5!}{2! \cdot 3!}
+$$
+
+Vi udregner fakulteterne:
+
+$$
+\begin{aligned}
+5! &= 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120 \\
+2! &= 2 \cdot 1 = 2 \\
+3! &= 3 \cdot 2 \cdot 1 = 6
+\end{aligned}
+$$
+
+Altså:
+
+$$
+\binom{5}{2} = \frac{120}{2 \cdot 6} = \frac{120}{12} = 10
+$$
+
+Der er altså 10 måder at vælge 2 elementer ud af 5.
+
+**Beregn $\binom{8}{3}$:**
+
+$$
+\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = \frac{336}{6} = 56
+$$
+
+Her brugte vi et smart trick: vi behøver kun at udregne de øverste faktorer, da resten forkortes med $5!$ i nævneren.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sandsynlighedsfunktionen $P(X=k)$
+
+Nu kan vi samle det hele! Sandsynligheden for at opnå **præcis** $k$ succeser i $n$ uafhængige Bernoulli-forsøg er:
+
+$$
+P(X=k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}
+$$
+
+Lad os forstå de tre faktorer:
+
+| Faktor | Betydning |
+|--------|-----------|
+| $\binom{n}{k}$ | Antal måder at placere $k$ succeser i $n$ forsøg |
+| $p^k$ | Sandsynlighed for $k$ succeser |
+| $(1-p)^{n-k}$ | Sandsynlighed for $(n-k)$ fiaskoer |
+
+Formlen giver altså: **(antal gunstige rækkefølger) × (sandsynlighed for én bestemt rækkefølge)**.
+
+For at beregne $P(X \leq k)$ (den kumulative sandsynlighed) summerer vi:
+
+$$
+P(X \leq k) = \sum_{i=0}^{k} \binom{n}{i} \cdot p^i \cdot (1-p)^{n-i}
+$$
+
+I praksis bruger vi tabeller eller CAS-værktøjer til dette.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Møntkast – beregning af P(X=k) ⚡</summary>
+
+**Opgave:** Du kaster en fair mønt 6 gange. Hvad er sandsynligheden for at få **præcis 4 plat**?
+
+Her er $n=6$, $p=0{,}5$ (plat), og vi søger $P(X=4)$.
+
+**Trin 1:** Beregn binomialkoefficienten
+
+$$
+\binom{6}{4} = \frac{6!}{4! \cdot 2!} = \frac{6 \cdot 5}{2 \cdot 1} = 15
+$$
+
+**Trin 2:** Beregn sandsynlighedsfaktorerne
+
+$$
+p^k = 0{,}5^4 = 0{,}0625
+$$
+
+$$
+(1-p)^{n-k} = 0{,}5^{6-4} = 0{,}5^2 = 0{,}25
+$$
+
+**Trin 3:** Gang det hele sammen
+
+$$
+\begin{aligned}
+P(X=4) &= \binom{6}{4} \cdot 0{,}5^4 \cdot 0{,}5^2 \\
+&= 15 \cdot 0{,}0625 \cdot 0{,}25 \\
+&= 15 \cdot 0{,}015625 \\
+&= 0{,}234375
+\end{aligned}
+$$
+
+Sandsynligheden for præcis 4 plat i 6 kast er ca. **23,4%**.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Multiple choice-gætteri ⚡</summary>
+
+**Opgave:** En test har 10 spørgsmål med 4 svarmuligheder hver. Du gætter tilfældigt. Hvad er sandsynligheden for at ramme **mindst 5 rigtige**?
+
+Her er $n=10$, $p=0{,}25$ (tilfældigt gæt), og vi søger $P(X \geq 5)$.
+
+Vi bruger komplementet:
+
+$$
+P(X \geq 5) = 1 - P(X \leq 4)
+$$
+
+Vi beregner $P(X=k)$ for $k = 0, 1, 2, 3, 4$:
+
+$$
+\begin{aligned}
+P(X=0) &= \binom{10}{0} \cdot 0{,}25^0 \cdot 0{,}75^{10} = 1 \cdot 1 \cdot 0{,}0563 = 0{,}0563 \\
+P(X=1) &= \binom{10}{1} \cdot 0{,}25^1 \cdot 0{,}75^{9} = 10 \cdot 0{,}25 \cdot 0{,}0751 = 0{,}1877 \\
+P(X=2) &= \binom{10}{2} \cdot 0{,}25^2 \cdot 0{,}75^{8} = 45 \cdot 0{,}0625 \cdot 0{,}1001 = 0{,}2816 \\
+P(X=3) &= \binom{10}{3} \cdot 0{,}25^3 \cdot 0{,}75^{7} = 120 \cdot 0{,}0156 \cdot 0{,}1335 = 0{,}2503 \\
+P(X=4) &= \binom{10}{4} \cdot 0{,}25^4 \cdot 0{,}75^{6} = 210 \cdot 0{,}0039 \cdot 0{,}1780 = 0{,}1460
+\end{aligned}
+$$
+
+$$
+P(X \leq 4) = 0{,}0563 + 0{,}1877 + 0{,}2816 + 0{,}2503 + 0{,}1460 = 0{,}9219
+$$
+
+$$
+P(X \geq 5) = 1 - 0{,}9219 = 0{,}0781
+$$
+
+Sandsynligheden for at gætte mindst 5 rigtige er ca. **7,8%**. Tilfældigt gætteri betaler sig altså sjældent! 😅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Middelværdi og varians
+
+Når $X \sim b(n, p)$, kan vi beregne fordelingsparametre med elegante formler:
+
+**Middelværdi** (det forventede antal succeser):
+
+$$
+\mu = E(X) = n \cdot p
+$$
+
+**Varians** (et mål for spredningen):
+
+$$
+\sigma^2 = \text{Var}(X) = n \cdot p \cdot (1-p)
+$$
+
+**Spredning** (standardafvigelse):
+
+$$
+\sigma = \sqrt{n \cdot p \cdot (1-p)}
+$$
+
+**Hvorfor disse formler giver mening:**
+
+Middelværdien $np$ er intuitiv – hvis du kaster en terning 60 gange og håber på 6'ere, forventer du $60 \cdot \frac{1}{6} = 10$ styk.
+
+Variansen $np(1-p)$ er størst, når $p = 0{,}5$ (maks usikkerhed) og mindst, når $p$ er tæt på 0 eller 1 (resultatet er næsten sikkert).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Middelværdi og varians i praksis ⚡</summary>
+
+**Opgave:** En medicin helbreder 70% af patienterne. 20 patienter behandles. Bestem middelværdi, varians og spredning for antallet af helbredte.
+
+Her er $X \sim b(20;\, 0{,}70)$.
+
+**Middelværdi:**
+
+$$
+\mu = n \cdot p = 20 \cdot 0{,}70 = 14
+$$
+
+Vi forventer altså, at 14 ud af 20 patienter helbredes.
+
+**Varians:**
+
+$$
+\sigma^2 = n \cdot p \cdot (1-p) = 20 \cdot 0{,}70 \cdot 0{,}30 = 4{,}2
+$$
+
+**Spredning:**
+
+$$
+\sigma = \sqrt{4{,}2} \approx 2{,}05
+$$
+
+Det typiske antal helbredte ligger altså i intervallet $14 \pm 2 \cdot 2{,}05$, dvs. mellem ca. 10 og 18 patienter.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Bevis: Udledning af middelværdien $\mu = np$ ⚡</summary>
+
+Vi kan se $X$ som en sum af $n$ uafhængige Bernoulli-variable $X_1, X_2, \ldots, X_n$, hvor:
+
+$$
+X_i = \begin{cases} 1 & \text{hvis forsøg } i \text{ er succes} \\ 0 & \text{hvis forsøg } i \text{ er fiasko} \end{cases}
+$$
+
+Da er $X = X_1 + X_2 + \cdots + X_n$.
+
+For hver $X_i$ gælder:
+
+$$
+E(X_i) = 1 \cdot p + 0 \cdot (1-p) = p
+$$
+
+Ved lineariteten af forventningsværdien:
+
+$$
+\begin{aligned}
+E(X) &= E(X_1 + X_2 + \cdots + X_n) \\
+&= E(X_1) + E(X_2) + \cdots + E(X_n) \\
+&= \underbrace{p + p + \cdots + p}_{n \text{ led}} \\
+&= n \cdot p
+\end{aligned}
+$$
+
+Tilsvarende kan variansen udledes ved brug af uafhængigheden:
+
+$$
+\text{Var}(X) = \text{Var}(X_1) + \cdots + \text{Var}(X_n) = n \cdot p(1-p)
+$$
+
+da $\text{Var}(X_i) = E(X_i^2) - (E(X_i))^2 = p - p^2 = p(1-p)$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Binomialtest
+
+En <Term definition="En statistisk test, der afgør, om en observeret succesandsynlighed afviger signifikant fra en forventet værdi.">binomialtest</Term> bruges til at undersøge, om en observeret succesandsynlighed afviger signifikant fra en antaget (forventet) sandsynlighed $p_0$.
+
+**Fremgangsmåde for en binomialtest:**
+
+**1. Opstil hypoteser:**
+- $H_0$: $p = p_0$ (nulhypotesen – den værdi vi tester imod)
+- $H_1$: $p \neq p_0$ (tosidet test) eller $p > p_0$ / $p < p_0$ (ensidet test)
+
+**2. Vælg signifikansniveau:**
+- Typisk $\alpha = 0{,}05$ (5%)
+
+**3. Beregn teststørrelsen:**
+- Observér antallet af succeser $k$ i $n$ forsøg.
+- Beregn $P(X \geq k)$ eller $P(X \leq k)$ under $H_0$, dvs. med $X \sim b(n, p_0)$.
+
+**4. Beslutningsregel:**
+- Hvis $p\text{-værdi} \leq \alpha$: **Forkast** $H_0$ – resultatet er statistisk signifikant.
+- Hvis $p\text{-værdi} > \alpha$: **Forkast ikke** $H_0$ – der er ikke tilstrækkelig evidens.
+
+$p$-værdien er sandsynligheden for at observere et resultat **mindst lige så ekstremt** som det observerede, givet at $H_0$ er sand.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Binomialtest – er terningen fair? ⚡</summary>
+
+**Opgave:** Du kaster en terning 60 gange og observerer 18 seksere. Er terningen fair? (Brug $\alpha = 0{,}05$)
+
+**Trin 1: Hypoteser**
+
+$$
+H_0: p = \frac{1}{6} \approx 0{,}1667 \quad \text{(fair terning)}
+$$
+
+$$
+H_1: p > \frac{1}{6} \quad \text{(terningen favoriserer 6)}
+$$
+
+Vi bruger en ensidet test, da vi mistænker for *mange* 6'ere.
+
+**Trin 2: Signifikansniveau**
+
+$$
+\alpha = 0{,}05
+$$
+
+**Trin 3: Under $H_0$ er $X \sim b(60;\, 0{,}1667)$**
+
+Forventet antal: $\mu = 60 \cdot \frac{1}{6} = 10$
+
+Vi observerede $k = 18$, som er langt over forventningen.
+
+Vi beregner $p$-værdien:
+
+$$
+p\text{-værdi} = P(X \geq 18) = \sum_{i=18}^{60} \binom{60}{i} \cdot 0{,}1667^i \cdot 0{,}8333^{60-i}
+$$
+
+Med CAS finder vi: $p\text{-værdi} \approx 0{,}0043$.
+
+**Trin 4: Konklusion**
+
+$$
+p\text{-værdi} = 0{,}0043 < 0{,}05 = \alpha
+$$
+
+Vi **forkaster** $H_0$. Der er statistisk signifikant evidens for, at terningen ikke er fair – den giver for mange 6'ere. 🎲
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Binomialtest – virker medicinen? ⚡</summary>
+
+**Opgave:** En medicin påstås at virke i 80% af tilfældene. I en undersøgelse af 25 patienter virker den kun på 16. Er der grund til at tvivle på påstanden? (Brug $\alpha = 0{,}05$)
+
+**Trin 1: Hypoteser**
+
+$$
+H_0: p = 0{,}80 \quad \text{(medicinen virker som påstået)}
+$$
+
+$$
+H_1: p < 0{,}80 \quad \text{(medicinen virker dårligere)}
+$$
+
+**Trin 2:** $\alpha = 0{,}05$
+
+**Trin 3: Under $H_0$ er $X \sim b(25;\, 0{,}80)$**
+
+Forventet antal: $\mu = 25 \cdot 0{,}80 = 20$
+
+Observeret: $k = 16$
+
+$$
+p\text{-værdi} = P(X \leq 16) = \sum_{i=0}^{16} \binom{25}{i} \cdot 0{,}80^i \cdot 0{,}20^{25-i}
+$$
+
+Med CAS finder vi: $p\text{-værdi} \approx 0{,}0468$.
+
+**Trin 4: Konklusion**
+
+$$
+p\text{-værdi} = 0{,}0468 < 0{,}05 = \alpha
+$$
+
+Vi **forkaster** $H_0$. Der er statistisk signifikant evidens for, at medicinen virker dårligere end påstået. Dog er $p$-værdien tæt på grænsen, så resultatet bør tolkes med forsigtighed.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1: Grundlæggende beregning**
+En skydespiller rammer målet med sandsynlighed $p = 0{,}40$. Hun skyder 8 gange. Beregn sandsynligheden for, at hun rammer præcis 3 gange.
+
+**Opgave 2: Middelværdi og varians**
+I en by er 15% af alle biler elbiler. En trafiktæller registrerer 40 tilfældige biler. Lad $X$ betegne antallet af elbiler.
+- a) Bestem middelværdi og spredning for $X$.
+- b) Beregn $P(X = 6)$.
+- c) Beregn $P(X \geq 10)$ med CAS.
+
+**Opgave 3: Kvalitetskontrol**
+En fabrik producerer chips, og 5% er defekte. Et parti på 100 chips kontrolleres.
+- a) Beregn det forventede antal defekte chips.
+- b) Beregn sandsynligheden for, at der er højst 3 defekte chips.
+- c) Beregn sandsynligheden for, at der er mere end 8 defekte chips.
+
+**Opgave 4: Binomialtest**
+En producent hævder, at 90% af deres batterier holder mindst 1000 timer. Du tester 30 batterier, og kun 24 holder. Udfør en binomialtest med $\alpha = 0{,}05$. Opstil hypoteser, beregn $p$-værdien, og drag en konklusion.
+
+**Opgave 5: Modelvalidering**
+En terning kastes 120 gange, og man observerer følgende antal seksere: 28. Undersøg med en binomialtest om terningen er fair. Brug signifikansniveauet $\alpha = 0{,}01$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="binom-quiz-1"
+  question="Hvad er middelværdien for en binomialfordelt stokastisk variabel X ~ b(20, 0.3)?"
+  options={[
+    "3",
+    "6",
+    "7",
+    "14"
+  ]}
+  correctIndex={1}
+  hint="Middelværdien er givet ved formlen μ = n · p."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="binom-quiz-2"
+  question="Hvilken betingelse er IKKE et krav for en binomialfordeling?"
+  options={[
+    "Fast antal forsøg",
+    "Hvert forsøg har præcis to udfald",
+    "Sandsynligheden for succes ændrer sig fra forsøg til forsøg",
+    "Forsøgene er uafhængige"
+  ]}
+  correctIndex={2}
+  hint="Tænk på de fire betingelser – en af disse svarmuligheder bryder en af dem."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="binom-quiz-3"
+  question="I en binomialtest fås en p-værdi på 0.03. Signifikansniveauet er α = 0.05. Hvad er konklusionen?"
+  options={[
+    "Vi forkaster ikke H₀, da 0.03 er et lille tal",
+    "Vi forkaster H₀, da p-værdien er mindre end α",
+    "Vi forkaster H₁, da p-værdien er mindre end α",
+    "Testen er ugyldig"
+  ]}
+  correctIndex={1}
+  hint="Sammenlign p-værdien med signifikansniveauet α. Hvad sker der, når p-værdi ≤ α?"
+/>

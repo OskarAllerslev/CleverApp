@@ -1,32 +1,497 @@
 ---
-title: "Eksponentielle- og potensfunktioner"
+title: "Eksponentielle og potensfunktioner"
 level: "Matematik C"
 order: 4
-description: "Her ser vi på eksponentiel vækst (hvor den uafhængige variabel er i eksponenten) og potensvækst. Vi ..."
+description: "Mestr eksponentiel vækst, fremskrivningsfaktorer og potensfunktioner — vækst-boss unlocked! Optjen +150 XP!"
 ---
 
-# Eksponentielle- og potensfunktioner
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Eksponentielle- og potensfunktioner** på Matematik C-niveau.
+# Eksponentielle og potensfunktioner 📈
 
-## Introduktion
+Lineære funktioner beskriver **konstant** vækst. Men i den virkelige verden vokser mange ting med en **fast procent** — befolkninger, bakterier, penge på en konto, radioaktivt henfald. Det er eksponentiel vækst (og eksponentielt henfald).
 
-Her ser vi på eksponentiel vækst (hvor den uafhængige variabel er i eksponenten) og potensvækst. Vi arbejder også med fordoblings- og halveringskonstanter.
+Potensfunktioner beskriver andre naturlige sammenhænge — fx forholdet mellem et dyrs vægt og stofskifte, eller arealet af en cirkel som funktion af radius.
 
-## Central Matematisk Formel
+Tid til at tage kampen op mod vækst-bossen! 🐉
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Den eksponentielle funktion
+
+En <Term definition="En funktion af formen f(x) = b · aˣ, hvor b > 0 er begyndelsesværdien og a > 0, a ≠ 1, er fremskrivningsfaktoren">eksponentiel funktion</Term> har forskriften:
 
 $$
-f(x) = b \cdot a^x, \quad g(x) = b \cdot x^a
+f(x) = b \cdot a^x
 $$
 
-## Hvad skal vi lære?
+hvor:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+- $b > 0$ er <Term definition="Funktionsværdien når x = 0, dvs. f(0) = b">begyndelsesværdien</Term> (startværdien)
+- $a > 0$, $a \neq 1$, er <Term definition="Det tal, funktionsværdien ganges med, når x vokser med 1">fremskrivningsfaktoren</Term>
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+**Fortolkning af $a$:**
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+| Fremskrivningsfaktor | Type vækst | Procentændring |
+|---|---|---|
+| $a > 1$ | Eksponentiel **vækst** | Stiger med $(a - 1) \cdot 100\%$ pr. enhed |
+| $0 < a < 1$ | Eksponentielt **henfald** | Falder med $(1 - a) \cdot 100\%$ pr. enhed |
+
+**Fra procent til fremskrivningsfaktor:**
+
+- Vækst på $r\%$: $a = 1 + \frac{r}{100}$
+- Henfald på $r\%$: $a = 1 - \frac{r}{100}$
+
+**Eksempel:** En vækst på $5\%$ giver $a = 1 + 0{,}05 = 1{,}05$.
+
+**Grafens egenskaber:**
+- Grafen går altid gennem punktet $(0, b)$
+- Grafen er altid **over** $x$-aksen (aldrig nul eller negativ)
+- For $a > 1$: voksende, konveks (buer opad)
+- For $0 < a < 1$: aftagende, konveks (buer opad)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestem forskrift for eksponentiel funktion ⚡</summary>
+
+**Opgave:** En eksponentiel funktion går gennem punkterne $(0, 500)$ og $(3, 864)$. Bestem forskriften.
+
+**Løsning:**
+
+**Trin 1:** Da $f(0) = b$, aflæser vi direkte:
+
+$$
+b = 500
+$$
+
+**Trin 2:** Vi indsætter det andet punkt $(3, 864)$:
+
+$$
+\begin{aligned}
+864 &= 500 \cdot a^3 \\
+a^3 &= \frac{864}{500} = 1{,}728 \\
+a &= \sqrt[3]{1{,}728} = 1{,}2
+\end{aligned}
+$$
+
+**Forskriften er:**
+
+$$
+f(x) = 500 \cdot 1{,}2^x
+$$
+
+**Fortolkning:** Begyndelsesværdien er $500$, og funktionen vokser med $20\%$ pr. enhed.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestem forskrift fra to vilkårlige punkter ⚡</summary>
+
+**Opgave:** En eksponentiel funktion går gennem $(2, 18)$ og $(5, 486)$. Find forskriften.
+
+**Løsning:**
+
+**Trin 1:** Vi opstiller to ligninger:
+
+$$
+18 = b \cdot a^2 \quad \text{og} \quad 486 = b \cdot a^5
+$$
+
+**Trin 2:** Divider den anden ligning med den første for at eliminere $b$:
+
+$$
+\frac{486}{18} = \frac{b \cdot a^5}{b \cdot a^2} = a^3
+$$
+
+$$
+a^3 = 27 \implies a = \sqrt[3]{27} = 3
+$$
+
+**Trin 3:** Find $b$ ved indsættelse i den første ligning:
+
+$$
+18 = b \cdot 3^2 = 9b \implies b = 2
+$$
+
+**Forskriften er:**
+
+$$
+f(x) = 2 \cdot 3^x
+$$
+
+**Kontrol:** $f(5) = 2 \cdot 3^5 = 2 \cdot 243 = 486$ ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fordoblings- og halveringskonstant
+
+<Term definition="Den tid (eller x-ændring) det tager for funktionsværdien at fordobles">Fordoblingstiden</Term> $T_2$ er den $x$-ændring, det tager for funktionsværdien at blive dobbelt så stor:
+
+$$
+T_2 = \frac{\ln(2)}{\ln(a)}
+$$
+
+<Term definition="Den tid (eller x-ændring) det tager for funktionsværdien at halveres">Halveringskonstanten</Term> $T_{1/2}$ er den $x$-ændring, det tager for funktionsværdien at halveres:
+
+$$
+T_{1/2} = \frac{\ln(0{,}5)}{\ln(a)} = \frac{-\ln(2)}{\ln(a)}
+$$
+
+**Bemærk:** Fordoblingstiden bruges ved **vækst** ($a > 1$), og halveringskonstanten bruges ved **henfald** ($0 < a < 1$).
+
+**Udledning af fordoblingstiden:**
+
+Vi søger $T_2$ så $f(x + T_2) = 2 \cdot f(x)$:
+
+$$
+\begin{aligned}
+b \cdot a^{x + T_2} &= 2 \cdot b \cdot a^x \\
+a^{T_2} &= 2 \\
+T_2 \cdot \ln(a) &= \ln(2) \\
+T_2 &= \frac{\ln(2)}{\ln(a)}
+\end{aligned}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fordoblingstid og halveringskonstant ⚡</summary>
+
+**Opgave:** En bakteriekultur beskrives ved $f(t) = 1000 \cdot 1{,}15^t$ (antal bakterier efter $t$ timer).
+
+a) Bestem fordoblingstiden.
+
+b) Hvor mange bakterier er der efter 10 timer?
+
+**Løsning:**
+
+**a)** Fordoblingstiden:
+
+$$
+T_2 = \frac{\ln(2)}{\ln(1{,}15)} = \frac{0{,}6931}{0{,}1398} \approx 4{,}96 \text{ timer}
+$$
+
+Antallet fordobles altså ca. hvert $5.$ time.
+
+**b)** Antal efter 10 timer:
+
+$$
+f(10) = 1000 \cdot 1{,}15^{10} = 1000 \cdot 4{,}046 \approx 4046 \text{ bakterier}
+$$
+
+---
+
+**Opgave 2:** Et radioaktivt stof henfalder med $3\%$ pr. dag. Bestem halveringskonstanten.
+
+**Løsning:**
+
+Fremskrivningsfaktoren er $a = 1 - 0{,}03 = 0{,}97$.
+
+$$
+T_{1/2} = \frac{\ln(0{,}5)}{\ln(0{,}97)} = \frac{-0{,}6931}{-0{,}0305} \approx 22{,}7 \text{ dage}
+$$
+
+Stoffet halveres ca. hver $22{,}7$ dag.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Potensfunktioner
+
+En <Term definition="En funktion af formen f(x) = b · xᵃ, hvor b > 0 er proportionalitetskonstanten og a er eksponenten">potensfunktion</Term> har forskriften:
+
+$$
+f(x) = b \cdot x^a
+$$
+
+hvor $b > 0$ og $a$ er en konstant.
+
+**Vigtig forskel fra eksponentielle funktioner:**
+
+| Funktionstype | Variablen $x$ er... | Eksempel |
+|---|---|---|
+| Eksponentiel: $f(x) = b \cdot a^x$ | I **eksponenten** | $f(x) = 3 \cdot 2^x$ |
+| Potens: $f(x) = b \cdot x^a$ | I **basen** | $f(x) = 3 \cdot x^2$ |
+
+**Kendte potensfunktioner:**
+
+| Eksponent $a$ | Funktion | Eksempel |
+|---|---|---|
+| $a = 1$ | Lineær | $f(x) = 5x$ |
+| $a = 2$ | Kvadratisk | $f(x) = 3x^2$ (areal) |
+| $a = 3$ | Kubisk | $f(x) = x^3$ (rumfang) |
+| $a = \frac{1}{2}$ | Kvadratrod | $f(x) = \sqrt{x}$ |
+| $a = -1$ | Omvendt proportional | $f(x) = \frac{k}{x}$ |
+
+**Grafens egenskaber (for $x > 0$):**
+
+- $a > 1$: Voksende, konveks (buer opad)
+- $0 < a < 1$: Voksende, konkav (buer nedad)
+- $a < 0$: Aftagende
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestem en potensfunktions forskrift ⚡</summary>
+
+**Opgave:** En potensfunktion går gennem $(2, 12)$ og $(5, 75)$. Bestem forskriften.
+
+**Løsning:**
+
+**Trin 1:** Opstil to ligninger:
+
+$$
+12 = b \cdot 2^a \quad \text{og} \quad 75 = b \cdot 5^a
+$$
+
+**Trin 2:** Divider for at eliminere $b$:
+
+$$
+\frac{75}{12} = \frac{b \cdot 5^a}{b \cdot 2^a} = \left(\frac{5}{2}\right)^a
+$$
+
+$$
+6{,}25 = 2{,}5^a
+$$
+
+**Trin 3:** Tag logaritmen på begge sider:
+
+$$
+\ln(6{,}25) = a \cdot \ln(2{,}5)
+$$
+
+$$
+a = \frac{\ln(6{,}25)}{\ln(2{,}5)} = \frac{1{,}8326}{0{,}9163} = 2
+$$
+
+**Trin 4:** Find $b$:
+
+$$
+12 = b \cdot 2^2 = 4b \implies b = 3
+$$
+
+**Forskriften er:**
+
+$$
+f(x) = 3x^2
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Dobbeltlogaritmisk papir og logaritmisk papir
+
+For at identificere funktionstypen grafisk bruger vi specielle koordinatsystemer:
+
+**Enkeltlogaritmisk papir** (semilog):
+- $x$-aksen er lineær, $y$-aksen er logaritmisk
+- En **eksponentiel funktion** $f(x) = b \cdot a^x$ vises som en **ret linje** på enkeltlogaritmisk papir
+- Hældningen på den rette linje er $\ln(a)$, og skæringen med den lodrette akse er $\ln(b)$
+
+**Dobbeltlogaritmisk papir** (log-log):
+- Begge akser er logaritmiske
+- En **potensfunktion** $f(x) = b \cdot x^a$ vises som en **ret linje** på dobbeltlogaritmisk papir
+- Hældningen er $a$ (eksponenten), og skæringen med den lodrette akse er $\ln(b)$
+
+**Metode til at afgøre funktionstype fra data:**
+
+1. Plot data på **enkeltlogaritmisk** papir. Ligger punkterne på en ret linje? → **Eksponentiel** funktion.
+2. Plot data på **dobbeltlogaritmisk** papir. Ligger punkterne på en ret linje? → **Potensfunktion**.
+3. Plot data på almindeligt papir. Ret linje? → **Lineær** funktion.
+
+**Matematisk baggrund:**
+
+For $f(x) = b \cdot a^x$: Tag $\ln$ på begge sider:
+
+$$
+\ln(f(x)) = \ln(b) + x \cdot \ln(a)
+$$
+
+Dette er lineært i $(x, \ln(f(x)))$ — altså en ret linje på enkeltlogaritmisk papir.
+
+For $f(x) = b \cdot x^a$: Tag $\ln$ på begge sider:
+
+$$
+\ln(f(x)) = \ln(b) + a \cdot \ln(x)
+$$
+
+Dette er lineært i $(\ln(x), \ln(f(x)))$ — altså en ret linje på dobbeltlogaritmisk papir.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Identificer funktionstype fra data ⚡</summary>
+
+**Opgave:** Data for en sammenhæng er givet ved:
+
+| $x$ | $1$ | $2$ | $4$ | $8$ |
+|---|---|---|---|---|
+| $y$ | $3$ | $12$ | $48$ | $192$ |
+
+Er sammenhængen eksponentiel eller en potensfunktion?
+
+**Løsning:**
+
+**Test 1: Er det eksponentielt?** Tjek om forholdet $\frac{y_{i+1}}{y_i}$ er konstant, når $x$ vokser med en fast mængde:
+
+Fra $x = 1$ til $x = 2$ ($\Delta x = 1$): $\frac{12}{3} = 4$
+
+Fra $x = 2$ til $x = 4$ ($\Delta x = 2$): $\frac{48}{12} = 4$
+
+$\Delta x$ er ikke konstant, så vi kan ikke direkte konkludere. Lad os prøve potens.
+
+**Test 2: Er det en potensfunktion?** Vi beregner $\ln(x)$ og $\ln(y)$:
+
+| $\ln(x)$ | $0$ | $0{,}693$ | $1{,}386$ | $2{,}079$ |
+|---|---|---|---|---|
+| $\ln(y)$ | $1{,}099$ | $2{,}485$ | $3{,}871$ | $5{,}257$ |
+
+Tjek hældningen: $\frac{2{,}485 - 1{,}099}{0{,}693 - 0} = \frac{1{,}386}{0{,}693} = 2$ og $\frac{5{,}257 - 3{,}871}{2{,}079 - 1{,}386} = \frac{1{,}386}{0{,}693} = 2$.
+
+Hældningen er konstant = $2$, og $\ln(b) = 1{,}099 \implies b = 3$.
+
+**Sammenhængen er en potensfunktion:** $f(x) = 3x^2$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Eksponentiel vækst i praksis — renters rente ⚡</summary>
+
+**Opgave:** Du sætter 10.000 kr. i banken til $2{,}5\%$ årlig rente. Modellen for beløbet efter $t$ år er:
+
+$$
+K(t) = 10000 \cdot 1{,}025^t
+$$
+
+a) Hvad er beløbet efter 10 år?
+b) Hvornår er beløbet fordoblet?
+
+**Løsning:**
+
+**a)** Beløb efter 10 år:
+
+$$
+K(10) = 10000 \cdot 1{,}025^{10} = 10000 \cdot 1{,}2801 \approx 12801 \text{ kr.}
+$$
+
+**b)** Vi finder fordoblingstiden:
+
+$$
+T_2 = \frac{\ln(2)}{\ln(1{,}025)} = \frac{0{,}6931}{0{,}0247} \approx 28{,}1 \text{ år}
+$$
+
+Beløbet er fordoblet efter ca. $28$ år.
+
+**Alternativ metode:** Løs $20000 = 10000 \cdot 1{,}025^t$:
+
+$$
+\begin{aligned}
+2 &= 1{,}025^t \\
+\ln(2) &= t \cdot \ln(1{,}025) \\
+t &= \frac{\ln(2)}{\ln(1{,}025)} \approx 28{,}1 \text{ år}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** En eksponentiel funktion er givet ved $f(x) = 200 \cdot 1{,}08^x$. Bestem:
+
+a) Begyndelsesværdien
+
+b) Vækstraten i procent
+
+c) Fordoblingstiden
+
+**Opgave 2:** En eksponentiel funktion går gennem $(0, 50)$ og $(4, 32)$. Bestem forskriften og angiv om der er tale om vækst eller henfald.
+
+**Opgave 3:** Et radioaktivt stof har halveringstiden 5 dage. Der er 800 g til at starte med. Opstil en forskrift og beregn, hvor meget der er tilbage efter 15 dage.
+
+**Opgave 4:** En potensfunktion går gennem $(3, 54)$ og $(6, 432)$. Bestem forskriften.
+
+**Opgave 5:** Forklar hvordan man grafisk kan skelne mellem en eksponentiel funktion og en potensfunktion ved hjælp af logaritmisk papir.
+
+**Opgave 6:** Afgør om nedenstående data bedst beskrives af en lineær, eksponentiel eller potensfunktion:
+
+| $x$ | $1$ | $2$ | $3$ | $4$ | $5$ |
+|---|---|---|---|---|---|
+| $y$ | $5$ | $20$ | $45$ | $80$ | $125$ |
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="eksp-potens-quiz-1"
+  question="Hvad er fremskrivningsfaktoren, hvis noget vokser med 7% pr. år?"
+  options={[
+    "0,07",
+    "0,93",
+    "1,07",
+    "7"
+  ]}
+  correctIndex={2}
+  hint="Fremskrivningsfaktoren er 1 + r/100."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="eksp-potens-quiz-2"
+  question="Hvad er den vigtigste forskel mellem f(x) = 3 · 2ˣ og f(x) = 3 · x²?"
+  options={[
+    "Den ene er lineær, den anden er kvadratisk",
+    "I den eksponentielle funktion er x i eksponenten, i potensfunktionen er x i basen",
+    "De er identiske funktioner",
+    "Den ene har altid to nulpunkter"
+  ]}
+  correctIndex={1}
+  hint="Se på HVOR x befinder sig i udtrykket."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="eksp-potens-quiz-3"
+  question="På dobbeltlogaritmisk papir viser en potensfunktion sig som..."
+  options={[
+    "En parabel",
+    "En eksponentiel kurve",
+    "En ret linje",
+    "En cirkel"
+  ]}
+  correctIndex={2}
+  hint="Hvad sker der, når man tager ln på begge sider af f(x) = b · xᵃ?"
+/>

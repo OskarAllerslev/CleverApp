@@ -2,125 +2,335 @@
 title: "Funktionsbegrebet"
 level: "Matematik C"
 order: 1
-description: "En pædagogisk og strukturel introduktion til funktioner som afbildninger mellem reelle mængder."
+description: "Lær hvad en funktion er, og bliv fortrolig med definitionsmængde, værdimængde, notation og grafer. Optjen +150 XP!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { FunctionMappingVisualizer } from '../../../components/FunctionMappingVisualizer.tsx';
 import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-# Funktionsbegrebet
+# Funktionsbegrebet 🎯
 
-Inden for matematikken er en **funktion** en af de vigtigste byggesten. Men før vi kan forstå, hvad en funktion præcist gør, skal vi først kigge på det fundament, som funktioner er bygget af: **mængder**.
+Forestil dig en maskine: du putter noget ind (et tal), maskinen gør noget ved det, og ud kommer præcis ét resultat. Det er kernen i en **funktion**. Funktioner er det mest fundamentale værktøj i matematik — de beskriver sammenhænge mellem størrelser, fra din mobilregnings forhold mellem data og pris til, hvordan en bold bevæger sig gennem luften.
 
----
-
-## Hvad er en mængde?
-
-Forestil dig en mængde som en "pose" eller en samling af ting. Inden for matematikken er disse ting oftest tal. 
-
-Når vi vil vise en mængde, skriver vi den typisk med krøllede parenteser:
-$$
-M = \{1, 2, 3\}
-$$
-Dette betyder bare, at posen $M$ indeholder tallene $1$, $2$ og $3$.
-
-For at tale præcist om mængder bruger vi et par vigtige matematiske tegn:
-1. **<Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> (tilhører):** Dette tegn bruges til at sige, at noget ligger nede i mængden. Vi skriver $2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> M$, hvilket udtales: *"2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">tilhører</Term> mængden M"*. Hvis et tal ikke ligger i posen, f.eks. $5$, skriver vi $5 \notin M$ (*"5 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">tilhører</Term> ikke M"*).
-2. **<Term client:load definition="Matematisk symbol, der betyder 'der eksisterer'.">$\exists$</Term> (der eksisterer):** Dette tegn bruges, når vi vil sige, at der findes et eller andet element med en bestemt egenskab.
+I dette kapitel lærer du at forstå, aflæse og arbejde med funktioner. Gør dig klar til at level up! 🚀
 
 ---
 
-## Den formelle definition på en funktion
+<div className="teori-box">
 
-Når vi har to mængder (lad os kalde dem $A$ og $B$), kan vi lave en regel, der forbinder elementerne i $A$ med elementerne i $B$. En sådan regel kaldes en <Term client:load definition="En matematiske proces, der entydigt forbinder hvert element fra en startmængde til et element i en slutmængde.">afbildning</Term> eller en funktion.
+### Teori: Hvad er en funktion?
 
-Formelt siger vi:
-> En funktion $f$ fra en mængde $A$ til en mængde $B$ er en regel, som til ethvert element $x$ i $A$ knytter **præcis ét** element $y$ i $B$.
+En <Term definition="En regel der til hvert element i definitionsmængden knytter præcis ét element i værdimængden">funktion</Term> er en regel, der til **hvert** input-tal knytter **præcis ét** output-tal.
 
-Vi skriver det formelt som:
+Vi skriver funktionen som:
+
 $$
-f: A \to B
-$$
-Her kalder vi:
-*   Mængden $A$ (startmængden) for funktionens **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængde</Term>** (eller domæne).
-*   Mængden $B$ (målrammen) for funktionens **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængde</Term>** (eller kodomæne).
-
-Når vi tager et bestemt element $x$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$, sender funktionen det over i et element $f(x)$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $B$. Dette skriver vi som:
-$$
-x \mapsto f(x)
+f(x) = \text{udtryk i } x
 $$
 
-### Billedmængden: Værdimængden
+Her er $x$ den <Term definition="Den uafhængige variabel, som vi selv vælger værdien af">uafhængige variabel</Term> (input), og $f(x)$ er den <Term definition="Den afhængige variabel, som bestemmes af funktionsforskriften">afhængige variabel</Term> (output).
 
-Bemærk, at det ikke er sikkert, at funktionen rammer *alle* tallene i posen $B$. Den delmængde af $B$, som vi faktisk kan ramme, kaldes for funktionens **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængde</Term>** (eller billedmængde).
+**Eksempel på en funktion:**
 
-Formelt definerer vi **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængden</Term>** som:
 $$
-Vm(f) = \{ y \in B \mid \exists x \in A \text{ hvor } f(x) = y \}
+f(x) = 2x + 3
 $$
-(Skrevet mere formelt med tegn: Værdimængden består af alle $y$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $B$, hvorom der <Term client:load definition="Matematisk symbol, der betyder 'der eksisterer'.">$\exists$</Term> et $x$ <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ således at $f(x) = y$).
 
-### Opsummering af de tre mængder
-*   **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">Definitionsmængde</Term> ($Dm(f)$):** Posen med alle de tal, vi må putte *ind* i funktionen.
-*   **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">Sekundærmængde</Term> ($B$):** Posen, der angiver rammen for, hvor vores output *kan* lande.
-*   **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">Værdimængde</Term> ($Vm(f)$):** De tal nede i sekundærmængden, som funktionen *faktisk* rammer.
+Hvis vi sætter $x = 4$ ind, får vi:
+
+$$
+f(4) = 2 \cdot 4 + 3 = 8 + 3 = 11
+$$
+
+**Hvornår er noget IKKE en funktion?**
+
+En regel er **ikke** en funktion, hvis ét input giver **mere end ét** output. For eksempel er $x^2 + y^2 = 1$ (en cirkel) ikke en funktion af $x$, fordi fx $x = 0$ giver både $y = 1$ og $y = -1$.
+
+**Den lodrette linje-test:** Tegn en lodret linje hvor som helst på grafen. Hvis linjen rammer grafen i **mere end ét punkt**, er det **ikke** en funktion.
+
+</div>
 
 ---
 
-## Interaktiv visualisering af en afbildning
+<div className="teori-box">
 
-Herunder kan du se, hvordan afbildningen fungerer for funktionen:
-$$
-f(x) = x^2 - 2x
-$$
-Prøv at klikke på elementerne i **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængden</Term> $A$** for at se, hvordan pilene strækker sig over til **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængden</Term> $B$**.
+### Teori: Definitionsmængde og værdimængde
 
-<FunctionMappingVisualizer client:load />
+Enhver funktion har to vigtige mængder:
 
-Bemærk:
-1. Der starter præcis én pil fra hvert tal i $A$. Det gør det til en funktion.
-2. Værdien $0 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ og $2 <Term client:load definition="Matematisk symbol, der betyder 'tilhører' eller 'er et element i'.">$\in$</Term> $A$ afbildes begge til $0$ i $B$. Det er helt tilladt.
-3. Elementerne $-2$, $-1$, $1$ og $2$ i **<Term client:load definition="Slutmængden (kodomænet), som angiver rammen for, hvor funktionens outputværdier må ligge.">sekundærmængden</Term> $B$** bliver aldrig ramt af nogen pil. De tilhører ikke **<Term client:load definition="Mængden af alle faktiske outputværdier (y-værdier), som funktionen antager. Forkortes Vm(f).">værdimængden</Term>**.
+- <Term definition="Mængden af alle tilladte input-værdier (x-værdier) for funktionen">Definitionsmængden</Term> $D_f$ — alle de $x$-værdier, vi **må** sætte ind i funktionen.
+- <Term definition="Mængden af alle mulige output-værdier (y-værdier) som funktionen kan antage">Værdimængden</Term> $V_f$ — alle de $y$-værdier, funktionen **kan** give som output.
+
+**Hvornår er definitionsmængden begrænset?**
+
+| Situation | Begrænsning | Eksempel |
+|---|---|---|
+| Division med $x$ | $x \neq 0$ i nævneren | $f(x) = \frac{1}{x}$ har $D_f = \mathbb{R} \setminus \{0\}$ |
+| Kvadratrod | Udtrykket under roden $\geq 0$ | $f(x) = \sqrt{x}$ har $D_f = [0, \infty[$ |
+| Logaritme | Argumentet $> 0$ | $f(x) = \ln(x)$ har $D_f = ]0, \infty[$ |
+
+**Notation for mængder:**
+
+Vi bruger <Term definition="Intervaller angiver en sammenhængende mængde af tal, fx [a, b] betyder alle tal fra a til b, begge inkluderet">intervalnotation</Term>:
+
+- $[a, b]$ — alle tal fra $a$ til $b$, **begge inkluderet**
+- $]a, b[$ — alle tal fra $a$ til $b$, **begge ekskluderet**
+- $[a, b[$ — $a$ inkluderet, $b$ ekskluderet
+- $]-\infty, \infty[$ = $\mathbb{R}$ — alle reelle tal
+
+</div>
 
 ---
 
-## Funktionsnotationen $y = f(x)$
+<details>
+<summary>Vis Eksempel: Find definitionsmængde og værdimængde ⚡</summary>
 
-Når vi arbejder med funktioner til hverdag, skriver vi dem ofte som ligninger, f.eks. $y = f(x)$. Her kalder vi:
-*   $x$ for den **<Term client:load definition="Inputvariablen (ofte x), som vi frit kan vælge inden for definitionsmængden.">uafhængige variabel</Term>** (fordi vi frit kan vælge den i **<Term client:load definition="Mængden af alle tilladte inputværdier (x-værdier), som en funktion kan tage. Forkortes Dm(f).">definitionsmængden</Term>**).
-*   $y$ for den **afhængige variabel** (fordi dens værdi afhænger helt af, hvilket $x$ vi vælger).
+**Opgave:** Find $D_f$ og $V_f$ for funktionen $f(x) = \sqrt{x - 2}$.
+
+**Løsning:**
+
+**Trin 1:** Find definitionsmængden. Udtrykket under kvadratroden skal være $\geq 0$:
+
+$$
+\begin{aligned}
+x - 2 &\geq 0 \\
+x &\geq 2
+\end{aligned}
+$$
+
+Altså er $D_f = [2, \infty[$.
+
+**Trin 2:** Find værdimængden. En kvadratrod giver altid et ikke-negativt resultat:
+
+$$
+\sqrt{x - 2} \geq 0 \quad \text{for alle } x \in D_f
+$$
+
+Og jo større $x$ bliver, jo større bliver $\sqrt{x-2}$. Derfor er $V_f = [0, \infty[$.
+
+</details>
 
 ---
 
-## Interaktiv Practice
+<details>
+<summary>Vis Eksempel: Beregn funktionsværdier ⚡</summary>
 
-Test din forståelse af mængder og afbildninger i quizzen herunder:
+**Opgave:** Givet $f(x) = x^2 - 3x + 1$. Beregn $f(0)$, $f(2)$ og $f(-1)$.
+
+**Løsning:**
+
+**Beregn $f(0)$:** Vi sætter $x = 0$ ind i forskriften:
+
+$$
+f(0) = 0^2 - 3 \cdot 0 + 1 = 0 - 0 + 1 = 1
+$$
+
+**Beregn $f(2)$:** Vi sætter $x = 2$ ind:
+
+$$
+f(2) = 2^2 - 3 \cdot 2 + 1 = 4 - 6 + 1 = -1
+$$
+
+**Beregn $f(-1)$:** Vi sætter $x = -1$ ind:
+
+$$
+f(-1) = (-1)^2 - 3 \cdot (-1) + 1 = 1 + 3 + 1 = 5
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Funktionens graf
+
+<Term definition="Den visuelle fremstilling af en funktion i et koordinatsystem, hvor hvert punkt (x, f(x)) er afsat">Grafen</Term> for en funktion $f$ er mængden af alle punkter $(x, f(x))$ i et koordinatsystem.
+
+For at tegne en graf:
+
+1. **Lav en tabel** med udvalgte $x$-værdier og tilhørende $f(x)$-værdier.
+2. **Afsæt punkterne** $(x, f(x))$ i koordinatsystemet.
+3. **Forbind punkterne** med en jævn kurve.
+
+**Eksempel:** For $f(x) = x^2$:
+
+| $x$ | $-2$ | $-1$ | $0$ | $1$ | $2$ |
+|---|---|---|---|---|---|
+| $f(x)$ | $4$ | $1$ | $0$ | $1$ | $4$ |
+
+**Vigtige grafiske begreber:**
+
+- <Term definition="De punkter hvor grafen skærer x-aksen, dvs. hvor f(x) = 0">Nulpunkter</Term>: Hvor grafen skærer $x$-aksen ($f(x) = 0$)
+- <Term definition="Det punkt hvor grafen skærer y-aksen, dvs. f(0)">Skæring med y-aksen</Term>: Punktet $(0, f(0))$
+- En funktion er <Term definition="En funktion er voksende i et interval, hvis f(x) stiger når x stiger">voksende</Term>, når grafen går opad fra venstre mod højre
+- En funktion er <Term definition="En funktion er aftagende i et interval, hvis f(x) falder når x stiger">aftagende</Term>, når grafen går nedad fra venstre mod højre
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Aflæsning af graf ⚡</summary>
+
+**Opgave:** En funktion $f$ har grafen vist ved punkterne $(-1, 3)$, $(0, 1)$, $(1, -1)$, $(2, -1)$, $(3, 3)$. Bestem:
+
+a) $f(0)$
+b) Nulpunkterne for $f$
+c) Et interval hvor $f$ er aftagende
+
+**Løsning:**
+
+a) Vi aflæser direkte: $f(0) = 1$.
+
+b) Nulpunkterne er de $x$-værdier, hvor $f(x) = 0$. Grafen skærer $x$-aksen mellem $x = 0$ og $x = 1$ (da $f$ går fra $1$ til $-1$). Præcis aflæsning giver nulpunktet $x = 0{,}5$.
+
+c) Funktionen er aftagende i intervallet $[0, 1{,}5]$, da grafen går nedad i dette interval.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sammensatte funktioner
+
+Når vi har to funktioner $f$ og $g$, kan vi kombinere dem på flere måder:
+
+**Aritmetiske kombinationer:**
+
+$$
+\begin{aligned}
+(f + g)(x) &= f(x) + g(x) \\
+(f - g)(x) &= f(x) - g(x) \\
+(f \cdot g)(x) &= f(x) \cdot g(x) \\
+\left(\frac{f}{g}\right)(x) &= \frac{f(x)}{g(x)}, \quad g(x) \neq 0
+\end{aligned}
+$$
+
+**Sammensat funktion (komposition):**
+
+Den <Term definition="En sammensat funktion f ∘ g betyder at outputtet fra g bruges som input til f">sammensatte funktion</Term> $f \circ g$ (læses "$f$ efter $g$" eller "$f$ sammensat med $g$") er defineret som:
+
+$$
+(f \circ g)(x) = f(g(x))
+$$
+
+Her beregner vi først $g(x)$, og sætter resultatet ind i $f$.
+
+**Vigtigt:** Rækkefølgen har betydning! Generelt er $f \circ g \neq g \circ f$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammensatte funktioner ⚡</summary>
+
+**Opgave:** Givet $f(x) = x^2$ og $g(x) = x + 3$. Beregn $(f \circ g)(2)$ og $(g \circ f)(2)$.
+
+**Løsning:**
+
+**Beregn $(f \circ g)(2)$:**
+
+$$
+\begin{aligned}
+(f \circ g)(2) &= f(g(2)) \\
+&= f(\underbrace{2 + 3}_{g(2) = 5}) \\
+&= f(5) \\
+&= 5^2 \\
+&= 25
+\end{aligned}
+$$
+
+**Beregn $(g \circ f)(2)$:**
+
+$$
+\begin{aligned}
+(g \circ f)(2) &= g(f(2)) \\
+&= g(\underbrace{2^2}_{f(2) = 4}) \\
+&= g(4) \\
+&= 4 + 3 \\
+&= 7
+\end{aligned}
+$$
+
+Vi ser at $(f \circ g)(2) = 25 \neq 7 = (g \circ f)(2)$. Rækkefølgen har altså stor betydning!
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Givet $f(x) = 3x - 5$. Beregn $f(1)$, $f(4)$ og $f(-2)$.
+
+**Opgave 2:** Bestem definitionsmængden for følgende funktioner:
+
+a) $g(x) = \frac{2}{x + 1}$
+
+b) $h(x) = \sqrt{4 - x}$
+
+c) $k(x) = \frac{1}{\sqrt{x}}$
+
+**Opgave 3:** En funktion er givet ved $f(x) = x^2 - 4$. Find nulpunkterne for $f$ og bestem $f$'s skæring med $y$-aksen.
+
+**Opgave 4:** Givet $f(x) = 2x + 1$ og $g(x) = x^2$. Beregn:
+
+a) $(f + g)(3)$
+
+b) $(f \circ g)(3)$
+
+c) $(g \circ f)(3)$
+
+**Opgave 5:** Angiv definitionsmængde og værdimængde for $f(x) = |x|$ (numerisk værdi / absolutværdi).
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
 
 <QuizQuestion
   client:load
-  quizId="mapping-definition"
-  question="Betragt afbildningen f: A → B vist i den interaktive figur ovenfor, hvor f(x) = x² - 2x. Hvis vi vælger inputtet x = 3, hvad afbildes det så til i sekundærmængden B?"
+  quizId="funktionsbegreb-quiz-1"
+  question="Hvad kendetegner en funktion?"
   options={[
-    "f(3) = 1",
-    "f(3) = 2",
-    "f(3) = 3",
-    "f(3) = 4"
+    "Hvert input giver præcis ét output",
+    "Hvert input kan give flere outputs",
+    "Alle inputs giver det samme output",
+    "En funktion har altid en lige graf"
   ]}
-  correctIndex={2}
-  explanation="Indsætter vi x = 3 i formlen f(x) = x² - 2x, får vi f(3) = 3² - 2·3 = 9 - 6 = 3. Tallet 3 afbildes altså til tallet 3 i sekundærmængden B."
+  correctIndex={0}
+  hint="Tænk på funktionen som en maskine: ét input ind, hvad kommer ud?"
 />
 
 <QuizQuestion
   client:load
-  quizId="mapping-range"
-  question="Baseret på den interaktive figur og regneforskriften f(x) = x² - 2x med definitionsmængden A = {-1, 0, 1, 2, 3}, hvad er så funktionens værdimængde Vm(f)?"
+  quizId="funktionsbegreb-quiz-2"
+  question="Hvad er definitionsmængden for f(x) = 1/(x-3)?"
   options={[
-    "{-2, -1, 0, 1, 2, 3, 4}",
-    "{-1, 0, 3}",
-    "{-1, 0, 1, 2, 3}",
-    "{-1, 0, 2, 3}"
+    "Alle reelle tal",
+    "Alle reelle tal undtagen x = 3",
+    "Kun positive tal",
+    "Alle reelle tal undtagen x = 0"
   ]}
   correctIndex={1}
-  explanation="Hvis vi beregner f(x) for alle elementer i A: f(-1) = 3, f(0) = 0, f(1) = -1, f(2) = 0, f(3) = 3. De faktiske outputværdier, der 'rammes', er dermed {-1, 0, 3}. Dette udgør præcis funktionens værdimængde."
+  hint="Hvornår bliver nævneren nul?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="funktionsbegreb-quiz-3"
+  question="Givet f(x) = x + 1 og g(x) = 2x. Hvad er (f ∘ g)(3)?"
+  options={[
+    "8",
+    "7",
+    "10",
+    "6"
+  ]}
+  correctIndex={1}
+  hint="Beregn først g(3), og sæt resultatet ind i f."
 />

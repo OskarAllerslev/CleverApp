@@ -2,31 +2,524 @@
 title: "Kombinatorik"
 level: "Matematik C"
 order: 4
-description: "Kombinatorik handler om at tælle antallet af mulige måder, som elementer kan sammensættes eller vælg..."
+description: "Lær at tælle systematisk med multiplikationsprincippet, permutationer og kombinationer. Optjen +150 XP!"
 ---
 
-# Kombinatorik
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Kombinatorik** på Matematik C-niveau.
+# Kombinatorik 🔢
 
-## Introduktion
+Hvor mange mulige koder kan din telefonlås have? Hvor mange måder kan du sammensætte et hold på? Kombinatorik er kunsten at **tælle systematisk** — uden at skrive alle muligheder op!
 
-Kombinatorik handler om at tælle antallet af mulige måder, som elementer kan sammensættes eller vælges på, med eller uden betydning af rækkefølgen.
+Kombinatorik er også nøglen til sandsynlighedsregning: for at bruge Laplace-reglen skal du jo kende antallet af mulige og gunstige udfald. I dette kapitel lærer du de vigtigste tælleværktøjer. 🧮
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Multiplikationsprincippet
+
+<Term definition="Et grundlæggende tælleprincip: Hvis et valg kan gøres i m trin, og trin 1 har a₁ muligheder, trin 2 har a₂ muligheder osv., så er det samlede antal muligheder a₁ · a₂ · ... · aₘ.">Multiplikationsprincippet</Term> er det mest fundamentale tælleprincip i kombinatorik.
+
+**Princippet:** Hvis en proces består af $m$ trin, hvor:
+- Trin 1 kan udføres på $a_1$ måder
+- Trin 2 kan udføres på $a_2$ måder (uanset hvad der valgtes i trin 1)
+- $\vdots$
+- Trin $m$ kan udføres på $a_m$ måder
+
+…så er det samlede antal måder at gennemføre hele processen:
 
 $$
-K(n, r) = \frac{n!}{r!(n-r)!}, \quad P(n, r) = \frac{n!}{(n-r)!}
+\boxed{a_1 \cdot a_2 \cdot \ldots \cdot a_m}
 $$
 
-## Hvad skal vi lære?
+**Intuition:** For hver mulighed i trin 1 er der $a_2$ muligheder i trin 2, for hver af dem er der $a_3$ muligheder i trin 3, osv. Mulighederne "forgrener sig" som et træ.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+</div>
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+---
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+<details>
+<summary>Vis Eksempel: Multiplikationsprincippet – garderoben ⚡</summary>
+
+Du har 4 t-shirts, 3 par bukser og 2 par sko. Hvor mange forskellige outfits kan du sammensætte?
+
+**Trin 1:** Vælg t-shirt → 4 muligheder
+**Trin 2:** Vælg bukser → 3 muligheder
+**Trin 3:** Vælg sko → 2 muligheder
+
+$$
+\text{Antal outfits} = 4 \cdot 3 \cdot 2 = 24
+$$
+
+Du har altså 24 forskellige outfits — uden at købe nyt tøj! 👕
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Multiplikationsprincippet – pinkoder ⚡</summary>
+
+En pinkode består af 4 cifre, hvert ciffer fra 0 til 9.
+
+**Trin 1:** Vælg 1. ciffer → 10 muligheder (0, 1, 2, ..., 9)
+**Trin 2:** Vælg 2. ciffer → 10 muligheder
+**Trin 3:** Vælg 3. ciffer → 10 muligheder
+**Trin 4:** Vælg 4. ciffer → 10 muligheder
+
+$$
+\text{Antal pinkoder} = 10 \cdot 10 \cdot 10 \cdot 10 = 10^4 = 10.000
+$$
+
+Hvis cifrene alle skal være **forskellige** (ingen gentagelser):
+
+**Trin 1:** 10 muligheder
+**Trin 2:** 9 muligheder (ét ciffer er brugt)
+**Trin 3:** 8 muligheder
+**Trin 4:** 7 muligheder
+
+$$
+\text{Antal koder uden gentagelse} = 10 \cdot 9 \cdot 8 \cdot 7 = 5.040
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fakultet
+
+Før vi kan tale om permutationer, har vi brug for <Term definition="Produktet af alle positive heltal fra 1 til n. Skrives n! og udtales 'n fakultet'. Per definition er 0! = 1.">fakultet</Term>.
+
+For et positivt heltal $n$ er $n!$ (udtales "$n$ fakultet") defineret som:
+
+$$
+n! = n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 2 \cdot 1
+$$
+
+**Eksempler:**
+
+$$
+\begin{aligned}
+1! &= 1 \\
+2! &= 2 \cdot 1 = 2 \\
+3! &= 3 \cdot 2 \cdot 1 = 6 \\
+4! &= 4 \cdot 3 \cdot 2 \cdot 1 = 24 \\
+5! &= 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120 \\
+6! &= 6 \cdot 5! = 720 \\
+10! &= 3.628.800
+\end{aligned}
+$$
+
+**Speciel konvention:** $0! = 1$. Det virker mærkeligt, men det er nødvendigt for at formlerne fungerer konsistent.
+
+**Nyttig egenskab:** $n! = n \cdot (n-1)!$
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Permutationer
+
+En <Term definition="En ordnet opstilling af elementer. Antallet af permutationer af n forskellige elementer er n!.">permutation</Term> er en **ordnet** opstilling. Her er rækkefølgen vigtig!
+
+**Permutationer af alle $n$ elementer:**
+
+Hvor mange måder kan du stille $n$ forskellige elementer op i rækkefølge?
+
+$$
+\boxed{P(n) = n!}
+$$
+
+**Begrundelse (multiplikationsprincippet):**
+- Til plads 1 har du $n$ valgmuligheder.
+- Til plads 2 har du $n - 1$ (ét element er brugt).
+- Til plads 3 har du $n - 2$.
+- $\vdots$
+- Til den sidste plads har du $1$ mulighed.
+
+I alt: $n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 1 = n!$
+
+**Ordnede udvalg (permutationer af $r$ ud af $n$):**
+
+Hvis du kun skal vælge $r$ elementer ud af $n$ (og rækkefølgen tæller):
+
+$$
+\boxed{P(n, r) = \frac{n!}{(n-r)!}}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Permutationer – rækkefølge af bøger ⚡</summary>
+
+Du har 5 forskellige bøger og vil stille dem op på en hylde. Hvor mange mulige rækkefølger er der?
+
+$$
+P(5) = 5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120
+$$
+
+Der er 120 forskellige måder at stille 5 bøger op!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Ordnede udvalg ⚡</summary>
+
+I en klasse med 25 elever skal der vælges en formand, en næstformand og en kasserer. Hvor mange måder kan dette gøres på?
+
+Her vælger vi $r = 3$ personer ud af $n = 25$, og **rækkefølgen er vigtig** (formand ≠ næstformand).
+
+$$
+\begin{aligned}
+P(25, 3) &= \frac{25!}{(25-3)!} = \frac{25!}{22!} \\[6pt]
+&= 25 \cdot 24 \cdot 23 \\[6pt]
+&= 13.800
+\end{aligned}
+$$
+
+Der er 13.800 mulige måder at besætte de tre poster.
+
+**Forklaring af forenklingen:** $\frac{25!}{22!} = \frac{25 \cdot 24 \cdot 23 \cdot \cancel{22!}}{\cancel{22!}} = 25 \cdot 24 \cdot 23$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kombinationer (n over k)
+
+En <Term definition="Et uordnet udvalg af r elementer fra n elementer. Antallet betegnes 'n over r' eller C(n,r) og beregnes med binomialkoefficienten.">kombination</Term> er et **uordnet** udvalg. Her er rækkefølgen **ligegyldig** — vi er kun interesserede i, **hvilke** elementer der vælges, ikke i hvilken rækkefølge.
+
+Antallet af måder at vælge $r$ elementer ud af $n$ (uden hensyn til rækkefølge) er givet ved <Term definition="Tallet 'n over r', der angiver antallet af måder at vælge r elementer ud af n uden hensyn til rækkefølge.">binomialkoefficienten</Term>:
+
+$$
+\boxed{\binom{n}{r} = \frac{n!}{r! \cdot (n-r)!}}
+$$
+
+Udtales "$n$ over $r$" eller "vælg $r$ blandt $n$".
+
+**Hvorfor dividerer vi med $r!$?**
+
+Permutationer af $r$ ud af $n$ giver $P(n,r) = \frac{n!}{(n-r)!}$. Men her tæller vi hver gruppe $r!$ gange (fordi $r$ elementer kan ordnes på $r!$ måder). For at fjerne gentællingen dividerer vi med $r!$:
+
+$$
+\binom{n}{r} = \frac{P(n, r)}{r!} = \frac{n!}{r! \cdot (n-r)!}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kombinationer – vælg et hold ⚡</summary>
+
+Fra en klasse med 12 elever skal der vælges et udvalg på 4 til en projektgruppe. Hvor mange mulige grupper er der?
+
+Rækkefølgen er ligegyldig (gruppen {Anna, Bo, Carl, Dina} er den samme som {Carl, Anna, Dina, Bo}).
+
+$$
+\begin{aligned}
+\binom{12}{4} &= \frac{12!}{4! \cdot (12-4)!} \\[6pt]
+&= \frac{12!}{4! \cdot 8!} \\[6pt]
+&= \frac{12 \cdot 11 \cdot 10 \cdot 9}{4 \cdot 3 \cdot 2 \cdot 1} \\[6pt]
+&= \frac{11.880}{24} \\[6pt]
+&= 495
+\end{aligned}
+$$
+
+Der er 495 mulige projektgrupper.
+
+**Forklaring af forenklingen:** Vi kan forkorte $\frac{12!}{4! \cdot 8!}$ ved at skrive $12! = 12 \cdot 11 \cdot 10 \cdot 9 \cdot 8!$ og derefter slette $8!$ i tæller og nævner.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Permutation vs. kombination ⚡</summary>
+
+**Scenarie:** 6 løbere i et kapløb.
+
+**Spørgsmål 1:** Hvor mange måder kan guld, sølv og bronze fordeles? (rækkefølge tæller)
+
+$$
+P(6, 3) = \frac{6!}{3!} = 6 \cdot 5 \cdot 4 = 120
+$$
+
+**Spørgsmål 2:** Hvor mange måder kan 3 løbere vælges til landsholdet? (rækkefølge er ligegyldig)
+
+$$
+\binom{6}{3} = \frac{6!}{3! \cdot 3!} = \frac{6 \cdot 5 \cdot 4}{3 \cdot 2 \cdot 1} = \frac{120}{6} = 20
+$$
+
+**Sammenligning:** $120$ ordnede udvalg vs. $20$ uordnede udvalg. Hver gruppe på 3 kan ordnes på $3! = 6$ måder, og ganske rigtigt: $120 / 6 = 20$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kombinationer i sandsynlighed ⚡</summary>
+
+I en pose er der 8 røde og 5 blå kugler (13 i alt). Du trækker 3 kugler tilfældigt **uden tilbagelægning**. Hvad er sandsynligheden for at trække præcis 2 røde og 1 blå?
+
+**Trin 1:** Find antal mulige udfald (vælg 3 kugler ud af 13):
+
+$$
+|S| = \binom{13}{3} = \frac{13!}{3! \cdot 10!} = \frac{13 \cdot 12 \cdot 11}{6} = 286
+$$
+
+**Trin 2:** Find antal gunstige udfald (2 røde OG 1 blå):
+
+- Vælg 2 røde ud af 8: $\binom{8}{2} = \frac{8 \cdot 7}{2} = 28$
+- Vælg 1 blå ud af 5: $\binom{5}{1} = 5$
+- I alt (multiplikationsprincippet): $28 \cdot 5 = 140$
+
+**Trin 3:** Beregn sandsynligheden (Laplace):
+
+$$
+P(\text{2 røde og 1 blå}) = \frac{140}{286} = \frac{70}{143} \approx 0{,}490
+$$
+
+Der er altså ca. 49 % sandsynlighed for at trække præcis 2 røde og 1 blå kugle.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Vigtige egenskaber for binomialkoefficienten
+
+Binomialkoefficienten har flere nyttige egenskaber:
+
+**1. Symmetri:**
+
+$$
+\binom{n}{r} = \binom{n}{n-r}
+$$
+
+At vælge $r$ elementer er det samme som at vælge de $n-r$ elementer, der **ikke** skal med.
+
+Eksempel: $\binom{10}{3} = \binom{10}{7} = 120$
+
+**2. Randværdier:**
+
+$$
+\binom{n}{0} = 1 \qquad \text{og} \qquad \binom{n}{n} = 1
+$$
+
+Der er kun én måde at vælge 0 eller alle elementer.
+
+$$
+\binom{n}{1} = n
+$$
+
+Der er $n$ måder at vælge præcis 1 element.
+
+**3. Pascals regel:**
+
+$$
+\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}
+$$
+
+Denne rekursion giver anledning til Pascals trekant!
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Pascals trekant
+
+<Term definition="En trekantet tabel af binomialkoefficienter, hvor hvert tal er summen af de to tal umiddelbart ovenover. Opkaldt efter Blaise Pascal.">Pascals trekant</Term> er en visuel måde at opbygge binomialkoefficienterne på.
+
+**Opbygning:**
+
+- Rækkerne nummereres fra $n = 0$, og i hver række er $r = 0, 1, \ldots, n$.
+- Kanterne er altid $1$ (fordi $\binom{n}{0} = \binom{n}{n} = 1$).
+- Hvert indre tal er summen af de to tal ovenover (Pascals regel).
+
+```
+n=0:                 1
+n=1:               1   1
+n=2:             1   2   1
+n=3:           1   3   3   1
+n=4:         1   4   6   4   1
+n=5:       1   5  10  10   5   1
+n=6:     1   6  15  20  15   6   1
+n=7:   1   7  21  35  35  21   7   1
+```
+
+**Aflæsning:** Tallet i række $n$, position $r$ (begge talt fra 0) er $\binom{n}{r}$.
+
+Fx: Række 6, position 2 giver $\binom{6}{2} = 15$ ✓
+
+**Summen af en række:** $\sum_{r=0}^{n}\binom{n}{r} = 2^n$
+
+Fx for $n = 4$: $1 + 4 + 6 + 4 + 1 = 16 = 2^4$ ✓
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Aflæsning i Pascals trekant ⚡</summary>
+
+**Opgave:** Find $\binom{5}{2}$ ved hjælp af Pascals trekant.
+
+Vi går til række $n = 5$ og position $r = 2$ (husk at tælle fra 0):
+
+```
+n=5:  1   5   10   10   5   1
+r:    0   1    2    3   4   5
+```
+
+Aflæsning: $\binom{5}{2} = 10$ ✓
+
+**Kontrol med formlen:**
+
+$$
+\binom{5}{2} = \frac{5!}{2! \cdot 3!} = \frac{5 \cdot 4}{2 \cdot 1} = \frac{20}{2} = 10 \quad \checkmark
+$$
+
+**Pascals regel i aktion:**
+
+$$
+\binom{5}{2} = \binom{4}{1} + \binom{4}{2} = 4 + 6 = 10 \quad \checkmark
+$$
+
+De to tal "ovenover" $10$ i trekanten er netop $4$ og $6$ fra rækken $n = 4$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Lottotal ⚡</summary>
+
+I dansk Lotto vælges 7 tal ud af 36 (uden rækkefølge og uden gentagelse). Hvor mange mulige kombinationer er der?
+
+$$
+\begin{aligned}
+\binom{36}{7} &= \frac{36!}{7! \cdot 29!} \\[6pt]
+&= \frac{36 \cdot 35 \cdot 34 \cdot 33 \cdot 32 \cdot 31 \cdot 30}{7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1} \\[6pt]
+&= \frac{36 \cdot 35 \cdot 34 \cdot 33 \cdot 32 \cdot 31 \cdot 30}{5.040} \\[6pt]
+&= 8.347.680
+\end{aligned}
+$$
+
+Der er over **8,3 millioner** mulige lottokombinationer. Sandsynligheden for at vinde med én kupom er altså:
+
+$$
+P(\text{7 rigtige}) = \frac{1}{8.347.680} \approx 0{,}000\,000\,12
+$$
+
+Det er ca. 1 chance ud af 8,3 millioner — eller omtrent 0,000012 %. God fornøjelse! 🍀
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Oversigt – hvornår bruger du hvad?
+
+| Situation | Formel | Tæller rækkefølge? |
+|:--|:-:|:-:|
+| Stille $n$ elementer i rækkefølge | $n!$ | Ja |
+| Vælge $r$ af $n$ med rækkefølge | $P(n,r) = \frac{n!}{(n-r)!}$ | Ja |
+| Vælge $r$ af $n$ uden rækkefølge | $\binom{n}{r} = \frac{n!}{r!(n-r)!}$ | Nej |
+
+**Tommelfingerregel:** Spørg dig selv: "Giver det en **anden** situation, hvis jeg bytter om på to af de valgte elementer?"
+- **Ja** → brug permutationer (rækkefølge vigtig)
+- **Nej** → brug kombinationer (rækkefølge ligegyldig)
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** En restaurant tilbyder 3 forretter, 5 hovedretter og 4 desserter. Hvor mange forskellige 3-retters menuer kan du sammensætte?
+
+**Opgave 2:** Beregn:
+a) $7!$
+b) $\frac{10!}{8!}$
+c) $\binom{8}{3}$
+d) $\binom{12}{5}$
+
+**Opgave 3:** 8 elever skal stille sig i kø. Hvor mange forskellige rækkefølger er der?
+
+**Opgave 4:** Fra et hold på 15 spillere skal træneren vælge 5 til startopstillingen. Hvor mange mulige opstillinger er der?
+
+**Opgave 5:** Brug Pascals trekant til at bestemme $\binom{7}{3}$.
+Verificér derefter svaret med formlen $\frac{n!}{r!(n-r)!}$.
+
+**Opgave 6:** I en kurv er der 6 æbler og 4 pærer. Du tager 3 frugter tilfældigt. Hvad er sandsynligheden for at få præcis 2 æbler og 1 pære? (Brug kombinationer og Laplace-reglen.)
+
+**Opgave 7:** Et password skal bestå af 3 store bogstaver (A-Z) efterfulgt af 2 cifre (0-9).
+a) Hvor mange passwords er mulige, hvis gentagelser er tilladt?
+b) Hvor mange, hvis ingen bogstaver eller cifre må gentages?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="kombinatorik-multi-1"
+  question="Du har 3 hatte og 5 tørklæder. Hvor mange forskellige hat-tørklæde-kombinationer kan du lave?"
+  options={[
+    "8",
+    "15",
+    "35",
+    "2"
+  ]}
+  correctIndex={1}
+  hint="Brug multiplikationsprincippet: antal hatte × antal tørklæder."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="kombinatorik-binom-1"
+  question="Hvad er værdien af binomialkoefficienten (6 over 2)?"
+  options={[
+    "12",
+    "30",
+    "15",
+    "36"
+  ]}
+  correctIndex={2}
+  hint="Brug formlen: 6! / (2! · 4!) = (6 · 5) / (2 · 1)."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="kombinatorik-perm-vs-komb-1"
+  question="Du skal vælge 3 bøger fra en hylde med 10 bøger til at tage med på ferie. Er det en permutation eller kombination?"
+  options={[
+    "Permutation — rækkefølgen er vigtig",
+    "Kombination — rækkefølgen er ligegyldig",
+    "Hverken — det er multiplikationsprincippet",
+    "Begge dele"
+  ]}
+  correctIndex={1}
+  hint="Spørg dig selv: giver det en anden situation, hvis du bytter om på bøgerne?"
+/>

@@ -2,31 +2,473 @@
 title: "Ugrupperet data"
 level: "Matematik C"
 order: 1
-description: "Når vi arbejder med ugrupperet data (enkelte observationer), beregner vi deskriptorer som middelværd..."
+description: "Lær at beskrive datasæt med gennemsnit, median, kvartiler og boksplot. Optjen +150 XP!"
 ---
 
-# Ugrupperet data
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Ugrupperet data** på Matematik C-niveau.
+# Ugrupperet data 🎯
 
-## Introduktion
+Forestil dig, at du har spurgt 10 klassekammerater, hvor mange timer de sover om natten. Du får en liste med tal — og nu vil du gerne **opsummere** og **forstå** de tal. Det er præcis det, deskriptiv statistik handler om!
 
-Når vi arbejder med ugrupperet data (enkelte observationer), beregner vi deskriptorer som middelværdi, median, typetal samt kvartilsæt og tegner boksplot.
+<Term definition="Data hvor hver enkelt observation er listet for sig — i modsætning til grupperet data, hvor observationer er samlet i intervaller.">Ugrupperet data</Term> er den simpleste form: du har en liste af tal, og du vil finde mønstre i dem.
 
-## Central Matematisk Formel
+I dette kapitel lærer du alle de vigtigste redskaber til at beskrive et datasæt. Lad os dykke ned! 🏊
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Hyppighed og frekvens
+
+Når du har et datasæt, er det første skridt at tælle, hvor ofte hver værdi optræder.
+
+**<Term definition="Antallet af gange en bestemt observation forekommer i datasættet.">Hyppighed</Term>** er antallet af gange en bestemt værdi optræder.
+
+**<Term definition="Hyppigheden divideret med det samlede antal observationer. Angives som et tal mellem 0 og 1, eller i procent.">Frekvens</Term>** (også kaldet relativ hyppighed) er hyppigheden divideret med det samlede antal observationer:
 
 $$
-\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i
+\text{Frekvens} = \frac{\text{Hyppighed}}{\text{Antal observationer i alt}}
 $$
 
-## Hvad skal vi lære?
+Frekvensen angiver altså **andelen** af observationer med en bestemt værdi. Den kan udtrykkes som decimaltal eller i procent.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Vigtig egenskab:** Summen af alle frekvenser er altid 1 (eller 100 %).
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+</div>
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+---
+
+<details>
+<summary>Vis Eksempel: Hyppighed og frekvens ⚡</summary>
+
+En klasse med 20 elever har svaret på, hvor mange søskende de har:
+
+$$
+0, 1, 1, 2, 1, 0, 3, 1, 2, 1, 0, 1, 2, 1, 0, 2, 1, 3, 1, 2
+$$
+
+Vi tæller hyppigheden for hver værdi:
+
+| Antal søskende | Hyppighed | Frekvens |
+|:-:|:-:|:-:|
+| 0 | 4 | $\frac{4}{20} = 0{,}20 = 20\%$ |
+| 1 | 9 | $\frac{9}{20} = 0{,}45 = 45\%$ |
+| 2 | 5 | $\frac{5}{20} = 0{,}25 = 25\%$ |
+| 3 | 2 | $\frac{2}{20} = 0{,}10 = 10\%$ |
+| **I alt** | **20** | **1,00 = 100 %** |
+
+Vi kan altså sige, at 45 % af eleverne har præcis 1 søskende. Det er den mest typiske værdi.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Gennemsnit (middelværdi)
+
+<Term definition="Summen af alle observationer divideret med antallet af observationer. Også kaldet middelværdien.">Gennemsnittet</Term> er den mest kendte måde at beskrive et datasæts "centrum" på. Det beregnes ved:
+
+$$
+\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n} = \frac{\sum_{i=1}^{n} x_i}{n}
+$$
+
+Her er $x_1, x_2, \ldots, x_n$ de $n$ observationer, og $\bar{x}$ (udtales "x-streg") er gennemsnittet.
+
+**Intuition:** Gennemsnittet er det tal, som alle observationer ville have, hvis den samlede sum blev fordelt ligeligt.
+
+**Pas på:** Gennemsnittet er følsomt over for <Term definition="En observation der ligger langt fra de øvrige værdier i datasættet.">outliers</Term> (ekstreme værdier). Én meget stor eller lille observation kan trække gennemsnittet væk fra de "typiske" værdier.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af gennemsnit ⚡</summary>
+
+Fem elevers karakterer i matematik er: $4, 7, 7, 10, 12$.
+
+Vi beregner gennemsnittet trin for trin:
+
+$$
+\begin{aligned}
+\bar{x} &= \frac{4 + 7 + 7 + 10 + 12}{5} \\[6pt]
+&= \frac{40}{5} \\[6pt]
+&= 8{,}0
+\end{aligned}
+$$
+
+Gennemsnitskarakteren er altså $8{,}0$.
+
+**Hvad hvis der var en outlier?** Lad os erstatte $12$ med $02$ (en meget lav karakter): $4, 7, 7, 10, 02$.
+
+$$
+\bar{x} = \frac{4 + 7 + 7 + 10 + 2}{5} = \frac{30}{5} = 6{,}0
+$$
+
+Gennemsnittet falder fra $8{,}0$ til $6{,}0$ — kun fordi én observation ændrede sig. Det viser, at gennemsnittet er følsomt over for outliers!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Median
+
+<Term definition="Den midterste værdi i et sorteret datasæt. Halvdelen af observationerne ligger under medianen, halvdelen over.">Medianen</Term> er den midterste observation, når datasættet er sorteret i stigende rækkefølge.
+
+**Til at finde medianen:**
+
+1. Sortér observationerne i stigende rækkefølge.
+2. Hvis antallet $n$ er **ulige**: Medianen er observation nr. $\frac{n+1}{2}$.
+3. Hvis antallet $n$ er **lige**: Medianen er gennemsnittet af observation nr. $\frac{n}{2}$ og nr. $\frac{n}{2}+1$.
+
+**Hvorfor bruge medianen?** Medianen er <Term definition="Egenskab ved et statistisk mål, der betyder, at det ikke påvirkes væsentligt af enkelte ekstreme observationer.">robust</Term> — den påvirkes næsten ikke af outliers. Derfor bruges medianen ofte til at beskrive indkomster, boligpriser osv.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Median med ulige antal ⚡</summary>
+
+Syv elevers daglige skærmtid (i timer) er: $2, 5, 3, 1, 4, 6, 3$.
+
+**Trin 1:** Sortér i stigende rækkefølge:
+
+$$
+1, 2, 3, 3, 4, 5, 6
+$$
+
+**Trin 2:** Vi har $n = 7$ observationer (ulige), så medianen er observation nr.:
+
+$$
+\frac{n+1}{2} = \frac{7+1}{2} = 4
+$$
+
+**Trin 3:** Den 4. observation i den sorterede liste er $3$.
+
+$$
+\text{Median} = 3 \text{ timer}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Median med lige antal ⚡</summary>
+
+Seks elevers daglige skærmtid (i timer) er: $2, 5, 3, 1, 4, 6$.
+
+**Trin 1:** Sortér:
+
+$$
+1, 2, 3, 4, 5, 6
+$$
+
+**Trin 2:** Vi har $n = 6$ (lige), så medianen er gennemsnittet af observation nr. $\frac{6}{2} = 3$ og nr. $4$:
+
+$$
+\text{Median} = \frac{x_3 + x_4}{2} = \frac{3 + 4}{2} = 3{,}5 \text{ timer}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Typetal
+
+<Term definition="Den observation der forekommer flest gange i datasættet. Et datasæt kan have flere typetal eller intet typetal.">Typetallet</Term> er den værdi, der optræder **flest gange** i datasættet.
+
+- Hvis én værdi optræder flest gange: datasættet har ét typetal.
+- Hvis to værdier deler førstepladsen: datasættet er **bimodalt** (to typetal).
+- Hvis alle værdier optræder lige ofte: der er intet meningsfuldt typetal.
+
+Typetallet er det eneste centralmål, der også kan bruges til **kategoriske data** (fx favoritfarve).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Typetal ⚡</summary>
+
+**Datasæt 1:** $3, 5, 5, 7, 8, 5, 9$
+
+Værdien $5$ optræder 3 gange — flere end nogen anden. Typetallet er $5$.
+
+**Datasæt 2:** $2, 2, 4, 4, 6, 8$
+
+Både $2$ og $4$ optræder 2 gange. Datasættet er **bimodalt** med typetallene $2$ og $4$.
+
+**Datasæt 3:** $1, 3, 5, 7, 9$
+
+Alle værdier optræder præcis én gang. Der er intet meningsfuldt typetal.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Variationsbredde
+
+<Term definition="Forskellen mellem den største og den mindste observation i datasættet.">Variationsbredden</Term> er det simpleste spredningsmål. Den angiver, hvor "bredt" datasættet er:
+
+$$
+\text{Variationsbredde} = x_{\max} - x_{\min}
+$$
+
+Variationsbredden er let at beregne, men den siger kun noget om de to mest ekstreme værdier — den fortæller ingenting om, hvordan resten af dataen fordeler sig.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Variationsbredde ⚡</summary>
+
+Et datasæt med temperaturer (i °C) henover en uge: $12, 15, 14, 18, 13, 20, 16$.
+
+$$
+\begin{aligned}
+x_{\max} &= 20 \\
+x_{\min} &= 12 \\
+\text{Variationsbredde} &= 20 - 12 = 8 \text{ °C}
+\end{aligned}
+$$
+
+Temperaturerne varierer altså med $8$ grader i løbet af ugen.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kvartiler og kvartilbredde
+
+Kvartilerne deler det sorterede datasæt i fire lige store dele:
+
+- $Q_1$ (<Term definition="Nedre kvartil. Den værdi, hvor 25 % af observationerne ligger under.">nedre kvartil</Term>): 25 % af observationerne ligger under denne værdi.
+- $Q_2$ (medianen): 50 % ligger under.
+- $Q_3$ (<Term definition="Øvre kvartil. Den værdi, hvor 75 % af observationerne ligger under.">øvre kvartil</Term>): 75 % ligger under.
+
+**Fremgangsmåde til at finde kvartiler:**
+
+1. Sortér datasættet.
+2. Find medianen ($Q_2$) — den deler datasættet i en nedre og en øvre halvdel.
+3. $Q_1$ er medianen af den **nedre halvdel**.
+4. $Q_3$ er medianen af den **øvre halvdel**.
+
+<Term definition="Forskellen mellem øvre og nedre kvartil. Beskriver spredningen af de midterste 50 % af observationerne.">Kvartilbredden</Term> (IQR) måler spredningen af de midterste 50 % af dataen:
+
+$$
+\text{IQR} = Q_3 - Q_1
+$$
+
+Kvartilbredden er mere robust end variationsbredden, fordi den ignorerer de mest ekstreme observationer.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kvartiler trin for trin ⚡</summary>
+
+Datasæt med 12 observationer (allerede sorteret):
+
+$$
+2, 4, 5, 7, 8, 9, 10, 12, 14, 15, 18, 20
+$$
+
+**Trin 1:** Find medianen ($Q_2$). Vi har $n = 12$ (lige antal):
+
+$$
+Q_2 = \frac{x_6 + x_7}{2} = \frac{9 + 10}{2} = 9{,}5
+$$
+
+**Trin 2:** Nedre halvdel (de første 6 observationer): $2, 4, 5, 7, 8, 9$.
+
+$$
+Q_1 = \frac{x_3 + x_4}{2} = \frac{5 + 7}{2} = 6
+$$
+
+**Trin 3:** Øvre halvdel (de sidste 6 observationer): $10, 12, 14, 15, 18, 20$.
+
+$$
+Q_3 = \frac{x_3 + x_4}{2} = \frac{14 + 15}{2} = 14{,}5
+$$
+
+**Trin 4:** Kvartilbredde:
+
+$$
+\text{IQR} = Q_3 - Q_1 = 14{,}5 - 6 = 8{,}5
+$$
+
+**Opsummering:** De midterste 50 % af observationerne ligger mellem $6$ og $14{,}5$, og de spænder over $8{,}5$ enheder.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Boksplot
+
+Et <Term definition="En grafisk fremstilling af datasættets fem-tals-sammenfatning: minimum, Q1, median, Q3 og maksimum. Også kaldet box-and-whisker plot.">boksplot</Term> er en visuel opsummering af datasættet. Det viser **fem nøgletal** (fem-tals-sammenfatningen):
+
+1. **Minimum** ($x_{\min}$)
+2. **Nedre kvartil** ($Q_1$)
+3. **Median** ($Q_2$)
+4. **Øvre kvartil** ($Q_3$)
+5. **Maksimum** ($x_{\max}$)
+
+**Sådan ser det ud:**
+
+- **Boksen** strækker sig fra $Q_1$ til $Q_3$ (viser de midterste 50 % af data).
+- En **lodret streg** inde i boksen markerer medianen.
+- **Whiskers** (antenner) strækker sig fra boksen ud til minimum og maksimum.
+
+**Hvad kan du aflæse?**
+
+- Boksens bredde = kvartilbredden (IQR).
+- Hvis medianen ligger midt i boksen, er fordelingen **symmetrisk**.
+- Hvis medianen ligger tæt på $Q_1$, er fordelingen **højreskæv** (halen strækker sig mod højre).
+- Hvis medianen ligger tæt på $Q_3$, er fordelingen **venstreskæv**.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tegning af boksplot ⚡</summary>
+
+Vi bruger datasættet fra kvartil-eksemplet:
+
+$$
+2, 4, 5, 7, 8, 9, 10, 12, 14, 15, 18, 20
+$$
+
+Fem-tals-sammenfatningen:
+
+| Mål | Værdi |
+|:-:|:-:|
+| Minimum | $2$ |
+| $Q_1$ | $6$ |
+| Median ($Q_2$) | $9{,}5$ |
+| $Q_3$ | $14{,}5$ |
+| Maksimum | $20$ |
+
+**Boksplottet:**
+
+```
+  Min   Q1    Q2     Q3    Max
+   |----[=====|======]-----|
+   2    6    9,5   14,5    20
+```
+
+**Aflæsning:** Medianen ($9{,}5$) ligger lidt til venstre for midten af boksen. Det tyder på en svag højreskævhed — de store værdier strækker sig lidt længere ud end de små.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammenligning af boksplot ⚡</summary>
+
+To klasser har taget den samme prøve:
+
+**Klasse A:** $3, 5, 6, 7, 7, 8, 8, 9, 10, 12$
+
+- Min = 3, $Q_1 = 6$, Median = 7,5, $Q_3 = 9$, Max = 12
+- IQR = 3
+
+**Klasse B:** $2, 4, 5, 6, 7, 8, 10, 11, 11, 14$
+
+- Min = 2, $Q_1 = 5$, Median = 7,5, $Q_3 = 11$, Max = 14
+- IQR = 6
+
+Begge klasser har **samme median** (7,5), men klasse B har **dobbelt så stor kvartilbredde** (6 vs. 3). Det betyder, at resultaterne i klasse B er mere spredte — der er større forskel på de dygtige og de mindre dygtige elever.
+
+Boksplottet gør det nemt at se denne forskel med det blotte øje! 👀
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Et datasæt er: $3, 7, 5, 9, 5, 8, 5, 6, 4, 8$.
+Bestem hyppigheden og frekvensen for hver værdi.
+
+**Opgave 2:** Beregn gennemsnittet for datasættet: $12, 15, 18, 14, 21$.
+
+**Opgave 3:** Find medianen for: $9, 3, 7, 1, 5, 8, 2$.
+
+**Opgave 4:** Angiv typetallet for: $4, 6, 2, 4, 8, 6, 4, 6, 4$.
+
+**Opgave 5:** Et datasæt er: $1, 3, 5, 6, 8, 9, 11, 13, 15, 17, 19, 21$.
+Find $Q_1$, $Q_2$ (medianen), $Q_3$ og kvartilbredden, og tegn et boksplot.
+
+**Opgave 6:** To vennegrupper har målt deres daglige skærmtid (i timer):
+- Gruppe 1: $2, 3, 3, 4, 4, 4, 5, 5, 6, 7$
+- Gruppe 2: $1, 1, 2, 4, 5, 5, 6, 8, 9, 10$
+
+Beregn gennemsnit, median og kvartilbredde for begge grupper. Hvilken gruppe har mest ensartet skærmtid?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="ugrupperet-hyppighed-1"
+  question="Et datasæt har 40 observationer. Værdien 7 optræder 10 gange. Hvad er frekvensen for værdien 7?"
+  options={[
+    "10",
+    "0,25",
+    "0,40",
+    "4"
+  ]}
+  correctIndex={1}
+  hint="Frekvens = hyppighed / antal observationer i alt."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ugrupperet-median-1"
+  question="Hvad er medianen af datasættet: 2, 8, 4, 6, 10?"
+  options={[
+    "4",
+    "6",
+    "8",
+    "5"
+  ]}
+  correctIndex={1}
+  hint="Sortér først datasættet og find den midterste værdi."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ugrupperet-boksplot-1"
+  question="I et boksplot ligger medianen meget tæt på Q₃. Hvad fortæller det om fordelingen?"
+  options={[
+    "Fordelingen er symmetrisk",
+    "Fordelingen er højreskæv",
+    "Fordelingen er venstreskæv",
+    "Der er ingen outliers"
+  ]}
+  correctIndex={2}
+  hint="Tænk over, hvilken side 'halen' strækker sig ud mod."
+/>

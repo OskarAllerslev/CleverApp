@@ -2,31 +2,537 @@
 title: "Grænseværdier og kontinuitet"
 level: "Matematik A"
 order: 1
-description: "En introduktion til begrebet grænseværdi, kontinuerte funktioner og differentiabilitet, som udgør fu..."
+description: "Forstå grænseværdier, kontinuitet og L'Hôpitals regel – nøglen til hele analysen. Optjen +150 XP!"
 ---
 
-# Grænseværdier og kontinuitet
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Grænseværdier og kontinuitet** på Matematik A-niveau.
+# Grænseværdier og kontinuitet 🎯
 
-## Introduktion
+Hvad sker der, når $x$ sneaker sig tættere og tættere på et bestemt tal — men måske aldrig rammer det? Det er kernen i begrebet **grænseværdi**, og det er fundamentet for hele den matematiske analyse. Uden grænseværdier ville vi ikke have differentialregning, integralregning eller nogen af de kraftfulde værktøjer, du allerede kender. Tid til at forstå maskinrummet!
 
-En introduktion til begrebet grænseværdi, kontinuerte funktioner og differentiabilitet, som udgør fundamentet for infinitesimalregningen.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Intuitiv forståelse af grænseværdier
+
+Forestil dig, at du går mod en dør. Du tager halvdelen af den tilbageværende afstand for hvert skridt. Du når teknisk set aldrig døren — men du kommer vilkårligt tæt på. Det er præcis ideen bag en <Term definition="Den værdi som f(x) nærmer sig, når x nærmer sig en bestemt værdi a">grænseværdi</Term>.
+
+Vi skriver:
 
 $$
-\lim_{x \to x_0} f(x) = L
+\lim_{x \to a} f(x) = L
 $$
 
-## Hvad skal vi lære?
+og læser det som: "grænseværdien af $f(x)$, når $x$ går mod $a$, er $L$."
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Vigtigt:** Grænseværdien handler om, hvad $f(x)$ *nærmer sig* — ikke hvad $f(a)$ *er*. Funktionen behøver slet ikke være defineret i $a$!
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+**Eksempel på intuition:** Betragt funktionen
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+$$
+f(x) = \frac{x^2 - 1}{x - 1}
+$$
+
+Denne funktion er ikke defineret for $x = 1$ (division med nul). Men hvis vi sætter $x$-værdier tæt på 1 ind:
+
+| $x$   | $f(x)$ |
+|--------|---------|
+| 0,9    | 1,9     |
+| 0,99   | 1,99    |
+| 0,999  | 1,999   |
+| 1,001  | 2,001   |
+| 1,01   | 2,01    |
+
+Vi ser, at $f(x) \to 2$ når $x \to 1$. Altså: $\lim_{x \to 1} f(x) = 2$.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Formel definition (epsilon-delta)
+
+Den formelle definition af grænseværdi gør intuitionen præcis:
+
+$$
+\lim_{x \to a} f(x) = L
+$$
+
+betyder: For ethvert $\varepsilon > 0$ (uanset hvor lille) findes der et $\delta > 0$, så
+
+$$
+0 < |x - a| < \delta \implies |f(x) - L| < \varepsilon
+$$
+
+**Hvad siger dette i ord?**
+- $\varepsilon$ er den "fejlmargin" vi accepterer omkring $L$.
+- $\delta$ er det "vindue" omkring $a$, vi skal holde $x$ inden for.
+- Uanset hvor lille en fejlmargin nogen kræver, kan vi altid finde et vindue, der opfylder kravet.
+
+Du vil sjældent bruge epsilon-delta-definitionen til beregninger, men den er vigtig for at forstå *præcis*, hvad en grænseværdi er.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Ensidige grænseværdier
+
+Nogle gange opfører en funktion sig forskelligt, alt efter om vi nærmer os $a$ fra venstre eller fra højre. Vi definerer:
+
+**Venstresidig grænseværdi:**
+
+$$
+\lim_{x \to a^-} f(x) = L_1
+$$
+
+Her nærmer $x$ sig $a$ fra værdier *mindre* end $a$.
+
+**Højresidig grænseværdi:**
+
+$$
+\lim_{x \to a^+} f(x) = L_2
+$$
+
+Her nærmer $x$ sig $a$ fra værdier *større* end $a$.
+
+**Afgørende sammenhæng:** Den "almindelige" (tosidede) grænseværdi eksisterer kun, hvis begge ensidige grænseværdier eksisterer og er ens:
+
+$$
+\lim_{x \to a} f(x) = L \iff \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L
+$$
+
+**Eksempel:** Betragt Heaviside-funktionen:
+
+$$
+H(x) = \begin{cases} 0 & \text{for } x < 0 \\ 1 & \text{for } x \geq 0 \end{cases}
+$$
+
+Her er $\lim_{x \to 0^-} H(x) = 0$ og $\lim_{x \to 0^+} H(x) = 1$. Da de to er forskellige, eksisterer $\lim_{x \to 0} H(x)$ **ikke**.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Regneregler for grænseværdier
+
+Lad $\lim_{x \to a} f(x) = L$ og $\lim_{x \to a} g(x) = M$. Så gælder:
+
+**Sumregel:**
+
+$$
+\lim_{x \to a} \bigl[f(x) + g(x)\bigr] = L + M
+$$
+
+**Differensregel:**
+
+$$
+\lim_{x \to a} \bigl[f(x) - g(x)\bigr] = L - M
+$$
+
+**Produktregel:**
+
+$$
+\lim_{x \to a} \bigl[f(x) \cdot g(x)\bigr] = L \cdot M
+$$
+
+**Kvotientregel** (når $M \neq 0$):
+
+$$
+\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}
+$$
+
+**Potensregel:**
+
+$$
+\lim_{x \to a} \bigl[f(x)\bigr]^n = L^n
+$$
+
+**Konstantregel:**
+
+$$
+\lim_{x \to a} c \cdot f(x) = c \cdot L
+$$
+
+Disse regler gør det muligt at beregne grænseværdier ved at "dele op" i mindre dele.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning med regneregler ⚡</summary>
+
+**Find** $\lim_{x \to 3} (2x^2 + 5x - 1)$.
+
+Vi bruger regnereglerne:
+
+$$
+\begin{aligned}
+\lim_{x \to 3} (2x^2 + 5x - 1) &= 2 \cdot \lim_{x \to 3} x^2 + 5 \cdot \lim_{x \to 3} x - \lim_{x \to 3} 1 \\
+&= 2 \cdot 3^2 + 5 \cdot 3 - 1 \\
+&= 2 \cdot 9 + 15 - 1 \\
+&= 18 + 15 - 1 \\
+&= 32
+\end{aligned}
+$$
+
+**Konklusion:** For polynomier kan vi altid bare indsætte — grænseværdien er blot $f(a)$. Det bliver spændende, når vi *ikke* bare kan indsætte!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kontinuitet
+
+En funktion $f$ er <Term definition="En funktion er kontinuert i et punkt, hvis grafen kan tegnes uden at løfte blyanten">kontinuert</Term> i punktet $x = a$, hvis tre betingelser alle er opfyldt:
+
+1. $f(a)$ er defineret (funktionen har en værdi i $a$)
+2. $\lim_{x \to a} f(x)$ eksisterer (grænseværdien eksisterer)
+3. $\lim_{x \to a} f(x) = f(a)$ (grænseværdien er lig funktionsværdien)
+
+Hvis bare én af betingelserne fejler, er $f$ **diskontinuert** i $a$.
+
+**Typer af diskontinuitet:**
+
+- **Hul-diskontinuitet (fjernbar):** Grænseværdien eksisterer, men $f(a)$ mangler eller er forkert. Eksempel: $f(x) = \frac{x^2-1}{x-1}$ i $x = 1$.
+- **Spring-diskontinuitet:** De ensidige grænseværdier eksisterer men er forskellige. Eksempel: Heaviside-funktionen i $x = 0$.
+- **Uendelig diskontinuitet:** Funktionen vokser uden grænse. Eksempel: $f(x) = \frac{1}{x}$ i $x = 0$.
+
+**Vigtige kontinuerte funktioner:** Polynomier, eksponentialfunktioner, sinus og cosinus er kontinuerte overalt i deres definitionsmængde.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tjek af kontinuitet ⚡</summary>
+
+**Er funktionen $f$ kontinuert i $x = 2$?**
+
+$$
+f(x) = \begin{cases} x^2 - 1 & \text{for } x < 2 \\ 3 & \text{for } x = 2 \\ 2x - 1 & \text{for } x > 2 \end{cases}
+$$
+
+**Tjek betingelse 1:** $f(2) = 3$ ✓ (defineret)
+
+**Tjek betingelse 2:** Vi finder de ensidige grænseværdier:
+
+$$
+\lim_{x \to 2^-} f(x) = \lim_{x \to 2^-} (x^2 - 1) = 4 - 1 = 3
+$$
+
+$$
+\lim_{x \to 2^+} f(x) = \lim_{x \to 2^+} (2x - 1) = 4 - 1 = 3
+$$
+
+Da begge ensidige grænseværdier er ens: $\lim_{x \to 2} f(x) = 3$ ✓
+
+**Tjek betingelse 3:** $\lim_{x \to 2} f(x) = 3 = f(2)$ ✓
+
+**Konklusion:** $f$ er kontinuert i $x = 2$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Ubestemte former og algebraisk forenkling
+
+Når vi forsøger at indsætte $x = a$ og får $\frac{0}{0}$, kalder vi det en <Term definition="Et udtryk som 0/0 eller ∞/∞, hvor grænseværdien ikke kan aflæses direkte">ubestemt form</Term>. Formen $\frac{0}{0}$ betyder **ikke**, at grænseværdien er 0, 1 eller ∞ — den kan være *hvad som helst*!
+
+**Strategi 1: Faktoriser og forkort**
+
+Hvis tæller og nævner begge har $(x - a)$ som faktor, kan vi forkorte:
+
+$$
+\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{(x-a) \cdot p(x)}{(x-a) \cdot q(x)} = \lim_{x \to a} \frac{p(x)}{q(x)}
+$$
+
+**Strategi 2: Forlæng med konjugeret** (ved rødder)
+
+Hvis der indgår kvadratrødder, forlænger vi med det konjugerede udtryk for at fjerne roden.
+
+**Strategi 3: L'Hopitals regel** (se næste afsnit!)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Faktorisering af 0/0 ⚡</summary>
+
+**Find** $\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$.
+
+**Trin 1:** Indsæt $x = 2$: $\frac{4-4}{2-2} = \frac{0}{0}$ — ubestemt form!
+
+**Trin 2:** Faktoriser tælleren:
+
+$$
+x^2 - 4 = (x-2)(x+2)
+$$
+
+**Trin 3:** Forkort:
+
+$$
+\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x+2)
+$$
+
+**Trin 4:** Nu kan vi indsætte:
+
+$$
+\lim_{x \to 2} (x + 2) = 2 + 2 = 4
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Konjugeret forlængelse ⚡</summary>
+
+**Find** $\lim_{x \to 0} \frac{\sqrt{x+4} - 2}{x}$.
+
+**Trin 1:** Indsæt $x = 0$: $\frac{\sqrt{4}-2}{0} = \frac{0}{0}$ — ubestemt form!
+
+**Trin 2:** Forlæng med det konjugerede $\sqrt{x+4} + 2$:
+
+$$
+\frac{\sqrt{x+4} - 2}{x} \cdot \frac{\sqrt{x+4} + 2}{\sqrt{x+4} + 2} = \frac{(x+4) - 4}{x(\sqrt{x+4} + 2)} = \frac{x}{x(\sqrt{x+4} + 2)}
+$$
+
+**Trin 3:** Forkort $x$:
+
+$$
+\lim_{x \to 0} \frac{1}{\sqrt{x+4} + 2} = \frac{1}{\sqrt{4} + 2} = \frac{1}{2 + 2} = \frac{1}{4}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: L'Hopitals regel
+
+<Term definition="En regel der tillader os at differentiere tæller og nævner separat for at finde grænseværdien af en ubestemt form">L'Hopitals regel</Term> er et kraftfuldt redskab til at håndtere ubestemte former:
+
+**Sætning:** Hvis $\lim_{x \to a} \frac{f(x)}{g(x)}$ giver formen $\frac{0}{0}$ eller $\frac{\pm\infty}{\pm\infty}$, og $g'(x) \neq 0$ nær $a$, så gælder:
+
+$$
+\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
+$$
+
+**forudsat** at grænseværdien på højre side eksisterer (eller er $\pm\infty$).
+
+**Vigtige bemærkninger:**
+- Reglen gælder **kun** ved ubestemte former $\frac{0}{0}$ eller $\frac{\infty}{\infty}$. Tjek altid først!
+- Vi differentierer tæller og nævner **hver for sig** — det er IKKE kvotientreglen!
+- Reglen kan anvendes gentagne gange, hvis resultatet stadig er en ubestemt form.
+- Reglen gælder også for $x \to \pm\infty$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: L'Hopitals regel i praksis ⚡</summary>
+
+**Eksempel 1:** Find $\lim_{x \to 0} \frac{\sin(x)}{x}$.
+
+**Tjek:** $\frac{\sin(0)}{0} = \frac{0}{0}$ ✓ — ubestemt form.
+
+Anvend L'Hopital:
+
+$$
+\lim_{x \to 0} \frac{\sin(x)}{x} = \lim_{x \to 0} \frac{\cos(x)}{1} = \cos(0) = 1
+$$
+
+---
+
+**Eksempel 2:** Find $\lim_{x \to 0} \frac{e^x - 1}{x}$.
+
+**Tjek:** $\frac{e^0 - 1}{0} = \frac{0}{0}$ ✓
+
+Anvend L'Hopital:
+
+$$
+\lim_{x \to 0} \frac{e^x - 1}{x} = \lim_{x \to 0} \frac{e^x}{1} = e^0 = 1
+$$
+
+---
+
+**Eksempel 3:** Find $\lim_{x \to 0} \frac{1 - \cos(x)}{x^2}$.
+
+**Tjek:** $\frac{1-1}{0} = \frac{0}{0}$ ✓
+
+Første anvendelse af L'Hopital:
+
+$$
+\lim_{x \to 0} \frac{\sin(x)}{2x}
+$$
+
+Stadig $\frac{0}{0}$! Anvend L'Hopital igen:
+
+$$
+\lim_{x \to 0} \frac{\cos(x)}{2} = \frac{1}{2}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Grænseværdi ved uendelig ⚡</summary>
+
+**Find** $\lim_{x \to \infty} \frac{3x^2 + 2x}{5x^2 - x + 1}$.
+
+**Metode 1: Divider med højeste potens**
+
+Divider tæller og nævner med $x^2$:
+
+$$
+\lim_{x \to \infty} \frac{3 + \frac{2}{x}}{5 - \frac{1}{x} + \frac{1}{x^2}}
+$$
+
+Når $x \to \infty$ går alle brøkled mod 0:
+
+$$
+= \frac{3 + 0}{5 - 0 + 0} = \frac{3}{5}
+$$
+
+**Metode 2: L'Hopitals regel**
+
+Formen er $\frac{\infty}{\infty}$, så vi kan anvende L'Hopital:
+
+$$
+\lim_{x \to \infty} \frac{3x^2 + 2x}{5x^2 - x + 1} = \lim_{x \to \infty} \frac{6x + 2}{10x - 1}
+$$
+
+Stadig $\frac{\infty}{\infty}$, anvend igen:
+
+$$
+= \lim_{x \to \infty} \frac{6}{10} = \frac{3}{5}
+$$
+
+**Tommelfingerregel:** For rationelle funktioner er grænseværdien ved $\pm\infty$ bestemt af de ledende koefficienter, når tæller og nævner har samme grad.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Andre ubestemte former
+
+Ud over $\frac{0}{0}$ og $\frac{\infty}{\infty}$ findes der andre ubestemte former, der kan omskrives til en af de to hovedformer:
+
+| Ubestemt form | Omskrivningsstrategi |
+|---|---|
+| $0 \cdot \infty$ | Omskriv til $\frac{0}{1/\infty} = \frac{0}{0}$ eller $\frac{\infty}{1/0} = \frac{\infty}{\infty}$ |
+| $\infty - \infty$ | Sæt på fælles brøk eller faktoriser |
+| $1^\infty$ | Tag $\ln$ og brug $e^{\ln(\cdot)}$ |
+| $0^0$ og $\infty^0$ | Tag $\ln$ og brug $e^{\ln(\cdot)}$ |
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Formen 0 · ∞ ⚡</summary>
+
+**Find** $\lim_{x \to 0^+} x \cdot \ln(x)$.
+
+Formen er $0 \cdot (-\infty)$. Omskriv:
+
+$$
+x \cdot \ln(x) = \frac{\ln(x)}{1/x} = \frac{\ln(x)}{x^{-1}}
+$$
+
+Nu har vi formen $\frac{-\infty}{\infty}$. Anvend L'Hopital:
+
+$$
+\lim_{x \to 0^+} \frac{\ln(x)}{x^{-1}} = \lim_{x \to 0^+} \frac{1/x}{-x^{-2}} = \lim_{x \to 0^+} \frac{1/x}{-1/x^2} = \lim_{x \to 0^+} \frac{x^2}{-x} = \lim_{x \to 0^+} (-x) = 0
+$$
+
+**Konklusion:** $\lim_{x \to 0^+} x \ln(x) = 0$. Funktionen $x$ "vinder" over $\ln(x)$ — den trækker produktet mod nul.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn $\lim_{x \to 4} \frac{x^2 - 16}{x - 4}$ ved faktorisering.
+
+**Opgave 2:** Beregn $\lim_{x \to 1} \frac{x^3 - 1}{x^2 - 1}$ ved faktorisering. (Husk: $x^3 - 1 = (x-1)(x^2+x+1)$)
+
+**Opgave 3:** Brug L'Hopitals regel til at finde $\lim_{x \to 0} \frac{e^{2x} - 1}{x}$.
+
+**Opgave 4:** Afgør om funktionen $f(x) = \frac{x^2 - 9}{x - 3}$ kan gøres kontinuert i $x = 3$ ved at definere $f(3)$ passende. Hvad skal $f(3)$ sættes til?
+
+**Opgave 5:** Beregn $\lim_{x \to \infty} \frac{2x^3 - x}{4x^3 + 7}$.
+
+**Opgave 6:** Find $\lim_{x \to 0} \frac{\tan(x)}{x}$ ved hjælp af L'Hopitals regel.
+
+**Opgave 7:** Undersøg, om $\lim_{x \to 0} \frac{|x|}{x}$ eksisterer ved at beregne de ensidige grænseværdier.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="graensevaerdi-definition"
+  question="Hvad betyder det, at $\lim_{x \to 3} f(x) = 7$?"
+  options={[
+    "f(3) = 7",
+    "f(x) nærmer sig 7, når x nærmer sig 3",
+    "f(x) = 7 for alle x nær 3",
+    "Funktionen er defineret i x = 3"
+  ]}
+  correctIndex={1}
+  hint="Husk: grænseværdien handler om, hvad funktionen nærmer sig — ikke hvad den ER i punktet."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ubestemt-form-strategi"
+  question="Du skal finde $\lim_{x \to 2} \frac{x^2-4}{x-2}$. Hvad er den korrekte fremgangsmåde?"
+  options={[
+    "Indsæt x = 2 direkte og få resultatet 0",
+    "Brug L'Hopitals regel som eneste mulighed",
+    "Faktoriser tælleren som (x-2)(x+2) og forkort",
+    "Grænseværdien eksisterer ikke, da nævneren er 0"
+  ]}
+  correctIndex={2}
+  hint="Tælleren er en forskel af to kvadrater: a² - b² = (a-b)(a+b)."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="lhopital-betingelse"
+  question="Hvornår må du anvende L'Hopitals regel?"
+  options={[
+    "Altid når der er en brøk i grænseværdien",
+    "Kun når man får formen 0/0 eller ∞/∞",
+    "Kun når funktionerne er polynomier",
+    "Når nævneren er 0"
+  ]}
+  correctIndex={1}
+  hint="L'Hopitals regel kræver en specifik ubestemt form — ellers er den ugyldig."
+/>

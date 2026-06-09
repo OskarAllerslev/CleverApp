@@ -1,32 +1,428 @@
 ---
-title: "Procent og rentesregning"
+title: "Procent og rente"
 level: "Matematik C"
-order: 5
-description: "Procent betyder pr. hundrede. Her lærer du om procentvis stigning og fald, samt kapitalfremskrivning..."
+order: 4
+description: "Forstå procentregning, fremskrivningsfaktorer og renteformlen – uundværligt i økonomi og hverdag. Optjen +150 XP!"
 ---
 
-# Procent og rentesregning
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Procent og rentesregning** på Matematik C-niveau.
+# Procent og rente 🎯
 
-## Introduktion
+Procent er matematik, du møder **hver eneste dag** – fra rabatter i butikken til renter på din opsparing. Når du forstår procentregning, har du et værktøj, der giver dig magt over din økonomi og hjælper dig med at gennemskue tilbud, lån og investeringer. Lad os dykke ned! 💰
 
-Procent betyder "pr. hundrede". Her lærer du om procentvis stigning og fald, samt kapitalfremskrivning og renteformlen.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Hvad er procent?
+
+<Term definition="Procent betyder 'per hundrede'. 1% = 1/100 = 0,01.">Procent</Term> betyder bogstaveligt "per hundrede" (fra latin: *per centum*). Symbolet er $\%$.
+
+$$
+p\% = \frac{p}{100}
+$$
+
+**Omregninger:**
+
+| Fra | Til | Regel | Eksempel |
+|-----|-----|-------|----------|
+| Procent | Decimal | Divider med 100 | $45\% = 0{,}45$ |
+| Decimal | Procent | Gang med 100 | $0{,}08 = 8\%$ |
+| Brøk | Procent | Gang med 100% | $\frac{3}{4} = 75\%$ |
+
+**De tre grundlæggende procentberegninger:**
+
+1. **Find $p\%$ af et beløb $K$:**
+
+$$
+\text{Andel} = K \cdot \frac{p}{100}
+$$
+
+Eksempel: $25\%$ af $800 = 800 \cdot \frac{25}{100} = 800 \cdot 0{,}25 = 200$
+
+2. **Find procentdelen (hvor mange procent er $a$ af $b$?):**
+
+$$
+p = \frac{a}{b} \cdot 100\%
+$$
+
+Eksempel: $150$ ud af $600$: $\frac{150}{600} \cdot 100\% = 25\%$
+
+3. **Find det hele (100%) ud fra en procentdel:**
+
+$$
+K = \frac{\text{Andel}}{p} \cdot 100
+$$
+
+Eksempel: Hvis $30\%$ svarer til $120$, er det hele: $\frac{120}{30} \cdot 100 = 400$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Procentberegning i hverdagen ⚡</summary>
+
+**En jakke koster normalt 1200 kr og er sat ned med 35%. Hvad er den nedsatte pris?**
+
+**Trin 1: Beregn rabatten**
+
+$$
+\text{Rabat} = 1200 \cdot \frac{35}{100} = 1200 \cdot 0{,}35 = 420 \text{ kr}
+$$
+
+**Trin 2: Træk rabatten fra**
+
+$$
+\text{Nedsat pris} = 1200 - 420 = 780 \text{ kr}
+$$
+
+**Alternativ (hurtig metode med fremskrivningsfaktor):**
+
+Hvis prisen sættes ned med $35\%$, betaler vi $100\% - 35\% = 65\%$ af prisen:
+
+$$
+\text{Nedsat pris} = 1200 \cdot 0{,}65 = 780 \text{ kr}
+$$
+
+**Svar:** Den nedsatte pris er $780$ kr.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fremskrivningsfaktor
+
+En <Term definition="Det tal, man ganger med for at beregne den nye værdi efter en procentvis ændring. Ved p% stigning er fremskrivningsfaktoren (1 + p/100).">fremskrivningsfaktor</Term> er det tal, vi ganger med for at beregne den nye værdi efter en procentændring.
+
+**Ved en stigning på $p\%$:**
+
+$$
+\text{Fremskrivningsfaktor} = 1 + \frac{p}{100}
+$$
+
+Eksempel: Stigning på $8\%$: fremskrivningsfaktor $= 1 + 0{,}08 = 1{,}08$
+
+**Ved et fald på $p\%$:**
+
+$$
+\text{Fremskrivningsfaktor} = 1 - \frac{p}{100}
+$$
+
+Eksempel: Fald på $15\%$: fremskrivningsfaktor $= 1 - 0{,}15 = 0{,}85$
+
+**Den nye værdi beregnes:**
+
+$$
+K_{\text{ny}} = K_{\text{gammel}} \cdot \text{fremskrivningsfaktor}
+$$
+
+**Vigtig pointe:** Fremskrivningsfaktoren samler beregningen i ét trin i stedet for to!
+
+**Gentagne procentændringer:**
+
+Hvis vi har **flere** procentændringer efter hinanden, ganges fremskrivningsfaktorerne:
+
+$$
+K_{\text{ny}} = K_0 \cdot f_1 \cdot f_2 \cdot f_3 \cdots
+$$
+
+**Pas på!** To stigninger på $10\%$ er **ikke** det samme som én stigning på $20\%$:
+
+$$
+1{,}10 \cdot 1{,}10 = 1{,}21 \neq 1{,}20
+$$
+
+To stigninger på $10\%$ giver altså en samlet stigning på $21\%$ – ikke $20\%$!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fremskrivningsfaktor med flere ændringer ⚡</summary>
+
+**En aktie stiger $20\%$ det første år, falder $15\%$ det andet år og stiger $10\%$ det tredje år. Hvad er den samlede procentvise ændring?**
+
+**Trin 1: Find fremskrivningsfaktorerne**
+
+$$
+f_1 = 1 + 0{,}20 = 1{,}20 \quad (\text{stigning } 20\%)
+$$
+
+$$
+f_2 = 1 - 0{,}15 = 0{,}85 \quad (\text{fald } 15\%)
+$$
+
+$$
+f_3 = 1 + 0{,}10 = 1{,}10 \quad (\text{stigning } 10\%)
+$$
+
+**Trin 2: Gang faktorerne sammen**
+
+$$
+f_{\text{samlet}} = 1{,}20 \cdot 0{,}85 \cdot 1{,}10 = 1{,}122
+$$
+
+**Trin 3: Find den samlede procentændring**
+
+$$
+\text{Procentændring} = (1{,}122 - 1) \cdot 100\% = 12{,}2\%
+$$
+
+**Svar:** Aktien er steget $12{,}2\%$ samlet over de tre år.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Renteformlen
+
+Når penge sættes i banken, vokser de med <Term definition="Rente beregnet af den oprindelige kapital plus tidligere tilskrevne renter. Renters rente giver eksponentiel vækst.">renters rente</Term> – det vil sige, at renten hvert år beregnes af det samlede beløb, inklusive tidligere renter.
+
+<Term definition="Formlen K_n = K_0 · (1+r)^n, der beregner en kapitals værdi efter n perioder med renten r.">Renteformlen</Term> ser sådan ud:
 
 $$
 K_n = K_0 \cdot (1 + r)^n
 $$
 
-## Hvad skal vi lære?
+| Symbol | Betydning |
+|--------|-----------|
+| $K_n$ | Kapitalen efter $n$ perioder |
+| $K_0$ | Startkapitalen (det beløb vi starter med) |
+| $r$ | Renten per periode (som decimaltal) |
+| $n$ | Antal perioder |
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Bemærk:** $r$ er renten som decimaltal. Hvis renten er $5\%$, er $r = 0{,}05$.
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+Tallet $(1 + r)$ er fremskrivningsfaktoren per periode.
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+**Fordobling af kapital:**
+
+Hvor lang tid tager det at fordoble sin kapital? Vi løser $K_n = 2 \cdot K_0$:
+
+$$
+2 \cdot K_0 = K_0 \cdot (1 + r)^n \implies 2 = (1 + r)^n \implies n = \frac{\ln(2)}{\ln(1 + r)}
+$$
+
+**Tommelfingerregel:** $n \approx \frac{72}{p}$ år (kaldet "72-reglen"), hvor $p$ er renteprocenten.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Renteformlen i praksis ⚡</summary>
+
+**Du sætter 50.000 kr i banken til en fast årlig rente på 3,5%. Hvor meget er der på kontoen efter 10 år?**
+
+**Givet:**
+
+$$
+K_0 = 50.000 \quad r = 0{,}035 \quad n = 10
+$$
+
+**Indsæt i renteformlen:**
+
+$$
+\begin{aligned}
+K_{10} &= K_0 \cdot (1 + r)^{10} \\
+&= 50.000 \cdot (1 + 0{,}035)^{10} \\
+&= 50.000 \cdot (1{,}035)^{10} \\
+&= 50.000 \cdot 1{,}4106 \\
+&= 70.530 \text{ kr}
+\end{aligned}
+$$
+
+**Svar:** Efter 10 år er der ca. $70.530$ kr på kontoen.
+
+**Bonus:** Renterne alene udgør $70.530 - 50.000 = 20.530$ kr. Uden renters rente ville du kun have fået $50.000 \cdot 0{,}035 \cdot 10 = 17.500$ kr i rente. Renters rente har altså givet dig $3.030$ kr ekstra! 🎉
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Baglæns beregning – find startkapitalen ⚡</summary>
+
+**Om 8 år skal du bruge 200.000 kr. Renten er 4% p.a. Hvor meget skal du sætte ind i dag?**
+
+**Givet:**
+
+$$
+K_8 = 200.000 \quad r = 0{,}04 \quad n = 8
+$$
+
+Vi isolerer $K_0$ i renteformlen:
+
+$$
+K_n = K_0 \cdot (1 + r)^n \implies K_0 = \frac{K_n}{(1 + r)^n}
+$$
+
+**Indsæt:**
+
+$$
+\begin{aligned}
+K_0 &= \frac{200.000}{(1{,}04)^8} \\
+&= \frac{200.000}{1{,}3686} \\
+&= 146.118 \text{ kr}
+\end{aligned}
+$$
+
+**Svar:** Du skal sætte ca. $146.118$ kr ind i dag.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: ÅOP – Årlige Omkostninger i Procent
+
+Når du låner penge, er renten sjældent den eneste omkostning. <Term definition="Årlige Omkostninger i Procent – et tal der inkluderer alle låneomkostninger (rente, gebyrer, bidrag) udtrykt som en årlig procentsats.">ÅOP</Term> (Årlige Omkostninger i Procent) er et nøgletal, der inkluderer **alle** omkostninger ved et lån:
+
+- Nominel rente
+- Etableringsgebyr
+- Administrationsgebyrer
+- Bidragssatser
+
+**ÅOP giver dig det fulde billede** og gør det muligt at sammenligne forskellige lån retfærdigt.
+
+**Eksempel:** Et lån kan have en nominel rente på $4\%$, men når gebyrer lægges til, kan ÅOP være $5{,}8\%$.
+
+**Tommelfingerregel:** Sammenlign altid ÅOP – ikke kun renten – når du vælger mellem lån!
+
+**Kapitalfremskrivning med ÅOP:**
+
+Når man kender ÅOP, kan man beregne den samlede tilbagebetaling:
+
+$$
+K_n = K_0 \cdot (1 + r_{\text{ÅOP}})^n
+$$
+
+Her er $r_{\text{ÅOP}}$ den årlige omkostning som decimaltal.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammenligning af lån med ÅOP ⚡</summary>
+
+**Du vil låne 100.000 kr over 5 år. To banker tilbyder:**
+
+| | Bank A | Bank B |
+|--|--------|--------|
+| Nominel rente | $3{,}5\%$ | $3{,}0\%$ |
+| Gebyrer | 500 kr/år | 2000 kr/år |
+| ÅOP | $4{,}0\%$ | $5{,}1\%$ |
+
+**Beregn den samlede omkostning for hvert lån (forenklet):**
+
+**Bank A:**
+
+$$
+K_5 = 100.000 \cdot (1{,}040)^5 = 100.000 \cdot 1{,}2167 = 121.670 \text{ kr}
+$$
+
+Samlede omkostninger: $121.670 - 100.000 = 21.670$ kr
+
+**Bank B:**
+
+$$
+K_5 = 100.000 \cdot (1{,}051)^5 = 100.000 \cdot 1{,}2820 = 128.200 \text{ kr}
+$$
+
+Samlede omkostninger: $128.200 - 100.000 = 28.200$ kr
+
+**Konklusion:** Selvom Bank B har lavere nominel rente, er Bank A det bedste valg, fordi den har lavere ÅOP. Det skyldes Bank B's høje gebyrer. 💡
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn:
+
+a) $15\%$ af $3.200$ kr
+
+b) $120$ er $p\%$ af $800$ – find $p$
+
+c) $40\%$ af et beløb er $600$ kr – find beløbet
+
+**Opgave 2:** Find fremskrivningsfaktoren:
+
+a) Stigning på $12\%$
+
+b) Fald på $7{,}5\%$
+
+c) Først stigning $25\%$, derefter fald $20\%$
+
+**Opgave 3:** En vare koster $4.500$ kr. Den stiger først $10\%$ i pris, og sættes derefter ned med $10\%$. Hvad er den endelige pris? Er den den samme som den oprindelige?
+
+**Opgave 4:** Du sætter $25.000$ kr i banken til $2{,}5\%$ årlig rente. Brug renteformlen til at beregne:
+
+a) Beløbet efter $5$ år
+
+b) Beløbet efter $20$ år
+
+c) Hvornår er beløbet fordoblet? (brug $n = \frac{\ln 2}{\ln(1{,}025)}$)
+
+**Opgave 5:** To banker tilbyder et lån på $150.000$ kr. Bank X har ÅOP $3{,}9\%$ og Bank Y har ÅOP $4{,}5\%$. Beregn forskellen i samlet tilbagebetaling over $10$ år (forenklet med renteformlen).
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="procent-quiz-1"
+  question="En vare koster 400 kr og sættes ned med 25%. Hvad er den nedsatte pris?"
+  options={[
+    "100 kr",
+    "375 kr",
+    "300 kr",
+    "350 kr"
+  ]}
+  correctIndex={2}
+  hint="Beregn 25% af 400 kr og træk det fra. Eller brug fremskrivningsfaktor: 400 · 0,75."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="procent-quiz-2"
+  question="Hvad er fremskrivningsfaktoren ved en stigning på 12%?"
+  options={[
+    "0,12",
+    "0,88",
+    "1,12",
+    "12"
+  ]}
+  correctIndex={2}
+  hint="Fremskrivningsfaktoren ved stigning er $1 + \\frac{p}{100}$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="procent-quiz-3"
+  question="Du indsætter 10.000 kr til 5% årlig rente. Hvad er beløbet efter 3 år (afrundet)?"
+  options={[
+    "11.500 kr",
+    "11.576 kr",
+    "15.000 kr",
+    "10.150 kr"
+  ]}
+  correctIndex={1}
+  hint="Brug renteformlen: $K_3 = 10.000 \\cdot (1{,}05)^3$."
+/>

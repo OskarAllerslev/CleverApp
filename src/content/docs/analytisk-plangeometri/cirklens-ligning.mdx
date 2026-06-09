@@ -2,31 +2,527 @@
 title: "Cirklens ligning"
 level: "Matematik B"
 order: 2
-description: "En cirkel er mængden af punkter i planen, der har en fast afstand (radius r) fra et givet punkt (cen..."
+description: "Knæk cirklens kode — fra centrum og radius til skæringer med linjer. Optjen +150 XP!"
 ---
 
-# Cirklens ligning
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Cirklens ligning** på Matematik B-niveau.
+# Cirklens ligning 🎯
 
-## Introduktion
+Cirklen er — sammen med linjen — en af geometriens mest fundamentale figurer. I analytisk plangeometri beskriver vi cirkler med ligninger, og det åbner op for at beregne skæringspunkter, tangenter og meget mere rent algebraisk.
 
-En cirkel er mængden af punkter i planen, der har en fast afstand (radius r) fra et givet punkt (centrum C med koordinaterne (a,b)).
+I dette kapitel lærer du at aflæse centrum og radius fra en ligning, omskrive mellem cirklens to standardformer og bestemme skæringspunkter mellem linjer og cirkler. Level up! 🔵
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Cirklens ligning — standardform
+
+En <Term definition="En cirkel er mængden af alle punkter i planen, der har samme afstand (radius) til et fast punkt (centrum).">cirkel</Term> med centrum $C(a, b)$ og radius $r$ består af alle punkter $P(x, y)$, der har afstanden $r$ til $C$:
+
+$$
+|CP| = r
+$$
+
+Når vi kvadrerer begge sider (og bruger afstandsformlen), får vi <Term definition="Cirklens ligning på formen (x-a)² + (y-b)² = r², hvor (a,b) er centrum og r er radius.">cirklens ligning på standardform</Term>:
 
 $$
 (x - a)^2 + (y - b)^2 = r^2
 $$
 
-## Hvad skal vi lære?
+Her er:
+- $(a, b)$ cirklens **centrum**
+- $r$ cirklens **radius** (altid $r > 0$)
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Aflæsning:** Givet ligningen kan du direkte aflæse centrum og radius:
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+| Ligning | Centrum | Radius |
+|---------|---------|--------|
+| $(x - 3)^2 + (y + 2)^2 = 25$ | $(3, -2)$ | $r = \sqrt{25} = 5$ |
+| $(x + 1)^2 + (y - 4)^2 = 9$ | $(-1, 4)$ | $r = \sqrt{9} = 3$ |
+| $x^2 + y^2 = 16$ | $(0, 0)$ | $r = \sqrt{16} = 4$ |
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+**Bemærk:** Pas på fortegnene! I $(x - a)^2$ er centrum-koordinaten $a$. Hvis der står $(x + 1)^2 = (x - (-1))^2$, så er $a = -1$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Aflæs centrum og radius ⚡</summary>
+
+**Opgave:** Bestem centrum og radius for cirklen med ligningen:
+
+$$
+(x - 5)^2 + (y + 3)^2 = 49
+$$
+
+**Løsning:**
+
+**Trin 1:** Sammenlign med standardformen $(x - a)^2 + (y - b)^2 = r^2$:
+
+$$
+(x - \underbrace{5}_{a})^2 + (y - \underbrace{(-3)}_{b})^2 = \underbrace{49}_{r^2}
+$$
+
+**Trin 2:** Aflæs:
+
+- Centrum: $C(a, b) = C(5, -3)$
+- Radius: $r = \sqrt{49} = 7$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil cirklens ligning fra centrum og radius ⚡</summary>
+
+**Opgave:** Find ligningen for cirklen med centrum $C(-2, 6)$ og radius $r = 4$.
+
+**Løsning:**
+
+Indsæt direkte i standardformen:
+
+$$
+(x - (-2))^2 + (y - 6)^2 = 4^2
+$$
+
+$$
+(x + 2)^2 + (y - 6)^2 = 16
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil cirklens ligning fra centrum og punkt ⚡</summary>
+
+**Opgave:** En cirkel har centrum $C(1, -2)$ og går gennem punktet $P(4, 2)$. Find cirklens ligning.
+
+**Løsning:**
+
+**Trin 1:** Find radius som afstanden $|CP|$:
+
+$$
+r = |CP| = \sqrt{(4 - 1)^2 + (2 - (-2))^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+$$
+
+**Trin 2:** Opstil ligningen:
+
+$$
+(x - 1)^2 + (y + 2)^2 = 25
+$$
+
+**Tjek:** Indsæt $P(4, 2)$:
+
+$$
+(4 - 1)^2 + (2 + 2)^2 = 9 + 16 = 25 \; \checkmark
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Den udvidede form — $x^2 + y^2 + Dx + Ey + F = 0$
+
+Når man ganger parenteserne ud i standardformen, får man den <Term definition="Cirklens ligning på formen x² + y² + Dx + Ey + F = 0, som fås ved at gange standardformen ud.">udvidede form</Term>:
+
+$$
+x^2 + y^2 + Dx + Ey + F = 0
+$$
+
+**Sammenhæng med standardformen:**
+
+Udvidelsen af $(x - a)^2 + (y - b)^2 = r^2$ giver:
+
+$$
+x^2 - 2ax + a^2 + y^2 - 2by + b^2 = r^2
+$$
+
+$$
+x^2 + y^2 + \underbrace{(-2a)}_{D}x + \underbrace{(-2b)}_{E}y + \underbrace{(a^2 + b^2 - r^2)}_{F} = 0
+$$
+
+Altså:
+
+$$
+D = -2a, \quad E = -2b, \quad F = a^2 + b^2 - r^2
+$$
+
+**Fra udvidet form til standardform** bruger vi <Term definition="En algebraisk teknik, hvor man tilføjer og trækker et tal for at danne et perfekt kvadrat.">kvadratkomplettering</Term>:
+
+$$
+a = -\frac{D}{2}, \quad b = -\frac{E}{2}, \quad r = \sqrt{a^2 + b^2 - F} = \sqrt{\frac{D^2}{4} + \frac{E^2}{4} - F}
+$$
+
+**Eksistenskravet:** Der eksisterer kun en cirkel, hvis $r^2 > 0$, dvs. $\frac{D^2}{4} + \frac{E^2}{4} - F > 0$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kvadratkomplettering — fra udvidet til standardform ⚡</summary>
+
+**Opgave:** Bestem centrum og radius for cirklen:
+
+$$
+x^2 + y^2 - 6x + 4y - 12 = 0
+$$
+
+**Løsning:**
+
+**Trin 1:** Gruppér $x$- og $y$-leddene:
+
+$$
+(x^2 - 6x) + (y^2 + 4y) = 12
+$$
+
+**Trin 2:** Kvadratkompleter for $x$: Tag halvdelen af koefficienten foran $x$ og kvadrer: $\left(\frac{-6}{2}\right)^2 = 9$:
+
+$$
+(x^2 - 6x + 9) + (y^2 + 4y) = 12 + 9
+$$
+
+**Trin 3:** Kvadratkompleter for $y$: $\left(\frac{4}{2}\right)^2 = 4$:
+
+$$
+(x^2 - 6x + 9) + (y^2 + 4y + 4) = 12 + 9 + 4
+$$
+
+**Trin 4:** Skriv som perfekte kvadrater:
+
+$$
+(x - 3)^2 + (y + 2)^2 = 25
+$$
+
+**Trin 5:** Aflæs:
+
+- Centrum: $C(3, -2)$
+- Radius: $r = \sqrt{25} = 5$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Endnu en kvadratkomplettering ⚡</summary>
+
+**Opgave:** Bestem centrum og radius for:
+
+$$
+x^2 + y^2 + 8x - 2y + 8 = 0
+$$
+
+**Løsning:**
+
+**Trin 1:** Gruppér:
+
+$$
+(x^2 + 8x) + (y^2 - 2y) = -8
+$$
+
+**Trin 2:** Kvadratkompleter for $x$: $\left(\frac{8}{2}\right)^2 = 16$:
+
+$$
+(x^2 + 8x + 16) + (y^2 - 2y) = -8 + 16
+$$
+
+**Trin 3:** Kvadratkompleter for $y$: $\left(\frac{-2}{2}\right)^2 = 1$:
+
+$$
+(x^2 + 8x + 16) + (y^2 - 2y + 1) = -8 + 16 + 1
+$$
+
+**Trin 4:** Skriv som perfekte kvadrater:
+
+$$
+(x + 4)^2 + (y - 1)^2 = 9
+$$
+
+**Trin 5:** Aflæs:
+
+- Centrum: $C(-4, 1)$
+- Radius: $r = \sqrt{9} = 3$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring mellem linje og cirkel
+
+For at finde skæringspunkter mellem en linje og en cirkel bruger vi **substitution**:
+
+1. **Isoler** én variabel fra linjens ligning (fx $y$)
+2. **Indsæt** i cirklens ligning — du får en andengradsligning i den anden variabel
+3. **Løs** andengradsligningen med diskriminantformlen
+4. **Find** den anden koordinat ved at indsætte i linjens ligning
+
+<Term definition="Diskriminanten D = b² - 4ac afgør antallet af løsninger i en andengradsligning.">Diskriminanten</Term> $d = b^2 - 4ac$ fortæller os antallet af skæringspunkter:
+
+| Diskriminant | Antal skæringspunkter | Geometrisk tolkning |
+|---|---|---|
+| $d > 0$ | **2** skæringspunkter | Linjen er en **sekant** |
+| $d = 0$ | **1** skæringspunkt | Linjen er en **tangent** |
+| $d < 0$ | **0** skæringspunkter | Linjen **rammer ikke** cirklen |
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find skæringspunkter mellem linje og cirkel ⚡</summary>
+
+**Opgave:** Find skæringspunkterne mellem linjen $y = x + 1$ og cirklen $x^2 + y^2 = 25$.
+
+**Løsning:**
+
+**Trin 1:** Indsæt $y = x + 1$ i cirklens ligning:
+
+$$
+x^2 + (x + 1)^2 = 25
+$$
+
+**Trin 2:** Udregn:
+
+$$
+\begin{aligned}
+x^2 + x^2 + 2x + 1 &= 25 \\
+2x^2 + 2x + 1 - 25 &= 0 \\
+2x^2 + 2x - 24 &= 0 \\
+x^2 + x - 12 &= 0
+\end{aligned}
+$$
+
+**Trin 3:** Løs andengradsligningen med diskriminanten:
+
+$$
+d = 1^2 - 4 \cdot 1 \cdot (-12) = 1 + 48 = 49
+$$
+
+$$
+x = \frac{-1 \pm \sqrt{49}}{2 \cdot 1} = \frac{-1 \pm 7}{2}
+$$
+
+$$
+x_1 = \frac{-1 + 7}{2} = 3, \quad x_2 = \frac{-1 - 7}{2} = -4
+$$
+
+**Trin 4:** Find $y$-koordinaterne:
+
+$$
+y_1 = 3 + 1 = 4, \quad y_2 = -4 + 1 = -3
+$$
+
+**Svar:** Skæringspunkterne er $(3, 4)$ og $(-4, -3)$.
+
+**Tjek:** $(3)^2 + (4)^2 = 9 + 16 = 25$ ✓ og $(-4)^2 + (-3)^2 = 16 + 9 = 25$ ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tangent til cirkel ⚡</summary>
+
+**Opgave:** Undersøg om linjen $y = 2x + 5$ er tangent til cirklen $(x + 1)^2 + (y - 3)^2 = 5$.
+
+**Løsning:**
+
+**Trin 1:** Indsæt $y = 2x + 5$ i cirklens ligning:
+
+$$
+(x + 1)^2 + (2x + 5 - 3)^2 = 5
+$$
+
+$$
+(x + 1)^2 + (2x + 2)^2 = 5
+$$
+
+**Trin 2:** Udregn:
+
+$$
+\begin{aligned}
+(x^2 + 2x + 1) + (4x^2 + 8x + 4) &= 5 \\
+5x^2 + 10x + 5 &= 5 \\
+5x^2 + 10x &= 0 \\
+5x(x + 2) &= 0
+\end{aligned}
+$$
+
+**Trin 3:** Løsninger:
+
+$$
+x = 0 \quad \text{eller} \quad x = -2
+$$
+
+Da der er **to** løsninger, er linjen en **sekant** (ikke en tangent).
+
+**Trin 4:** Skæringspunkterne:
+
+- $x = 0$: $y = 2 \cdot 0 + 5 = 5$ → $(0, 5)$
+- $x = -2$: $y = 2 \cdot (-2) + 5 = 1$ → $(-2, 1)$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skæring med linje på almen form ⚡</summary>
+
+**Opgave:** Find skæringspunkterne mellem linjen $2x - y + 1 = 0$ og cirklen $x^2 + y^2 - 4x + 2y - 20 = 0$.
+
+**Løsning:**
+
+**Trin 1:** Isoler $y$ fra linjen:
+
+$$
+y = 2x + 1
+$$
+
+**Trin 2:** Indsæt i cirklens ligning:
+
+$$
+x^2 + (2x + 1)^2 - 4x + 2(2x + 1) - 20 = 0
+$$
+
+**Trin 3:** Udregn trin for trin:
+
+$$
+\begin{aligned}
+x^2 + 4x^2 + 4x + 1 - 4x + 4x + 2 - 20 &= 0 \\
+5x^2 + 4x - 17 &= 0
+\end{aligned}
+$$
+
+**Trin 4:** Brug diskriminantformlen:
+
+$$
+d = 4^2 - 4 \cdot 5 \cdot (-17) = 16 + 340 = 356
+$$
+
+$$
+x = \frac{-4 \pm \sqrt{356}}{10} = \frac{-4 \pm 2\sqrt{89}}{10} = \frac{-2 \pm \sqrt{89}}{5}
+$$
+
+Da $d > 0$, er der to skæringspunkter:
+
+$$
+x_1 = \frac{-2 + \sqrt{89}}{5} \approx 1.49, \quad x_2 = \frac{-2 - \sqrt{89}}{5} \approx -2.29
+$$
+
+$y$-koordinaterne fås fra $y = 2x + 1$:
+
+$$
+y_1 \approx 3.97, \quad y_2 \approx -3.57
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Specielle tilfælde og tips
+
+**Cirkel med centrum i origo:** Hvis $C(0, 0)$:
+
+$$
+x^2 + y^2 = r^2
+$$
+
+**Enhedscirklen:** Cirkel med centrum i origo og radius $1$:
+
+$$
+x^2 + y^2 = 1
+$$
+
+**Ligger et punkt på cirklen?** Indsæt punktets koordinater. Hvis ligningen er opfyldt, ligger punktet på cirklen:
+- Venstresiden $<$ højresiden → punktet er **inde i** cirklen
+- Venstresiden $=$ højresiden → punktet er **på** cirklen
+- Venstresiden $>$ højresiden → punktet er **uden for** cirklen
+
+**Tangentlinjens ligning:** Tangenten til cirklen $x^2 + y^2 = r^2$ i røringspunktet $P_0(x_0, y_0)$ er:
+
+$$
+x_0 \cdot x + y_0 \cdot y = r^2
+$$
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Bestem centrum og radius for cirklen $(x + 4)^2 + (y - 7)^2 = 36$.
+
+**Opgave 2:** Opstil ligningen for cirklen med centrum $C(3, -1)$ og radius $r = 6$.
+
+**Opgave 3:** En cirkel har centrum $C(0, 0)$ og går gennem punktet $P(5, 12)$. Find cirklens ligning.
+
+**Opgave 4:** Bestem centrum og radius for cirklen $x^2 + y^2 + 10x - 6y + 18 = 0$ ved kvadratkomplettering.
+
+**Opgave 5:** Find skæringspunkterne mellem linjen $y = -x + 7$ og cirklen $x^2 + y^2 = 25$.
+
+**Opgave 6:** Undersøg om linjen $y = 3x + 10$ er tangent til, sekant for eller uden for cirklen $x^2 + y^2 = 10$.
+
+**Opgave 7:** Ligger punktet $P(1, 2)$ inde i, på eller uden for cirklen $(x - 3)^2 + (y + 1)^2 = 16$?
+
+**Opgave 8:** Opstil ligningen for cirklen med centrum $C(2, -3)$, der går gennem punktet $A(6, 0)$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="cirkel-quiz-centrum"
+  question="Hvad er centrum for cirklen $(x + 3)^2 + (y - 5)^2 = 16$?"
+  options={[
+    "$(3, -5)$",
+    "$(-3, 5)$",
+    "$(3, 5)$",
+    "$(-3, -5)$"
+  ]}
+  correctIndex={1}
+  hint="Husk: $(x + 3)^2 = (x - (-3))^2$, så $a = -3$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="cirkel-quiz-radius"
+  question="Hvad er radius for cirklen $x^2 + y^2 - 4x + 6y - 3 = 0$?"
+  options={[
+    "$r = 3$",
+    "$r = 4$",
+    "$r = \\sqrt{16} = 4$",
+    "$r = \\sqrt{3}$"
+  ]}
+  correctIndex={2}
+  hint="Kvadratkompleter: $(x-2)^2 + (y+3)^2 = 4 + 9 + 3 = 16$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="cirkel-quiz-skaering"
+  question="Hvis diskriminanten er nul ved skæring af linje og cirkel, hvad betyder det geometrisk?"
+  options={[
+    "Linjen er en sekant (2 skæringspunkter)",
+    "Linjen rammer ikke cirklen",
+    "Linjen er en tangent (1 skæringspunkt)",
+    "Linjen går gennem centrum"
+  ]}
+  correctIndex={2}
+  hint="$d = 0$ giver netop 1 dobbeltrod — dvs. 1 skæringspunkt."
+/>

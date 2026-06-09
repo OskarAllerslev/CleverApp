@@ -1,32 +1,640 @@
 ---
-title: "Intervalsandsynlighed"
+title: "Intervalsandsynlighed og konfidensintervaller"
 level: "Matematik A"
 order: 2
-description: "Her lærer du at beregne sandsynligheder for, at en kontinuert stokastisk variabel falder inden for e..."
+description: "Beregn sandsynligheder som arealer og byg konfidensintervaller – statistikkens kraftværktøj! Optjen +150 XP!"
 ---
 
-# Intervalsandsynlighed
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Intervalsandsynlighed** på Matematik A-niveau.
+# Intervalsandsynlighed og konfidensintervaller 🎯
 
-## Introduktion
+Du har lært, at sandsynlighed for en normalfordelt variabel beregnes som arealet under tæthedskurven. Men hvordan bruger vi det i praksis? Og hvad gør vi, når vi ikke kender populationens sande middelværdi $\mu$, men kun har en stikprøve?
 
-Her lærer du at beregne sandsynligheder for, at en kontinuert stokastisk variabel falder inden for et givet interval ved brug af integralregning.
+Her træder **konfidensintervaller** ind på scenen — et af de mest brugte statistiske værktøjer i alt fra medicinsk forskning til markedsanalyse. I stedet for at gætte på ét tal, giver vi et *interval* med en bestemt sikkerhed.
 
-## Central Matematisk Formel
+Gør dig klar til den ultimative statistik-boss! 💪
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Intervalsandsynlighed — areal under kurven
+
+Lad $X \sim N(\mu, \sigma^2)$ være en normalfordelt stokastisk variabel. <Term definition="Sandsynligheden for at en stokastisk variabel falder i et bestemt interval, beregnet som arealet under tæthedskurven over det interval">Intervalsandsynligheden</Term> for at $X$ lander mellem $a$ og $b$ er:
 
 $$
-P(a \le X \le b) = \int_a^b f(x) dx
+P(a \leq X \leq b) = \int_a^b f(x) \, dx
 $$
 
-## Hvad skal vi lære?
+I praksis beregner vi dette ved at z-transformere og bruge $\Phi$-tabellen:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+P(a \leq X \leq b) = \Phi\!\left(\frac{b - \mu}{\sigma}\right) - \Phi\!\left(\frac{a - \mu}{\sigma}\right)
+$$
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+**Vigtige specialtilfælde:**
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+**Sandsynlighed til venstre (halesandsynlighed):**
+
+$$
+P(X \leq b) = \Phi\!\left(\frac{b - \mu}{\sigma}\right)
+$$
+
+**Sandsynlighed til højre:**
+
+$$
+P(X \geq a) = 1 - \Phi\!\left(\frac{a - \mu}{\sigma}\right)
+$$
+
+**Symmetrisk interval omkring $\mu$:**
+
+$$
+P(\mu - k\sigma \leq X \leq \mu + k\sigma) = 2\Phi(k) - 1
+$$
+
+Denne sidste formel er særligt elegant, fordi den kun afhænger af $k$ — antallet af standardafvigelser fra middelværdien.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Intervalsandsynlighed for eksamensresultater ⚡</summary>
+
+**Situation:** Resultatet på en standardiseret test er normalfordelt med $\mu = 500$ og $\sigma = 100$. Find andelen af elever med en score mellem 450 og 650.
+
+**Løsning:**
+
+**Trin 1:** Z-transformér begge grænser:
+
+$$
+z_1 = \frac{450 - 500}{100} = \frac{-50}{100} = -0{,}50
+$$
+
+$$
+z_2 = \frac{650 - 500}{100} = \frac{150}{100} = 1{,}50
+$$
+
+**Trin 2:** Slå op i tabellen og beregn:
+
+$$
+\begin{aligned}
+P(450 \leq X \leq 650) &= \Phi(1{,}50) - \Phi(-0{,}50) \\
+&= \Phi(1{,}50) - (1 - \Phi(0{,}50)) \\
+&= 0{,}9332 - (1 - 0{,}6915) \\
+&= 0{,}9332 - 0{,}3085 \\
+&= 0{,}6247
+\end{aligned}
+$$
+
+**Svar:** Ca. 62,5 % af eleverne scorer mellem 450 og 650 point.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Symmetrisk intervalsandsynlighed ⚡</summary>
+
+**Opgave:** For $X \sim N(100, 15^2)$, beregn $P(70 \leq X \leq 130)$.
+
+**Løsning:**
+
+Bemærk at intervallet er symmetrisk om $\mu = 100$:
+
+$$
+70 = 100 - 2 \cdot 15 = \mu - 2\sigma \quad \text{og} \quad 130 = 100 + 2 \cdot 15 = \mu + 2\sigma
+$$
+
+Vi kan bruge formlen for symmetriske intervaller med $k = 2$:
+
+$$
+P(\mu - 2\sigma \leq X \leq \mu + 2\sigma) = 2\Phi(2) - 1 = 2 \cdot 0{,}9772 - 1 = 0{,}9544
+$$
+
+**Svar:** Ca. 95,4 % — præcis som 68-95-99.7-reglen forudsiger!
+
+Alternativt med den direkte metode:
+
+$$
+P(70 \leq X \leq 130) = \Phi(2{,}00) - \Phi(-2{,}00) = 0{,}9772 - 0{,}0228 = 0{,}9544 \quad \checkmark
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Stikprøvegennemsnit og dets fordeling
+
+I virkeligheden kender vi sjældent populationens sande middelværdi $\mu$. Vi tager i stedet en <Term definition="En delmængde af populationen, udvalgt tilfældigt, som bruges til at drage konklusioner om hele populationen">stikprøve</Term> af $n$ observationer og beregner <Term definition="Gennemsnittet af observationerne i en stikprøve, betegnet x̄ (x-streg), bruges som estimat for populationens middelværdi μ">stikprøvegennemsnittet</Term>:
+
+$$
+\bar{X} = \frac{X_1 + X_2 + \cdots + X_n}{n} = \frac{1}{n}\sum_{i=1}^{n} X_i
+$$
+
+**Nøgleresultat:** Hvis $X_1, X_2, \ldots, X_n$ er uafhængige og alle har fordelingen $N(\mu, \sigma^2)$, så er stikprøvegennemsnittet også normalfordelt:
+
+$$
+\bar{X} \sim N\!\left(\mu, \frac{\sigma^2}{n}\right)
+$$
+
+Det betyder:
+- **Middelværdi:** $E(\bar{X}) = \mu$ — stikprøvegennemsnittet rammer i gennemsnit rigtigt!
+- **Varians:** $\text{Var}(\bar{X}) = \frac{\sigma^2}{n}$ — usikkerheden *falder* med stikprøvestørrelsen
+- **Spredning:** $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$ — dette kaldes <Term definition="Spredningen på stikprøvegennemsnittet, lig med σ/√n, også kaldet standardfejlen">standardfejlen</Term>
+
+**Intuition:** Jo flere målinger du tager, jo tættere vil dit gennemsnit ligge på det sande $\mu$. Spredningen halveres, når du firdobler stikprøvestørrelsen (fordi $\sqrt{4} = 2$).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Standardfejlen i praksis ⚡</summary>
+
+**Situation:** Et mejeri måler fedtprocenten i mælk. Hver enkelt måling er normalfordelt med $\mu = 3{,}5\%$ og $\sigma = 0{,}2\%$.
+
+**Hvad sker der, når vi tager gennemsnittet af flere målinger?**
+
+| Stikprøvestørrelse $n$ | Standardfejl $\frac{\sigma}{\sqrt{n}}$ | 95 %-interval for $\bar{X}$ |
+|:---:|:---:|:---:|
+| 1 | $\frac{0{,}2}{\sqrt{1}} = 0{,}200$ | $[3{,}1 \;;\; 3{,}9]$ |
+| 4 | $\frac{0{,}2}{\sqrt{4}} = 0{,}100$ | $[3{,}3 \;;\; 3{,}7]$ |
+| 16 | $\frac{0{,}2}{\sqrt{16}} = 0{,}050$ | $[3{,}4 \;;\; 3{,}6]$ |
+| 100 | $\frac{0{,}2}{\sqrt{100}} = 0{,}020$ | $[3{,}46 \;;\; 3{,}54]$ |
+
+**Observation:** Med 100 målinger er vi næsten sikre på at ramme inden for 0,04 procentpoint af det sande gennemsnit. Flere data giver mere præcision!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Centralgrænseværdisætningen (CLT) — statistikkens superhelt
+
+<Term definition="Sætning der siger at gennemsnittet af mange uafhængige stokastiske variable tilnærmelsesvist er normalfordelt, uanset de enkelte variables fordeling">Centralgrænseværdisætningen</Term> (eng: Central Limit Theorem, CLT) er et af de mest bemærkelsesværdige resultater i hele matematikken:
+
+**Uanset** hvilken fordeling de enkelte observationer $X_i$ har, vil stikprøvegennemsnittet $\bar{X}$ være **tilnærmelsesvist normalfordelt**, når stikprøvestørrelsen $n$ er tilstrækkeligt stor:
+
+$$
+\bar{X} \overset{\text{approx.}}{\sim} N\!\left(\mu, \frac{\sigma^2}{n}\right) \quad \text{for } n \text{ tilstrækkeligt stor}
+$$
+
+**Intuition: Hvorfor virker det?**
+
+Forestil dig, at du kaster en skæv terning mange gange og tager gennemsnittet. Hver enkelt kast giver et "hakkende" resultat (1, 2, 3, 4, 5 eller 6). Men gennemsnittet af mange kast *udjævnes* — de tilfældige udsving ophæver hinanden, og kun det systematiske (middelværdien) står tilbage. Denne udjævning følger en klokkeform!
+
+**Tommelfingerregel:** CLT giver en god tilnærmelse for $n \geq 30$. For fordelinger der allerede er tæt på symmetriske, kan $n \geq 15$ være tilstrækkeligt.
+
+**Hvorfor er CLT vigtig?**
+
+CLT er grunden til, at normalfordelingen dukker op overalt i statistik. Den retfærdiggør, at vi kan bruge normalfordelingsbaserede metoder (som konfidensintervaller og hypotesetest) selv når de underliggende data *ikke* er normalfordelt — bare stikprøven er stor nok!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: CLT med terningkast ⚡</summary>
+
+**Situation:** Vi kaster en fair terning $n$ gange og beregner gennemsnittet.
+
+For ét terningkast: $\mu = 3{,}5$ og $\sigma^2 = \frac{35}{12} \approx 2{,}917$ (så $\sigma \approx 1{,}708$).
+
+**Ifølge CLT:**
+
+$$
+\bar{X}_n \overset{\text{approx.}}{\sim} N\!\left(3{,}5, \frac{2{,}917}{n}\right)
+$$
+
+**For $n = 36$ kast:**
+
+$$
+\bar{X}_{36} \overset{\text{approx.}}{\sim} N\!\left(3{,}5, \frac{2{,}917}{36}\right) = N(3{,}5, 0{,}081^2 \cdot 36)
+$$
+
+Lad os beregne det korrekt:
+
+$$
+\sigma_{\bar{X}} = \frac{1{,}708}{\sqrt{36}} = \frac{1{,}708}{6} \approx 0{,}285
+$$
+
+**Sandsynligheden for at gennemsnittet er mellem 3,0 og 4,0:**
+
+$$
+\begin{aligned}
+z_1 &= \frac{3{,}0 - 3{,}5}{0{,}285} = \frac{-0{,}5}{0{,}285} \approx -1{,}75 \\
+z_2 &= \frac{4{,}0 - 3{,}5}{0{,}285} = \frac{0{,}5}{0{,}285} \approx 1{,}75
+\end{aligned}
+$$
+
+$$
+P(3{,}0 \leq \bar{X} \leq 4{,}0) = \Phi(1{,}75) - \Phi(-1{,}75) = 0{,}9599 - 0{,}0401 = 0{,}9198
+$$
+
+**Svar:** Der er ca. 92 % sandsynlighed for, at gennemsnittet af 36 terningkast lander mellem 3,0 og 4,0. Bemærkelsesværdigt — dette virker, selvom ét enkelt terningkast slet ikke er normalfordelt!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Konfidensintervaller for $\mu$
+
+Et <Term definition="Et interval beregnet ud fra stikprøvedata, der med en bestemt konfidens (fx 95%) indeholder populationens sande parameter">konfidensinterval</Term> er et interval, der med en bestemt sandsynlighed (konfidensniveauet) indeholder den sande, ukendte middelværdi $\mu$.
+
+**Situation:** Vi har en stikprøve af størrelse $n$ med gennemsnit $\bar{x}$, og vi kender populationens spredning $\sigma$ (eller estimerer den med stikprøvens spredning $s$).
+
+**Formel for $(1 - \alpha) \cdot 100\%$-konfidensinterval:**
+
+$$
+\bar{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+$$
+
+Her er $z_{\alpha/2}$ den <Term definition="Den z-værdi der afskærer et bestemt areal i halen af standardnormalfordelingen">kritiske z-værdi</Term>, som bestemmes af konfidensniveauet:
+
+| Konfidensniveau | $\alpha$ | $z_{\alpha/2}$ |
+|:---:|:---:|:---:|
+| 90 % | 0,10 | 1,645 |
+| 95 % | 0,05 | 1,960 |
+| 99 % | 0,01 | 2,576 |
+
+**Konfidensintervallets opbygning:**
+
+$$
+\underbrace{\bar{x}}_{\text{centrum}} \pm \underbrace{z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}}_{\text{fejlmargin } E}
+$$
+
+Altså:
+
+$$
+\left[\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \;;\; \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+$$
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fortolkning af konfidensintervaller
+
+**Korrekt fortolkning:** Et 95 %-konfidensinterval betyder:
+
+> Hvis vi gentog eksperimentet mange gange og beregnede et konfidensinterval hver gang, ville ca. 95 % af disse intervaller indeholde den sande $\mu$.
+
+**Forkert (men fristende) fortolkning:** "Der er 95 % sandsynlighed for, at $\mu$ ligger i intervallet." — Det er teknisk forkert, fordi $\mu$ er en fast (men ukendt) værdi. Det er *intervallet*, der er tilfældigt, ikke $\mu$.
+
+**Hvad påvirker bredden af konfidensintervallet?**
+
+| Faktor | Effekt på bredden |
+|--------|-------------------|
+| Større $n$ | **Smallere** interval (mere præcist) |
+| Større $\sigma$ | **Bredere** interval (mere usikkert) |
+| Højere konfidens | **Bredere** interval (mere sikker = mindre præcis) |
+
+**Trade-off:** Vil du være 99 % sikker i stedet for 95 %? Fint — men dit interval bliver bredere. Vil du have det smallere? Tag en større stikprøve!
+
+Fejlmarginen $E$ er givet ved:
+
+$$
+E = z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+$$
+
+Så for at halvere fejlmarginen skal du firdoble stikprøvestørrelsen ($\sqrt{4n} = 2\sqrt{n}$).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: 95 %-konfidensinterval for gennemsnitshøjde ⚡</summary>
+
+**Opgave:** En stikprøve af $n = 64$ voksne mænd har et gennemsnit på $\bar{x} = 179{,}5$ cm. Fra tidligere undersøgelser ved vi, at $\sigma = 7$ cm. Beregn et 95 %-konfidensinterval for den sande middelværdi $\mu$.
+
+**Løsning:**
+
+**Trin 1:** Identificér de kendte størrelser:
+- $\bar{x} = 179{,}5$
+- $\sigma = 7$
+- $n = 64$
+- Konfidensniveau: 95 %, altså $z_{\alpha/2} = 1{,}960$
+
+**Trin 2:** Beregn standardfejlen:
+
+$$
+\frac{\sigma}{\sqrt{n}} = \frac{7}{\sqrt{64}} = \frac{7}{8} = 0{,}875
+$$
+
+**Trin 3:** Beregn fejlmarginen:
+
+$$
+E = z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} = 1{,}960 \cdot 0{,}875 = 1{,}715
+$$
+
+**Trin 4:** Beregn konfidensintervallet:
+
+$$
+\begin{aligned}
+\bar{x} \pm E &= 179{,}5 \pm 1{,}715 \\
+&= [179{,}5 - 1{,}715 \;;\; 179{,}5 + 1{,}715] \\
+&= [177{,}8 \;;\; 181{,}2]
+\end{aligned}
+$$
+
+**Svar:** Vi er 95 % sikre på, at den sande gennemsnitshøjde $\mu$ ligger mellem 177,8 cm og 181,2 cm.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammenligning af konfidensniveauer ⚡</summary>
+
+**Situation:** Samme data som ovenfor ($\bar{x} = 179{,}5$, $\sigma = 7$, $n = 64$). Lad os sammenligne 90 %-, 95 %- og 99 %-konfidensintervaller.
+
+**Standardfejl:** $\frac{\sigma}{\sqrt{n}} = 0{,}875$ (uændret)
+
+**90 %-konfidensinterval:**
+
+$$
+179{,}5 \pm 1{,}645 \cdot 0{,}875 = 179{,}5 \pm 1{,}439 = [178{,}1 \;;\; 180{,}9]
+$$
+
+**95 %-konfidensinterval:**
+
+$$
+179{,}5 \pm 1{,}960 \cdot 0{,}875 = 179{,}5 \pm 1{,}715 = [177{,}8 \;;\; 181{,}2]
+$$
+
+**99 %-konfidensinterval:**
+
+$$
+179{,}5 \pm 2{,}576 \cdot 0{,}875 = 179{,}5 \pm 2{,}254 = [177{,}2 \;;\; 181{,}8]
+$$
+
+**Observation:** Jo højere konfidens, jo bredere interval. 99 %-intervallet er næsten dobbelt så bredt som 90 %-intervallet. Det er prisen for øget sikkerhed!
+
+| Konfidens | Interval | Bredde |
+|:---------:|:--------:|:------:|
+| 90 % | $[178{,}1 \;;\; 180{,}9]$ | 2,88 cm |
+| 95 % | $[177{,}8 \;;\; 181{,}2]$ | 3,43 cm |
+| 99 % | $[177{,}2 \;;\; 181{,}8]$ | 4,51 cm |
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestemmelse af nødvendig stikprøvestørrelse ⚡</summary>
+
+**Opgave:** Vi vil bestemme den gennemsnitlige reaktionstid for bilister. Vi ved, at $\sigma = 50$ ms. Hvor mange bilister skal vi måle for at opnå et 95 %-konfidensinterval med en fejlmargin på højst 10 ms?
+
+**Løsning:**
+
+Vi kender formlen for fejlmarginen:
+
+$$
+E = z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}
+$$
+
+Vi isolerer $n$:
+
+$$
+\begin{aligned}
+E &= z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \\
+\sqrt{n} &= z_{\alpha/2} \cdot \frac{\sigma}{E} \\
+n &= \left(z_{\alpha/2} \cdot \frac{\sigma}{E}\right)^2
+\end{aligned}
+$$
+
+**Indsæt værdier:**
+
+$$
+n = \left(1{,}960 \cdot \frac{50}{10}\right)^2 = (1{,}960 \cdot 5)^2 = (9{,}800)^2 = 96{,}04
+$$
+
+**Svar:** Vi skal måle mindst $n = 97$ bilister (vi runder altid op!).
+
+</details>
+
+---
+
+<details>
+<summary>Vis Udledning: Hvorfor $z_{0{,}025} = 1{,}960$? ⚡</summary>
+
+**Spørgsmål:** Hvorfor er den kritiske z-værdi for et 95 %-konfidensinterval netop 1,960?
+
+**Udledning:**
+
+Et 95 %-konfidensinterval dækker de midterste 95 % af standardnormalfordelingen. Det efterlader $5\% = 0{,}05$ i halerne — fordelt ligeligt med $2{,}5\%$ i hver hale.
+
+Vi søger altså $z_0$ så:
+
+$$
+P(Z \leq z_0) = 1 - 0{,}025 = 0{,}975
+$$
+
+Slår vi op i tabellen finder vi:
+
+$$
+\Phi(1{,}96) = 0{,}9750
+$$
+
+Altså er $z_{0{,}025} = 1{,}960$.
+
+**Tilsvarende for andre niveauer:**
+
+For 99 %: Vi søger $\Phi(z_0) = 0{,}995$, og finder $z_0 = 2{,}576$.
+
+For 90 %: Vi søger $\Phi(z_0) = 0{,}950$, og finder $z_0 = 1{,}645$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Konfidensinterval med estimeret spredning
+
+I mange praktiske situationer kender vi heller ikke $\sigma$, og vi må estimere den med <Term definition="Stikprøvens standardafvigelse, beregnet med n-1 i nævneren (Bessels korrektion), bruges som estimat for σ">stikprøvespredningen</Term> $s$:
+
+$$
+s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2}
+$$
+
+Bemærk divisionen med $n - 1$ i stedet for $n$ — dette er <Term definition="Korrektion der sikrer at stikprøvevariansen er et forventningsret estimat for populationsvariansen">Bessels korrektion</Term>, som sikrer et forventningsret estimat.
+
+**Konfidensintervallet bliver:**
+
+$$
+\bar{x} \pm z_{\alpha/2} \cdot \frac{s}{\sqrt{n}}
+$$
+
+**Vigtigt:** Strengt taget skal man bruge $t$-fordelingen i stedet for $z$-fordelingen, når $\sigma$ er ukendt. Men for store stikprøver ($n \geq 30$) er forskellen minimal, og $z$-tilnærmelsen fungerer fint.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Konfidensinterval med estimeret spredning ⚡</summary>
+
+**Opgave:** En café vil estimere den gennemsnitlige ventetid for kunderne. De måler ventetiden for $n = 50$ tilfældige kunder og finder:
+
+$$
+\bar{x} = 4{,}2 \text{ min} \quad \text{og} \quad s = 1{,}8 \text{ min}
+$$
+
+Beregn et 95 %-konfidensinterval for den sande gennemsnitlige ventetid.
+
+**Løsning:**
+
+**Trin 1:** Da $n = 50 \geq 30$, kan vi bruge $z$-tilnærmelsen med $s$ i stedet for $\sigma$.
+
+**Trin 2:** Beregn standardfejlen:
+
+$$
+\frac{s}{\sqrt{n}} = \frac{1{,}8}{\sqrt{50}} = \frac{1{,}8}{7{,}071} \approx 0{,}255
+$$
+
+**Trin 3:** Beregn fejlmarginen:
+
+$$
+E = 1{,}960 \cdot 0{,}255 \approx 0{,}499
+$$
+
+**Trin 4:** Konfidensintervallet:
+
+$$
+4{,}2 \pm 0{,}499 = [3{,}70 \;;\; 4{,}70]
+$$
+
+**Svar:** Vi er 95 % sikre på, at den sande gennemsnitlige ventetid ligger mellem 3,70 og 4,70 minutter.
+
+**Fortolkning for caféen:** Ventetiden er i gennemsnit mellem 3 minutter og 42 sekunder og 4 minutter og 42 sekunder. Caféen kan bruge dette til at vurdere, om servicen lever op til en eventuel målsætning om ventetid under 5 minutter — og det gør den!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sammenfatning — fra observation til konklusion
+
+Lad os samle trådene i en komplet oversigt over processen:
+
+**1. Problemformulering:** Vi vil estimere en ukendt populationsmiddelværdi $\mu$.
+
+**2. Dataindsamling:** Vi tager en tilfældig stikprøve af størrelse $n$ og beregner $\bar{x}$ (og evt. $s$).
+
+**3. CLT garanterer:** For tilstrækkeligt stort $n$ er $\bar{X}$ tilnærmelsesvist normalfordelt:
+
+$$
+\bar{X} \overset{\text{approx.}}{\sim} N\!\left(\mu, \frac{\sigma^2}{n}\right)
+$$
+
+**4. Z-transformation:**
+
+$$
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim N(0, 1)
+$$
+
+**5. Konfidensinterval:** Med $(1-\alpha) \cdot 100\%$ konfidens:
+
+$$
+\mu \in \left[\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \;;\; \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right]
+$$
+
+Denne kæde — fra data via CLT og z-transformation til et konfidensinterval — er kernen i inferensstatistik.
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1 — Intervalsandsynlighed:**
+Levetiden for et bestemt batteri er normalfordelt med $\mu = 500$ timer og $\sigma = 40$ timer.
+a) Beregn sandsynligheden for, at et tilfældigt batteri holder mellem 460 og 540 timer.
+b) Beregn sandsynligheden for, at det holder mere end 580 timer.
+c) Under hvilken levetid ligger de 10 % kortestlevende batterier?
+
+**Opgave 2 — Standardfejl:**
+En fabrik producerer bolte med en gennemsnitslængde $\mu = 20$ mm og $\sigma = 0{,}5$ mm. Man tager en stikprøve af $n = 25$ bolte.
+a) Hvad er standardfejlen for stikprøvegennemsnittet?
+b) Beregn $P(19{,}8 \leq \bar{X} \leq 20{,}2)$.
+c) Hvor mange bolte skal stikprøven indeholde, for at sandsynligheden i b) overstiger 0,99?
+
+**Opgave 3 — Konfidensinterval:**
+En ernæringsforsker måler det daglige kalorieindtag for $n = 36$ studerende og finder $\bar{x} = 2150$ kcal og $s = 300$ kcal.
+a) Beregn et 95 %-konfidensinterval for det sande gennemsnitlige kalorieindtag.
+b) Beregn et 99 %-konfidensinterval.
+c) Hvor mange studerende skal indgå, for at 95 %-konfidensintervallets fejlmargin er højst 50 kcal?
+
+**Opgave 4 — Fortolkning:**
+En avisartikel skriver: "En undersøgelse viser, at danskere i gennemsnit sover 7,2 timer om natten (95 %-konfidensinterval: [7,0; 7,4])."
+a) Giv en korrekt statistisk fortolkning af dette konfidensinterval.
+b) Hvilken forkert fortolkning er det fristende at give?
+c) Hvis undersøgelsen havde brugt $n = 400$ i stedet for $n = 100$, hvad ville der så (omtrent) ske med intervallets bredde?
+
+**Opgave 5 — Centralgrænseværdisætningen:**
+En butik sælger kaffe i poser. Vægten af en pose er fordelt med $\mu = 500$ g og $\sigma = 10$ g (fordelingen er *ikke* nødvendigvis normal).
+a) Forklar, hvorfor vi alligevel kan bruge normalfordelingsmetoder til gennemsnitsvægten af 40 poser.
+b) Beregn $P(\bar{X} \geq 503)$ for $n = 40$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="intervalsandsynlighed-q1"
+  question="Hvad sker der med bredden af et 95 %-konfidensinterval, hvis stikprøvestørrelsen fordobles (alt andet lige)?"
+  options={[
+    "Bredden halveres",
+    "Bredden reduceres med en faktor √2 (ca. 29 % smallere)",
+    "Bredden forbliver uændret",
+    "Bredden fordobles"
+  ]}
+  correctIndex={1}
+  hint="Fejlmarginen er proportional med σ/√n. Hvad sker der med 1/√n, når n fordobles?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="intervalsandsynlighed-q2"
+  question="Hvad er den korrekte fortolkning af et 95 %-konfidensinterval [a; b] for μ?"
+  options={[
+    "Der er 95 % sandsynlighed for, at μ ligger i [a; b]",
+    "95 % af alle observationer ligger i [a; b]",
+    "Metoden producerer intervaller, der indeholder μ i ca. 95 % af tilfældene",
+    "μ ligger med sikkerhed i [a; b]"
+  ]}
+  correctIndex={2}
+  hint="Husk: μ er en fast værdi — det er intervallet, der er tilfældigt."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="intervalsandsynlighed-q3"
+  question="Centralgrænseværdisætningen fortæller, at stikprøvegennemsnittet er tilnærmelsesvist normalfordelt, når n er stort nok. Hvad er den sædvanlige tommelfingerregel for 'stort nok'?"
+  options={[
+    "n ≥ 5",
+    "n ≥ 10",
+    "n ≥ 30",
+    "n ≥ 100"
+  ]}
+  correctIndex={2}
+  hint="Den typiske tommelfingerregel i statistikundervisning er en bestemt grænse for n."
+/>

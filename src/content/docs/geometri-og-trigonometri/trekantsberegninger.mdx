@@ -1,32 +1,567 @@
 ---
-title: "Vilkårlige trekanter"
-level: "Matematik C"
+title: "Trekantsberegninger"
+level: "Matematik B"
 order: 4
-description: "For trekanter, der ikke er retvinklede, bruger vi sinusrelationerne og cosinusrelationerne til at be..."
+description: "Mestr sinus- og cosinusrelationerne samt arealformlen for vilkårlige trekanter. Optjen +150 XP!"
 ---
 
-# Vilkårlige trekanter
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Vilkårlige trekanter** på Matematik C-niveau.
+# Trekantsberegninger 🎯
 
-## Introduktion
+Indtil nu har vi arbejdet med retvinklede trekanter — men virkeligheden er sjældent så pæn! De fleste trekanter i praksis er **vilkårlige** (ikke-retvinklede). I dette kapitel låser du op for de tre store formler, der lader dig beregne **enhver** trekant: sinusrelationerne, cosinusrelationerne og arealformlen. Det her er dit **boss-level** i geometri! 🏆
 
-For trekanter, der ikke er retvinklede, bruger vi sinusrelationerne og cosinusrelationerne til at bestemme ukendte vinkler og sider.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Navngivning i vilkårlige trekanter
+
+I en vilkårlig trekant bruger vi følgende standardnotation:
+
+- Vinklerne kaldes $A$, $B$ og $C$
+- Den <Term definition="Siden modsat en vinkel. Fx er side a modsat vinkel A.">modstående side</Term> til vinkel $A$ kaldes $a$, til $B$ kaldes $b$, og til $C$ kaldes $c$
+
+Vinkelsummen gælder stadig:
 
 $$
-\frac{a}{\sin(A)} = \frac{b}{\sin(B)}, \quad c^2 = a^2 + b^2 - 2ab \cdot \cos(C)
+A + B + C = 180°
 $$
 
-## Hvad skal vi lære?
+De tre store sætninger i dette kapitel — sinusrelationerne, cosinusrelationerne og arealformlen — virker for **alle** trekanter, uanset om de er retvinklede eller ej.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+</div>
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+---
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+<div className="teori-box">
+
+### Teori: Sinusrelationerne
+
+<Term definition="Sammenhængen a/sin(A) = b/sin(B) = c/sin(C), der gælder i enhver trekant.">Sinusrelationerne</Term> siger, at i en vilkårlig trekant er forholdet mellem en side og sinus til den modstående vinkel det samme for alle tre par:
+
+$$
+\frac{a}{\sin(A)} = \frac{b}{\sin(B)} = \frac{c}{\sin(C)}
+$$
+
+Alternativt kan vi skrive dem "omvendt":
+
+$$
+\frac{\sin(A)}{a} = \frac{\sin(B)}{b} = \frac{\sin(C)}{c}
+$$
+
+**Hvornår bruges sinusrelationerne?**
+
+Du kan bruge sinusrelationerne, når du kender:
+- **To vinkler og én side** (VVS) — find de manglende sider
+- **To sider og én modstående vinkel** (SSV) — find de manglende vinkler
+
+**Vigtigt om SSV-situationen:** Når du kender to sider og en modstående vinkel, kan der sommetider være **to løsninger** (den <Term definition="Situationen i SSV-tilfældet, hvor der kan eksistere to forskellige trekanter, der opfylder de givne betingelser.">tvetydige situation</Term>). Det skyldes, at $\sin(v) = \sin(180° - v)$, så ligningen $\sin(B) = k$ kan have to løsninger for $B$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Sinusrelationerne via højde 🧠</summary>
+
+**Bevis:**
+
+Vi tegner højden $h$ fra $C$ ned til $AB$ (eller dens forlængelse). Denne højde deler trekanten i to retvinklede trekanter.
+
+I den venstre retvinklede trekant:
+
+$$
+\sin(A) = \frac{h}{b} \implies h = b \cdot \sin(A)
+$$
+
+I den højre retvinklede trekant:
+
+$$
+\sin(B) = \frac{h}{a} \implies h = a \cdot \sin(B)
+$$
+
+Da begge udtryk er lig $h$, kan vi sætte dem lig hinanden:
+
+$$
+b \cdot \sin(A) = a \cdot \sin(B)
+$$
+
+Vi dividerer begge sider med $\sin(A) \cdot \sin(B)$:
+
+$$
+\frac{b}{\sin(B)} = \frac{a}{\sin(A)}
+$$
+
+Ved at gentage argumentet med højden fra $A$ eller $B$ viser vi, at det tredje forhold $\frac{c}{\sin(C)}$ også er lig de to andre. $\blacksquare$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en side med sinusrelationerne (VVS) ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $A = 40°$, $B = 75°$ og $a = 8$. Find $b$.
+
+**Løsning:**
+
+Vi finder først den tredje vinkel:
+
+$$
+C = 180° - 40° - 75° = 65°
+$$
+
+Vi opstiller sinusrelationen med de kendte/søgte størrelser:
+
+$$
+\frac{a}{\sin(A)} = \frac{b}{\sin(B)}
+$$
+
+Vi isolerer $b$:
+
+$$
+\begin{aligned}
+b &= \frac{a \cdot \sin(B)}{\sin(A)} \\
+&= \frac{8 \cdot \sin(75°)}{\sin(40°)} \\
+&= \frac{8 \cdot 0{,}9659}{0{,}6428} \\
+&= \frac{7{,}7274}{0{,}6428} \\
+&\approx 12{,}02
+\end{aligned}
+$$
+
+**Svar:** $b \approx 12{,}0$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en vinkel med sinusrelationerne (SSV) ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $a = 10$, $b = 14$ og $A = 30°$. Find vinkel $B$.
+
+**Løsning:**
+
+Vi bruger sinusrelationen:
+
+$$
+\frac{\sin(B)}{b} = \frac{\sin(A)}{a}
+$$
+
+Vi isolerer $\sin(B)$:
+
+$$
+\begin{aligned}
+\sin(B) &= \frac{b \cdot \sin(A)}{a} \\
+&= \frac{14 \cdot \sin(30°)}{10} \\
+&= \frac{14 \cdot 0{,}5}{10} \\
+&= \frac{7}{10} \\
+&= 0{,}7
+\end{aligned}
+$$
+
+Vi finder vinklen:
+
+$$
+B = \sin^{-1}(0{,}7) \approx 44{,}4°
+$$
+
+**Tvetydighed?** Da $\sin(B) = 0{,}7$ har vi også den mulige løsning $B = 180° - 44{,}4° = 135{,}6°$. Vi tjekker: $A + B = 30° + 135{,}6° = 165{,}6° < 180°$, så denne løsning er også geometrisk mulig!
+
+Der er altså **to løsninger**: $B \approx 44{,}4°$ eller $B \approx 135{,}6°$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Cosinusrelationerne
+
+<Term definition="Sammenhængen a² = b² + c² - 2bc·cos(A), der gælder i enhver trekant og er en generalisering af Pythagoras' sætning.">Cosinusrelationerne</Term> er en generalisering af Pythagoras' sætning til vilkårlige trekanter:
+
+$$
+a^2 = b^2 + c^2 - 2bc \cdot \cos(A)
+$$
+
+$$
+b^2 = a^2 + c^2 - 2ac \cdot \cos(B)
+$$
+
+$$
+c^2 = a^2 + b^2 - 2ab \cdot \cos(C)
+$$
+
+**Bemærk:** Hvis $A = 90°$, så er $\cos(90°) = 0$, og vi får $a^2 = b^2 + c^2$ — altså Pythagoras' sætning! Cosinusrelationerne er altså en **udvidelse** af Pythagoras.
+
+**Hvornår bruges cosinusrelationerne?**
+
+- **To sider og den mellemliggende vinkel** (SVS) — find den tredje side
+- **Tre sider** (SSS) — find en vinkel
+
+**Find en vinkel ud fra tre sider:**
+
+Vi isolerer $\cos(A)$:
+
+$$
+\cos(A) = \frac{b^2 + c^2 - a^2}{2bc}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Cosinusrelationerne via koordinater 🧠</summary>
+
+**Bevis:**
+
+Vi placerer trekanten i et koordinatsystem med $C$ i origo og $B$ på den positive $x$-akse.
+
+Koordinaterne bliver:
+- $C = (0, 0)$
+- $B = (a, 0)$
+- $A = (b \cos(C), b \sin(C))$
+
+Afstanden $c = AB$ beregnes med afstandsformlen:
+
+$$
+\begin{aligned}
+c^2 &= (b\cos(C) - a)^2 + (b\sin(C))^2 \\
+&= b^2\cos^2(C) - 2ab\cos(C) + a^2 + b^2\sin^2(C) \\
+&= a^2 + b^2\underbrace{(\cos^2(C) + \sin^2(C))}_{= 1} - 2ab\cos(C) \\
+&= a^2 + b^2 - 2ab\cos(C) \quad \blacksquare
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en side med cosinusrelationerne (SVS) ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $b = 7$, $c = 9$ og $A = 52°$. Find $a$.
+
+**Løsning:**
+
+Vi bruger cosinusrelationen:
+
+$$
+a^2 = b^2 + c^2 - 2bc \cdot \cos(A)
+$$
+
+Vi indsætter:
+
+$$
+\begin{aligned}
+a^2 &= 7^2 + 9^2 - 2 \cdot 7 \cdot 9 \cdot \cos(52°) \\
+&= 49 + 81 - 126 \cdot 0{,}6157 \\
+&= 130 - 77{,}58 \\
+&= 52{,}42
+\end{aligned}
+$$
+
+Vi tager kvadratroden:
+
+$$
+a = \sqrt{52{,}42} \approx 7{,}24
+$$
+
+**Svar:** $a \approx 7{,}24$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en vinkel med cosinusrelationerne (SSS) ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $a = 8$, $b = 6$ og $c = 10$. Find vinkel $C$.
+
+**Løsning:**
+
+Vi bruger cosinusrelationen isoleret for $\cos(C)$:
+
+$$
+\cos(C) = \frac{a^2 + b^2 - c^2}{2ab}
+$$
+
+Vi indsætter:
+
+$$
+\begin{aligned}
+\cos(C) &= \frac{8^2 + 6^2 - 10^2}{2 \cdot 8 \cdot 6} \\
+&= \frac{64 + 36 - 100}{96} \\
+&= \frac{0}{96} \\
+&= 0
+\end{aligned}
+$$
+
+Vi finder vinklen:
+
+$$
+C = \cos^{-1}(0) = 90°
+$$
+
+**Svar:** $C = 90°$.
+
+Trekanten er altså retvinklet! Vi kan bekræfte: $8^2 + 6^2 = 64 + 36 = 100 = 10^2$. ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Arealformlen
+
+<Term definition="Formlen T = ½·a·b·sin(C) til at beregne arealet af en vilkårlig trekant, når man kender to sider og den mellemliggende vinkel.">Arealformlen</Term> for en vilkårlig trekant lyder:
+
+$$
+T = \frac{1}{2} \cdot a \cdot b \cdot \sin(C)
+$$
+
+Her er $a$ og $b$ to sider, og $C$ er den <Term definition="Vinklen mellem de to kendte sider.">mellemliggende vinkel</Term> (vinklen mellem siderne $a$ og $b$).
+
+Formlen kan selvfølgelig skrives for alle tre par:
+
+$$
+T = \frac{1}{2} \cdot a \cdot b \cdot \sin(C) = \frac{1}{2} \cdot a \cdot c \cdot \sin(B) = \frac{1}{2} \cdot b \cdot c \cdot \sin(A)
+$$
+
+**Hvorfor virker den?**
+
+Arealet af en trekant er $T = \frac{1}{2} \cdot \text{grundlinje} \cdot \text{højde}$. Hvis vi bruger $a$ som grundlinje, er højden $h = b \cdot \sin(C)$ (fra den retvinklede trekant dannet af højden):
+
+$$
+T = \frac{1}{2} \cdot a \cdot \underbrace{b \cdot \sin(C)}_{= h} = \frac{1}{2} \cdot a \cdot b \cdot \sin(C)
+$$
+
+**Hvornår bruges arealformlen?**
+
+Altid når du kender **to sider og den mellemliggende vinkel** (SVS).
+
+**Bemærk:** Hvis $C = 90°$, får vi $T = \frac{1}{2} \cdot a \cdot b \cdot \sin(90°) = \frac{1}{2} \cdot a \cdot b$, altså den velkendte formel for arealet af en retvinklet trekant.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Areal med arealformlen ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $a = 12$, $b = 9$ og $C = 65°$. Find arealet.
+
+**Løsning:**
+
+Vi bruger arealformlen:
+
+$$
+\begin{aligned}
+T &= \frac{1}{2} \cdot a \cdot b \cdot \sin(C) \\
+&= \frac{1}{2} \cdot 12 \cdot 9 \cdot \sin(65°) \\
+&= \frac{1}{2} \cdot 108 \cdot 0{,}9063 \\
+&= 54 \cdot 0{,}9063 \\
+&\approx 48{,}9
+\end{aligned}
+$$
+
+**Svar:** Arealet er $T \approx 48{,}9$ (areelenheder).
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find en vinkel fra arealet ⚡</summary>
+
+**Opgave:** En trekant har siderne $a = 10$ og $b = 8$, og arealet er $T = 20$. Find den mellemliggende vinkel $C$.
+
+**Løsning:**
+
+Vi bruger arealformlen og isolerer $\sin(C)$:
+
+$$
+T = \frac{1}{2} \cdot a \cdot b \cdot \sin(C)
+$$
+
+$$
+\begin{aligned}
+\sin(C) &= \frac{2T}{a \cdot b} \\
+&= \frac{2 \cdot 20}{10 \cdot 8} \\
+&= \frac{40}{80} \\
+&= 0{,}5
+\end{aligned}
+$$
+
+Vi finder vinklen:
+
+$$
+C = \sin^{-1}(0{,}5) = 30°
+$$
+
+*(Eller $C = 150°$ — begge er mulige!)*
+
+**Svar:** $C = 30°$ (eller $C = 150°$).
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Komplet trekantsberegning ⚡</summary>
+
+**Opgave:** I $\triangle ABC$ er $a = 15$, $b = 11$ og $C = 48°$. Find alle sider, vinkler og arealet.
+
+**Løsning:**
+
+**Trin 1: Find side $c$ med cosinusrelationen:**
+
+$$
+\begin{aligned}
+c^2 &= a^2 + b^2 - 2ab \cdot \cos(C) \\
+&= 15^2 + 11^2 - 2 \cdot 15 \cdot 11 \cdot \cos(48°) \\
+&= 225 + 121 - 330 \cdot 0{,}6691 \\
+&= 346 - 220{,}80 \\
+&= 125{,}20
+\end{aligned}
+$$
+
+$$
+c = \sqrt{125{,}20} \approx 11{,}19
+$$
+
+**Trin 2: Find vinkel $A$ med sinusrelationen:**
+
+$$
+\begin{aligned}
+\sin(A) &= \frac{a \cdot \sin(C)}{c} \\
+&= \frac{15 \cdot \sin(48°)}{11{,}19} \\
+&= \frac{15 \cdot 0{,}7431}{11{,}19} \\
+&= \frac{11{,}147}{11{,}19} \\
+&\approx 0{,}9962
+\end{aligned}
+$$
+
+$$
+A = \sin^{-1}(0{,}9962) \approx 85{,}0°
+$$
+
+**Trin 3: Find vinkel $B$:**
+
+$$
+B = 180° - A - C = 180° - 85{,}0° - 48° = 47{,}0°
+$$
+
+**Trin 4: Find arealet:**
+
+$$
+\begin{aligned}
+T &= \frac{1}{2} \cdot a \cdot b \cdot \sin(C) \\
+&= \frac{1}{2} \cdot 15 \cdot 11 \cdot \sin(48°) \\
+&= \frac{1}{2} \cdot 165 \cdot 0{,}7431 \\
+&\approx 61{,}3
+\end{aligned}
+$$
+
+**Svar:**
+- Sider: $a = 15$, $b = 11$, $c \approx 11{,}2$
+- Vinkler: $A \approx 85{,}0°$, $B \approx 47{,}0°$, $C = 48°$
+- Areal: $T \approx 61{,}3$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Hvornår bruger du hvilken formel? — Beslutningsskema
+
+Her er en oversigt over, hvornår du bruger de forskellige formler:
+
+| Kendte størrelser | Søgt størrelse | Formel |
+|-------------------|---------------|--------|
+| VVS (2 vinkler + 1 side) | Manglende sider | Sinusrelationen |
+| SSV (2 sider + modstående vinkel) | Manglende vinkel | Sinusrelationen |
+| SVS (2 sider + mellemliggende vinkel) | Manglende side | Cosinusrelationen |
+| SSS (3 sider) | Vinkel | Cosinusrelationen |
+| SVS (2 sider + mellemliggende vinkel) | Areal | Arealformlen |
+
+**Strategi:**
+1. Identificér hvad du **kender** og hvad du **søger**
+2. Vælg den rigtige formel fra tabellen
+3. Indsæt og beregn
+4. Tjek om resultatet er rimeligt (vinkler mellem 0° og 180°, sider positive)
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** I $\triangle ABC$ er $A = 55°$, $C = 70°$ og $a = 12$. Find $b$ og $c$.
+
+**Opgave 2:** I $\triangle ABC$ er $a = 9$, $c = 14$ og $B = 110°$. Find $b$.
+
+**Opgave 3:** I $\triangle ABC$ er $a = 7$, $b = 9$ og $c = 12$. Find alle tre vinkler.
+
+**Opgave 4:** En trekant har siderne $a = 6$ og $b = 10$ med mellemliggende vinkel $C = 50°$. Find arealet.
+
+**Opgave 5:** I en trekant kender man $a = 20$, $b = 15$ og $A = 40°$. Find vinkel $B$. Undersøg om der er to løsninger.
+
+**Opgave 6:** Et trekantet grundstykke har sidelængderne $a = 45$ m, $b = 60$ m og $c = 72$ m. Beregn grundstykkets areal. *(Hint: Find først en vinkel med cosinusrelationen, brug derefter arealformlen)*
+
+**Opgave 7:** To skibe sejler fra samme havn. Det ene sejler $12$ km mod nord-øst ($45°$), det andet sejler $18$ km mod øst-syd-øst ($110°$). Hvor langt er de fra hinanden?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="trekantsberegning-sinus"
+  question="Hvornår kan du IKKE bruge sinusrelationerne?"
+  options={[
+    "Når du kender to vinkler og en side (VVS)",
+    "Når du kender to sider og en modstående vinkel (SSV)",
+    "Når du kender tre sider (SSS)",
+    "Når du kender en vinkel og to sider med den ene modstående"
+  ]}
+  correctIndex={2}
+  hint="Sinusrelationerne kræver, at du kender mindst én vinkel og dens modstående side."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="trekantsberegning-cosinus"
+  question="Hvad er cosinusrelationen en generalisering af?"
+  options={[
+    "Sinusrelationerne",
+    "Arealformlen",
+    "Pythagoras' sætning",
+    "Enhedscirklen"
+  ]}
+  correctIndex={2}
+  hint="Hvad sker der med cosinusrelationen, når vinklen er 90°?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="trekantsberegning-areal"
+  question="Hvad er arealet af en trekant med sider a = 10 og b = 6 og mellemliggende vinkel C = 90°?"
+  options={[
+    "60",
+    "30",
+    "15",
+    "45"
+  ]}
+  correctIndex={1}
+  hint="Brug T = ½·a·b·sin(C). Hvad er sin(90°)?"
+/>

@@ -2,31 +2,435 @@
 title: "Kuglens ligning"
 level: "Matematik A"
 order: 3
-description: "Kuglens ligning beskriver alle punkter (x, y, z) i det tredimensionelle rum, der har afstanden r til..."
+description: "Lær kuglens ligning, aflæs centrum og radius, og find skæring mellem kugle og plan. Optjen +150 XP!"
 ---
 
-# Kuglens ligning
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Kuglens ligning** på Matematik A-niveau.
+# Kuglens ligning 🎯
 
-## Introduktion
+I 2D arbejdede du med **cirklens ligning** — nu tager vi springet til 3D! En <Term definition="En kugle er mængden af alle punkter i rummet, der har samme afstand (radius) til et fast punkt (centrum).">kugle</Term> er den naturlige udvidelse af en cirkel: alle punkter i rummet med samme afstand til et centrum.
 
-Kuglens ligning beskriver alle punkter (x, y, z) i det tredimensionelle rum, der har afstanden r til centrum (x_0, y_0, z_0).
+At forstå kuglens ligning er som at mestre en boss i geometri — det åbner op for skæringer med planer, linjer og andre flader. Lad os erobre den! 🏆
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Kuglens ligning
+
+En kugle med centrum $C(a, b, c)$ og radius $r$ er mængden af alle punkter $P(x, y, z)$ med afstanden $r$ til $C$:
 
 $$
-(x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2 = r^2
+d(P, C) = r
 $$
 
-## Hvad skal vi lære?
+Vi bruger afstandsformlen i 3D:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+\sqrt{(x - a)^2 + (y - b)^2 + (z - c)^2} = r
+$$
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+Kvadrerer vi begge sider, får vi <Term definition="Kuglens ligning på standardform viser centrum og radius direkte. Formen er (x - a)² + (y - b)² + (z - c)² = r².">kuglens ligning på standardform</Term>:
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+$$
+(x - a)^2 + (y - b)^2 + (z - c)^2 = r^2
+$$
+
+**Specialtilfælde:** Hvis centrum er i origo $(0, 0, 0)$:
+
+$$
+x^2 + y^2 + z^2 = r^2
+$$
+
+**Aflæsning:** Af standardformen kan vi direkte aflæse:
+- **Centrum:** $(a, b, c)$ — læg mærke til fortegnene! Hvis der står $(x + 3)^2$, er $a = -3$
+- **Radius:** $r = \sqrt{r^2}$ — tallet på højresiden er $r^2$, ikke $r$ direkte
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Aflæs centrum og radius ⚡</summary>
+
+**Opgave:** Aflæs centrum og radius for kuglen:
+
+$$
+(x - 2)^2 + (y + 3)^2 + (z - 1)^2 = 25
+$$
+
+**Løsning:**
+
+Vi sammenligner med standardformen $(x - a)^2 + (y - b)^2 + (z - c)^2 = r^2$:
+
+- $(x - 2)^2 \implies a = 2$
+- $(y + 3)^2 = (y - (-3))^2 \implies b = -3$
+- $(z - 1)^2 \implies c = 1$
+- $r^2 = 25 \implies r = 5$
+
+**Centrum:** $C(2, -3, 1)$ og **radius:** $r = 5$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kuglens ligning på udvidet form
+
+Multiplicerer vi standardformen ud, kan vi skrive kuglens ligning på <Term definition="Den udvidede form af kuglens ligning, hvor parenteserne er ganget ud. Man bruger kvadratkomplettering til at bringe den tilbage til standardform.">udvidet form</Term>:
+
+$$
+x^2 + y^2 + z^2 + Dx + Ey + Fz + G = 0
+$$
+
+For at gå fra udvidet form til standardform bruger vi **kvadratkomplettering** på hver variabel:
+
+$$
+x^2 + Dx = \left(x + \frac{D}{2}\right)^2 - \left(\frac{D}{2}\right)^2
+$$
+
+Dermed:
+
+- Centrum: $\left(-\frac{D}{2},\, -\frac{E}{2},\, -\frac{F}{2}\right)$
+- Radius: $r = \sqrt{\left(\frac{D}{2}\right)^2 + \left(\frac{E}{2}\right)^2 + \left(\frac{F}{2}\right)^2 - G}$
+
+**Bemærk:** For at ligningen beskriver en reel kugle, skal udtrykket under kvadratroden være positivt.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kvadratkomplettering ⚡</summary>
+
+**Opgave:** Bestem centrum og radius for kuglen med ligningen:
+
+$$
+x^2 + y^2 + z^2 - 4x + 6y - 2z - 11 = 0
+$$
+
+**Løsning:**
+
+**Trin 1:** Gruppér og kvadratkompleter for $x$:
+
+$$
+x^2 - 4x = (x - 2)^2 - 4
+$$
+
+**Trin 2:** Kvadratkompleter for $y$:
+
+$$
+y^2 + 6y = (y + 3)^2 - 9
+$$
+
+**Trin 3:** Kvadratkompleter for $z$:
+
+$$
+z^2 - 2z = (z - 1)^2 - 1
+$$
+
+**Trin 4:** Indsæt i ligningen:
+
+$$
+\begin{aligned}
+(x - 2)^2 - 4 + (y + 3)^2 - 9 + (z - 1)^2 - 1 - 11 &= 0 \\
+(x - 2)^2 + (y + 3)^2 + (z - 1)^2 &= 4 + 9 + 1 + 11 \\
+(x - 2)^2 + (y + 3)^2 + (z - 1)^2 &= 25
+\end{aligned}
+$$
+
+**Resultat:** Centrum $C(2, -3, 1)$ og radius $r = \sqrt{25} = 5$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Opstil kuglens ligning ⚡</summary>
+
+**Opgave:** Find ligningen for kuglen med centrum $C(1, -2, 4)$ og radius $r = 3$.
+
+**Løsning:**
+
+Vi indsætter direkte i standardformen:
+
+$$
+(x - 1)^2 + (y - (-2))^2 + (z - 4)^2 = 3^2
+$$
+
+$$
+(x - 1)^2 + (y + 2)^2 + (z - 4)^2 = 9
+$$
+
+Vil vi have den udvidede form, ganger vi ud:
+
+$$
+\begin{aligned}
+&(x^2 - 2x + 1) + (y^2 + 4y + 4) + (z^2 - 8z + 16) = 9 \\
+&x^2 + y^2 + z^2 - 2x + 4y - 8z + 21 = 9 \\
+&x^2 + y^2 + z^2 - 2x + 4y - 8z + 12 = 0
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring mellem kugle og plan
+
+Når et plan skærer en kugle, kan der ske tre ting:
+
+1. **Planet skærer kuglen i en cirkel** — når afstanden fra centrum til planet er mindre end radius
+2. **Planet tangerer kuglen** — når afstanden fra centrum til planet er lig med radius (skæringscirklen reduceres til ét punkt)
+3. **Planet skærer ikke kuglen** — når afstanden fra centrum til planet er større end radius
+
+Lad $d$ være afstanden fra kuglens centrum til planet. Da gælder:
+
+- $d < r$: Skæringscirklen har radius $r_s = \sqrt{r^2 - d^2}$
+- $d = r$: Tangentpunkt (skæringscirkel med radius 0)
+- $d > r$: Ingen skæring
+
+**Skæringscirklens centrum** er fodpunktet for normalen fra kuglens centrum ned på planet.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Skæringscirklens radius ⚡</summary>
+
+**Påstand:** Når et plan skærer en kugle med centrum $C$ og radius $r$ i afstanden $d$ fra centrum, har skæringscirklen radius $r_s = \sqrt{r^2 - d^2}$.
+
+**Bevis:**
+
+Lad $M$ være skæringscirklens centrum (fodpunktet for normalen fra $C$ til planet), og lad $P$ være et vilkårligt punkt på skæringscirklen.
+
+Da $P$ ligger på kuglen: $|CP| = r$.
+
+Da $M$ er fodpunktet: $|CM| = d$ og $CM \perp MP$.
+
+Trekanten $CMP$ er retvinklet med hypotenuse $CP = r$. Pythagoras giver:
+
+$$
+|CP|^2 = |CM|^2 + |MP|^2
+$$
+
+$$
+r^2 = d^2 + r_s^2
+$$
+
+$$
+r_s = \sqrt{r^2 - d^2} \quad \square
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skæring mellem kugle og plan ⚡</summary>
+
+**Opgave:** Find skæringscirklens centrum og radius, når kuglen $(x - 1)^2 + (y - 2)^2 + (z - 3)^2 = 25$ skæres af planet $z = 0$ ($xy$-planen).
+
+**Løsning:**
+
+**Trin 1:** Aflæs kuglens data: Centrum $C(1, 2, 3)$ og radius $r = 5$.
+
+**Trin 2:** Planligningen $z = 0$ skrives som $0x + 0y + 1z + 0 = 0$, dvs. $z = 0$.
+
+**Trin 3:** Find afstanden fra $C$ til planet:
+
+$$
+d = \frac{|0 \cdot 1 + 0 \cdot 2 + 1 \cdot 3 + 0|}{\sqrt{0^2 + 0^2 + 1^2}} = \frac{3}{1} = 3
+$$
+
+**Trin 4:** Da $d = 3 < r = 5$, skærer planet kuglen. Skæringscirklens radius er:
+
+$$
+r_s = \sqrt{r^2 - d^2} = \sqrt{25 - 9} = \sqrt{16} = 4
+$$
+
+**Trin 5:** Skæringscirklens centrum er fodpunktet for normalen fra $C(1, 2, 3)$ til planet $z = 0$:
+
+$$
+M = (1, 2, 0)
+$$
+
+**Resultat:** Skæringscirklen har centrum $M(1, 2, 0)$ og radius $r_s = 4$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tangentplan ⚡</summary>
+
+**Opgave:** Afgør om planet $2x - y + 2z = 15$ tangerer kuglen $x^2 + y^2 + z^2 = 25$.
+
+**Løsning:**
+
+**Trin 1:** Kuglens data: Centrum $C(0, 0, 0)$ og radius $r = 5$.
+
+**Trin 2:** Planligningen: $2x - y + 2z - 15 = 0$, dvs. $a = 2$, $b = -1$, $c = 2$, $d = -15$.
+
+**Trin 3:** Afstand fra $C$ til planet:
+
+$$
+d = \frac{|2 \cdot 0 + (-1) \cdot 0 + 2 \cdot 0 - 15|}{\sqrt{4 + 1 + 4}} = \frac{|-15|}{\sqrt{9}} = \frac{15}{3} = 5
+$$
+
+**Trin 4:** Da $d = 5 = r$, **tangerer** planet kuglen.
+
+**Tangentpunktet:** Centrum projiceret på planet langs normalen:
+
+$$
+T = C + \frac{d}{|\vec{n}|} \cdot \frac{\vec{n}}{|\vec{n}|} \cdot \text{fortegn}
+$$
+
+Normalvektoren peger i retning $\vec{n} = \begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$, og enhedsvektoren er $\hat{n} = \frac{1}{3}\begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$.
+
+Da $2 \cdot 0 - 0 + 2 \cdot 0 - 15 < 0$, peger vi mod planet:
+
+$$
+T = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} + 5 \cdot \frac{1}{3}\begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix} = \begin{pmatrix} 10/3 \\ -5/3 \\ 10/3 \end{pmatrix}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kugle bestemt af fire punkter
+
+En kugle i rummet er entydigt bestemt af **fire punkter**, der ikke alle ligger i samme plan. Vi finder kuglens ligning ved at indsætte hvert punkt i den udvidede form:
+
+$$
+x^2 + y^2 + z^2 + Dx + Ey + Fz + G = 0
+$$
+
+Med fire punkter får vi fire ligninger med fire ubekendte ($D$, $E$, $F$, $G$), som kan løses.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kugle gennem fire punkter ⚡</summary>
+
+**Opgave:** Find ligningen for kuglen gennem $P_1(1, 0, 0)$, $P_2(0, 1, 0)$, $P_3(0, 0, 1)$ og $P_4(0, 0, 0)$.
+
+**Løsning:**
+
+Vi bruger formen $x^2 + y^2 + z^2 + Dx + Ey + Fz + G = 0$.
+
+**Punkt $P_4(0,0,0)$:**
+
+$$
+0 + 0 + 0 + 0 + 0 + 0 + G = 0 \implies G = 0
+$$
+
+**Punkt $P_1(1,0,0)$:**
+
+$$
+1 + 0 + 0 + D + 0 + 0 + 0 = 0 \implies D = -1
+$$
+
+**Punkt $P_2(0,1,0)$:**
+
+$$
+0 + 1 + 0 + 0 + E + 0 + 0 = 0 \implies E = -1
+$$
+
+**Punkt $P_3(0,0,1)$:**
+
+$$
+0 + 0 + 1 + 0 + 0 + F + 0 = 0 \implies F = -1
+$$
+
+**Kuglens ligning (udvidet):**
+
+$$
+x^2 + y^2 + z^2 - x - y - z = 0
+$$
+
+**Standardform:** Kvadratkomplettering:
+
+$$
+\left(x - \frac{1}{2}\right)^2 + \left(y - \frac{1}{2}\right)^2 + \left(z - \frac{1}{2}\right)^2 = \frac{3}{4}
+$$
+
+Centrum $C\!\left(\frac{1}{2}, \frac{1}{2}, \frac{1}{2}\right)$ og radius $r = \frac{\sqrt{3}}{2}$.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Aflæs centrum og radius for kuglen $(x + 1)^2 + (y - 4)^2 + (z + 2)^2 = 49$.
+
+**Opgave 2:** Bring ligningen $x^2 + y^2 + z^2 + 2x - 8y + 4z + 5 = 0$ på standardform, og aflæs centrum og radius.
+
+**Opgave 3:** Opstil ligningen for kuglen med centrum $C(3, 0, -2)$ og radius $r = 6$.
+
+**Opgave 4:** En kugle har centrum $C(2, 1, 3)$ og radius $r = 4$. Planet har ligningen $x + 2y - 2z + 1 = 0$. Bestem om planet skærer, tangerer eller ikke rammer kuglen.
+
+**Opgave 5:** Kuglen $(x - 3)^2 + (y + 1)^2 + (z - 2)^2 = 36$ skæres af planet $y = -1$. Find skæringscirklens radius.
+
+**Opgave 6:** Find ligningen for kuglen, der har diameteren $AB$, hvor $A(2, 4, 6)$ og $B(4, 2, 0)$.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="kugle-quiz-1"
+  question="Hvad er centrum og radius for kuglen (x - 3)² + (y + 1)² + z² = 16?"
+  options={[
+    "Centrum (3, 1, 0), radius 4",
+    "Centrum (3, -1, 0), radius 4",
+    "Centrum (3, -1, 0), radius 16",
+    "Centrum (-3, 1, 0), radius 4"
+  ]}
+  correctIndex={1}
+  hint="Husk at (y + 1)² = (y - (-1))², og radius er √16"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="kugle-quiz-2"
+  question="En kugle har radius 5 og centrum C. Afstanden fra C til et plan er 3. Hvad er skæringscirklens radius?"
+  options={[
+    "2",
+    "4",
+    "√34",
+    "8"
+  ]}
+  correctIndex={1}
+  hint="Brug formlen r_s = √(r² - d²) = √(25 - 9)"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="kugle-quiz-3"
+  question="Hvornår tangerer et plan en kugle?"
+  options={[
+    "Når afstanden fra centrum til planet er 0",
+    "Når afstanden fra centrum til planet er halvdelen af radius",
+    "Når afstanden fra centrum til planet er lig med radius",
+    "Når normalvektoren til planet peger mod centrum"
+  ]}
+  correctIndex={2}
+  hint="Tangens = berøring i ét punkt, dvs. skæringscirklen har radius 0"
+/>

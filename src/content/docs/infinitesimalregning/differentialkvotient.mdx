@@ -1,32 +1,540 @@
 ---
-title: "Differentialkvotient"
+title: "Differentialkvotient og regneregler"
 level: "Matematik B"
-order: 1
-description: "Differentialkvotienten f'(x_0) angiver tangentens hældning for grafen for f i punktet (x_0, f(x_0)) ..."
+order: 2
+description: "Mestr alle regnereglerne for differentiation – fra potensregel til kæderegel. Optjen +150 XP!"
 ---
 
-# Differentialkvotient
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Differentialkvotient** på Matematik B-niveau.
+# Differentialkvotient og regneregler 🎯
 
-## Introduktion
+I forrige lektion lærte du at differentiere med tretrinsreglen. Det virker – men det er langsomt! Forestil dig at bruge tretrinsreglen på $f(x) = 3x^5 - 2x^3 + 7x - 4$ hver gang. Det ville tage evigheder. 😅
 
-Differentialkvotienten f'(x_0) angiver tangentens hældning for grafen for f i punktet (x_0, f(x_0)) og udtrykker den øjeblikkelige væksthastighed.
+Heldigvis har matematikere udviklet et sæt **regneregler**, der gør differentiation lynhurtig. I denne lektion lærer du dem alle – og efter dette er du klar til at differentiere næsten enhver funktion på få sekunder. Level up! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Notation og grundbegreber
+
+<Term definition="Den afledede funktion f'(x) angiver den øjeblikkelige ændringshastighed af f(x) og svarer til tangentens hældning i hvert punkt">Differentialkvotienten</Term> (den afledede) af en funktion $f(x)$ skrives på flere måder:
 
 $$
-f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+f'(x) = \frac{df}{dx} = \frac{d}{dx}f(x) = \dot{f}(x)
 $$
 
-## Hvad skal vi lære?
+Alle notationer betyder det samme: den afledede af $f$ med hensyn til $x$.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+- $f'(x)$ — **Lagranges notation** (mest brugt i gymnasiet)
+- $\frac{df}{dx}$ — **Leibniz' notation** (praktisk, fordi den viser hvad vi differentierer med hensyn til)
+- $\frac{d}{dx}$ — differentiationsoperatoren ("differentier det følgende med hensyn til $x$")
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+**Den afledede i et punkt:** Når vi skriver $f'(a)$, mener vi den afledede evalueret i $x = a$. Det er et **tal** (tangentens hældning i punktet), mens $f'(x)$ er en **funktion**.
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Konstantreglen og potensreglen
+
+**Konstantreglen:** Den afledede af en konstant er nul.
+
+$$
+\boxed{f(x) = c \implies f'(x) = 0}
+$$
+
+En konstant funktion har en vandret graf, så hældningen er 0 overalt.
+
+**Potensreglen:** For $f(x) = x^n$, hvor $n$ er et vilkårligt reelt tal:
+
+$$
+\boxed{f(x) = x^n \implies f'(x) = n \cdot x^{n-1}}
+$$
+
+Denne regel gælder for alle reelle eksponenter – positive, negative og brøker!
+
+**Vigtige specialtilfælde:**
+
+| $f(x)$ | Omskrivning | $f'(x)$ |
+|---------|-------------|----------|
+| $x$ | $x^1$ | $1$ |
+| $\frac{1}{x}$ | $x^{-1}$ | $-x^{-2} = -\frac{1}{x^2}$ |
+| $\sqrt{x}$ | $x^{1/2}$ | $\frac{1}{2}x^{-1/2} = \frac{1}{2\sqrt{x}}$ |
+| $\frac{1}{x^2}$ | $x^{-2}$ | $-2x^{-3} = -\frac{2}{x^3}$ |
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Potensreglen i praksis ⚡</summary>
+
+**Eksempel 1:** Find $f'(x)$ for $f(x) = x^7$.
+
+$$
+f'(x) = 7 \cdot x^{7-1} = 7x^6
+$$
+
+**Eksempel 2:** Find $g'(x)$ for $g(x) = \sqrt[3]{x}$.
+
+Omskriv først: $g(x) = x^{1/3}$.
+
+$$
+g'(x) = \frac{1}{3} \cdot x^{1/3 - 1} = \frac{1}{3} \cdot x^{-2/3} = \frac{1}{3\sqrt[3]{x^2}}
+$$
+
+**Eksempel 3:** Find $h'(x)$ for $h(x) = \frac{1}{x^3}$.
+
+Omskriv først: $h(x) = x^{-3}$.
+
+$$
+h'(x) = -3 \cdot x^{-3-1} = -3x^{-4} = -\frac{3}{x^4}
+$$
+
+**Huskeregel:** Eksponenten flyttes ned som faktor, og eksponenten reduceres med 1. Altid!
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sumreglen og faktorreglen
+
+**Faktorreglen (konstantfaktor):** En konstant faktor kan "trækkes uden for" differentiation.
+
+$$
+\boxed{(k \cdot f(x))' = k \cdot f'(x)}
+$$
+
+Altså: hvis funktionen ganges med en konstant, ganges den afledede med samme konstant.
+
+**Sumreglen:** Den afledede af en sum (eller differens) er summen (eller differensen) af de afledede.
+
+$$
+\boxed{(f(x) + g(x))' = f'(x) + g'(x)}
+$$
+
+$$
+\boxed{(f(x) - g(x))' = f'(x) - g'(x)}
+$$
+
+**Sammenfattet:** Vi kan differentiere **led for led** og beholde konstanterne. Det gør det utroligt nemt at differentiere polynomier!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Differentiation af polynomier ⚡</summary>
+
+**Eksempel 1:** Find $f'(x)$ for $f(x) = 3x^4 - 5x^2 + 7x - 2$.
+
+Vi differentierer led for led med sum- og faktorreglen:
+
+$$
+\begin{aligned}
+f'(x) &= (3x^4)' - (5x^2)' + (7x)' - (2)' \\
+&= 3 \cdot 4x^3 - 5 \cdot 2x + 7 \cdot 1 - 0 \\
+&= 12x^3 - 10x + 7
+\end{aligned}
+$$
+
+**Eksempel 2:** Find $g'(x)$ for $g(x) = \frac{2}{3}x^6 + 4\sqrt{x} - \frac{1}{x}$.
+
+Omskriv først: $g(x) = \frac{2}{3}x^6 + 4x^{1/2} - x^{-1}$.
+
+$$
+\begin{aligned}
+g'(x) &= \frac{2}{3} \cdot 6x^5 + 4 \cdot \frac{1}{2}x^{-1/2} - (-1)x^{-2} \\
+&= 4x^5 + 2x^{-1/2} + x^{-2} \\
+&= 4x^5 + \frac{2}{\sqrt{x}} + \frac{1}{x^2}
+\end{aligned}
+$$
+
+**Tip:** Omskriv altid rødder og brøker til potenser, inden du differentierer!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bevis for sumreglen med tretrinsreglen ⚡</summary>
+
+Lad $s(x) = f(x) + g(x)$. Vi viser, at $s'(x) = f'(x) + g'(x)$.
+
+**Trin 1:**
+
+$$
+\begin{aligned}
+s(x+h) - s(x) &= [f(x+h) + g(x+h)] - [f(x) + g(x)] \\
+&= [f(x+h) - f(x)] + [g(x+h) - g(x)]
+\end{aligned}
+$$
+
+**Trin 2:**
+
+$$
+\frac{s(x+h) - s(x)}{h} = \frac{f(x+h) - f(x)}{h} + \frac{g(x+h) - g(x)}{h}
+$$
+
+**Trin 3:**
+
+$$
+\begin{aligned}
+s'(x) &= \lim_{h \to 0} \left[\frac{f(x+h) - f(x)}{h} + \frac{g(x+h) - g(x)}{h}\right] \\
+&= \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} + \lim_{h \to 0} \frac{g(x+h) - g(x)}{h} \\
+&= f'(x) + g'(x)
+\end{aligned}
+$$
+
+Beviset bygger på, at grænseværdien af en sum er summen af grænseværdierne. ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Produktreglen
+
+Hvad hvis to funktioner **ganges** sammen? Her kan man IKKE bare differentiere faktorerne hver for sig! I stedet bruger vi <Term definition="Reglen for at differentiere et produkt af to funktioner: (f·g)' = f'·g + f·g'">produktreglen</Term>:
+
+$$
+\boxed{(f(x) \cdot g(x))' = f'(x) \cdot g(x) + f(x) \cdot g'(x)}
+$$
+
+**Huskeregel:** "Den afledede af den første gange den anden, plus den første gange den afledede af den anden."
+
+Eller med en kort remse: *"afledt-gange-hel plus hel-gange-afledt"*.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Produktreglen ⚡</summary>
+
+**Eksempel 1:** Find $h'(x)$ for $h(x) = x^2 \cdot (3x + 1)$.
+
+Sæt $f(x) = x^2$ og $g(x) = 3x + 1$.
+
+$$
+f'(x) = 2x, \quad g'(x) = 3
+$$
+
+Produktreglen giver:
+
+$$
+\begin{aligned}
+h'(x) &= f'(x) \cdot g(x) + f(x) \cdot g'(x) \\
+&= 2x \cdot (3x + 1) + x^2 \cdot 3 \\
+&= 6x^2 + 2x + 3x^2 \\
+&= 9x^2 + 2x
+\end{aligned}
+$$
+
+**Tjek:** Vi kan verificere ved at gange ud først: $h(x) = 3x^3 + x^2$, så $h'(x) = 9x^2 + 2x$. ✅
+
+**Eksempel 2:** Find $p'(x)$ for $p(x) = (x^3 - 2)(x^2 + 5x)$.
+
+Sæt $f(x) = x^3 - 2$ og $g(x) = x^2 + 5x$.
+
+$$
+f'(x) = 3x^2, \quad g'(x) = 2x + 5
+$$
+
+$$
+\begin{aligned}
+p'(x) &= 3x^2 \cdot (x^2 + 5x) + (x^3 - 2) \cdot (2x + 5) \\
+&= 3x^4 + 15x^3 + 2x^4 + 5x^3 - 4x - 10 \\
+&= 5x^4 + 20x^3 - 4x - 10
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kvotientreglen
+
+Når to funktioner **divideres**, bruger vi <Term definition="Reglen for at differentiere en brøk af to funktioner: (f/g)' = (f'g - fg') / g²">kvotientreglen</Term>:
+
+$$
+\boxed{\left(\frac{f(x)}{g(x)}\right)' = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{(g(x))^2}}
+$$
+
+**Huskeregel:** "Afledt-tæller gange nævner, minus tæller gange afledt-nævner, det hele over nævner i anden."
+
+Bemærk minustegnet – rækkefølgen er vigtig! Kvotientreglen er **ikke symmetrisk** som produktreglen.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kvotientreglen ⚡</summary>
+
+**Eksempel:** Find $q'(x)$ for $q(x) = \frac{x^2 + 1}{2x - 3}$.
+
+Sæt $f(x) = x^2 + 1$ og $g(x) = 2x - 3$.
+
+$$
+f'(x) = 2x, \quad g'(x) = 2
+$$
+
+Kvotientreglen giver:
+
+$$
+\begin{aligned}
+q'(x) &= \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{(g(x))^2} \\[6pt]
+&= \frac{2x \cdot (2x - 3) - (x^2 + 1) \cdot 2}{(2x - 3)^2} \\[6pt]
+&= \frac{4x^2 - 6x - 2x^2 - 2}{(2x - 3)^2} \\[6pt]
+&= \frac{2x^2 - 6x - 2}{(2x - 3)^2}
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Kædereglen – den vigtigste regel
+
+<Term definition="Reglen for at differentiere en sammensat funktion: (f(g(x)))' = f'(g(x)) · g'(x), også kaldet 'den ydre ganget med den indre'">Kædereglen</Term> bruges, når en funktion er **sammensat** – altså en funktion inde i en funktion.
+
+Hvis $h(x) = f(g(x))$, hvor $g$ er den <Term definition="Den funktion der står 'inderst' i en sammensat funktion, fx g(x) i f(g(x))">indre funktion</Term> og $f$ er den <Term definition="Den funktion der står 'yderst' i en sammensat funktion, fx f i f(g(x))">ydre funktion</Term>, så er:
+
+$$
+\boxed{h'(x) = f'(g(x)) \cdot g'(x)}
+$$
+
+**Med ord:** *"Den afledede af den ydre (evalueret i den indre) ganget med den afledede af den indre."*
+
+**Leibniz-notation gør det intuitivt:** Hvis $y = f(u)$ og $u = g(x)$, så:
+
+$$
+\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}
+$$
+
+Det ser næsten ud som om $du$ "forkortes" – det er en fin huskeregel (selvom det teknisk set ikke er en brøk).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kædereglen trin for trin ⚡</summary>
+
+**Eksempel 1:** Find $h'(x)$ for $h(x) = (3x + 1)^5$.
+
+**Identificer den indre og ydre funktion:**
+- Indre: $g(x) = 3x + 1$
+- Ydre: $f(u) = u^5$
+
+**Differentier:**
+- $f'(u) = 5u^4$
+- $g'(x) = 3$
+
+**Kædereglen:**
+
+$$
+\begin{aligned}
+h'(x) &= f'(g(x)) \cdot g'(x) \\
+&= 5(3x+1)^4 \cdot 3 \\
+&= 15(3x+1)^4
+\end{aligned}
+$$
+
+**Eksempel 2:** Find $k'(x)$ for $k(x) = \sqrt{x^2 + 4}$.
+
+Omskriv: $k(x) = (x^2 + 4)^{1/2}$.
+
+- Indre: $g(x) = x^2 + 4$, så $g'(x) = 2x$
+- Ydre: $f(u) = u^{1/2}$, så $f'(u) = \frac{1}{2}u^{-1/2}$
+
+$$
+\begin{aligned}
+k'(x) &= \frac{1}{2}(x^2 + 4)^{-1/2} \cdot 2x \\
+&= \frac{2x}{2\sqrt{x^2 + 4}} \\
+&= \frac{x}{\sqrt{x^2 + 4}}
+\end{aligned}
+$$
+
+**Eksempel 3:** Find den afledede af $m(x) = (2x^3 - x)^4$.
+
+- Indre: $g(x) = 2x^3 - x$, så $g'(x) = 6x^2 - 1$
+- Ydre: $f(u) = u^4$, så $f'(u) = 4u^3$
+
+$$
+m'(x) = 4(2x^3 - x)^3 \cdot (6x^2 - 1)
+$$
+
+**Strategi:** Spørg dig selv: *"Hvad er det yderste, jeg gør?"* – det er den ydre funktion. Alt det, der står indeni, er den indre funktion.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Kombination af flere regler ⚡</summary>
+
+I praksis skal du ofte kombinere flere regneregler. Her er et eksempel.
+
+**Eksempel:** Find $f'(x)$ for $f(x) = x^2 \cdot (4x - 1)^3$.
+
+Her har vi et **produkt**, og den ene faktor kræver **kædereglen**.
+
+**Produktreglen** med $u(x) = x^2$ og $v(x) = (4x-1)^3$:
+
+$$
+f'(x) = u'(x) \cdot v(x) + u(x) \cdot v'(x)
+$$
+
+Beregn de afledede:
+
+$$
+u'(x) = 2x
+$$
+
+For $v'(x)$ bruger vi **kædereglen**:
+
+$$
+v'(x) = 3(4x-1)^2 \cdot 4 = 12(4x-1)^2
+$$
+
+Sæt det hele sammen:
+
+$$
+\begin{aligned}
+f'(x) &= 2x \cdot (4x-1)^3 + x^2 \cdot 12(4x-1)^2 \\
+&= (4x-1)^2 \left[2x(4x-1) + 12x^2\right] \\
+&= (4x-1)^2 \left[8x^2 - 2x + 12x^2\right] \\
+&= (4x-1)^2 (20x^2 - 2x) \\
+&= 2x(4x-1)^2(10x - 1)
+\end{aligned}
+$$
+
+Vi sætter fælles faktorer uden for for at forenkle resultatet.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Oversigt over alle regneregler
+
+Her er en samlet oversigt over alle regnereglerne for differentiation:
+
+| Regel | Funktion | Afledet |
+|-------|----------|---------|
+| Konstant | $c$ | $0$ |
+| Potens | $x^n$ | $n \cdot x^{n-1}$ |
+| Konstantfaktor | $k \cdot f(x)$ | $k \cdot f'(x)$ |
+| Sum | $f(x) + g(x)$ | $f'(x) + g'(x)$ |
+| Differens | $f(x) - g(x)$ | $f'(x) - g'(x)$ |
+| Produkt | $f(x) \cdot g(x)$ | $f'(x) \cdot g(x) + f(x) \cdot g'(x)$ |
+| Kvotient | $\frac{f(x)}{g(x)}$ | $\frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{(g(x))^2}$ |
+| Kæde | $f(g(x))$ | $f'(g(x)) \cdot g'(x)$ |
+
+**Pro-tip:** De tre regler du bruger mest er potensreglen, sumreglen og kædereglen. Mestrer du dem, klarer du 90 % af alle opgaver!
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1: Polynomier (sum- og potensregel)**
+
+Differentier følgende funktioner:
+- a) $f(x) = 4x^3 - 6x^2 + 2x - 9$
+- b) $g(x) = \frac{1}{2}x^4 + 3x^2 - x$
+- c) $h(x) = x^{10} - 5x^5 + 1$
+
+**Opgave 2: Omskrivning og potensregel**
+
+Differentier (omskriv først til potensform):
+- a) $f(x) = \frac{3}{x^2}$
+- b) $g(x) = 4\sqrt{x}$
+- c) $h(x) = \frac{2}{\sqrt{x}}$
+
+**Opgave 3: Produktreglen**
+
+Find den afledede af:
+- a) $f(x) = (2x+3)(x^2 - 1)$
+- b) $g(x) = x^3(5x - 4)$
+
+**Opgave 4: Kvotientreglen**
+
+Find den afledede af $f(x) = \frac{x^3}{x+2}$.
+
+**Opgave 5: Kædereglen**
+
+Differentier:
+- a) $f(x) = (2x + 5)^4$
+- b) $g(x) = (x^2 - 3x)^3$
+- c) $h(x) = \sqrt{5x + 1}$
+
+**Opgave 6: Kombinerede regler**
+
+Find $f'(x)$ for $f(x) = x \cdot (3x+2)^5$. Brug produktreglen og kædereglen.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="diffkvot-quiz-1"
+  question="Hvad er den afledede af $f(x) = 5x^3 - 2x + 7$?"
+  options={[
+    "$15x^2 - 2$",
+    "$15x^2 - 2x$",
+    "$5x^2 - 2$",
+    "$15x^3 - 2$"
+  ]}
+  correctIndex={0}
+  hint="Differentier led for led: potensreglen på hvert led, og konstanten forsvinder."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="diffkvot-quiz-2"
+  question="Hvilken regel skal du bruge til at differentiere $f(x) = (4x+1)^6$?"
+  options={[
+    "Potensreglen alene",
+    "Produktreglen",
+    "Kædereglen",
+    "Kvotientreglen"
+  ]}
+  correctIndex={2}
+  hint="Du har en funktion inde i en funktion – den ydre er 'noget i sjette', den indre er '4x+1'."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="diffkvot-quiz-3"
+  question="Hvad er produktreglen for $(f \cdot g)'$?"
+  options={[
+    "$f' \\cdot g'$",
+    "$f' \\cdot g + f \\cdot g'$",
+    "$f' \\cdot g - f \\cdot g'$",
+    "$\\frac{f' \\cdot g - f \\cdot g'}{g^2}$"
+  ]}
+  correctIndex={1}
+  hint="Husk remsen: 'afledt-gange-hel plus hel-gange-afledt'."
+/>

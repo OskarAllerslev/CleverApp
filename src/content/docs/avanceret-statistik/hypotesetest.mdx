@@ -2,31 +2,528 @@
 title: "Hypotesetest"
 level: "Matematik B"
 order: 2
-description: "En hypotesetest anvendes til at vurdere, om en opstillet hypotese (nulhypotese H0) kan accepteres el..."
+description: "Lær at teste påstande med statistik – fra nulhypotese til chi²-test. Optjen +150 XP!"
 ---
 
-# Hypotesetest
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Hypotesetest** på Matematik B-niveau.
+# Hypotesetest 🎯
 
-## Introduktion
+Forestil dig, at en ven påstår, at hans terning er fair. Du kaster den 60 gange og slår 18 seksere – det er næsten dobbelt så mange, som du ville forvente. Er terningen snydt, eller er det bare tilfældig variation? **Hypotesetest** giver dig et systematisk og matematisk stringent værktøj til at besvare præcis den slags spørgsmål.
 
-En hypotesetest anvendes til at vurdere, om en opstillet hypotese (nulhypotese H0) kan accepteres eller må forkastes på et valgt signifikansniveau.
+I stedet for at stole på mavefornemmelse bruger vi data og sandsynligheder til at træffe beslutninger. Det er videnskabelig tænkning i sin reneste form – og nu skal du mestre det! 🧪
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Grundbegreber i hypotesetest
+
+En <Term definition="En statistisk metode til at afgøre, om observerede data er forenelige med en bestemt antagelse (hypotese).">hypotesetest</Term> er en struktureret procedure, der bruger data til at afgøre, om en påstand (hypotese) om en population er rimelig.
+
+**De to hypoteser:**
+
+- <Term definition="Den hypotese, der antager, at der ikke er nogen effekt eller forskel. Den hypotese vi forsøger at forkaste.">Nulhypotesen</Term> $H_0$: Den "kedelige" hypotese – typisk at alt er, som forventet. Ingen effekt, ingen forskel, ingen ændring.
+
+- <Term definition="Den hypotese, der antager, at der ER en effekt eller forskel. Accepteres, hvis H₀ forkastes.">Alternativhypotesen</Term> $H_1$ (eller $H_a$): Den "spændende" hypotese – der *er* en effekt, en forskel eller en ændring.
+
+**Eksempler på hypotesepar:**
+
+| Situation | $H_0$ | $H_1$ |
+|-----------|--------|--------|
+| Er terningen fair? | $p = \frac{1}{6}$ | $p \neq \frac{1}{6}$ |
+| Virker medicinen bedre? | Ingen forskel | Medicin er bedre |
+| Passer fordelingen? | Data følger forventet fordeling | Data afviger fra fordelingen |
+
+**Vigtig pointe:** Vi beviser aldrig, at $H_0$ er sand. Vi undersøger kun, om der er tilstrækkelig evidens til at **forkaste** $H_0$. Tænk på det som et retssystem: den anklagede (=$H_0$) er uskyldig, indtil det modsatte er bevist.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Signifikansniveau og fejltyper
+
+<Term definition="Den maksimale sandsynlighed for at forkaste H₀, når H₀ faktisk er sand. Sættes typisk til 0,05 (5%).">Signifikansniveauet</Term> $\alpha$ er den grænse, vi sætter for, hvor stor risiko vi er villige til at acceptere for at begå en fejl. De mest almindelige værdier er:
+
+| $\alpha$ | Betydning | Bruges typisk til |
+|----------|-----------|-------------------|
+| $0{,}10$ | 10% risiko | Indledende screening |
+| $0{,}05$ | 5% risiko | Standard i de fleste undersøgelser |
+| $0{,}01$ | 1% risiko | Vigtige medicinske/sikkerhedstests |
+
+**To typer fejl kan opstå:**
+
+**Type I-fejl** (falsk alarm): Vi forkaster $H_0$, selvom $H_0$ faktisk er sand.
+- Sandsynlighed: $\alpha$ (signifikansniveauet)
+- Eksempel: Vi konkluderer, at terningen er snydt, men den er faktisk fair.
+
+**Type II-fejl** (overset effekt): Vi forkaster *ikke* $H_0$, selvom $H_0$ faktisk er falsk.
+- Sandsynlighed: $\beta$
+- Eksempel: Vi konkluderer, at terningen er fair, men den er faktisk snydt.
+
+Der er en afvejning: Lavere $\alpha$ (færre falske alarmer) giver højere $\beta$ (flere oversete effekter). Vi vælger $\alpha$ ud fra konsekvenserne af at begå en Type I-fejl.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: At forstå fejltyper ⚡</summary>
+
+**Situation:** En fabrik hævder, at højst 2% af deres produkter er defekte. En kvalitetsinspektør tester dette.
 
 $$
-p\text{-værdi} < \alpha \implies \text{Forkast } H_0
+H_0: p \leq 0{,}02 \quad \text{(fabrikken taler sandt)}
 $$
 
-## Hvad skal vi lære?
+$$
+H_1: p > 0{,}02 \quad \text{(defektraten er for høj)}
+$$
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Type I-fejl:** Inspektøren konkluderer, at defektraten er for høj, men den er faktisk OK.
+- Konsekvens: Fabrikken stoppes unødvendigt – dyrt, men ikke farligt.
 
-1. **Avanceret Teori**: Dykke dybere ned i det teoretiske fundament for B-niveauet.
-2. **Beregninger og Beviser**: Løse mere komplekse opgaver og gennemgå matematiske beviser.
-3. **Anvendelse**: Bruge teorien i praktiske modelleringsopgaver.
+**Type II-fejl:** Inspektøren konkluderer, at defektraten er OK, men den er faktisk for høj.
+- Konsekvens: Defekte produkter sendes til kunderne – potentielt farligt!
 
-*Dette er en introduktion til Matematik B-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+Her er Type II-fejl mest alvorlig, så man bør vælge et relativt højt $\alpha$ (fx $0{,}10$) for at minimere risikoen for at overse problemer.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: P-værdi og teststørrelse
+
+<Term definition="Sandsynligheden for at observere data mindst lige så ekstreme som de observerede, givet at nulhypotesen er sand.">P-værdien</Term> er det centrale begreb i hypotesetest. Den besvarer spørgsmålet:
+
+> *"Hvis $H_0$ er sand, hvad er så sandsynligheden for at observere noget mindst lige så ekstremt som vores data?"*
+
+$$
+p\text{-værdi} = P(\text{data mindst lige så ekstreme} \mid H_0 \text{ er sand})
+$$
+
+**Tolkning af $p$-værdien:**
+
+- **Lille $p$-værdi** (fx 0,002): Det er meget usandsynligt at se disse data, hvis $H_0$ er sand → stærk evidens mod $H_0$.
+- **Stor $p$-værdi** (fx 0,43): Det er helt normalt at se disse data, selvom $H_0$ er sand → svag evidens mod $H_0$.
+
+**Beslutningsreglen:**
+
+$$
+\begin{cases} p\text{-værdi} \leq \alpha & \Rightarrow \text{Forkast } H_0 \text{ (statistisk signifikant)} \\ p\text{-værdi} > \alpha & \Rightarrow \text{Forkast ikke } H_0 \end{cases}
+$$
+
+En <Term definition="Et tal beregnet ud fra data, der bruges til at afgøre, om nulhypotesen skal forkastes.">teststørrelse</Term> er en talværdi beregnet fra data, der opsummerer, hvor langt de observerede data ligger fra det forventede under $H_0$. Jo større teststørrelse, jo mere ekstremt er resultatet.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Trin-for-trin hypotesetest ⚡</summary>
+
+**Opgave:** En møntproducent hævder, at deres mønter er fair ($p = 0{,}50$). Du kaster en mønt 100 gange og får 62 plat. Er mønten fair? Brug $\alpha = 0{,}05$.
+
+**Trin 1: Opstil hypoteser**
+
+$$
+H_0: p = 0{,}50 \quad \text{(mønten er fair)}
+$$
+
+$$
+H_1: p \neq 0{,}50 \quad \text{(mønten er ikke fair – tosidet test)}
+$$
+
+**Trin 2: Signifikansniveau**
+
+$$
+\alpha = 0{,}05
+$$
+
+**Trin 3: Under $H_0$ er $X \sim b(100;\, 0{,}50)$**
+
+Forventet antal plat: $\mu = 100 \cdot 0{,}50 = 50$
+
+Spredning: $\sigma = \sqrt{100 \cdot 0{,}50 \cdot 0{,}50} = \sqrt{25} = 5$
+
+Observeret: $k = 62$
+
+**Trin 4: Beregn $p$-værdi**
+
+Da det er en tosidet test, beregner vi sandsynligheden for at være mindst 12 fra middelværdien (begge retninger):
+
+$$
+p\text{-værdi} = P(X \leq 38) + P(X \geq 62)
+$$
+
+Med CAS: $p\text{-værdi} \approx 0{,}0176$
+
+**Trin 5: Konklusion**
+
+$$
+p\text{-værdi} = 0{,}0176 < 0{,}05 = \alpha
+$$
+
+Vi **forkaster** $H_0$. Der er statistisk signifikant evidens for, at mønten **ikke** er fair.
+
+**Bemærk:** Statistisk signifikans betyder ikke nødvendigvis praktisk signifikans. $p = 0{,}62$ er tæt på $0{,}50$ – i praksis ville mønten stadig virke "næsten fair".
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Chi²-test for goodness-of-fit
+
+<Term definition="En statistisk test, der sammenligner observerede frekvenser med forventede frekvenser for at vurdere, om data passer til en bestemt fordeling.">Chi²-testen</Term> (udtales "ki-i-anden-testen") bruges, når vi vil undersøge, om observerede frekvenser stemmer overens med forventede frekvenser. Det er en **goodness-of-fit-test** – den tester, om data *passer til* en bestemt model.
+
+**Hvornår bruger vi chi²-test?**
+- Når vi har **kategoriske data** (tæller observationer i kategorier)
+- Når vi vil sammenligne observerede og forventede frekvenser
+- Typisk krav: Alle forventede frekvenser $\geq 5$
+
+**Teststørrelsen** beregnes som:
+
+$$
+\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}
+$$
+
+hvor:
+- $k$ er antallet af kategorier
+- $O_i$ er den **observerede** frekvens i kategori $i$
+- $E_i$ er den **forventede** frekvens i kategori $i$ (under $H_0$)
+
+**Tolkning af $\chi^2$:**
+
+- $\chi^2 = 0$: Perfekt overensstemmelse (observeret = forventet)
+- Lille $\chi^2$: God overensstemmelse → $H_0$ beholdes
+- Stor $\chi^2$: Dårlig overensstemmelse → $H_0$ forkastes
+
+**Frihedsgrader:**
+
+$$
+df = k - 1
+$$
+
+hvor $k$ er antallet af kategorier. $p$-værdien slås op i en chi²-tabel eller beregnes med CAS ud fra $\chi^2$ og $df$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Chi²-test – er terningen fair? ⚡</summary>
+
+**Opgave:** En terning kastes 120 gange med følgende resultater:
+
+| Udfald | 1 | 2 | 3 | 4 | 5 | 6 |
+|--------|---|---|---|---|---|---|
+| Observeret $O_i$ | 25 | 17 | 15 | 23 | 18 | 22 |
+
+Er terningen fair? Brug $\alpha = 0{,}05$.
+
+**Trin 1: Hypoteser**
+
+$$
+H_0: \text{Terningen er fair (alle udfald har sandsynlighed } \tfrac{1}{6}\text{)}
+$$
+
+$$
+H_1: \text{Terningen er ikke fair}
+$$
+
+**Trin 2: Forventede frekvenser**
+
+Hvis terningen er fair, forventer vi i hvert udfald:
+
+$$
+E_i = \frac{120}{6} = 20 \quad \text{for alle } i
+$$
+
+**Trin 3: Beregn teststørrelsen**
+
+$$
+\chi^2 = \sum_{i=1}^{6} \frac{(O_i - E_i)^2}{E_i}
+$$
+
+Vi beregner hvert led:
+
+$$
+\begin{aligned}
+\frac{(25-20)^2}{20} &= \frac{25}{20} = 1{,}25 \\[6pt]
+\frac{(17-20)^2}{20} &= \frac{9}{20} = 0{,}45 \\[6pt]
+\frac{(15-20)^2}{20} &= \frac{25}{20} = 1{,}25 \\[6pt]
+\frac{(23-20)^2}{20} &= \frac{9}{20} = 0{,}45 \\[6pt]
+\frac{(18-20)^2}{20} &= \frac{4}{20} = 0{,}20 \\[6pt]
+\frac{(22-20)^2}{20} &= \frac{4}{20} = 0{,}20
+\end{aligned}
+$$
+
+$$
+\chi^2 = 1{,}25 + 0{,}45 + 1{,}25 + 0{,}45 + 0{,}20 + 0{,}20 = 3{,}80
+$$
+
+**Trin 4: Frihedsgrader og $p$-værdi**
+
+$$
+df = 6 - 1 = 5
+$$
+
+Vi slår op i chi²-tabellen (eller bruger CAS): For $\chi^2 = 3{,}80$ og $df = 5$:
+
+$$
+p\text{-værdi} \approx 0{,}578
+$$
+
+**Trin 5: Konklusion**
+
+$$
+p\text{-værdi} = 0{,}578 > 0{,}05 = \alpha
+$$
+
+Vi **forkaster ikke** $H_0$. Der er **ingen** statistisk signifikant evidens for, at terningen er unfair. De observerede afvigelser kan forklares ved tilfældig variation.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Chi²-test – fordeling af blodtyper ⚡</summary>
+
+**Opgave:** I Danmark forventes blodtypefordelingen at være: A: 44%, B: 11%, AB: 4%, O: 41%. I en stikprøve af 500 personer observeres:
+
+| Blodtype | A | B | AB | O |
+|----------|---|---|----|---|
+| Observeret $O_i$ | 205 | 65 | 30 | 200 |
+| Forventet $E_i$ | 220 | 55 | 20 | 205 |
+
+Passer stikprøven til den forventede fordeling? Brug $\alpha = 0{,}05$.
+
+**Trin 1: Hypoteser**
+
+$$
+H_0: \text{Blodtypefordelingen følger den forventede model}
+$$
+
+$$
+H_1: \text{Blodtypefordelingen afviger fra modellen}
+$$
+
+**Trin 2: Kontrollér betingelse**
+
+Alle forventede frekvenser $E_i \geq 5$ ✅ ($E_{\min} = 20$)
+
+**Trin 3: Beregn teststørrelsen**
+
+$$
+\begin{aligned}
+\chi^2 &= \frac{(205-220)^2}{220} + \frac{(65-55)^2}{55} + \frac{(30-20)^2}{20} + \frac{(200-205)^2}{205} \\[6pt]
+&= \frac{225}{220} + \frac{100}{55} + \frac{100}{20} + \frac{25}{205} \\[6pt]
+&= 1{,}023 + 1{,}818 + 5{,}000 + 0{,}122 \\[6pt]
+&= 7{,}963
+\end{aligned}
+$$
+
+**Trin 4: Frihedsgrader og $p$-værdi**
+
+$$
+df = 4 - 1 = 3
+$$
+
+Med CAS: $p\text{-værdi} \approx 0{,}047$
+
+**Trin 5: Konklusion**
+
+$$
+p\text{-værdi} = 0{,}047 < 0{,}05 = \alpha
+$$
+
+Vi **forkaster** $H_0$. Stikprøven afviger statistisk signifikant fra den forventede blodtypefordeling. Især bidrager blodtype AB (med $\frac{(30-20)^2}{20} = 5{,}0$) mest til den samlede teststørrelse.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Samlet overblik – de 5 trin i en hypotesetest
+
+Uanset typen af test (binomialtest, chi²-test osv.) følger alle hypotesetests den samme overordnede struktur:
+
+**Trin 1: Formulér hypoteser**
+- $H_0$: Nulhypotesen (det vi antager gælder, indtil vi har bevis for andet)
+- $H_1$: Alternativhypotesen (det vi vil undersøge)
+
+**Trin 2: Vælg signifikansniveau $\alpha$**
+- Standard: $\alpha = 0{,}05$ (medmindre andet er angivet)
+
+**Trin 3: Indsaml data og beregn teststørrelse**
+- Binomialtest: Tæl succeser og brug binomialfordelingen
+- Chi²-test: Beregn $\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}$
+
+**Trin 4: Find $p$-værdien**
+- Brug CAS, tabeller eller formler
+
+**Trin 5: Drag konklusion**
+- $p\text{-værdi} \leq \alpha$: Forkast $H_0$ – statistisk signifikant
+- $p\text{-værdi} > \alpha$: Forkast ikke $H_0$ – ikke tilstrækkelig evidens
+
+**Husk:** Vi siger aldrig "acceptér $H_0$" – vi siger "forkast ikke $H_0$". Det er en vigtig nuance!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Valg af testtype ⚡</summary>
+
+**Hvornår bruger du hvilken test?**
+
+| Situation | Testtype |
+|-----------|----------|
+| Teste om en andel $p$ har en bestemt værdi | **Binomialtest** |
+| Teste om observerede frekvenser passer til en model | **Chi²-test (goodness-of-fit)** |
+| Teste om to kategoriske variable er uafhængige | **Chi²-test (uafhængighedstest)** |
+
+**Eksempel 1:** "Er andelen af venstrehåndede i klassen 10%?"
+→ Binomialtest med $H_0: p = 0{,}10$
+
+**Eksempel 2:** "Følger fødselsdage en jævn fordeling over årets 12 måneder?"
+→ Chi²-test med forventede frekvenser $E_i = \frac{n}{12}$ for hver måned
+
+**Eksempel 3:** "Passer de observerede terningkast til en fair terning?"
+→ Chi²-test med $E_i = \frac{n}{6}$ for hvert udfald
+
+**Tommelfingerregel:** Brug binomialtest, når du har **to kategorier** (succes/fiasko). Brug chi²-test, når du har **flere kategorier**.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Bevis: Hvorfor chi²-formlen virker ⚡</summary>
+
+Intuitivt måler chi²-teststørrelsen den samlede afvigelse mellem observerede og forventede frekvenser. Lad os se, hvorfor formlen er designet, som den er:
+
+**1. Afvigelsen $O_i - E_i$:**
+
+Forskellen mellem observeret og forventet. Kan være positiv eller negativ.
+
+**2. Kvadrering $(O_i - E_i)^2$:**
+
+Vi kvadrerer for at gøre alle bidrag positive (ligesom ved varians). Uden kvadrering ville positive og negative afvigelser ophæve hinanden.
+
+**3. Division med $E_i$:**
+
+Vi dividerer med den forventede frekvens for at **normalisere**. En afvigelse på 5 fra en forventning på 10 er mere alvorlig end en afvigelse på 5 fra en forventning på 1000:
+
+$$
+\frac{(15-10)^2}{10} = 2{,}5 \quad \text{vs.} \quad \frac{(1005-1000)^2}{1000} = 0{,}025
+$$
+
+**4. Summation $\sum$:**
+
+Vi lægger alle bidrag sammen for at få ét samlet mål for uoverensstemmelse.
+
+Under $H_0$ følger $\chi^2$ tilnærmelsesvist en chi²-fordeling med $k-1$ frihedsgrader (for store stikprøver). Dette følger af den centrale grænseværdisætning.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1: Hypoteser**
+Formulér nulhypotese og alternativhypotese for følgende situationer:
+- a) Du vil undersøge, om en mønt er fair.
+- b) En virksomhed hævder, at 95% af deres leverancer er til tiden. Du mistænker, at andelen er lavere.
+- c) Du vil teste, om fordelingen af karakterer i en klasse følger normalfordelingen.
+
+**Opgave 2: Simpel chi²-test**
+En slikautomat påstår at indeholde lige mange af 4 slags slik. Du køber 80 stykker og observerer:
+
+| Type | Lakrids | Vingummi | Chokolade | Karamel |
+|------|---------|----------|-----------|---------|
+| Antal | 25 | 14 | 22 | 19 |
+
+Udfør en chi²-test med $\alpha = 0{,}05$ for at vurdere, om fordelingen er jævn.
+
+**Opgave 3: Fejltyper**
+For følgende situationer: Beskriv, hvad en Type I-fejl og en Type II-fejl ville betyde i praksis.
+- a) Du tester, om et nyt undervisningsprogram forbedrer eksamensresultater.
+- b) Du tester, om en medicin har bivirkninger.
+
+**Opgave 4: Chi²-test med flere kategorier**
+I en spørgeundersøgelse om yndlingsfag svarer 200 elever:
+
+| Fag | Matematik | Dansk | Engelsk | Fysik | Andet |
+|-----|-----------|-------|---------|-------|-------|
+| Observeret | 52 | 38 | 35 | 30 | 45 |
+
+En model forudsiger fordelingen: Mat 30%, Dansk 20%, Engelsk 20%, Fysik 10%, Andet 20%.
+- a) Beregn de forventede frekvenser.
+- b) Beregn teststørrelsen $\chi^2$.
+- c) Bestem antallet af frihedsgrader.
+- d) Find $p$-værdien med CAS og drag en konklusion med $\alpha = 0{,}05$.
+
+**Opgave 5: Helhedsopgave**
+En lærer påstår, at 70% af eleverne foretrækker digitale lærebøger. I en stikprøve af 40 elever svarer 22 ja.
+- a) Udfør en binomialtest med $\alpha = 0{,}05$ (tosidet).
+- b) Beregn $p$-værdien og formulér din konklusion.
+- c) Hvad ville ændre sig, hvis du brugte $\alpha = 0{,}01$?
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="hypo-quiz-1"
+  question="Hvad beskriver p-værdien i en hypotesetest?"
+  options={[
+    "Sandsynligheden for at H₀ er sand",
+    "Sandsynligheden for at H₁ er sand",
+    "Sandsynligheden for at observere data mindst lige så ekstreme som de observerede, givet at H₀ er sand",
+    "Sandsynligheden for at begå en Type II-fejl"
+  ]}
+  correctIndex={2}
+  hint="P-værdien handler om data givet H₀ – ikke om H₀ givet data."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="hypo-quiz-2"
+  question="Hvad er antallet af frihedsgrader i en chi²-test med 5 kategorier?"
+  options={[
+    "3",
+    "4",
+    "5",
+    "6"
+  ]}
+  correctIndex={1}
+  hint="Frihedsgrader = antal kategorier minus 1."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="hypo-quiz-3"
+  question="Hvad er en Type I-fejl?"
+  options={[
+    "At forkaste H₀ når H₀ er falsk",
+    "At beholde H₀ når H₀ er falsk",
+    "At forkaste H₀ når H₀ er sand",
+    "At beholde H₀ når H₀ er sand"
+  ]}
+  correctIndex={2}
+  hint="Type I-fejl er en 'falsk alarm' – vi tror, vi har fundet noget, men H₀ var faktisk sand."
+/>

@@ -1,32 +1,641 @@
 ---
-title: "Ligninger og formler"
+title: "Ligninger"
 level: "Matematik C"
-order: 3
-description: "En ligning er et matematisk udsagn om, at to udtryk er ens. Her lærer du metoder til at løse førsteg..."
+order: 5
+description: "Knæk koden til ligninger – fra simple førstegradsligninger til uligheder og nulreglen. Optjen +150 XP!"
 ---
 
-# Ligninger og formler
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Ligninger og formler** på Matematik C-niveau.
+# Ligninger 🎯
 
-## Introduktion
+At løse en ligning er som at være detektiv – du ved, at to sider er lige store, og din opgave er at finde den ukendte. Det er en af de mest fundamentale færdigheder i al matematik, og den bruger du igen og igen i alle emner fremover. Ready? Let the boss battle begin! 🕵️
 
-En ligning er et matematisk udsagn om, at to udtryk er ens. Her lærer du metoder til at løse førstegradsligninger og isolere variable i formler.
+---
 
-## Central Matematisk Formel
+<div className="teori-box">
 
-Her er en af de vigtigste formler for dette emne:
+### Teori: Hvad er en ligning?
+
+En <Term definition="Et udsagn om, at to matematiske udtryk har samme værdi. De to sider forbindes med lighedstegnet =.">ligning</Term> er et udsagn om, at to udtryk er lige store:
 
 $$
-ax + b = c \implies x = \frac{c - b}{a}
+\text{venstre side} = \text{højre side}
 $$
 
-## Hvad skal vi lære?
+At <Term definition="At finde den værdi af den ubekendte (fx x), som gør ligningen sand.">løse en ligning</Term> betyder at finde den værdi af $x$ (eller en anden ubekendt), der gør udsagnet sandt.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Det gyldne princip:** Man må gøre hvad som helst ved en ligning, **så længe man gør det samme på begge sider!**
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+De tilladte operationer er:
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+- **Lægge det samme tal til** begge sider
+- **Trække det samme tal fra** begge sider
+- **Gange begge sider** med det samme tal (undtagen 0)
+- **Dividere begge sider** med det samme tal (undtagen 0)
+
+Disse operationer bevarer lighedens gyldighed.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Førstegradsligninger
+
+En <Term definition="En ligning, hvor den ubekendte x kun optræder i første potens (ikke x², x³ osv.). Generel form: ax + b = c.">førstegradsligning</Term> er en ligning, hvor $x$ kun optræder i første potens. Den generelle form er:
+
+$$
+ax + b = c
+$$
+
+**Strategi til at løse enhver førstegradsligning:**
+
+1. **Fjern parenteser** (brug den distributive lov)
+2. **Saml $x$-led** på den ene side og **tal-led** på den anden
+3. **Divider med koefficienten** foran $x$
+
+**Løsning af $ax + b = c$:**
+
+$$
+\begin{aligned}
+ax + b &= c \\
+ax &= c - b \quad &\text{(træk } b \text{ fra begge sider)} \\
+x &= \frac{c - b}{a} \quad &\text{(divider med } a \text{)}
+\end{aligned}
+$$
+
+**Tjek altid din løsning** ved at indsætte $x$-værdien i den oprindelige ligning!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Simpel førstegradsligning ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+3x + 7 = 22
+$$
+
+**Trin 1: Isoler $x$-leddet – træk 7 fra begge sider**
+
+$$
+3x + 7 - 7 = 22 - 7
+$$
+
+$$
+3x = 15
+$$
+
+**Trin 2: Divider begge sider med 3**
+
+$$
+\frac{3x}{3} = \frac{15}{3}
+$$
+
+$$
+x = 5
+$$
+
+**Tjek:** Vi indsætter $x = 5$ i den oprindelige ligning:
+
+$$
+3 \cdot 5 + 7 = 15 + 7 = 22 \checkmark
+$$
+
+**Svar:** $x = 5$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Ligning med x på begge sider ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+5x - 3 = 2x + 12
+$$
+
+**Trin 1: Saml $x$-led på venstre side – træk $2x$ fra begge sider**
+
+$$
+5x - 2x - 3 = 2x - 2x + 12
+$$
+
+$$
+3x - 3 = 12
+$$
+
+**Trin 2: Saml tal-led på højre side – læg 3 til begge sider**
+
+$$
+3x - 3 + 3 = 12 + 3
+$$
+
+$$
+3x = 15
+$$
+
+**Trin 3: Divider begge sider med 3**
+
+$$
+x = \frac{15}{3} = 5
+$$
+
+**Tjek:** Venstre side: $5 \cdot 5 - 3 = 25 - 3 = 22$. Højre side: $2 \cdot 5 + 12 = 10 + 12 = 22$. $\checkmark$
+
+**Svar:** $x = 5$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Ligninger med parenteser
+
+Når en ligning indeholder parenteser, skal vi **gange parenteserne ud** som det første trin, inden vi samler $x$-led og tal-led.
+
+**Huskeregel:**
+
+$$
+a(bx + c) = abx + ac
+$$
+
+Vær særligt opmærksom på **minustegn foran parenteser** – her skifter alle fortegn:
+
+$$
+-(bx + c) = -bx - c
+$$
+
+**Strategi:**
+
+1. Gang alle parenteser ud
+2. Saml ens led på hver side
+3. Flyt $x$-led til den ene side, tal-led til den anden
+4. Divider med koefficienten
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Ligning med parenteser ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+4(2x - 3) - 2(x + 5) = 3(x - 1)
+$$
+
+**Trin 1: Gang parenteserne ud**
+
+$$
+\underbrace{4 \cdot 2x}_{8x} + \underbrace{4 \cdot (-3)}_{-12} + \underbrace{(-2) \cdot x}_{-2x} + \underbrace{(-2) \cdot 5}_{-10} = \underbrace{3 \cdot x}_{3x} + \underbrace{3 \cdot (-1)}_{-3}
+$$
+
+$$
+8x - 12 - 2x - 10 = 3x - 3
+$$
+
+**Trin 2: Saml ens led på hver side**
+
+$$
+(8x - 2x) + (-12 - 10) = 3x - 3
+$$
+
+$$
+6x - 22 = 3x - 3
+$$
+
+**Trin 3: Flyt $x$-led til venstre (træk $3x$ fra begge sider)**
+
+$$
+6x - 3x - 22 = -3
+$$
+
+$$
+3x - 22 = -3
+$$
+
+**Trin 4: Flyt tal-led til højre (læg 22 til begge sider)**
+
+$$
+3x = -3 + 22
+$$
+
+$$
+3x = 19
+$$
+
+**Trin 5: Divider med 3**
+
+$$
+x = \frac{19}{3} = 6\frac{1}{3}
+$$
+
+**Tjek:** VS: $4(2 \cdot \frac{19}{3} - 3) - 2(\frac{19}{3} + 5) = 4 \cdot \frac{29}{3} - 2 \cdot \frac{34}{3} = \frac{116}{3} - \frac{68}{3} = \frac{48}{3} = 16$
+
+HS: $3(\frac{19}{3} - 1) = 3 \cdot \frac{16}{3} = 16$ $\checkmark$
+
+**Svar:** $x = \frac{19}{3}$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Ligninger med brøker
+
+Når en ligning indeholder brøker, er den smarteste strategi at **gange begge sider med fællesnævneren** for at fjerne alle brøkerne.
+
+**Strategi:**
+
+1. Find fællesnævneren for alle brøker i ligningen
+2. Gang **hele** ligningen (begge sider) med fællesnævneren
+3. Forenkl – alle nævnere forsvinder
+4. Løs den resulterende ligning som normalt
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Ligning med brøker ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+\frac{x}{3} + \frac{2x-1}{6} = \frac{5}{2}
+$$
+
+**Trin 1: Find fællesnævneren**
+
+Nævnerne er $3$, $6$ og $2$. Fællesnævneren er $6$.
+
+**Trin 2: Gang begge sider med 6**
+
+$$
+6 \cdot \frac{x}{3} + 6 \cdot \frac{2x-1}{6} = 6 \cdot \frac{5}{2}
+$$
+
+$$
+2x + (2x-1) = 15
+$$
+
+**Trin 3: Fjern parentesen og saml ens led**
+
+$$
+2x + 2x - 1 = 15
+$$
+
+$$
+4x - 1 = 15
+$$
+
+**Trin 4: Isoler $x$**
+
+$$
+4x = 15 + 1 = 16
+$$
+
+$$
+x = \frac{16}{4} = 4
+$$
+
+**Tjek:** $\frac{4}{3} + \frac{2 \cdot 4 - 1}{6} = \frac{4}{3} + \frac{7}{6} = \frac{8}{6} + \frac{7}{6} = \frac{15}{6} = \frac{5}{2}$ $\checkmark$
+
+**Svar:** $x = 4$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Uligheder
+
+En <Term definition="Et udsagn om, at to udtryk IKKE er lige store. Bruger symbolerne < (mindre end), > (større end), ≤ (mindre end eller lig) eller ≥ (større end eller lig).">ulighed</Term> ligner en ligning, men i stedet for $=$ bruger vi $<$, $>$, $\leq$ eller $\geq$.
+
+**Regler for uligheder:**
+
+Uligheder kan behandles **næsten** som ligninger, med én vigtig undtagelse:
+
+**Når man ganger eller dividerer med et negativt tal, vendes ulighedstegnet!**
+
+$$
+a < b \overset{\cdot(-1)}{\implies} -a > -b
+$$
+
+**Eksempler på korrekt håndtering:**
+
+$$
+\begin{aligned}
+-3x &> 12 \\
+x &< \frac{12}{-3} \quad \text{(ulighedstegnet vendes!)} \\
+x &< -4
+\end{aligned}
+$$
+
+**Løsningsmængden** skrives typisk som et interval eller med ulighedstegn:
+
+- $x > 3$ betyder alle tal større end 3
+- $x \leq -2$ betyder alle tal mindre end eller lig $-2$
+- $1 < x \leq 5$ betyder alle tal mellem 1 (eksklusiv) og 5 (inklusiv)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Løsning af uligheder ⚡</summary>
+
+**Løs uligheden:**
+
+$$
+5 - 2x \geq 3x + 20
+$$
+
+**Trin 1: Saml $x$-led på venstre side (træk $3x$ fra begge sider)**
+
+$$
+5 - 2x - 3x \geq 20
+$$
+
+$$
+5 - 5x \geq 20
+$$
+
+**Trin 2: Saml tal-led på højre side (træk 5 fra begge sider)**
+
+$$
+-5x \geq 20 - 5
+$$
+
+$$
+-5x \geq 15
+$$
+
+**Trin 3: Divider med $-5$ – HUSK at vende ulighedstegnet!**
+
+$$
+x \leq \frac{15}{-5}
+$$
+
+$$
+x \leq -3
+$$
+
+**Tjek med $x = -3$:** $5 - 2 \cdot (-3) = 5 + 6 = 11$ og $3 \cdot (-3) + 20 = -9 + 20 = 11$. $11 \geq 11$ $\checkmark$
+
+**Tjek med $x = -4$ (skal opfylde):** $5 - 2 \cdot (-4) = 13$ og $3 \cdot (-4) + 20 = 8$. $13 \geq 8$ $\checkmark$
+
+**Svar:** $x \leq -3$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Nulreglen
+
+<Term definition="Reglen der siger, at hvis et produkt er 0, så er mindst én af faktorerne 0. Dvs. a·b = 0 medfører a = 0 eller b = 0.">Nulreglen</Term> er en utroligt vigtig regel, der bruges til at løse ligninger, der er sat på <Term definition="At skrive et udtryk som et produkt af faktorer, fx x² + 3x = x(x+3).">faktoriseret form</Term>:
+
+$$
+a \cdot b = 0 \implies a = 0 \quad \text{eller} \quad b = 0
+$$
+
+**Begrundelse:** Produktet af to tal kan **kun** være 0, hvis mindst ét af tallene er 0.
+
+**Strategi til ligninger med nulreglen:**
+
+1. Sørg for at ligningen har 0 på den ene side
+2. Faktoriser den anden side til et produkt
+3. Sæt hver faktor lig med 0
+4. Løs de resulterende ligninger
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Nulreglen ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+x^2 - 5x = 0
+$$
+
+**Trin 1: Faktoriser venstre side (sæt $x$ uden for parentes)**
+
+$$
+x(x - 5) = 0
+$$
+
+**Trin 2: Anvend nulreglen – et produkt er 0, når mindst én faktor er 0**
+
+$$
+x = 0 \quad \text{eller} \quad x - 5 = 0
+$$
+
+**Trin 3: Løs hver ligning**
+
+$$
+x = 0 \quad \text{eller} \quad x = 5
+$$
+
+**Tjek:**
+
+For $x = 0$: $0^2 - 5 \cdot 0 = 0 - 0 = 0$ $\checkmark$
+
+For $x = 5$: $5^2 - 5 \cdot 5 = 25 - 25 = 0$ $\checkmark$
+
+**Svar:** $x = 0$ eller $x = 5$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Nulreglen med flere faktorer ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+(2x + 6)(x - 4)(3x + 9) = 0
+$$
+
+**Trin 1: Anvend nulreglen – sæt hver faktor lig 0**
+
+$$
+2x + 6 = 0 \quad \text{eller} \quad x - 4 = 0 \quad \text{eller} \quad 3x + 9 = 0
+$$
+
+**Trin 2: Løs hver ligning**
+
+$$
+\begin{aligned}
+2x + 6 = 0 &\implies 2x = -6 \implies x = -3 \\
+x - 4 = 0 &\implies x = 4 \\
+3x + 9 = 0 &\implies 3x = -9 \implies x = -3
+\end{aligned}
+$$
+
+**Bemærk:** Første og tredje faktor giver **samme** løsning ($x = -3$).
+
+**Svar:** $x = -3$ eller $x = 4$
+
+Der er altså kun **to** forskellige løsninger, selvom der er tre faktorer.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Sammensat ligning med flere teknikker ⚡</summary>
+
+**Løs ligningen:**
+
+$$
+\frac{2(x+3)}{4} - \frac{x-1}{2} = 1
+$$
+
+**Trin 1: Gang begge sider med fællesnævneren 4**
+
+$$
+4 \cdot \frac{2(x+3)}{4} - 4 \cdot \frac{x-1}{2} = 4 \cdot 1
+$$
+
+$$
+2(x+3) - 2(x-1) = 4
+$$
+
+**Trin 2: Gang parenteserne ud**
+
+$$
+2x + 6 - 2x + 2 = 4
+$$
+
+**Trin 3: Saml ens led**
+
+$$
+(2x - 2x) + (6 + 2) = 4
+$$
+
+$$
+0x + 8 = 4
+$$
+
+$$
+8 = 4
+$$
+
+**Konklusion:** Vi får et udsagn ($8 = 4$) som er **falsk**. Det betyder, at ligningen **ingen løsning** har!
+
+Ligningen er en <Term definition="En ligning der ingen løsning har – den er aldrig opfyldt uanset værdien af x.">uløselig ligning</Term>.
+
+**Svar:** Ingen løsning.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Løs ligningerne:
+
+a) $5x - 8 = 17$
+
+b) $7 - 3x = -11$
+
+c) $4x + 9 = 2x + 21$
+
+**Opgave 2:** Løs ligningerne med parenteser:
+
+a) $3(x + 4) = 27$
+
+b) $2(3x - 1) - 4(x + 2) = 6$
+
+c) $5(x - 2) = 3(x + 4) - 2$
+
+**Opgave 3:** Løs ligningerne med brøker:
+
+a) $\frac{x}{4} + \frac{x}{3} = 7$
+
+b) $\frac{2x + 1}{3} = \frac{x - 2}{2} + 1$
+
+**Opgave 4:** Løs ulighederne:
+
+a) $3x + 5 > 20$
+
+b) $-2x + 8 \leq 14$
+
+c) $4(x - 1) < 2(3x + 5)$
+
+**Opgave 5:** Brug nulreglen til at løse:
+
+a) $x^2 + 7x = 0$
+
+b) $(3x - 12)(2x + 10) = 0$
+
+c) $x(x + 3)(x - 6) = 0$
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="ligninger-quiz-1"
+  question="Hvad er løsningen til $4x - 10 = 18$?"
+  options={[
+    "$x = 2$",
+    "$x = 7$",
+    "$x = 28$",
+    "$x = -7$"
+  ]}
+  correctIndex={1}
+  hint="Læg 10 til begge sider, og divider derefter med 4."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ligninger-quiz-2"
+  question="Hvad sker der med ulighedstegnet, når man ganger med et negativt tal?"
+  options={[
+    "Det forbliver det samme",
+    "Det vendes om",
+    "Det bliver til et lighedstegn",
+    "Det forsvinder"
+  ]}
+  correctIndex={1}
+  hint="Prøv med et eksempel: $-2 < 3$. Gang begge sider med $-1$."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ligninger-quiz-3"
+  question="Hvad er løsningerne til $x(x - 7) = 0$?"
+  options={[
+    "$x = 7$",
+    "$x = 0$",
+    "$x = 0$ eller $x = 7$",
+    "$x = 0$ eller $x = -7$"
+  ]}
+  correctIndex={2}
+  hint="Brug nulreglen: et produkt er 0, når mindst én faktor er 0."
+/>

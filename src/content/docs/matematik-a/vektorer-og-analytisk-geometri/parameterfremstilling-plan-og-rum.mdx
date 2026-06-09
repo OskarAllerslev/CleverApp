@@ -1,32 +1,614 @@
 ---
-title: "Parameterfremstilling i planen og rummet"
+title: "Parameterfremstilling i plan og rum"
 level: "Matematik A"
-order: 1
-description: "Parameterfremstilling beskriver en ret linje, en plan eller en kurve i planen eller det tredimension..."
+order: 4
+description: "Mestér parameterfremstillinger for linjer og planer i 3D, samt skæringer. Optjen +150 XP!"
 ---
 
-# Parameterfremstilling i planen og rummet
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Parameterfremstilling i planen og rummet** på Matematik A-niveau.
+# Parameterfremstilling i plan og rum 🎯
 
-## Introduktion
+I 2D brugte du parameterfremstillinger til at beskrive linjer som $\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x_0 \\ y_0 \end{pmatrix} + t \cdot \begin{pmatrix} r_1 \\ r_2 \end{pmatrix}$. Nu udvider vi konceptet til **3D**, hvor vi ikke bare kan beskrive linjer, men også **planer** med parameterfremstillinger.
 
-Parameterfremstilling beskriver en ret linje, en plan eller en kurve i planen eller det tredimensionelle rum ud fra et startpunkt og en eller flere retningsvektorer.
+Parameterfremstillinger er det ultimative værktøj til at navigere i rummets geometri — tænk på dem som GPS-koordinater for geometriske objekter! 🗺️
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Linjens parameterfremstilling i rummet
+
+En <Term definition="En parameterfremstilling beskriver et geometrisk objekt ved hjælp af en eller flere parametre. For en linje i rummet bruges én parameter.">parameterfremstilling</Term> for en linje $\ell$ i rummet kræver:
+- Et **punkt** $P_0(x_0, y_0, z_0)$ på linjen
+- En **retningsvektor** $\vec{r} = \begin{pmatrix} r_1 \\ r_2 \\ r_3 \end{pmatrix}$
+
+Parameterfremstillingen er:
 
 $$
-\vec{r}(t) = \vec{r}_0 + t \cdot \vec{v}
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x_0 \\ y_0 \\ z_0 \end{pmatrix} + t \cdot \begin{pmatrix} r_1 \\ r_2 \\ r_3 \end{pmatrix}, \quad t \in \mathbb{R}
 $$
 
-## Hvad skal vi lære?
+Skrevet komponentvis:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+\begin{cases} x = x_0 + t \cdot r_1 \\ y = y_0 + t \cdot r_2 \\ z = z_0 + t \cdot r_3 \end{cases}
+$$
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+Når $t$ varierer over alle reelle tal, gennemløber $(x, y, z)$ alle punkter på linjen.
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+- $t = 0$ giver startpunktet $P_0$
+- $t = 1$ giver punktet $P_0 + \vec{r}$
+- $t = -1$ giver punktet $P_0 - \vec{r}$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Parameterfremstilling for linje ⚡</summary>
+
+**Opgave:** Find en parameterfremstilling for linjen gennem $A(1, 2, 3)$ og $B(4, 0, 7)$.
+
+**Løsning:**
+
+**Trin 1:** Beregn retningsvektoren:
+
+$$
+\vec{r} = \overrightarrow{AB} = B - A = \begin{pmatrix} 4 - 1 \\ 0 - 2 \\ 7 - 3 \end{pmatrix} = \begin{pmatrix} 3 \\ -2 \\ 4 \end{pmatrix}
+$$
+
+**Trin 2:** Vælg $A$ som punkt på linjen og skriv parameterfremstillingen:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix} + t \cdot \begin{pmatrix} 3 \\ -2 \\ 4 \end{pmatrix}, \quad t \in \mathbb{R}
+$$
+
+**Kontrol:** For $t = 0$ får vi $A(1, 2, 3)$. For $t = 1$ får vi $(4, 0, 7) = B$. ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Ligger et punkt på linjen? ⚡</summary>
+
+**Opgave:** Ligger punktet $P(7, -2, 11)$ på linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix} + t \cdot \begin{pmatrix} 3 \\ -2 \\ 4 \end{pmatrix}$?
+
+**Løsning:**
+
+Vi indsætter $P$'s koordinater og løser for $t$ i hver ligning:
+
+$$
+\begin{cases} 7 = 1 + 3t \implies t = 2 \\ -2 = 2 + (-2)t \implies t = 2 \\ 11 = 3 + 4t \implies t = 2 \end{cases}
+$$
+
+Alle tre ligninger giver $t = 2$. **Ja**, $P$ ligger på linjen (med $t = 2$).
+
+Hvis vi i stedet tjekker $Q(4, 1, 7)$:
+
+$$
+\begin{cases} 4 = 1 + 3t \implies t = 1 \\ 1 = 2 + (-2)t \implies t = \frac{1}{2} \end{cases}
+$$
+
+Da $t = 1 \neq \frac{1}{2}$, ligger $Q$ **ikke** på linjen.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Planets parameterfremstilling
+
+Et <Term definition="Et plan i rummet kan beskrives med en parameterfremstilling, der bruger to parametre (s og t) og to retningsvektorer, der begge ligger i planet.">plan</Term> $\alpha$ i rummet bestemmes af:
+- Et **punkt** $P_0(x_0, y_0, z_0)$ i planet
+- To **retningsvektorer** $\vec{r_1}$ og $\vec{r_2}$, der begge ligger i planet og **ikke er parallelle**
+
+Parameterfremstillingen er:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x_0 \\ y_0 \\ z_0 \end{pmatrix} + s \cdot \vec{r_1} + t \cdot \vec{r_2}, \quad s, t \in \mathbb{R}
+$$
+
+Her bruger vi **to parametre** ($s$ og $t$), fordi et plan er todimensionalt — vi kan bevæge os i to uafhængige retninger.
+
+**Vigtig betingelse:** $\vec{r_1}$ og $\vec{r_2}$ må ikke være parallelle (dvs. $\vec{r_1} \times \vec{r_2} \neq \vec{0}$), ellers får vi kun en linje.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Parameterfremstilling for plan ⚡</summary>
+
+**Opgave:** Find en parameterfremstilling for planet gennem $A(1, 0, 0)$, $B(0, 2, 0)$ og $C(0, 0, 3)$.
+
+**Løsning:**
+
+**Trin 1:** Beregn to retningsvektorer fra $A$:
+
+$$
+\vec{r_1} = \overrightarrow{AB} = \begin{pmatrix} -1 \\ 2 \\ 0 \end{pmatrix}, \quad \vec{r_2} = \overrightarrow{AC} = \begin{pmatrix} -1 \\ 0 \\ 3 \end{pmatrix}
+$$
+
+**Trin 2:** Kontrollér at de ikke er parallelle:
+
+$$
+\vec{r_1} \times \vec{r_2} = \begin{pmatrix} 2 \cdot 3 - 0 \cdot 0 \\ 0 \cdot (-1) - (-1) \cdot 3 \\ (-1) \cdot 0 - 2 \cdot (-1) \end{pmatrix} = \begin{pmatrix} 6 \\ 3 \\ 2 \end{pmatrix} \neq \vec{0} \quad \checkmark
+$$
+
+**Trin 3:** Parameterfremstillingen:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + s \begin{pmatrix} -1 \\ 2 \\ 0 \end{pmatrix} + t \begin{pmatrix} -1 \\ 0 \\ 3 \end{pmatrix}, \quad s, t \in \mathbb{R}
+$$
+
+**Kontrol:** $A$ fås for $s = 0, t = 0$. $B$ fås for $s = 1, t = 0$. $C$ fås for $s = 0, t = 1$. ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fra parameterfremstilling til planligning
+
+Ofte ønsker vi at omskrive planets parameterfremstilling til en **ligning** $ax + by + cz + d = 0$. Fremgangsmåden er:
+
+**Metode 1: Via normalvektor**
+1. Find <Term definition="Normalvektoren til et plan er vinkelret på planet. Den kan beregnes som krydsproduktet af planets to retningsvektorer.">normalvektoren</Term> $\vec{n} = \vec{r_1} \times \vec{r_2}$
+2. Brug punktet $P_0$ til at opstille ligningen: $\vec{n} \cdot \overrightarrow{P_0P} = 0$
+
+**Metode 2: Via elimination**
+1. Skriv de tre komponentligninger op (med $s$ og $t$)
+2. Eliminér $s$ og $t$ ved at løse ligningssystemet
+3. Den resulterende ligning i $x$, $y$, $z$ er planligningen
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fra parameterfremstilling til planligning ⚡</summary>
+
+**Opgave:** Find planligningen for planet med parameterfremstillingen:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + s \begin{pmatrix} -1 \\ 2 \\ 0 \end{pmatrix} + t \begin{pmatrix} -1 \\ 0 \\ 3 \end{pmatrix}
+$$
+
+**Løsning via normalvektor:**
+
+**Trin 1:** Normalvektoren (beregnet ovenfor):
+
+$$
+\vec{n} = \vec{r_1} \times \vec{r_2} = \begin{pmatrix} 6 \\ 3 \\ 2 \end{pmatrix}
+$$
+
+**Trin 2:** Planligningen med punkt $P_0(1, 0, 0)$:
+
+$$
+\begin{aligned}
+6(x - 1) + 3(y - 0) + 2(z - 0) &= 0 \\
+6x - 6 + 3y + 2z &= 0 \\
+6x + 3y + 2z &= 6
+\end{aligned}
+$$
+
+**Kontrol:** Indsæt $B(0, 2, 0)$: $6 \cdot 0 + 3 \cdot 2 + 2 \cdot 0 = 6$ ✓
+
+Indsæt $C(0, 0, 3)$: $6 \cdot 0 + 3 \cdot 0 + 2 \cdot 3 = 6$ ✓
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring mellem linje og plan
+
+For at finde <Term definition="Skæringspunktet mellem en linje og et plan er det punkt, der ligger på både linjen og planet.">skæringspunktet</Term> mellem en linje og et plan:
+
+**Metode:** Indsæt linjens parameterfremstilling i planligningen og løs for $t$.
+
+Givet linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \vec{p} + t\vec{r}$ og planet $ax + by + cz + d = 0$:
+
+1. Indsæt $x = p_1 + tr_1$, $y = p_2 + tr_2$, $z = p_3 + tr_3$ i planligningen
+2. Løs den resulterende ligning for $t$
+3. Indsæt $t$-værdien for at finde skæringspunktet
+
+**Tre muligheder:**
+- **Én løsning for $t$:** Linjen skærer planet i ét punkt
+- **Ingen løsning (modstrid):** Linjen er parallel med planet (ingen skæring)
+- **Alle $t$ er løsninger ($0 = 0$):** Linjen ligger i planet
+
+Geometrisk: Linjen skærer planet, når $\vec{r} \cdot \vec{n} \neq 0$ (retningsvektoren er ikke vinkelret på normalvektoren).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skæring linje-plan ⚡</summary>
+
+**Opgave:** Find skæringspunktet mellem linjen
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 2 \end{pmatrix} + t \begin{pmatrix} 2 \\ 1 \\ -1 \end{pmatrix}
+$$
+
+og planet $x + 2y + z = 7$.
+
+**Løsning:**
+
+**Trin 1:** Udtryk koordinaterne med $t$:
+
+$$
+x = 1 + 2t, \quad y = t, \quad z = 2 - t
+$$
+
+**Trin 2:** Indsæt i planligningen:
+
+$$
+\begin{aligned}
+(1 + 2t) + 2(t) + (2 - t) &= 7 \\
+1 + 2t + 2t + 2 - t &= 7 \\
+3 + 3t &= 7 \\
+3t &= 4 \\
+t &= \frac{4}{3}
+\end{aligned}
+$$
+
+**Trin 3:** Beregn skæringspunktet:
+
+$$
+\begin{aligned}
+x &= 1 + 2 \cdot \frac{4}{3} = 1 + \frac{8}{3} = \frac{11}{3} \\[4pt]
+y &= \frac{4}{3} \\[4pt]
+z &= 2 - \frac{4}{3} = \frac{2}{3}
+\end{aligned}
+$$
+
+**Skæringspunktet:** $S\!\left(\frac{11}{3},\, \frac{4}{3},\, \frac{2}{3}\right)$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Linje parallel med plan ⚡</summary>
+
+**Opgave:** Undersøg skæringen mellem linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + t \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$ og planet $x - y + z = 5$.
+
+**Løsning:**
+
+**Trin 1:** Indsæt i planligningen:
+
+$$
+(0 + t) - (1 + 0) + (0 + t) = 5
+$$
+
+$$
+t - 1 + t = 5
+$$
+
+$$
+2t = 6 \implies t = 3
+$$
+
+Vi får en entydig løsning $t = 3$. Skæringspunktet er:
+
+$$
+(x, y, z) = (0 + 3, 1 + 0, 0 + 3) = (3, 1, 3)
+$$
+
+**Bemærk:** Lad os tjekke om $\vec{r} \cdot \vec{n} = 0$:
+
+$$
+\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix} \cdot \begin{pmatrix} 1 \\ -1 \\ 1 \end{pmatrix} = 1 + 0 + 1 = 2 \neq 0
+$$
+
+Da skalarproduktet er $\neq 0$, bekræfter vi, at linjen ikke er parallel med planet.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring mellem to planer
+
+To planer i rummet kan enten:
+1. **Skære hinanden i en linje** — det mest almindelige tilfælde
+2. **Være parallelle** (ingen fælles punkter)
+3. **Være sammenfaldende** (alle punkter er fælles)
+
+For at finde <Term definition="Skæringslinjen mellem to planer er mængden af alle punkter, der opfylder begge planligninger samtidig.">skæringslinjen</Term>, løser vi systemet af de to planligninger:
+
+$$
+\begin{cases} a_1x + b_1y + c_1z + d_1 = 0 \\ a_2x + b_2y + c_2z + d_2 = 0 \end{cases}
+$$
+
+**Fremgangsmåde:**
+1. Retningsvektoren for skæringslinjen er $\vec{r} = \vec{n_1} \times \vec{n_2}$ (krydsproduktet af normalvektorerne)
+2. Find ét punkt på skæringslinjen ved at sætte én variabel fast (fx $z = 0$) og løse de to ligninger
+3. Skriv parameterfremstillingen
+
+Planerne er parallelle, hvis $\vec{n_1} \times \vec{n_2} = \vec{0}$ (normalvektorerne er parallelle).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skæring mellem to planer ⚡</summary>
+
+**Opgave:** Find skæringslinjen mellem planerne $\alpha: x + y + z = 1$ og $\beta: 2x - y + z = 3$.
+
+**Løsning:**
+
+**Trin 1:** Find retningsvektoren for skæringslinjen:
+
+$$
+\vec{n_1} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \quad \vec{n_2} = \begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}
+$$
+
+$$
+\vec{r} = \vec{n_1} \times \vec{n_2} = \begin{pmatrix} 1 \cdot 1 - 1 \cdot (-1) \\ 1 \cdot 2 - 1 \cdot 1 \\ 1 \cdot (-1) - 1 \cdot 2 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \\ -3 \end{pmatrix}
+$$
+
+**Trin 2:** Find et punkt på skæringslinjen. Sæt $z = 0$:
+
+$$
+\begin{cases} x + y = 1 \\ 2x - y = 3 \end{cases}
+$$
+
+Addér de to ligninger: $3x = 4 \implies x = \frac{4}{3}$.
+
+Indsæt: $y = 1 - \frac{4}{3} = -\frac{1}{3}$.
+
+Punkt: $P_0\!\left(\frac{4}{3},\, -\frac{1}{3},\, 0\right)$.
+
+**Trin 3:** Skriv parameterfremstillingen:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 4/3 \\ -1/3 \\ 0 \end{pmatrix} + t \begin{pmatrix} 2 \\ 1 \\ -3 \end{pmatrix}, \quad t \in \mathbb{R}
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skæring af tre planer
+
+Tre planer kan skære hinanden i:
+- **Et enkelt punkt** — når de tre planligninger har én entydig løsning
+- **En linje** — når to planer er parallelle, eller alle tre deler en fælles skæringslinje
+- **Ingen fælles punkter** — fx tre parallelle planer
+
+For at finde skæringspunktet løser vi det lineære ligningssystem:
+
+$$
+\begin{cases} a_1x + b_1y + c_1z = d_1 \\ a_2x + b_2y + c_2z = d_2 \\ a_3x + b_3y + c_3z = d_3 \end{cases}
+$$
+
+med standard metoder (Gauss-elimination, substitution, eller Cramers regel).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Tre planer skærer i ét punkt ⚡</summary>
+
+**Opgave:** Find skæringspunktet for de tre planer:
+
+$$
+\begin{cases} x + y + z = 6 \\ 2x - y + z = 3 \\ x + 2y - z = 3 \end{cases}
+$$
+
+**Løsning:**
+
+**Trin 1:** Eliminér $z$ fra ligning (1) og (3) ved at addere dem:
+
+$$
+(x + y + z) + (x + 2y - z) = 6 + 3
+$$
+
+$$
+2x + 3y = 9 \quad \text{...(I)}
+$$
+
+**Trin 2:** Eliminér $z$ fra ligning (1) og (2) ved at trække (2) fra (1):
+
+$$
+(x + y + z) - (2x - y + z) = 6 - 3
+$$
+
+$$
+-x + 2y = 3 \quad \text{...(II)}
+$$
+
+**Trin 3:** Løs systemet (I) og (II):
+
+Fra (II): $x = 2y - 3$. Indsæt i (I):
+
+$$
+2(2y - 3) + 3y = 9 \implies 4y - 6 + 3y = 9 \implies 7y = 15 \implies y = \frac{15}{7}
+$$
+
+$$
+x = 2 \cdot \frac{15}{7} - 3 = \frac{30}{7} - \frac{21}{7} = \frac{9}{7}
+$$
+
+**Trin 4:** Find $z$ fra ligning (1):
+
+$$
+z = 6 - x - y = 6 - \frac{9}{7} - \frac{15}{7} = \frac{42}{7} - \frac{24}{7} = \frac{18}{7}
+$$
+
+**Skæringspunktet:** $S\!\left(\frac{9}{7},\, \frac{15}{7},\, \frac{18}{7}\right)$.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Vinklen mellem linje og plan
+
+<Term definition="Vinklen mellem en linje og et plan er den spidse vinkel mellem linjen og dens projektion på planet.">Vinklen $v$</Term> mellem en linje med retningsvektor $\vec{r}$ og et plan med normalvektor $\vec{n}$ er givet ved:
+
+$$
+\sin(v) = \frac{|\vec{r} \cdot \vec{n}|}{|\vec{r}| \cdot |\vec{n}|}
+$$
+
+Bemærk: Her bruger vi **sinus** (ikke cosinus), fordi vi måler vinklen mellem linjen og **planet** — ikke mellem linjen og **normalen**. Da normalen er vinkelret på planet, er vinkel(linje, plan) = 90° - vinkel(linje, normal).
+
+**Vinklen mellem to planer** med normalvektorer $\vec{n_1}$ og $\vec{n_2}$:
+
+$$
+\cos(v) = \frac{|\vec{n_1} \cdot \vec{n_2}|}{|\vec{n_1}| \cdot |\vec{n_2}|}
+$$
+
+Her bruger vi cosinus, da vi sammenligner to retninger (normalerne).
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Vinkel mellem linje og plan ⚡</summary>
+
+**Opgave:** Find vinklen mellem linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$ og planet $x + y - z = 0$.
+
+**Løsning:**
+
+**Trin 1:** Identificer vektorerne:
+
+$$
+\vec{r} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \quad \vec{n} = \begin{pmatrix} 1 \\ 1 \\ -1 \end{pmatrix}
+$$
+
+**Trin 2:** Beregn skalarproduktet:
+
+$$
+\vec{r} \cdot \vec{n} = 1 \cdot 1 + 1 \cdot 1 + 1 \cdot (-1) = 1
+$$
+
+**Trin 3:** Beregn længderne:
+
+$$
+|\vec{r}| = \sqrt{1 + 1 + 1} = \sqrt{3}, \quad |\vec{n}| = \sqrt{1 + 1 + 1} = \sqrt{3}
+$$
+
+**Trin 4:** Beregn vinklen:
+
+$$
+\sin(v) = \frac{|1|}{\sqrt{3} \cdot \sqrt{3}} = \frac{1}{3}
+$$
+
+$$
+v = \sin^{-1}\!\left(\frac{1}{3}\right) \approx 19{,}5°
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Vinkel mellem to planer ⚡</summary>
+
+**Opgave:** Find vinklen mellem planerne $x + y + z = 1$ og $2x - y + z = 3$.
+
+**Løsning:**
+
+$$
+\vec{n_1} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}, \quad \vec{n_2} = \begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}
+$$
+
+$$
+\cos(v) = \frac{|\vec{n_1} \cdot \vec{n_2}|}{|\vec{n_1}| \cdot |\vec{n_2}|} = \frac{|2 - 1 + 1|}{\sqrt{3} \cdot \sqrt{6}} = \frac{2}{\sqrt{18}} = \frac{2}{3\sqrt{2}} = \frac{\sqrt{2}}{3}
+$$
+
+$$
+v = \cos^{-1}\!\left(\frac{\sqrt{2}}{3}\right) \approx 61{,}9°
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Skriv en parameterfremstilling for linjen gennem $P(2, -1, 3)$ og $Q(5, 3, 1)$.
+
+**Opgave 2:** Skriv en parameterfremstilling for planet gennem $A(1, 1, 1)$, $B(2, 0, 3)$ og $C(0, 4, 2)$.
+
+**Opgave 3:** Find skæringspunktet mellem linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix} + t \begin{pmatrix} 1 \\ -1 \\ 2 \end{pmatrix}$ og planet $3x + y - z = 10$.
+
+**Opgave 4:** Find skæringslinjen mellem planerne $x + y - z = 2$ og $2x - y + z = 1$.
+
+**Opgave 5:** Bestem vinklen mellem linjen med retningsvektor $\begin{pmatrix} 1 \\ 2 \\ 2 \end{pmatrix}$ og planet $2x - y + 2z = 5$.
+
+**Opgave 6:** Find skæringspunktet for de tre planer:
+
+$$
+\begin{cases} x + y - z = 0 \\ 2x - y + z = 9 \\ x + 2y + 3z = 8 \end{cases}
+$$
+
+**Opgave 7:** Omskriv parameterfremstillingen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2 \\ 0 \\ 1 \end{pmatrix} + s \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} + t \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$ til en planligning.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="param-quiz-1"
+  question="Hvor mange parametre bruges i en parameterfremstilling for et plan i rummet?"
+  options={[
+    "1",
+    "2",
+    "3",
+    "Det afhænger af planet"
+  ]}
+  correctIndex={1}
+  hint="Et plan er todimensionalt, så vi kan bevæge os i to uafhængige retninger"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="param-quiz-2"
+  question="Hvad er retningsvektoren for skæringslinjen mellem to planer med normalvektorer n₁ og n₂?"
+  options={[
+    "n₁ + n₂",
+    "n₁ - n₂",
+    "n₁ · n₂ (skalarprodukt)",
+    "n₁ × n₂ (krydsprodukt)"
+  ]}
+  correctIndex={3}
+  hint="Skæringslinjen skal være vinkelret på begge normalvektorer"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="param-quiz-3"
+  question="Hvad sker der, når man indsætter linjens parameterfremstilling i planligningen og får 0 = 5?"
+  options={[
+    "Linjen skærer planet i ét punkt",
+    "Linjen ligger i planet",
+    "Linjen er parallel med planet og har ingen skæring",
+    "Der er uendeligt mange skæringspunkter"
+  ]}
+  correctIndex={2}
+  hint="En modstrid (falsk udsagn) betyder, at der ikke eksisterer nogen t-værdi som løsning"
+/>

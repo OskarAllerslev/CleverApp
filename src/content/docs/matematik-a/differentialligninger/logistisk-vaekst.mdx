@@ -2,31 +2,519 @@
 title: "Logistisk vækst"
 level: "Matematik A"
 order: 3
-description: "Logistisk vækst beskriver en væksttype, der begynder eksponentielt, men bremses og flader ud mod en ..."
+description: "Forstå den logistiske model med bæreevne, S-kurve og vendepunkt — biologi møder matematik! Optjen +150 XP!"
 ---
 
-# Logistisk vækst
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Logistisk vækst** på Matematik A-niveau.
+# Logistisk vækst 🎯
 
-## Introduktion
+Eksponentiel vækst er elegant, men urealistisk i den virkelige verden. Ingen bakteriekoloni kan vokse uendeligt — på et tidspunkt løber den tør for næring, plads eller ilt. Ingen epidemi kan sprede sig uendeligt — til sidst er der ingen raske mennesker tilbage at smitte. Virkeligheden bremser væksten.
 
-Logistisk vækst beskriver en væksttype, der begynder eksponentielt, men bremses og flader ud mod en øvre grænse (bæreevnen M).
+Den <Term definition="En vækstmodel, der inkorporerer en øvre grænse (bæreevne). Væksten er hurtigst i midten og bremser, når populationen nærmer sig bæreevnen.">logistiske model</Term> fanger præcis dette: vækst der starter eksponentielt, men gradvist bremses og stabiliserer sig omkring en øvre grænse. Det er den model, der bruges til alt fra populationsdynamik til spredning af teknologier og sygdomme.
 
-## Central Matematisk Formel
+Mestr den logistiske kurve og optjen **+150 XP**!
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Hvorfor eksponentiel vækst ikke er nok
+
+Betragt den eksponentielle model $y' = ky$. Her er vækstraten $\frac{y'}{y} = k$ konstant — uanset hvor stor populationen bliver. Det giver absurde resultater:
+
+- En bakteriekoloni med 1000 bakterier, der fordobles hver time, ville efter 24 timer have $1000 \cdot 2^{24} \approx 16{,}8$ milliarder bakterier
+- Efter 48 timer ville den veje mere end Jorden!
+
+Problemet er tydeligt: modellen mangler en **bremse**. I naturen sker der nemlig det, at:
+
+- Ressourcerne er begrænsede (mad, plads, ilt)
+- Konkurrencen intensiveres, når populationen vokser
+- Sygdomme spredes lettere i tætte populationer
+- Rovdyr regulerer byttedyrpopulationer
+
+Vi har brug for en model, hvor vækstraten **aftager**, når $y$ nærmer sig en øvre grænse.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Den logistiske differentialligning
+
+Den <Term definition="Differentialligningen dy/dt = k·y·(M-y)/M, som beskriver begrænset vækst med bæreevne M.">logistiske differentialligning</Term> er:
+
+$$\boxed{\frac{dy}{dt} = k \cdot y \cdot \frac{M - y}{M}}$$
+
+Her er:
+- $y(t)$ — populationens størrelse ved tid $t$
+- $k$ — den **initiale vækstkonstant** (vækstraten, når $y$ er lille)
+- $M$ — <Term definition="Den maksimale bæredygtige populationsstørrelse i et givet miljø. Også kaldet den øvre grænse.">bæreevnen</Term> (carrying capacity) — den øvre grænse
+
+**Hvad sker der matematisk?**
+
+Lad os analysere faktoren $\frac{M - y}{M}$:
+
+| Situation | Værdien af $\frac{M-y}{M}$ | Effekt på vækst |
+|---|---|---|
+| $y \ll M$ (populationen er lille) | $\approx 1$ | Væksten er $\approx ky$ — næsten eksponentiel! |
+| $y = \frac{M}{2}$ (halvdelen af bæreevnen) | $= \frac{1}{2}$ | Væksten er halveret |
+| $y$ nærmer sig $M$ | $\to 0$ | Væksten bremser drastisk |
+| $y = M$ | $= 0$ | Væksten standser helt — ligevægt! |
+| $y > M$ | $< 0$ | Populationen aftager mod $M$ |
+
+Faktoren $\frac{M - y}{M}$ fungerer som en **automatisk bremse**: den dæmper væksten proportionalt med, hvor tæt $y$ er på $M$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fortolkning af den logistiske ligning ⚡</summary>
+
+**Opgave:** En fiskepopulation i en sø beskrives af den logistiske ligning:
+
+$$\frac{dy}{dt} = 0{,}4 \cdot y \cdot \frac{5000 - y}{5000}$$
+
+med $y(0) = 200$. Fortolk parametrene og beregn den initiale vækstrate.
+
+**Løsning:**
+
+**Aflæsning af parametre:**
+- $k = 0{,}4$ — den initiale vækstkonstant
+- $M = 5000$ — bæreevnen (søen kan maksimalt understøtte 5000 fisk)
+- $y_0 = 200$ — startpopulationen
+
+**Beregning af initial vækstrate:**
+
+Ved $t = 0$:
 
 $$
-\frac{dy}{dt} = a \cdot y \cdot (M - y)
+\begin{aligned}
+y'(0) &= 0{,}4 \cdot 200 \cdot \frac{5000 - 200}{5000} \\
+&= 80 \cdot \frac{4800}{5000} \\
+&= 80 \cdot 0{,}96 \\
+&= 76{,}8 \text{ fisk pr. tidsenhed}
+\end{aligned}
 $$
 
-## Hvad skal vi lære?
+Sammenlign med den rene eksponentielle vækst: $y'(0) = 0{,}4 \cdot 200 = 80$.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Bremsefaktoren reducerer kun væksten med 4%, fordi populationen er langt fra bæreevnen. Men når populationen når 4000:
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+$$
+\begin{aligned}
+y'|_{y=4000} &= 0{,}4 \cdot 4000 \cdot \frac{5000 - 4000}{5000} \\
+&= 1600 \cdot 0{,}2 \\
+&= 320
+\end{aligned}
+$$
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+Og ved $y = 4900$:
+
+$$y' = 0{,}4 \cdot 4900 \cdot \frac{100}{5000} = 1960 \cdot 0{,}02 = 39{,}2$$
+
+Bremsen slår markant til! ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Løsningsformlen for den logistiske ligning
+
+Den logistiske differentialligning $\frac{dy}{dt} = k \cdot y \cdot \frac{M - y}{M}$ har løsningen:
+
+$$\boxed{y(t) = \frac{M}{1 + c \cdot e^{-kt}}}$$
+
+hvor konstanten $c$ bestemmes af begyndelsesbetingelsen $y(0) = y_0$:
+
+$$
+\begin{aligned}
+y(0) &= \frac{M}{1 + c \cdot e^0} = \frac{M}{1 + c} = y_0 \\
+1 + c &= \frac{M}{y_0} \\
+c &= \frac{M}{y_0} - 1 = \frac{M - y_0}{y_0}
+\end{aligned}
+$$
+
+Altså:
+
+$$\boxed{c = \frac{M - y_0}{y_0}}$$
+
+**Egenskaber ved løsningen:**
+
+- Når $t \to \infty$: $e^{-kt} \to 0$, så $y \to \frac{M}{1 + 0} = M$ (populationen nærmer sig bæreevnen)
+- Når $t \to -\infty$ (og $k > 0$): $e^{-kt} \to \infty$, så $y \to 0$
+- Kurven er **monotont voksende** (for $0 < y_0 < M$)
+- Kurven har en karakteristisk **S-form** (sigmoid kurve)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Løsning ved separation ⚡</summary>
+
+**Bevis:** Vi løser $\frac{dy}{dt} = k \cdot y \cdot \frac{M - y}{M}$ ved separation.
+
+**Trin 1 — Adskil variablene:**
+
+$$\frac{M}{y(M - y)} \, dy = k \, dt$$
+
+**Trin 2 — Partialbrøkopspaltning:**
+
+Vi opspalter $\frac{M}{y(M - y)}$:
+
+$$\frac{M}{y(M - y)} = \frac{A}{y} + \frac{B}{M - y}$$
+
+Gang med $y(M-y)$:
+
+$$M = A(M-y) + By$$
+
+Sæt $y = 0$: $M = AM$, dvs. $A = 1$.
+
+Sæt $y = M$: $M = BM$, dvs. $B = 1$.
+
+Altså:
+
+$$\frac{M}{y(M - y)} = \frac{1}{y} + \frac{1}{M - y}$$
+
+**Trin 3 — Integrer:**
+
+$$
+\begin{aligned}
+\int \left(\frac{1}{y} + \frac{1}{M - y}\right) dy &= \int k \, dt \\
+\ln|y| - \ln|M - y| &= kt + C_1 \\
+\ln\left|\frac{y}{M - y}\right| &= kt + C_1
+\end{aligned}
+$$
+
+**Trin 4 — Isoler $y$:**
+
+$$
+\begin{aligned}
+\frac{y}{M - y} &= Ae^{kt} \quad (A = \pm e^{C_1}) \\
+y &= (M - y) \cdot Ae^{kt} \\
+y &= MAe^{kt} - yAe^{kt} \\
+y + yAe^{kt} &= MAe^{kt} \\
+y(1 + Ae^{kt}) &= MAe^{kt} \\
+y &= \frac{MAe^{kt}}{1 + Ae^{kt}}
+\end{aligned}
+$$
+
+Divider tæller og nævner med $Ae^{kt}$:
+
+$$y = \frac{M}{1 + \frac{1}{A}e^{-kt}} = \frac{M}{1 + ce^{-kt}}$$
+
+hvor $c = \frac{1}{A}$. ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: S-kurven og vendepunktet
+
+Den logistiske kurve har en karakteristisk <Term definition="Den S-formede kurve, der kendetegner logistisk vækst. Kurven har et vendepunkt præcis ved y = M/2.">S-form</Term> (også kaldet en sigmoid kurve). Den har tre faser:
+
+**Fase 1 — Langsom start** ($y \ll M$):
+Væksten er næsten eksponentiel, men populationen er stadig lille, så de absolutte ændringer er små.
+
+**Fase 2 — Hurtig vækst** ($y$ nærmer sig $M/2$):
+Populationen er stor nok til at vokse hurtigt, men bremsen har endnu ikke slået til for alvor.
+
+**Fase 3 — Aftagende vækst** ($y$ nærmer sig $M$):
+Bremsen dominerer, og væksten aftager mod nul.
+
+**Vendepunktet** er det punkt, hvor væksten ($y'$) er størst — dvs. hvor kurven skifter fra at være konveks (buer opad) til at være konkav (buer nedad).
+
+For at finde vendepunktet differentierer vi $y'$:
+
+$$y' = \frac{ky(M - y)}{M}$$
+
+Væksten $y'$ er maksimal, når $y(M-y)$ er maksimal. Vi betragter $f(y) = y(M-y) = My - y^2$:
+
+$$f'(y) = M - 2y = 0 \implies y = \frac{M}{2}$$
+
+**Vendepunktet ligger altså ved:**
+
+$$\boxed{y = \frac{M}{2}}$$
+
+Ved vendepunktet er den maksimale vækstrate:
+
+$$y'_{\text{max}} = \frac{k \cdot \frac{M}{2} \cdot \frac{M}{2}}{M} = \frac{kM}{4}$$
+
+**Tidspunktet for vendepunktet** finder vi ved at sætte $y(t_v) = \frac{M}{2}$:
+
+$$
+\begin{aligned}
+\frac{M}{2} &= \frac{M}{1 + ce^{-kt_v}} \\
+1 + ce^{-kt_v} &= 2 \\
+ce^{-kt_v} &= 1 \\
+e^{-kt_v} &= \frac{1}{c} \\
+t_v &= \frac{\ln c}{k}
+\end{aligned}
+$$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Fuld logistisk modelberegning ⚡</summary>
+
+**Opgave:** En smitsom sygdom spreder sig i en by med 10.000 indbyggere. Ved $t = 0$ (dag 0) er 100 personer smittede, og smitten følger den logistiske model med $k = 0{,}3$ pr. dag. Find:
+
+a) Løsningsformlen $y(t)$.
+
+b) Antal smittede efter 20 dage.
+
+c) Hvornår er halvdelen af byen smittet?
+
+d) Hvornår er smitten størst?
+
+**Løsning:**
+
+**Parametre:** $M = 10000$, $y_0 = 100$, $k = 0{,}3$.
+
+**a) Løsningsformlen:**
+
+Først beregner vi $c$:
+
+$$c = \frac{M - y_0}{y_0} = \frac{10000 - 100}{100} = \frac{9900}{100} = 99$$
+
+Løsningen er:
+
+$$\boxed{y(t) = \frac{10000}{1 + 99 \cdot e^{-0{,}3t}}}$$
+
+**b) Antal smittede efter 20 dage:**
+
+$$
+\begin{aligned}
+y(20) &= \frac{10000}{1 + 99 \cdot e^{-0{,}3 \cdot 20}} \\
+&= \frac{10000}{1 + 99 \cdot e^{-6}} \\
+&= \frac{10000}{1 + 99 \cdot 0{,}002479} \\
+&= \frac{10000}{1 + 0{,}2454} \\
+&= \frac{10000}{1{,}2454} \\
+&\approx 8030
+\end{aligned}
+$$
+
+Efter 20 dage er ca. **8030 personer** smittet.
+
+**c) Hvornår er halvdelen smittet?**
+
+Vi sætter $y(t) = 5000$:
+
+$$
+\begin{aligned}
+5000 &= \frac{10000}{1 + 99 \cdot e^{-0{,}3t}} \\
+1 + 99e^{-0{,}3t} &= 2 \\
+99e^{-0{,}3t} &= 1 \\
+e^{-0{,}3t} &= \frac{1}{99} \\
+-0{,}3t &= \ln\frac{1}{99} = -\ln 99 \\
+t &= \frac{\ln 99}{0{,}3} = \frac{4{,}595}{0{,}3} \approx 15{,}3 \text{ dage}
+\end{aligned}
+$$
+
+**d) Hvornår er smitten størst?**
+
+Smitten er størst ved vendepunktet, dvs. når $y = \frac{M}{2} = 5000$. Det sker altså ved $t \approx 15{,}3$ dage (samme som ovenfor!). Det giver mening: vendepunktet ligger altid ved $y = \frac{M}{2}$.
+
+Den maksimale smitterate er:
+
+$$y'_{\text{max}} = \frac{kM}{4} = \frac{0{,}3 \cdot 10000}{4} = 750 \text{ nye smittede pr. dag}$$
+
+✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bestemmelse af parametre fra data ⚡</summary>
+
+**Opgave:** En ny app spreder sig logistisk. Der er potentielt 50.000 brugere ($M = 50000$). Ved $t = 0$ har appen 500 brugere, og ved $t = 10$ (uger) har den 5000 brugere. Bestem $k$.
+
+**Løsning:**
+
+**Trin 1 — Beregn $c$:**
+
+$$c = \frac{M - y_0}{y_0} = \frac{50000 - 500}{500} = 99$$
+
+**Trin 2 — Brug datapunktet $y(10) = 5000$:**
+
+$$
+\begin{aligned}
+5000 &= \frac{50000}{1 + 99 \cdot e^{-10k}} \\
+1 + 99e^{-10k} &= \frac{50000}{5000} = 10 \\
+99e^{-10k} &= 9 \\
+e^{-10k} &= \frac{9}{99} = \frac{1}{11} \\
+-10k &= \ln\frac{1}{11} = -\ln 11 \\
+k &= \frac{\ln 11}{10} \approx \frac{2{,}398}{10} \approx 0{,}240
+\end{aligned}
+$$
+
+**Svar:** Vækstkonstanten er $k \approx 0{,}240$ pr. uge. ✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Verificering af den logistiske løsning ⚡</summary>
+
+**Opgave:** Vis at $y(t) = \frac{M}{1 + ce^{-kt}}$ opfylder $\frac{dy}{dt} = \frac{ky(M-y)}{M}$.
+
+**Løsning:**
+
+**Trin 1 — Differentier $y(t)$:**
+
+Vi bruger kvotientreglen. Lad $u = M$ og $v = 1 + ce^{-kt}$, så $v' = -cke^{-kt}$:
+
+$$
+\begin{aligned}
+y' &= \frac{u'v - uv'}{v^2} = \frac{0 \cdot v - M \cdot (-cke^{-kt})}{(1 + ce^{-kt})^2} \\
+&= \frac{Mcke^{-kt}}{(1 + ce^{-kt})^2}
+\end{aligned}
+$$
+
+**Trin 2 — Beregn $\frac{ky(M-y)}{M}$:**
+
+Først finder vi $M - y$:
+
+$$M - y = M - \frac{M}{1 + ce^{-kt}} = \frac{M(1 + ce^{-kt}) - M}{1 + ce^{-kt}} = \frac{Mce^{-kt}}{1 + ce^{-kt}}$$
+
+Nu:
+
+$$
+\begin{aligned}
+\frac{ky(M-y)}{M} &= \frac{k}{M} \cdot \frac{M}{1 + ce^{-kt}} \cdot \frac{Mce^{-kt}}{1 + ce^{-kt}} \\
+&= \frac{Mkce^{-kt}}{(1 + ce^{-kt})^2}
+\end{aligned}
+$$
+
+**Trin 3 — Sammenlign:**
+
+$$y' = \frac{Mcke^{-kt}}{(1 + ce^{-kt})^2} = \frac{ky(M-y)}{M} \quad \checkmark$$
+
+Løsningen er verificeret! ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sammenligning af modeller
+
+| Egenskab | Eksponentiel ($y' = ky$) | Logistisk ($y' = \frac{ky(M-y)}{M}$) |
+|---|---|---|
+| **Løsning** | $y = y_0 e^{kt}$ | $y = \frac{M}{1 + ce^{-kt}}$ |
+| **Væksttype** | Ubegrænset | Begrænset |
+| **Øvre grænse** | Ingen | $M$ (bæreevne) |
+| **Kurveform** | Eksponentiel | S-formet (sigmoid) |
+| **Vendepunkt** | Intet | Ved $y = M/2$ |
+| **Langtidsopførsel** | $y \to \infty$ | $y \to M$ |
+| **Hvornår bruges den?** | Kort sigt, ubegrænsede ressourcer | Lang sigt, begrænsede ressourcer |
+
+**Tommelfingerregel:** Brug den eksponentielle model, når populationen er *langt* fra sin bæreevne (dvs. $y \ll M$). Brug den logistiske model, når ressourcebegrænsninger spiller ind.
+
+</div>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** En fiskepopulation følger den logistiske model med $M = 8000$, $k = 0{,}5$ og $y_0 = 400$.
+
+a) Bestem $c$ og skriv løsningsformlen $y(t)$.
+
+b) Beregn $y(10)$.
+
+c) Hvornår er populationen 4000 (vendepunktet)?
+
+d) Hvad er den maksimale vækstrate?
+
+**Opgave 2:** En epidemi beskrives ved $y' = 0{,}2 \cdot y \cdot \frac{20000 - y}{20000}$, $y(0) = 50$.
+
+a) Hvad er bæreevnen?
+
+b) Beregn $c$.
+
+c) Hvornår er halvdelen af populationen smittet?
+
+**Opgave 3:** Forklar med egne ord, hvorfor vendepunktet på den logistiske kurve altid ligger ved $y = \frac{M}{2}$.
+
+**Opgave 4:** En app har logistisk vækst med $M = 100000$, $y_0 = 1000$ og $k = 0{,}15$ pr. dag.
+
+a) Skriv $y(t)$.
+
+b) Hvornår har appen 50.000 brugere?
+
+c) Hvad er den daglige vækst, når appen har præcis 30.000 brugere?
+
+**Opgave 5 (Boss-kamp!):** To modeller konkurrerer om at beskrive en populations vækst:
+
+- Model A: $y = 200 \cdot e^{0{,}1t}$ (eksponentiel)
+- Model B: $y = \frac{10000}{1 + 49 \cdot e^{-0{,}1t}}$ (logistisk)
+
+a) Vis at begge modeller giver $y(0) = 200$.
+
+b) Beregn $y(20)$ for begge modeller.
+
+c) Forklar forskellen og hvornår hver model er passende.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="logistisk-q1"
+  question="I den logistiske model y' = ky(M-y)/M, hvad repræsenterer M?"
+  options={[
+    "Den initiale populationsstørrelse",
+    "Vækstkonstanten",
+    "Bæreevnen — den maksimale populationsstørrelse",
+    "Halveringstiden"
+  ]}
+  correctIndex={2}
+  hint="M er den øvre grænse, som populationen nærmer sig"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="logistisk-q2"
+  question="Hvor ligger vendepunktet på den logistiske kurve?"
+  options={[
+    "Ved y = M",
+    "Ved y = M/4",
+    "Ved y = M/2",
+    "Ved y = 0"
+  ]}
+  correctIndex={2}
+  hint="Vendepunktet er der, hvor væksten y' er størst"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="logistisk-q3"
+  question="En logistisk model har M = 5000 og y₀ = 250. Hvad er c?"
+  options={[
+    "c = 20",
+    "c = 19",
+    "c = 0,05",
+    "c = 250"
+  ]}
+  correctIndex={1}
+  hint="Brug formlen c = (M - y₀)/y₀"
+/>

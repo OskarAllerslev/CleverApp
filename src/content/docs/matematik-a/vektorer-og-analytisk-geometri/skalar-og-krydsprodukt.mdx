@@ -1,32 +1,439 @@
 ---
 title: "Skalarprodukt og krydsprodukt"
 level: "Matematik A"
-order: 2
-description: "Skalarproduktet (prikproduktet) giver et tal og beskriver vinkelrethed, mens krydsproduket (vektorpr..."
+order: 1
+description: "Mestér skalarprodukt i 3D, vinkelberegning, krydsprodukt, normalvektorer og arealberegning. Optjen +150 XP!"
 ---
 
-# Skalarprodukt og krydsprodukt
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Skalarprodukt og krydsprodukt** på Matematik A-niveau.
+# Skalarprodukt og krydsprodukt 🎯
 
-## Introduktion
+I Matematik B lærte du at arbejde med vektorer i 2D. Nu tager vi springet op i **tre dimensioner** — og med det følger to kraftfulde værktøjer: **skalarproduktet** og **krydsproduktet**. Skalarproduktet fortæller os om vinkler og projektioner, mens krydsproduktet giver os en helt ny vektor, der står vinkelret på de to oprindelige. Sammen er de nøglen til analytisk geometri i rummet.
 
-Skalarproduktet (prikproduktet) giver et tal og beskriver vinkelrethed, mens krydsproduket (vektorproduktet) giver en ny vektor, der står vinkelret på begge vektorer.
+Gør dig klar til at level up — dette er fundamentet for alt, hvad der kommer i vektorgeometri! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Vektorer i 3D
+
+En vektor i rummet har tre koordinater. Vi skriver:
 
 $$
-\vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3, \quad \vec{a} \times \vec{b} = \begin{pmatrix} a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1 \end{pmatrix}
+\vec{a} = \binom{a_1}{a_2} \text{ (2D)} \quad \longrightarrow \quad \vec{a} = \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix} \text{ (3D)}
 $$
 
-## Hvad skal vi lære?
+<Term definition="Længden (eller normen) af en vektor, beregnet som kvadratroden af summen af koordinaternes kvadrater.">Længden</Term> af en 3D-vektor beregnes som:
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+|\vec{a}| = \sqrt{a_1^2 + a_2^2 + a_3^2}
+$$
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+**Eksempel:** For $\vec{a} = \begin{pmatrix} 2 \\ 3 \\ 6 \end{pmatrix}$ er $|\vec{a}| = \sqrt{4 + 9 + 36} = \sqrt{49} = 7$.
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Skalarproduktet i 3D
+
+<Term definition="Skalarproduktet (eller prikproduktet) af to vektorer er summen af produkterne af de tilsvarende koordinater. Resultatet er et tal (en skalar), ikke en vektor.">Skalarproduktet</Term> af to vektorer $\vec{a} = \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} b_1 \\ b_2 \\ b_3 \end{pmatrix}$ er defineret som:
+
+$$
+\vec{a} \cdot \vec{b} = a_1 \cdot b_1 + a_2 \cdot b_2 + a_3 \cdot b_3
+$$
+
+Skalarproduktet er en **skalar** — altså et enkelt tal, ikke en vektor.
+
+**Den geometriske fortolkning** er givet ved:
+
+$$
+\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(v)
+$$
+
+hvor $v$ er vinklen mellem de to vektorer.
+
+**Vigtige egenskaber:**
+- Hvis $\vec{a} \cdot \vec{b} > 0$, er vinklen spids ($v < 90°$)
+- Hvis $\vec{a} \cdot \vec{b} = 0$, er vektorerne <Term definition="To vektorer er ortogonale (vinkelrette), hvis vinklen mellem dem er 90°. Dette svarer til, at deres skalarprodukt er 0.">ortogonale</Term> ($v = 90°$)
+- Hvis $\vec{a} \cdot \vec{b} < 0$, er vinklen stump ($v > 90°$)
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af skalarprodukt ⚡</summary>
+
+**Opgave:** Beregn skalarproduktet af $\vec{a} = \begin{pmatrix} 3 \\ -1 \\ 4 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 2 \\ 5 \\ -2 \end{pmatrix}$.
+
+**Løsning:**
+
+$$
+\begin{aligned}
+\vec{a} \cdot \vec{b} &= a_1 \cdot b_1 + a_2 \cdot b_2 + a_3 \cdot b_3 \\
+&= 3 \cdot 2 + (-1) \cdot 5 + 4 \cdot (-2) \\
+&= 6 + (-5) + (-8) \\
+&= 6 - 5 - 8 \\
+&= -7
+\end{aligned}
+$$
+
+Da skalarproduktet er negativt, ved vi at vinklen mellem $\vec{a}$ og $\vec{b}$ er **stump** (større end 90°).
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Vinkel mellem to vektorer
+
+Fra den geometriske fortolkning af skalarproduktet kan vi isolere vinklen $v$:
+
+$$
+\cos(v) = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|}
+$$
+
+og dermed:
+
+$$
+v = \cos^{-1}\!\left(\frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|}\right)
+$$
+
+Denne formel virker i både 2D og 3D — ja, faktisk i alle dimensioner! Vinklen $v$ vil altid ligge i intervallet $[0°;\, 180°]$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Vinkel mellem to vektorer ⚡</summary>
+
+**Opgave:** Find vinklen mellem $\vec{a} = \begin{pmatrix} 1 \\ 2 \\ 2 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 4 \\ -4 \\ 2 \end{pmatrix}$.
+
+**Løsning:**
+
+**Trin 1:** Beregn skalarproduktet:
+
+$$
+\vec{a} \cdot \vec{b} = 1 \cdot 4 + 2 \cdot (-4) + 2 \cdot 2 = 4 - 8 + 4 = 0
+$$
+
+**Trin 2:** Da $\vec{a} \cdot \vec{b} = 0$, behøver vi faktisk ikke beregne længderne. Vinklen er:
+
+$$
+v = \cos^{-1}(0) = 90°
+$$
+
+**Konklusion:** Vektorerne er **ortogonale** (vinkelrette). Når skalarproduktet er 0, er vinklen altid 90° — uanset vektorernes længder!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Vinkelberegning med længder ⚡</summary>
+
+**Opgave:** Find vinklen mellem $\vec{u} = \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$ og $\vec{w} = \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$.
+
+**Løsning:**
+
+**Trin 1:** Skalarprodukt:
+
+$$
+\vec{u} \cdot \vec{w} = 1 \cdot 0 + 0 \cdot 1 + 1 \cdot 1 = 1
+$$
+
+**Trin 2:** Længder:
+
+$$
+|\vec{u}| = \sqrt{1^2 + 0^2 + 1^2} = \sqrt{2}
+$$
+
+$$
+|\vec{w}| = \sqrt{0^2 + 1^2 + 1^2} = \sqrt{2}
+$$
+
+**Trin 3:** Vinkel:
+
+$$
+\cos(v) = \frac{1}{\sqrt{2} \cdot \sqrt{2}} = \frac{1}{2}
+$$
+
+$$
+v = \cos^{-1}\!\left(\frac{1}{2}\right) = 60°
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Krydsproduktet
+
+<Term definition="Krydsproduktet (eller vektorproduktet) af to vektorer i 3D giver en ny vektor, som står vinkelret på begge de oprindelige vektorer. Krydsproduktet eksisterer kun i 3D.">Krydsproduktet</Term> er en operation, der **kun findes i 3D**. Det tager to vektorer og giver en **ny vektor**, der står vinkelret på begge.
+
+For $\vec{a} = \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} b_1 \\ b_2 \\ b_3 \end{pmatrix}$ er krydsproduktet defineret som:
+
+$$
+\vec{a} \times \vec{b} = \begin{pmatrix} a_2 \cdot b_3 - a_3 \cdot b_2 \\ a_3 \cdot b_1 - a_1 \cdot b_3 \\ a_1 \cdot b_2 - a_2 \cdot b_1 \end{pmatrix}
+$$
+
+**Huskeregel:** Tænk "nedad-cyklisk": koordinaterne roterer som $1 \to 2 \to 3 \to 1 \to 2 \to \ldots$ I hver komponent bruger du de to *andre* indekser.
+
+**Vigtige egenskaber:**
+- $\vec{a} \times \vec{b}$ er **vinkelret** på både $\vec{a}$ og $\vec{b}$
+- $\vec{a} \times \vec{b} = -(\vec{b} \times \vec{a})$ — rækkefølgen betyder noget!
+- $\vec{a} \times \vec{a} = \vec{0}$ — krydsproduktet af en vektor med sig selv er nulvektoren
+- Retningen bestemmes af <Term definition="Højrehåndsreglen: Peg fingrene i retningen af den første vektor, krum dem mod den anden vektor, og tommelfingeren peger i retningen af krydsproduktet.">højrehåndsreglen</Term>
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Krydsproduktet er vinkelret ⚡</summary>
+
+**Påstand:** $\vec{a} \times \vec{b}$ er vinkelret på $\vec{a}$ (og tilsvarende på $\vec{b}$).
+
+**Bevis:** Vi viser, at $\vec{a} \cdot (\vec{a} \times \vec{b}) = 0$.
+
+Lad $\vec{n} = \vec{a} \times \vec{b} = \begin{pmatrix} a_2 b_3 - a_3 b_2 \\ a_3 b_1 - a_1 b_3 \\ a_1 b_2 - a_2 b_1 \end{pmatrix}$.
+
+$$
+\begin{aligned}
+\vec{a} \cdot \vec{n} &= a_1(a_2 b_3 - a_3 b_2) + a_2(a_3 b_1 - a_1 b_3) + a_3(a_1 b_2 - a_2 b_1) \\
+&= a_1 a_2 b_3 - a_1 a_3 b_2 + a_2 a_3 b_1 - a_1 a_2 b_3 + a_1 a_3 b_2 - a_2 a_3 b_1 \\
+&= \underbrace{(a_1 a_2 b_3 - a_1 a_2 b_3)}_{=\,0} + \underbrace{(-a_1 a_3 b_2 + a_1 a_3 b_2)}_{=\,0} + \underbrace{(a_2 a_3 b_1 - a_2 a_3 b_1)}_{=\,0} \\
+&= 0 \quad \checkmark
+\end{aligned}
+$$
+
+Da skalarproduktet er 0, er $\vec{a} \times \vec{b} \perp \vec{a}$. Beviset for $\vec{b}$ er fuldstændig analogt. $\square$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Beregning af krydsprodukt ⚡</summary>
+
+**Opgave:** Beregn $\vec{a} \times \vec{b}$ for $\vec{a} = \begin{pmatrix} 2 \\ 3 \\ 1 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 1 \\ -1 \\ 4 \end{pmatrix}$.
+
+**Løsning:**
+
+$$
+\begin{aligned}
+\vec{a} \times \vec{b} &= \begin{pmatrix} a_2 \cdot b_3 - a_3 \cdot b_2 \\ a_3 \cdot b_1 - a_1 \cdot b_3 \\ a_1 \cdot b_2 - a_2 \cdot b_1 \end{pmatrix} \\[6pt]
+&= \begin{pmatrix} 3 \cdot 4 - 1 \cdot (-1) \\ 1 \cdot 1 - 2 \cdot 4 \\ 2 \cdot (-1) - 3 \cdot 1 \end{pmatrix} \\[6pt]
+&= \begin{pmatrix} 12 - (-1) \\ 1 - 8 \\ -2 - 3 \end{pmatrix} \\[6pt]
+&= \begin{pmatrix} 13 \\ -7 \\ -5 \end{pmatrix}
+\end{aligned}
+$$
+
+**Kontrol:** Lad os tjekke, at resultatet er vinkelret på $\vec{a}$:
+
+$$
+\vec{a} \cdot (\vec{a} \times \vec{b}) = 2 \cdot 13 + 3 \cdot (-7) + 1 \cdot (-5) = 26 - 21 - 5 = 0 \quad \checkmark
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Normalvektor til et plan
+
+En <Term definition="En normalvektor til et plan er en vektor, der står vinkelret på planet. Alle normalvektorer til et givet plan er parallelle med hinanden.">normalvektor</Term> til et plan er en vektor, der står vinkelret på planet. Hvis vi kender to vektorer $\vec{a}$ og $\vec{b}$, der ligger i planet (og som ikke er parallelle), kan vi finde normalvektoren:
+
+$$
+\vec{n} = \vec{a} \times \vec{b}
+$$
+
+Da krydsproduktet per definition er vinkelret på begge vektorer, vil $\vec{n}$ stå vinkelret på hele planet.
+
+**Planets ligning** kan nu skrives som:
+
+$$
+n_1(x - x_0) + n_2(y - y_0) + n_3(z - z_0) = 0
+$$
+
+hvor $(x_0, y_0, z_0)$ er et punkt i planet og $\vec{n} = \begin{pmatrix} n_1 \\ n_2 \\ n_3 \end{pmatrix}$.
+
+Dette kan omskrives til standardformen:
+
+$$
+ax + by + cz + d = 0
+$$
+
+hvor $(a, b, c)$ er normalvektorens koordinater.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Normalvektor og planligning ⚡</summary>
+
+**Opgave:** Find ligningen for planet gennem $P(1, 2, 3)$ med retningsvektorer $\vec{a} = \begin{pmatrix} 1 \\ 0 \\ 2 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 0 \\ 1 \\ -1 \end{pmatrix}$.
+
+**Løsning:**
+
+**Trin 1:** Find normalvektoren:
+
+$$
+\vec{n} = \vec{a} \times \vec{b} = \begin{pmatrix} 0 \cdot (-1) - 2 \cdot 1 \\ 2 \cdot 0 - 1 \cdot (-1) \\ 1 \cdot 1 - 0 \cdot 0 \end{pmatrix} = \begin{pmatrix} -2 \\ 1 \\ 1 \end{pmatrix}
+$$
+
+**Trin 2:** Indsæt i planligningen med punkt $P(1, 2, 3)$:
+
+$$
+\begin{aligned}
+-2(x - 1) + 1(y - 2) + 1(z - 3) &= 0 \\
+-2x + 2 + y - 2 + z - 3 &= 0 \\
+-2x + y + z - 3 &= 0
+\end{aligned}
+$$
+
+**Planets ligning:** $-2x + y + z = 3$ (eller ækvivalent $2x - y - z = -3$).
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Areal af parallelogram og trekant
+
+<Term definition="Et parallelogram udspændt af to vektorer er den flade figur, der dannes, når man lægger de to vektorer i forlængelse af hinanden begge veje.">Arealet af et parallelogram</Term> udspændt af $\vec{a}$ og $\vec{b}$ er givet ved:
+
+$$
+A_{\text{parallelogram}} = |\vec{a} \times \vec{b}|
+$$
+
+Altså: Længden af krydsproduktet giver arealet af parallelogrammet!
+
+Da en trekant er halvdelen af et parallelogram, får vi:
+
+$$
+A_{\text{trekant}} = \frac{1}{2}|\vec{a} \times \vec{b}|
+$$
+
+**Den geometriske sammenhæng:**
+
+$$
+|\vec{a} \times \vec{b}| = |\vec{a}| \cdot |\vec{b}| \cdot \sin(v)
+$$
+
+hvor $v$ er vinklen mellem de to vektorer. Dette giver mening, fordi arealet af et parallelogram netop er grundlinje gange højde, og $|\vec{b}| \cdot \sin(v)$ er højden, når $|\vec{a}|$ er grundlinjen.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Areal af trekant i 3D ⚡</summary>
+
+**Opgave:** Find arealet af trekanten med hjørnerne $A(1, 0, 0)$, $B(0, 2, 0)$ og $C(0, 0, 3)$.
+
+**Løsning:**
+
+**Trin 1:** Bestem retningsvektorer fra $A$:
+
+$$
+\overrightarrow{AB} = B - A = \begin{pmatrix} -1 \\ 2 \\ 0 \end{pmatrix}, \quad \overrightarrow{AC} = C - A = \begin{pmatrix} -1 \\ 0 \\ 3 \end{pmatrix}
+$$
+
+**Trin 2:** Beregn krydsproduktet:
+
+$$
+\overrightarrow{AB} \times \overrightarrow{AC} = \begin{pmatrix} 2 \cdot 3 - 0 \cdot 0 \\ 0 \cdot (-1) - (-1) \cdot 3 \\ (-1) \cdot 0 - 2 \cdot (-1) \end{pmatrix} = \begin{pmatrix} 6 \\ 3 \\ 2 \end{pmatrix}
+$$
+
+**Trin 3:** Beregn længden:
+
+$$
+|\overrightarrow{AB} \times \overrightarrow{AC}| = \sqrt{6^2 + 3^2 + 2^2} = \sqrt{36 + 9 + 4} = \sqrt{49} = 7
+$$
+
+**Trin 4:** Arealet af trekanten:
+
+$$
+A_{\text{trekant}} = \frac{1}{2} \cdot 7 = 3{,}5
+$$
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Beregn skalarproduktet $\vec{a} \cdot \vec{b}$, når $\vec{a} = \begin{pmatrix} 4 \\ -2 \\ 1 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 1 \\ 3 \\ 5 \end{pmatrix}$. Er vektorerne ortogonale?
+
+**Opgave 2:** Find vinklen mellem $\vec{u} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}$ og $\vec{v} = \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$.
+
+**Opgave 3:** Beregn krydsproduktet $\vec{a} \times \vec{b}$, når $\vec{a} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}$. Kontrollér dit resultat ved at vise, at det er vinkelret på begge vektorer.
+
+**Opgave 4:** Find arealet af trekanten med hjørnerne $P(2, 0, 0)$, $Q(0, 3, 0)$ og $R(0, 0, 4)$.
+
+**Opgave 5:** Find ligningen for planet, der indeholder punkterne $A(1, 0, 0)$, $B(0, 1, 0)$ og $C(0, 0, 1)$.
+
+**Opgave 6:** Vis, at vektorerne $\vec{a} = \begin{pmatrix} 1 \\ -2 \\ 3 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 3 \\ 0 \\ -1 \end{pmatrix}$ ikke er ortogonale, og beregn derefter vinklen mellem dem.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="skalar-kryds-quiz-1"
+  question="Hvad er skalarproduktet af vektorerne (2, -1, 3) og (1, 4, -2)?"
+  options={[
+    "-8",
+    "0",
+    "4",
+    "-4"
+  ]}
+  correctIndex={3}
+  hint="Beregn 2·1 + (-1)·4 + 3·(-2)"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="skalar-kryds-quiz-2"
+  question="Hvad er krydsproduktet (1, 0, 0) × (0, 1, 0)?"
+  options={[
+    "(0, 0, 1)",
+    "(0, 0, -1)",
+    "(1, 1, 0)",
+    "(0, 0, 0)"
+  ]}
+  correctIndex={0}
+  hint="Brug formlen for krydsprodukt — eller husk at i × j = k"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="skalar-kryds-quiz-3"
+  question="Hvad er arealet af parallelogrammet udspændt af to vektorer, hvis deres krydsprodukt har længden 10?"
+  options={[
+    "5",
+    "10",
+    "20",
+    "100"
+  ]}
+  correctIndex={1}
+  hint="Arealet af parallelogrammet er lig med længden af krydsproduktet"
+/>

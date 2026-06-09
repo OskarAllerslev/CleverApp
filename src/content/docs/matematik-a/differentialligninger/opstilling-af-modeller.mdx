@@ -2,31 +2,459 @@
 title: "Opstilling af differentialligninger"
 level: "Matematik A"
 order: 1
-description: "Mange fysiske, biologiske og økonomiske processer kan beskrives ved hjælp af differentialligninger, ..."
+description: "Lær at oversætte virkelige fænomener til matematiske modeller med differentialligninger — orden, løsningskurver og begyndelsesværdiproblemer. Optjen +150 XP!"
 ---
 
-# Opstilling af differentialligninger
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Opstilling af differentialligninger** på Matematik A-niveau.
+# Opstilling af modeller 🎯
 
-## Introduktion
+Velkommen til differentialligningernes verden — det kraftigste modelleringsværktøj i hele matematikken! Mens almindelige ligninger handler om at finde et *tal*, handler differentialligninger om at finde en hel *funktion*. Det er forskellen på at spørge "hvor meget har vi?" og "hvordan udvikler det sig over tid?"
 
-Mange fysiske, biologiske og økonomiske processer kan beskrives ved hjælp af differentialligninger, der forbinder en funktion med dens væksthastighed.
+Tænk på det sådan: Når en læge giver medicin, falder koncentrationen i blodet med en hastighed, der afhænger af, hvor meget medicin der er tilbage. Når en bakteriekoloni vokser, afhænger væksten af, hvor mange bakterier der allerede er. Når en kop kaffe køler af, afhænger afkølingshastigheden af temperaturforskellen til omgivelserne. Alle disse processer beskrives af <Term definition="En ligning, der indeholder en ubekendt funktion og en eller flere af dens afledede. Løsningen er ikke et tal, men en funktion.">differentialligninger</Term>.
 
-## Central Matematisk Formel
+Gennemfør dette modul for at optjene **+150 XP** og låse op for separationsmetoden!
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Hvad er en differentialligning?
+
+En <Term definition="En ligning, der indeholder en ubekendt funktion og dens afledede (f.eks. y' eller dy/dt).">differentialligning</Term> er en ligning, der indeholder en ubekendt funktion $y$ og dens <Term definition="Den afledede funktion y' = dy/dt angiver, hvor hurtigt y ændrer sig pr. tidsenhed.">afledede</Term> $y'$ (og eventuelt højere afledede $y'', y'''$ osv.).
+
+**Eksempler på differentialligninger:**
+
+$$y' = 2y$$
+
+$$y' = 3t - y$$
+
+$$y'' + 4y = 0$$
+
+Den afgørende forskel fra en "almindelig" ligning som $2x + 3 = 7$ er:
+
+| Almindelig ligning | Differentialligning |
+|---|---|
+| Løsningen er et **tal** ($x = 2$) | Løsningen er en **funktion** ($y = Ce^{2t}$) |
+| Vi søger en ubekendt **værdi** | Vi søger en ubekendt **sammenhæng** |
+| Ingen afledede | Indeholder $y', y''$ osv. |
+
+**Ordenen** af en differentialligning er bestemt af den højeste afledede, der optræder:
+
+- $y' = ky$ er af **1. orden** (indeholder $y'$)
+- $y'' + 4y = 0$ er af **2. orden** (indeholder $y''$)
+- $y''' = y'' - 3y'$ er af **3. orden** (indeholder $y'''$)
+
+I Matematik A arbejder vi primært med differentialligninger af **1. orden**.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Løsninger og løsningskurver
+
+At **løse** en differentialligning betyder at finde den funktion $y(t)$, der opfylder ligningen. Men her er noget fascinerende: en differentialligning har typisk **uendeligt mange løsninger**!
+
+Tag for eksempel den simple differentialligning:
+
+$$y' = 2y$$
+
+Alle funktioner på formen $y = Ce^{2t}$ er løsninger — uanset hvilken værdi konstanten $C$ har. Lad os verificere det:
 
 $$
-\frac{dy}{dt} = k \cdot y
+\begin{aligned}
+y &= Ce^{2t} \\
+y' &= 2Ce^{2t} \\
+&= 2 \cdot \underbrace{Ce^{2t}}_{= y} \\
+&= 2y \quad \checkmark
+\end{aligned}
 $$
 
-## Hvad skal vi lære?
+Hver værdi af $C$ giver en bestemt <Term definition="Grafen for en specifik løsning til en differentialligning. Alle løsningskurver tilsammen udgør et linjefelt.">løsningskurve</Term>. Samlingen af alle løsningskurver kaldes den **fuldstændige løsning** (eller den generelle løsning).
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+For $y' = 2y$ ser nogle løsningskurver sådan ud:
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+- $C = 1$: kurven $y = e^{2t}$ (eksponentiel vækst fra 1)
+- $C = 2$: kurven $y = 2e^{2t}$ (eksponentiel vækst fra 2)
+- $C = -1$: kurven $y = -e^{2t}$ (eksponentielt fald fra $-1$)
+- $C = 0$: den konstante løsning $y = 0$ (ligevægtsløsningen)
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+Alle disse kurver opfylder differentialligningen, men de beskriver vidt forskellige forløb!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Verificering af en løsning ⚡</summary>
+
+**Opgave:** Vis at $y = 5e^{-3t}$ er en løsning til differentialligningen $y' = -3y$.
+
+**Løsning:**
+
+Vi skal vise, at funktionen opfylder ligningen. Vi beregner venstresiden ($y'$) og højresiden ($-3y$) hver for sig og tjekker, at de er ens.
+
+**Trin 1:** Differentier $y = 5e^{-3t}$:
+
+$$
+\begin{aligned}
+y' &= 5 \cdot (-3) \cdot e^{-3t} \\
+&= -15e^{-3t}
+\end{aligned}
+$$
+
+**Trin 2:** Beregn højresiden $-3y$:
+
+$$
+\begin{aligned}
+-3y &= -3 \cdot 5e^{-3t} \\
+&= -15e^{-3t}
+\end{aligned}
+$$
+
+**Trin 3:** Sammenlign:
+
+$$y' = -15e^{-3t} = -3y \quad \checkmark$$
+
+Da venstresiden er lig højresiden, er $y = 5e^{-3t}$ en løsning til $y' = -3y$. ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Begyndelsesværdiproblemer
+
+Når vi har uendeligt mange løsninger, hvordan vælger vi så den rigtige? Svaret er en <Term definition="En ekstra betingelse, der angiver funktionens værdi ved et bestemt tidspunkt, f.eks. y(0) = 5. Sammen med differentialligningen giver den en unik løsning.">begyndelsesbetingelse</Term> (eller startbetingelse).
+
+En differentialligning sammen med en begyndelsesbetingelse kaldes et <Term definition="En differentialligning kombineret med en begyndelsesbetingelse. Har typisk præcis én løsning.">begyndelsesværdiproblem</Term> (BVP):
+
+$$y' = ky, \quad y(0) = y_0$$
+
+Begyndelsesbetingelsen $y(0) = y_0$ fortæller os, hvad funktionens værdi er ved $t = 0$. Den "vælger" præcis én løsningskurve ud af de uendeligt mange.
+
+**Fremgangsmåde:**
+
+1. Find den fuldstændige løsning (med konstanten $C$)
+2. Indsæt begyndelsesbetingelsen for at bestemme $C$
+3. Skriv den <Term definition="Den unikke løsning, der opfylder både differentialligningen og begyndelsesbetingelsen.">partikulære løsning</Term>
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Begyndelsesværdiproblem ⚡</summary>
+
+**Opgave:** Løs begyndelsesværdiproblemet:
+
+$$y' = 2y, \quad y(0) = 3$$
+
+**Løsning:**
+
+**Trin 1:** Den fuldstændige løsning til $y' = 2y$ er (som vi har set):
+
+$$y = Ce^{2t}$$
+
+**Trin 2:** Indsæt begyndelsesbetingelsen $y(0) = 3$:
+
+$$
+\begin{aligned}
+y(0) &= Ce^{2 \cdot 0} \\
+3 &= C \cdot e^0 \\
+3 &= C \cdot 1 \\
+C &= 3
+\end{aligned}
+$$
+
+**Trin 3:** Den partikulære løsning er:
+
+$$\boxed{y = 3e^{2t}}$$
+
+**Tjek:** Ved $t = 0$ giver dette $y(0) = 3e^0 = 3$ ✅, og $y' = 6e^{2t} = 2 \cdot 3e^{2t} = 2y$ ✅.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Den eksponentielle model — $y' = ky$
+
+Den vigtigste differentialligning i Matematik A er:
+
+$$\frac{dy}{dt} = k \cdot y$$
+
+Denne ligning siger: *"Ændringshastigheden af $y$ er proportional med $y$ selv."*
+
+Løsningen er:
+
+$$\boxed{y(t) = y_0 \cdot e^{kt}}$$
+
+hvor $y_0 = y(0)$ er startværdien, og $k$ er <Term definition="Proportionalitetskonstanten i den eksponentielle model. k > 0 giver vækst, k < 0 giver henfald.">vækstkonstanten</Term>.
+
+**Fortolkning af $k$:**
+
+| Værdi af $k$ | Betydning | Eksempel |
+|---|---|---|
+| $k > 0$ | **Eksponentiel vækst** — $y$ vokser hurtigere og hurtigere | Bakterievækst, renters rente |
+| $k = 0$ | **Ingen ændring** — $y$ er konstant | Stabil population |
+| $k < 0$ | **Eksponentielt henfald** — $y$ aftager mod 0 | Radioaktivt henfald, medicinkoncentration |
+
+**Halveringstid og fordoblingstid:**
+
+Når $k < 0$, kan vi beregne <Term definition="Den tid det tager for halvdelen af stoffet at henfalde. T_{1/2} = ln(2)/|k|.">halveringstiden</Term> $T_{1/2}$:
+
+$$T_{1/2} = \frac{\ln 2}{|k|}$$
+
+Når $k > 0$, kan vi beregne <Term definition="Den tid det tager for mængden at fordobles. T_2 = ln(2)/k.">fordoblingstiden</Term> $T_2$:
+
+$$T_2 = \frac{\ln 2}{k}$$
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Fra tekst til differentialligning — oversættelsesnøglen
+
+At opstille en differentialligning fra en tekstbeskrivelse er en kernekompetence. Her er de vigtigste sproglige signaler og deres matematiske oversættelse:
+
+| Tekstbeskrivelse | Differentialligning |
+|---|---|
+| "Hastigheden er proportional med mængden" | $y' = ky$ |
+| "Hastigheden er proportional med afstanden til $M$" | $y' = k(M - y)$ |
+| "Hastigheden er proportional med produktet af $y$ og $(M - y)$" | $y' = ky(M - y)$ |
+| "Mængden vokser med en konstant hastighed" | $y' = k$ (konstant) |
+| "Hastigheden aftager proportionalt med mængden" | $y' = -ky$ (med $k > 0$) |
+
+**Nøgleord at kigge efter:**
+- "proportional med" → ganges med
+- "ændringshastighed" / "væksthastighed" → $y'$ eller $\frac{dy}{dt}$
+- "afhænger af" → variabel på højresiden
+- "konstant" → fast tal, ikke en funktion af $t$
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Radioaktivt henfald ⚡</summary>
+
+**Opgave:** Et radioaktivt stof henfalder med en hastighed, der er proportional med den tilbageværende mængde. Ved $t = 0$ er der 800 gram, og halveringstiden er 5 timer. Opstil og løs differentialligningen, og find mængden efter 12 timer.
+
+**Løsning:**
+
+**Trin 1 — Opstil differentialligningen:**
+
+"Hastigheden er proportional med mængden" giver:
+
+$$\frac{dy}{dt} = k \cdot y, \quad \text{med } k < 0 \text{ (henfald)}$$
+
+Begyndelsesbetingelse: $y(0) = 800$.
+
+**Trin 2 — Find $k$ fra halveringstiden:**
+
+$$
+\begin{aligned}
+T_{1/2} &= \frac{\ln 2}{|k|} \\
+5 &= \frac{\ln 2}{|k|} \\
+|k| &= \frac{\ln 2}{5} \approx 0{,}1386 \\
+k &= -0{,}1386 \quad \text{(negativt, da stoffet henfalder)}
+\end{aligned}
+$$
+
+**Trin 3 — Skriv løsningen:**
+
+$$y(t) = 800 \cdot e^{-0{,}1386 \cdot t}$$
+
+**Trin 4 — Find mængden efter 12 timer:**
+
+$$
+\begin{aligned}
+y(12) &= 800 \cdot e^{-0{,}1386 \cdot 12} \\
+&= 800 \cdot e^{-1{,}6632} \\
+&= 800 \cdot 0{,}1895 \\
+&\approx 151{,}6 \text{ gram}
+\end{aligned}
+$$
+
+**Svar:** Efter 12 timer er der ca. **151,6 gram** radioaktivt stof tilbage. ✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Bakterievækst ⚡</summary>
+
+**Opgave:** En bakteriekoloni vokser eksponentielt. Ved $t = 0$ er der 500 bakterier, og efter 3 timer er der 4000. Opstil differentialligningen, bestem $k$, og find antal bakterier efter 8 timer.
+
+**Løsning:**
+
+**Trin 1 — Opstil modellen:**
+
+$$\frac{dy}{dt} = k \cdot y, \quad y(0) = 500$$
+
+Den fuldstændige løsning er:
+
+$$y(t) = 500 \cdot e^{kt}$$
+
+**Trin 2 — Bestem $k$ fra oplysningen $y(3) = 4000$:**
+
+$$
+\begin{aligned}
+4000 &= 500 \cdot e^{3k} \\
+\frac{4000}{500} &= e^{3k} \\
+8 &= e^{3k} \\
+\ln 8 &= 3k \\
+k &= \frac{\ln 8}{3} = \frac{3\ln 2}{3} = \ln 2 \approx 0{,}6931
+\end{aligned}
+$$
+
+**Trin 3 — Find antal efter 8 timer:**
+
+$$
+\begin{aligned}
+y(8) &= 500 \cdot e^{\ln 2 \cdot 8} \\
+&= 500 \cdot e^{8 \ln 2} \\
+&= 500 \cdot 2^8 \\
+&= 500 \cdot 256 \\
+&= 128000
+\end{aligned}
+$$
+
+**Svar:** Efter 8 timer er der **128.000 bakterier**. ✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Newtons afkølingslov ⚡</summary>
+
+**Opgave:** En kop kaffe med starttemperatur 90°C står i et rum med konstant temperatur 20°C. Afkølingshastigheden er proportional med temperaturforskellen til omgivelserne. Opstil differentialligningen.
+
+**Løsning:**
+
+Lad $T(t)$ betegne kaffens temperatur ved tid $t$, og lad $T_{\text{omg}} = 20$ være omgivelsestemperaturen.
+
+**Trin 1 — Identificer ændringshastigheden:**
+
+"Afkølingshastigheden er proportional med temperaturforskellen" oversættes til:
+
+$$\frac{dT}{dt} = k \cdot (T_{\text{omg}} - T)$$
+
+Da $T > T_{\text{omg}}$ (kaffen er varmere end rummet), er $(T_{\text{omg}} - T) < 0$, så med $k > 0$ fås $\frac{dT}{dt} < 0$ (temperaturen falder) ✓.
+
+**Trin 2 — Indsæt kendte værdier:**
+
+$$\frac{dT}{dt} = k(20 - T), \quad T(0) = 90$$
+
+Bemærk: Denne differentialligning har løsningen $T(t) = 20 + 70 \cdot e^{-kt}$, som vi kan verificere:
+
+$$
+\begin{aligned}
+T'(t) &= -70k \cdot e^{-kt} \\
+k(20 - T) &= k(20 - 20 - 70e^{-kt}) = -70k \cdot e^{-kt} \quad \checkmark
+\end{aligned}
+$$
+
+Temperaturen nærmer sig asymptotisk $20°C$ (rumtemperaturen), præcis som vi forventer. ✅
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Afgør ordenen af følgende differentialligninger:
+
+a) $y' = 5y + 3$
+
+b) $y'' - 2y' + y = 0$
+
+c) $y''' + y' = \sin(t)$
+
+**Opgave 2:** Vis at $y = 4e^{-2t}$ er en løsning til differentialligningen $y' = -2y$.
+
+**Opgave 3:** Løs begyndelsesværdiproblemet $y' = 3y$, $y(0) = 10$.
+
+**Opgave 4:** Et radioaktivt stof har en halveringstid på 8 dage. Ved $t = 0$ er der 1200 mg.
+
+a) Opstil differentialligningen og bestem $k$.
+
+b) Find den partikulære løsning.
+
+c) Hvor meget stof er der efter 20 dage?
+
+d) Hvornår er der kun 50 mg tilbage?
+
+**Opgave 5:** En population vokser eksponentielt. Ved $t = 0$ er populationen 2000, og efter 5 timer er den 6000.
+
+a) Bestem $k$.
+
+b) Hvornår når populationen 50.000?
+
+**Opgave 6:** Oversæt følgende tekster til differentialligninger:
+
+a) "Vandstanden i en tank falder med en hastighed, der er proportional med vandstanden."
+
+b) "Antallet af smittede stiger med en hastighed, der er proportional med antallet af smittede."
+
+c) "Temperaturen ændrer sig proportionalt med forskellen mellem kropstemperaturen og rumtemperaturen på 22°C."
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="difflig-opstilling-q1"
+  question="Hvad er ordenen af differentialligningen y'' + 3y' - 2y = 0?"
+  options={[
+    "0. orden",
+    "1. orden",
+    "2. orden",
+    "3. orden"
+  ]}
+  correctIndex={2}
+  hint="Kig efter den højeste afledede — hvor mange mærker har den?"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="difflig-opstilling-q2"
+  question="Hvad er den fuldstændige løsning til differentialligningen y' = 5y?"
+  options={[
+    "y = 5t + C",
+    "y = Ce^(5t)",
+    "y = 5e^(Ct)",
+    "y = e^(5t)"
+  ]}
+  correctIndex={1}
+  hint="Husk at løsningen til y' = ky er y = Ce^(kt)"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="difflig-opstilling-q3"
+  question="Et stof henfalder med halveringstid 10 timer. Hvad er vækstkonstanten k (afrundet)?"
+  options={[
+    "k = 0,0693",
+    "k = -0,0693",
+    "k = -0,1",
+    "k = -0,693"
+  ]}
+  correctIndex={1}
+  hint="Brug formlen k = -ln(2)/T_(1/2) og husk at k er negativ ved henfald"
+/>

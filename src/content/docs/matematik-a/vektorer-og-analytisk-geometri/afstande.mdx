@@ -1,32 +1,461 @@
 ---
 title: "Afstande i rummet"
 level: "Matematik A"
-order: 4
-description: "Beregning af afstande i 3D, herunder afstanden fra et punkt til en plan ved brug af planens normalve..."
+order: 2
+description: "Lær at beregne afstande mellem punkter, planer og linjer i 3D. Optjen +150 XP!"
 ---
 
-# Afstande i rummet
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Afstande i rummet** på Matematik A-niveau.
+# Afstande i rummet 🎯
 
-## Introduktion
+I 2D kunne vi beregne afstanden mellem to punkter med Pythagoras. I 3D udvider vi dette til afstande mellem punkter, planer og linjer — og det kræver kraftfulde værktøjer som skalarproduktet og krydsproduktet.
 
-Beregning af afstande i 3D, herunder afstanden fra et punkt til en plan ved brug af planens normalvektor.
+At beherske afstandsberegninger er som at låse op for en ny evne i dit matematik-arsenal. Lad os komme i gang! ⚔️
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Afstand mellem to punkter i 3D
+
+<Term definition="Afstanden mellem to punkter i 3D er den lige linje mellem dem, beregnet med den udvidede pythagoræiske sætning.">Afstanden</Term> mellem to punkter $P_1(x_1, y_1, z_1)$ og $P_2(x_2, y_2, z_2)$ i rummet er:
 
 $$
-dist(P, \alpha) = \frac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}}
+d(P_1, P_2) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}
 $$
 
-## Hvad skal vi lære?
+Dette er en direkte udvidelse af afstandsformlen fra 2D — vi tilføjer blot $z$-koordinatens bidrag.
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+Man kan også tænke på det som længden af vektoren fra $P_1$ til $P_2$:
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+$$
+d(P_1, P_2) = |\overrightarrow{P_1P_2}|
+$$
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand mellem to punkter ⚡</summary>
+
+**Opgave:** Find afstanden mellem $A(1, 2, 3)$ og $B(4, 6, 3)$.
+
+**Løsning:**
+
+$$
+\begin{aligned}
+d(A, B) &= \sqrt{(4 - 1)^2 + (6 - 2)^2 + (3 - 3)^2} \\
+&= \sqrt{3^2 + 4^2 + 0^2} \\
+&= \sqrt{9 + 16 + 0} \\
+&= \sqrt{25} \\
+&= 5
+\end{aligned}
+$$
+
+Bemærk, at da $z$-koordinaterne er ens, reducerer dette sig til en 2D-afstand i $xy$-planen.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Afstand fra punkt til plan
+
+Givet et plan med ligningen $ax + by + cz + d = 0$ og et punkt $P_0(x_0, y_0, z_0)$, er <Term definition="Den korteste afstand fra et punkt til et plan. Denne afstand måles langs normalen til planet.">afstanden fra punktet til planet</Term>:
+
+$$
+\text{dist}(P_0, \alpha) = \frac{|a \cdot x_0 + b \cdot y_0 + c \cdot z_0 + d|}{\sqrt{a^2 + b^2 + c^2}}
+$$
+
+**Intuition:** Tælleren er den numeriske værdi af planligningen evalueret i punktet (med absolut værdi). Nævneren er længden af normalvektoren $\vec{n} = \begin{pmatrix} a \\ b \\ c \end{pmatrix}$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Afstandsformlen punkt-plan ⚡</summary>
+
+**Påstand:** Afstanden fra $P_0(x_0, y_0, z_0)$ til planet $\alpha: ax + by + cz + d = 0$ er $\frac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}}$.
+
+**Bevis:**
+
+Lad $Q(x_1, y_1, z_1)$ være et vilkårligt punkt i planet $\alpha$. Da gælder:
+
+$$
+ax_1 + by_1 + cz_1 + d = 0
+$$
+
+Vektoren fra $Q$ til $P_0$ er:
+
+$$
+\overrightarrow{QP_0} = \begin{pmatrix} x_0 - x_1 \\ y_0 - y_1 \\ z_0 - z_1 \end{pmatrix}
+$$
+
+Den korteste afstand fra $P_0$ til planet er **projektionen** af $\overrightarrow{QP_0}$ på normalvektoren $\vec{n} = \begin{pmatrix} a \\ b \\ c \end{pmatrix}$:
+
+$$
+\text{dist} = \frac{|\overrightarrow{QP_0} \cdot \vec{n}|}{|\vec{n}|}
+$$
+
+Vi beregner tælleren:
+
+$$
+\begin{aligned}
+\overrightarrow{QP_0} \cdot \vec{n} &= a(x_0 - x_1) + b(y_0 - y_1) + c(z_0 - z_1) \\
+&= (ax_0 + by_0 + cz_0) - \underbrace{(ax_1 + by_1 + cz_1)}_{= -d} \\
+&= ax_0 + by_0 + cz_0 + d
+\end{aligned}
+$$
+
+Altså:
+
+$$
+\text{dist}(P_0, \alpha) = \frac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}} \quad \square
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand fra punkt til plan ⚡</summary>
+
+**Opgave:** Find afstanden fra punktet $P(3, 1, -2)$ til planet $2x - y + 2z - 6 = 0$.
+
+**Løsning:**
+
+Vi bruger formlen med $a = 2$, $b = -1$, $c = 2$, $d = -6$ og $(x_0, y_0, z_0) = (3, 1, -2)$:
+
+**Trin 1:** Beregn tælleren:
+
+$$
+|ax_0 + by_0 + cz_0 + d| = |2 \cdot 3 + (-1) \cdot 1 + 2 \cdot (-2) + (-6)| = |6 - 1 - 4 - 6| = |-5| = 5
+$$
+
+**Trin 2:** Beregn nævneren:
+
+$$
+\sqrt{a^2 + b^2 + c^2} = \sqrt{4 + 1 + 4} = \sqrt{9} = 3
+$$
+
+**Trin 3:** Afstanden:
+
+$$
+\text{dist}(P, \alpha) = \frac{5}{3} \approx 1{,}67
+$$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Afstand fra punkt til linje
+
+Givet en linje $\ell$ med parameterfremstilling:
+
+$$
+\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x_0 \\ y_0 \\ z_0 \end{pmatrix} + t \cdot \begin{pmatrix} r_1 \\ r_2 \\ r_3 \end{pmatrix}
+$$
+
+og et punkt $P$, så er <Term definition="Den korteste afstand fra et punkt til en linje. Denne afstand måles vinkelret på linjen.">afstanden fra $P$ til $\ell$</Term>:
+
+$$
+\text{dist}(P, \ell) = \frac{|\overrightarrow{QP} \times \vec{r}|}{|\vec{r}|}
+$$
+
+hvor $Q$ er et vilkårligt punkt på linjen og $\vec{r}$ er linjens retningsvektor.
+
+**Intuition:** Krydsproduktet $\overrightarrow{QP} \times \vec{r}$ giver en vektor, hvis længde er arealet af parallelogrammet udspændt af $\overrightarrow{QP}$ og $\vec{r}$. Dividerer vi med grundlinjen $|\vec{r}|$, får vi højden — som netop er den vinkelrette afstand.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Afstandsformlen punkt-linje ⚡</summary>
+
+**Bevis:**
+
+Lad $Q$ være et punkt på linjen, $\vec{r}$ linjens retningsvektor, og $P$ det ydre punkt.
+
+Arealet af parallelogrammet udspændt af $\overrightarrow{QP}$ og $\vec{r}$ er:
+
+$$
+A = |\overrightarrow{QP} \times \vec{r}|
+$$
+
+Men arealet er også grundlinje gange højde:
+
+$$
+A = |\vec{r}| \cdot h
+$$
+
+hvor $h$ er den vinkelrette afstand fra $P$ til linjen.
+
+Ved at isolere $h$ får vi:
+
+$$
+h = \text{dist}(P, \ell) = \frac{|\overrightarrow{QP} \times \vec{r}|}{|\vec{r}|} \quad \square
+$$
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand fra punkt til linje ⚡</summary>
+
+**Opgave:** Find afstanden fra $P(1, 1, 1)$ til linjen $\ell: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} + t \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$.
+
+(Linjen er $x$-aksen.)
+
+**Løsning:**
+
+**Trin 1:** Vælg $Q = (0, 0, 0)$ (punkt på linjen) og $\vec{r} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$.
+
+$$
+\overrightarrow{QP} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+$$
+
+**Trin 2:** Beregn krydsproduktet:
+
+$$
+\overrightarrow{QP} \times \vec{r} = \begin{pmatrix} 1 \cdot 0 - 1 \cdot 0 \\ 1 \cdot 1 - 1 \cdot 0 \\ 1 \cdot 0 - 1 \cdot 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ -1 \end{pmatrix}
+$$
+
+**Trin 3:** Beregn længden:
+
+$$
+|\overrightarrow{QP} \times \vec{r}| = \sqrt{0^2 + 1^2 + (-1)^2} = \sqrt{2}
+$$
+
+**Trin 4:** Afstanden:
+
+$$
+\text{dist}(P, \ell) = \frac{\sqrt{2}}{1} = \sqrt{2} \approx 1{,}41
+$$
+
+Det giver mening: $P(1, 1, 1)$ har afstanden $\sqrt{1^2 + 1^2} = \sqrt{2}$ til $x$-aksen.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Afstand mellem to vindskæve linjer
+
+To linjer i rummet, der hverken skærer hinanden eller er parallelle, kaldes <Term definition="Vindskæve linjer er to linjer i 3D, der hverken skærer hinanden eller er parallelle. De ligger i forskellige planer.">vindskæve</Term>.
+
+Givet to linjer:
+
+$$
+\ell_1: \vec{p_1} + t \cdot \vec{r_1} \quad \text{og} \quad \ell_2: \vec{p_2} + s \cdot \vec{r_2}
+$$
+
+er afstanden mellem dem:
+
+$$
+\text{dist}(\ell_1, \ell_2) = \frac{|\overrightarrow{P_1P_2} \cdot (\vec{r_1} \times \vec{r_2})|}{|\vec{r_1} \times \vec{r_2}|}
+$$
+
+hvor $P_1$ er et punkt på $\ell_1$, $P_2$ er et punkt på $\ell_2$, og $\overrightarrow{P_1P_2} = \vec{p_2} - \vec{p_1}$.
+
+**Intuition:** Krydsproduktet $\vec{r_1} \times \vec{r_2}$ er vinkelret på begge linjer. Projektionen af forbindelsesvektoren $\overrightarrow{P_1P_2}$ på denne retning giver den korteste afstand.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Afstandsformlen linje-linje ⚡</summary>
+
+**Bevis:**
+
+Den korteste forbindelse mellem to vindskæve linjer er vinkelret på begge linjer. Retningen af denne forbindelse er derfor:
+
+$$
+\vec{n} = \vec{r_1} \times \vec{r_2}
+$$
+
+Lad $P_1$ ligge på $\ell_1$ og $P_2$ på $\ell_2$. Afstanden er projektionen af $\overrightarrow{P_1P_2}$ på $\vec{n}$:
+
+$$
+\text{dist}(\ell_1, \ell_2) = \left|\text{proj}_{\vec{n}} \overrightarrow{P_1P_2}\right| = \frac{|\overrightarrow{P_1P_2} \cdot \vec{n}|}{|\vec{n}|}
+$$
+
+Da $\vec{n} = \vec{r_1} \times \vec{r_2}$, får vi:
+
+$$
+\text{dist}(\ell_1, \ell_2) = \frac{|\overrightarrow{P_1P_2} \cdot (\vec{r_1} \times \vec{r_2})|}{|\vec{r_1} \times \vec{r_2}|} \quad \square
+$$
+
+Bemærk: Valget af $P_1$ og $P_2$ er ligegyldigt, da projektionen på $\vec{n}$ kun afhænger af afstanden mellem linjerne og ikke af de specifikke punkter.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Afstand mellem vindskæve linjer ⚡</summary>
+
+**Opgave:** Find afstanden mellem linjerne:
+
+$$
+\ell_1: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} \qquad \ell_2: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} + s \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+$$
+
+**Løsning:**
+
+**Trin 1:** Identificer punkter og retningsvektorer:
+
+$$
+P_1 = (1, 0, 0), \quad \vec{r_1} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \quad P_2 = (0, 0, 1), \quad \vec{r_2} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+$$
+
+**Trin 2:** Beregn $\overrightarrow{P_1P_2}$:
+
+$$
+\overrightarrow{P_1P_2} = \begin{pmatrix} 0 - 1 \\ 0 - 0 \\ 1 - 0 \end{pmatrix} = \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix}
+$$
+
+**Trin 3:** Beregn krydsproduktet $\vec{r_1} \times \vec{r_2}$:
+
+$$
+\vec{r_1} \times \vec{r_2} = \begin{pmatrix} 1 \cdot 0 - 0 \cdot 0 \\ 0 \cdot 1 - 0 \cdot 0 \\ 0 \cdot 0 - 1 \cdot 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}
+$$
+
+**Trin 4:** Beregn skalarproduktet i tælleren:
+
+$$
+\overrightarrow{P_1P_2} \cdot (\vec{r_1} \times \vec{r_2}) = (-1)(0) + (0)(0) + (1)(-1) = -1
+$$
+
+**Trin 5:** Beregn længden af krydsproduktet:
+
+$$
+|\vec{r_1} \times \vec{r_2}| = \sqrt{0^2 + 0^2 + (-1)^2} = 1
+$$
+
+**Trin 6:** Afstanden:
+
+$$
+\text{dist}(\ell_1, \ell_2) = \frac{|-1|}{1} = 1
+$$
+
+$\ell_1$ er parallel med $y$-aksen og forskudt 1 langs $x$-aksen, mens $\ell_2$ er parallel med $x$-aksen og forskudt 1 langs $z$-aksen. Afstanden 1 giver geometrisk mening.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Er linjerne vindskæve? ⚡</summary>
+
+**Opgave:** Afgør om linjerne er vindskæve, parallelle eller skærer hinanden:
+
+$$
+\ell_1: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix} + t \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \qquad \ell_2: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} + s \begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}
+$$
+
+**Løsning:**
+
+**Trin 1:** Tjek om retningsvektorerne er parallelle. $\vec{r_1} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$ og $\vec{r_2} = \begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}$ er ikke proportionale, da $\frac{2}{1} \neq \frac{-1}{1}$. Altså er de **ikke parallelle**.
+
+**Trin 2:** Tjek om de skærer hinanden. Sæt ligningerne lig med hinanden:
+
+$$
+\begin{cases} 1 + t = 2 + 2s \\ 2 + t = 3 - s \\ 3 + t = 5 + s \end{cases}
+$$
+
+Fra ligning 2: $t = 1 - s$. Indsæt i ligning 3:
+
+$$
+3 + 1 - s = 5 + s \implies 4 - s = 5 + s \implies s = -\frac{1}{2}
+$$
+
+Dermed $t = 1 - (-\frac{1}{2}) = \frac{3}{2}$. Kontrollér i ligning 1:
+
+$$
+1 + \frac{3}{2} = \frac{5}{2} \quad \text{og} \quad 2 + 2 \cdot (-\frac{1}{2}) = 1
+$$
+
+Da $\frac{5}{2} \neq 1$, er ligning 1 ikke opfyldt. Linjerne **skærer ikke** hinanden.
+
+**Konklusion:** Linjerne er **vindskæve**.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Find afstanden mellem punkterne $A(3, -1, 4)$ og $B(0, 3, 0)$.
+
+**Opgave 2:** Find afstanden fra punktet $P(1, 2, 3)$ til planet $x + 2y + 2z - 9 = 0$.
+
+**Opgave 3:** Find afstanden fra $P(2, 3, 1)$ til linjen $\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$.
+
+**Opgave 4:** Find afstanden mellem de vindskæve linjer:
+
+$$
+\ell_1: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \qquad \ell_2: \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 2 \end{pmatrix} + s \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+$$
+
+**Opgave 5:** Et plan har ligningen $3x - 4y + 12z + 26 = 0$. Find afstanden fra origo til planet.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="afstande-quiz-1"
+  question="Hvad er afstanden mellem punkterne (0, 0, 0) og (1, 2, 2)?"
+  options={[
+    "5",
+    "3",
+    "√5",
+    "9"
+  ]}
+  correctIndex={1}
+  hint="Beregn √(1² + 2² + 2²)"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="afstande-quiz-2"
+  question="Hvad er afstanden fra punktet (0, 0, 0) til planet x + y + z - 3 = 0?"
+  options={[
+    "3",
+    "1",
+    "√3",
+    "3/√3 = √3"
+  ]}
+  correctIndex={3}
+  hint="Brug formlen: |ax₀ + by₀ + cz₀ + d| / √(a² + b² + c²)"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="afstande-quiz-3"
+  question="Hvad bruges krydsproduktet til i formlen for afstand fra punkt til linje?"
+  options={[
+    "At finde vinklen mellem vektorer",
+    "At beregne arealet af parallelogrammet, der bruges til at udlede højden",
+    "At bestemme om linjen og punktet er i samme plan",
+    "At finde et punkt på linjen tættest på det givne punkt"
+  ]}
+  correctIndex={1}
+  hint="Tænk på arealet af parallelogrammet som grundlinje gange højde"
+/>

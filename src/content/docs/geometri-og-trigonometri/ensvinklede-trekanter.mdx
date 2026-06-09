@@ -2,31 +2,358 @@
 title: "Ensvinklede trekanter"
 level: "Matematik C"
 order: 1
-description: "To trekanter er ensvinklede (eller ligedannede), hvis deres vinkler er parvis lige store. Her lærer ..."
+description: "Lær om ensvinklede trekanter, forstørrelsesfaktor k og proportionalitet. Optjen +150 XP!"
 ---
 
-# Ensvinklede trekanter
+import { Term } from '../../../components/Term.tsx';
+import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Ensvinklede trekanter** på Matematik C-niveau.
+# Ensvinklede trekanter 🎯
 
-## Introduktion
+Har du nogensinde undret dig over, hvordan arkitekter kan bygge en model af et hus i miniature — og alligevel bevare alle proportioner? Eller hvordan et landkort kan repræsentere virkeligheden, bare i en anden størrelse? Svaret ligger i et af geometriens mest fundamentale begreber: **ensvinklede trekanter**.
 
-To trekanter er ensvinklede (eller ligedannede), hvis deres vinkler er parvis lige store. Her lærer du at finde målestoksforholdet $k$ og beregne ukendte sider.
+I dette kapitel lærer du at genkende ensvinklede trekanter, arbejde med forstørrelsesfaktoren $k$, og forstå sammenhængen mellem sidelængder og arealer. Gør dig klar til at **level up** dine geometri-skills! 🚀
 
-## Central Matematisk Formel
+---
 
-Her er en af de vigtigste formler for dette emne:
+<div className="teori-box">
+
+### Teori: Definition af ensvinklede trekanter
+
+To trekanter er <Term definition="To trekanter der har parvist lige store vinkler, dvs. alle tre vinkler i den ene trekant er lig de tilsvarende vinkler i den anden trekant.">ensvinklede</Term>, hvis de har **parvist lige store vinkler**. Det vil sige, at alle tre vinkler i den ene trekant er lig de tilsvarende tre vinkler i den anden trekant.
+
+Da vinkelsummen i enhver trekant altid er $180°$, er det faktisk nok at vise, at **to af de tre vinkler** er ens — den tredje vil automatisk også være ens!
+
+**Notation:** Hvis $\triangle ABC$ og $\triangle DEF$ er ensvinklede, skriver vi:
 
 $$
-k = \frac{a'}{a} = \frac{b'}{b} = \frac{c'}{c}
+\triangle ABC \sim \triangle DEF
 $$
 
-## Hvad skal vi lære?
+Tegnet "$\sim$" betyder "er ensvinklet med" (eller "er ligedannet med").
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+**Vigtigt:** Rækkefølgen af bogstaverne angiver, hvilke vinkler der svarer til hinanden:
 
-1. **Forståelse**: At forstå den grundlæggende teori og intuition bag emnet.
-2. **Beregning**: At kunne anvende formlerne i praksis på konkrete opgaver.
-3. **Anvendelse**: At kunne relatere emnet til virkelige problemer og matematiske modeller.
+$$
+\angle A = \angle D, \quad \angle B = \angle E, \quad \angle C = \angle F
+$$
 
-*Dette er en introduktion til emnet. Flere interaktive visualiseringer og opgaver følger i de kommende afsnit!*
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Forstørrelsesfaktoren k
+
+Når to trekanter er ensvinklede, er der en fast sammenhæng mellem deres sidelængder. De tilsvarende sider (siderne der ligger over for lige store vinkler) har et **konstant forhold**, som vi kalder <Term definition="Det konstante forhold mellem tilsvarende sidelængder i to ensvinklede trekanter. Også kaldet skaleringsfaktoren.">forstørrelsesfaktoren</Term> $k$.
+
+Hvis $\triangle ABC \sim \triangle DEF$, så gælder:
+
+$$
+\frac{DE}{AB} = \frac{EF}{BC} = \frac{DF}{AC} = k
+$$
+
+Det betyder, at vi kan finde enhver side i den ene trekant ved at gange den tilsvarende side i den anden trekant med $k$:
+
+$$
+DE = k \cdot AB, \quad EF = k \cdot BC, \quad DF = k \cdot AC
+$$
+
+**Fortolkning af $k$:**
+- Hvis $k > 1$: trekanten er blevet **forstørret**
+- Hvis $k = 1$: trekanterne er **kongruente** (helt ens)
+- Hvis $0 < k < 1$: trekanten er blevet **formindsket**
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Sidelængde-proportionalitet
+
+En anden — og meget nyttig — måde at udtrykke sammenhængen på er ved <Term definition="Inden for samme trekant har forholdene mellem siderne en fast værdi, der er den samme for alle ensvinklede trekanter.">indre proportionalitet</Term>. I en ensvinklet trekant er forholdene **inden for** trekanten de samme:
+
+$$
+\frac{AB}{BC} = \frac{DE}{EF}, \quad \frac{AB}{AC} = \frac{DE}{DF}, \quad \frac{BC}{AC} = \frac{EF}{DF}
+$$
+
+Denne egenskab er utroligt nyttig, fordi den giver os en ligning med én ubekendt, som vi kan løse.
+
+**Metode til at finde ubekendte sider:**
+
+1. Identificér hvilke vinkler der svarer til hinanden
+2. Opstil forholdet mellem tilsvarende sider
+3. Løs ligningen for den ubekendte side
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find den ubekendte side med k ⚡</summary>
+
+**Opgave:** Trekant $ABC$ har sidelængderne $AB = 3$, $BC = 5$ og $AC = 7$. Trekant $DEF$ er ensvinklet med $\triangle ABC$, og $DE = 6$. Find $EF$ og $DF$.
+
+**Løsning:**
+
+Vi finder først forstørrelsesfaktoren $k$. Da $DE$ svarer til $AB$:
+
+$$
+k = \frac{DE}{AB} = \frac{6}{3} = 2
+$$
+
+Nu kan vi finde de øvrige sider ved at gange med $k$:
+
+$$
+\begin{aligned}
+EF &= k \cdot BC \\
+&= 2 \cdot 5 \\
+&= 10
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+DF &= k \cdot AC \\
+&= 2 \cdot 7 \\
+&= 14
+\end{aligned}
+$$
+
+**Svar:** $EF = 10$ og $DF = 14$.
+
+Trekant $DEF$ er altså dobbelt så stor som trekant $ABC$ — alle sider er ganget med $k = 2$.
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Brug indre proportionalitet ⚡</summary>
+
+**Opgave:** I figuren nedenfor er $\triangle ABC \sim \triangle PQR$. Vi kender $AB = 4$, $BC = 6$, $PQ = 10$ og vil finde $QR$.
+
+**Løsning:**
+
+Vi bruger indre proportionalitet. Da $AB$ svarer til $PQ$ og $BC$ svarer til $QR$:
+
+$$
+\frac{AB}{BC} = \frac{PQ}{QR}
+$$
+
+Vi indsætter de kendte værdier:
+
+$$
+\frac{4}{6} = \frac{10}{QR}
+$$
+
+Vi krydsganger for at løse for $QR$:
+
+$$
+\begin{aligned}
+4 \cdot QR &= 6 \cdot 10 \\
+4 \cdot QR &= 60 \\
+QR &= \frac{60}{4} \\
+QR &= 15
+\end{aligned}
+$$
+
+**Svar:** $QR = 15$.
+
+Vi kan tjekke med $k$: $k = \frac{PQ}{AB} = \frac{10}{4} = 2{,}5$ og $k \cdot BC = 2{,}5 \cdot 6 = 15$. ✓
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Skyggeberegning i praksis ⚡</summary>
+
+**Opgave:** En person, der er $1{,}75$ m høj, kaster en skygge på $2{,}50$ m. Samtidig kaster et træ en skygge på $8{,}00$ m. Hvor højt er træet?
+
+**Løsning:**
+
+Solens stråler er (næsten) parallelle, så personen og træet danner ensvinklede trekanter med deres skygger. Lad $h$ betegne træets højde.
+
+Da de to trekanter er ensvinklede, gælder:
+
+$$
+\frac{\text{personens højde}}{\text{personens skygge}} = \frac{\text{træets højde}}{\text{træets skygge}}
+$$
+
+Vi indsætter:
+
+$$
+\frac{1{,}75}{2{,}50} = \frac{h}{8{,}00}
+$$
+
+Vi krydsganger:
+
+$$
+\begin{aligned}
+1{,}75 \cdot 8{,}00 &= 2{,}50 \cdot h \\
+14{,}00 &= 2{,}50 \cdot h \\
+h &= \frac{14{,}00}{2{,}50} \\
+h &= 5{,}60
+\end{aligned}
+$$
+
+**Svar:** Træet er $5{,}60$ m højt.
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Arealer og forstørrelsesfaktoren k²
+
+Når to trekanter er ensvinklede med forstørrelsesfaktor $k$, skalerer **arealet** ikke med $k$ — det skalerer med $k^2$!
+
+Lad $T_1$ og $T_2$ være arealerne af to ensvinklede trekanter med forstørrelsesfaktor $k$. Så gælder:
+
+$$
+T_2 = k^2 \cdot T_1
+$$
+
+**Hvorfor $k^2$?**
+
+Arealet af en trekant er $T = \frac{1}{2} \cdot g \cdot h$, hvor $g$ er grundlinjen og $h$ er højden. Når begge sidelængder ganges med $k$, ganges både $g$ og $h$ med $k$:
+
+$$
+\begin{aligned}
+T_2 &= \frac{1}{2} \cdot (k \cdot g) \cdot (k \cdot h) \\
+&= \frac{1}{2} \cdot k^2 \cdot g \cdot h \\
+&= k^2 \cdot \underbrace{\frac{1}{2} \cdot g \cdot h}_{= T_1} \\
+&= k^2 \cdot T_1
+\end{aligned}
+$$
+
+**Tommelfingerregel:** Sidelængder skalerer med $k$, arealer skalerer med $k^2$.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Areal med forstørrelsesfaktor ⚡</summary>
+
+**Opgave:** To trekanter er ensvinklede med forstørrelsesfaktor $k = 3$. Den lille trekant har et areal på $12$ cm². Hvad er arealet af den store trekant?
+
+**Løsning:**
+
+Vi bruger formlen for areal-skalering:
+
+$$
+\begin{aligned}
+T_2 &= k^2 \cdot T_1 \\
+&= 3^2 \cdot 12 \\
+&= 9 \cdot 12 \\
+&= 108 \text{ cm}^2
+\end{aligned}
+$$
+
+**Svar:** Den store trekant har et areal på $108$ cm².
+
+Bemærk: Selvom sidelængderne kun er 3 gange så store, er arealet hele 9 gange så stort!
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Find k ud fra arealer ⚡</summary>
+
+**Opgave:** To ensvinklede trekanter har arealer på henholdsvis $25$ cm² og $100$ cm². Hvad er forstørrelsesfaktoren $k$?
+
+**Løsning:**
+
+Vi ved at $T_2 = k^2 \cdot T_1$, så:
+
+$$
+\begin{aligned}
+k^2 &= \frac{T_2}{T_1} \\
+&= \frac{100}{25} \\
+&= 4
+\end{aligned}
+$$
+
+Vi tager kvadratroden:
+
+$$
+k = \sqrt{4} = 2
+$$
+
+**Svar:** Forstørrelsesfaktoren er $k = 2$.
+
+Det betyder, at alle sidelængder i den store trekant er dobbelt så store som i den lille trekant.
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Trekant $ABC$ har sidelængderne $AB = 5$, $BC = 8$ og $AC = 10$. Trekant $DEF$ er ensvinklet med $\triangle ABC$, og $DE = 15$. Find $EF$ og $DF$.
+
+**Opgave 2:** En flagstang kaster en skygge på $12$ m. Samtidig kaster en $2$ m høj pind en skygge på $3$ m. Hvor høj er flagstangen?
+
+**Opgave 3:** To ensvinklede trekanter har forstørrelsesfaktor $k = 4$. Den lille trekant har areal $7$ cm². Find arealet af den store trekant.
+
+**Opgave 4:** To ensvinklede trekanter har arealer på $18$ cm² og $72$ cm². Find forstørrelsesfaktoren $k$, og bestem hvor mange gange større den store trekants sider er.
+
+**Opgave 5:** I $\triangle ABC$ er $AB = 6$ og $BC = 9$. En linje parallel med $AC$ skærer $AB$ i $D$ og $BC$ i $E$, så $BD = 2$. Find $BE$.
+
+**Opgave 6:** Forklar med egne ord, hvorfor det er nok at vise, at to vinkler er ens, for at bevise at to trekanter er ensvinklede.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="ensvinklede-trekanter-q1"
+  question="To ensvinklede trekanter har forstørrelsesfaktor k = 5. Hvis en side i den lille trekant er 3 cm, hvad er den tilsvarende side i den store trekant?"
+  options={[
+    "8 cm",
+    "15 cm",
+    "25 cm",
+    "10 cm"
+  ]}
+  correctIndex={1}
+  hint="Tilsvarende sider ganges med forstørrelsesfaktoren k."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ensvinklede-trekanter-q2"
+  question="To ensvinklede trekanter har forstørrelsesfaktor k = 3. Hvis den lille trekant har areal 4 cm², hvad er arealet af den store trekant?"
+  options={[
+    "12 cm²",
+    "16 cm²",
+    "36 cm²",
+    "27 cm²"
+  ]}
+  correctIndex={2}
+  hint="Arealer skalerer med k² — ikke med k."
+/>
+
+<QuizQuestion
+  client:load
+  quizId="ensvinklede-trekanter-q3"
+  question="Hvad er tilstrækkeligt for at bevise, at to trekanter er ensvinklede?"
+  options={[
+    "At alle tre sider er lige lange",
+    "At to af de tre vinkler er parvist ens",
+    "At én vinkel er ens",
+    "At de har samme areal"
+  ]}
+  correctIndex={1}
+  hint="Husk at vinkelsummen i en trekant altid er 180°."
+/>

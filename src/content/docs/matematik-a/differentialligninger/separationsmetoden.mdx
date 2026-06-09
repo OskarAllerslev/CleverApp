@@ -1,32 +1,450 @@
 ---
-title: "Separation af de variable"
+title: "Separationsmetoden"
 level: "Matematik A"
 order: 2
-description: "Separation af de variable er en klassisk analytisk metode til at løse førsteordens differentialligni..."
+description: "Mester separation af variable — den vigtigste løsningsteknik til differentialligninger i Matematik A. Optjen +150 XP!"
 ---
 
-# Separation af de variable
+import { Term } from '../../../../components/Term.tsx';
+import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
 
-Velkommen til modulet om **Separation af de variable** på Matematik A-niveau.
+# Separationsmetoden 🎯
 
-## Introduktion
+Du har lært at *opstille* differentialligninger — nu er det tid til at *løse* dem! Separationsmetoden er dit vigtigste våben, og den virker overraskende elegant: vi "skiller" de to variable ad, så $y$ og $dy$ står på den ene side, og $x$ (eller $t$) og $dx$ (eller $dt$) står på den anden. Derefter integrerer vi begge sider.
 
-Separation af de variable er en klassisk analytisk metode til at løse førsteordens differentialligninger af typen y' = g(y)f(x).
+Tænk på det som at sortere LEGO-klodser i to bunker — alle $y$-klodser i én bunke, alle $t$-klodser i en anden — og derefter bygge videre med hver bunke for sig.
 
-## Central Matematisk Formel
+Mestr denne teknik og optjen **+150 XP**!
 
-Her er en af de vigtigste formler for dette emne:
+---
+
+<div className="teori-box">
+
+### Teori: Hvornår kan vi separere?
+
+En differentialligning af 1. orden kan <Term definition="At omskrive en differentialligning, så alle y-led står på den ene side og alle x/t-led på den anden side. Herefter integreres begge sider.">separeres</Term>, når den kan skrives på formen:
+
+$$\frac{dy}{dt} = f(t) \cdot g(y)$$
+
+Det vil sige, at højresiden er et **produkt** af en funktion af $t$ alene og en funktion af $y$ alene.
+
+**Eksempler på separable ligninger:**
+
+| Differentialligning | $f(t)$ | $g(y)$ | Separabel? |
+|---|---|---|---|
+| $y' = 3y$ | $3$ | $y$ | ✅ Ja |
+| $y' = t^2 \cdot y$ | $t^2$ | $y$ | ✅ Ja |
+| $y' = ty + t$ | $t$ | $y + 1$ | ✅ Ja (faktoriser!) |
+| $y' = t + y$ | — | — | ❌ Nej |
+
+Bemærk det tredje eksempel: $y' = ty + t = t(y + 1)$, som *kan* separeres efter faktorisering!
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### Teori: Separationsmetoden trin for trin
+
+Givet en separabel differentialligning $\frac{dy}{dt} = f(t) \cdot g(y)$ følger vi disse trin:
+
+**Trin 1 — Adskil variablene:**
+
+Divider begge sider med $g(y)$ og gang med $dt$:
+
+$$\frac{1}{g(y)} \, dy = f(t) \, dt$$
+
+Nu står alt med $y$ på venstre side og alt med $t$ på højre side.
+
+**Trin 2 — Integrer begge sider:**
+
+$$\int \frac{1}{g(y)} \, dy = \int f(t) \, dt$$
+
+Begge integraler giver en integrationskonstant, men vi samler dem til én konstant $C$ på højre side.
+
+**Trin 3 — Isoler $y$ (hvis muligt):**
+
+Løs for $y$ som funktion af $t$ for at få den eksplicitte løsning.
+
+**Trin 4 — Indsæt begyndelsesbetingelse (hvis givet):**
+
+Bestem $C$ ud fra $y(t_0) = y_0$.
+
+**Vigtigt forbehold:** Når vi dividerer med $g(y)$, antager vi at $g(y) \neq 0$. Hvis $g(y_0) = 0$ for en værdi $y_0$, er $y = y_0$ en <Term definition="En konstant løsning til en differentialligning, der svarer til en ligevægtstilstand.">stationær løsning</Term> (ligevægtsløsning), som vi skal tjekke separat.
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Løsning af y' = ky (grundmodellen) ⚡</summary>
+
+**Opgave:** Løs differentialligningen $\frac{dy}{dt} = ky$ ved separation.
+
+**Løsning:**
+
+**Trin 1 — Adskil variablene** (antag $y \neq 0$):
+
+$$\frac{1}{y} \, dy = k \, dt$$
+
+**Trin 2 — Integrer begge sider:**
 
 $$
-\int \frac{1}{g(y)} dy = \int f(x) dx \quad \text{for } y' = g(y) \cdot f(x)
+\begin{aligned}
+\int \frac{1}{y} \, dy &= \int k \, dt \\
+\ln|y| &= kt + C_1
+\end{aligned}
 $$
 
-## Hvad skal vi lære?
+**Trin 3 — Isoler $y$:**
 
-I dette afsnit vil vi dække følgende kerneaspekter:
+$$
+\begin{aligned}
+|y| &= e^{kt + C_1} \\
+|y| &= e^{C_1} \cdot e^{kt} \\
+y &= \pm e^{C_1} \cdot e^{kt}
+\end{aligned}
+$$
 
-1. **Højniveau Teori**: Forstå teorien i dybden, som krævet på A-niveauet.
-2. **Matematiske Beviser**: Gennemgå strenge matematiske beviser for de centrale sætninger.
-3. **Avanceret Modellering**: Anvende værktøjerne på komplekse problemstillinger i virkeligheden.
+Vi sætter $C = \pm e^{C_1}$ (som kan være enhver konstant $\neq 0$):
 
-*Dette er en introduktion til Matematik A-emnet. Flere interaktive visualiseringer og beviser følger i de kommende afsnit!*
+$$y = Ce^{kt}$$
+
+**Trin 4 — Tjek stationær løsning:**
+
+Vi antog $y \neq 0$. Men $y = 0$ (dvs. $C = 0$) er også en løsning, da $y' = 0 = k \cdot 0 = ky$ ✓.
+
+Derfor er den **fuldstændige løsning:**
+
+$$\boxed{y = Ce^{kt}, \quad C \in \mathbb{R}}$$
+
+Dette er den berømte eksponentielle vækstmodel! ✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Separation med begyndelsesbetingelse ⚡</summary>
+
+**Opgave:** Løs $\frac{dy}{dt} = -2y$, $y(0) = 7$.
+
+**Løsning:**
+
+**Trin 1 — Adskil variablene:**
+
+$$\frac{1}{y} \, dy = -2 \, dt$$
+
+**Trin 2 — Integrer:**
+
+$$
+\begin{aligned}
+\int \frac{1}{y} \, dy &= \int -2 \, dt \\
+\ln|y| &= -2t + C_1
+\end{aligned}
+$$
+
+**Trin 3 — Isoler $y$:**
+
+$$y = Ce^{-2t}$$
+
+**Trin 4 — Bestem $C$ fra begyndelsesbetingelsen $y(0) = 7$:**
+
+$$
+\begin{aligned}
+y(0) &= Ce^{-2 \cdot 0} \\
+7 &= C \cdot 1 \\
+C &= 7
+\end{aligned}
+$$
+
+**Den partikulære løsning:**
+
+$$\boxed{y = 7e^{-2t}}$$
+
+**Verificering:** $y' = -14e^{-2t}$ og $-2y = -2 \cdot 7e^{-2t} = -14e^{-2t}$ ✅
+
+Desuden: $y(0) = 7e^0 = 7$ ✅
+
+</details>
+
+---
+
+<details>
+<summary>Vis Eksempel: Separation af y' = t · y² ⚡</summary>
+
+**Opgave:** Løs $\frac{dy}{dt} = t \cdot y^2$, $y(0) = 1$.
+
+**Løsning:**
+
+**Trin 1 — Adskil variablene** (antag $y \neq 0$):
+
+$$\frac{1}{y^2} \, dy = t \, dt$$
+
+$$y^{-2} \, dy = t \, dt$$
+
+**Trin 2 — Integrer begge sider:**
+
+$$
+\begin{aligned}
+\int y^{-2} \, dy &= \int t \, dt \\
+\frac{y^{-1}}{-1} &= \frac{t^2}{2} + C_1 \\
+-\frac{1}{y} &= \frac{t^2}{2} + C_1
+\end{aligned}
+$$
+
+**Trin 3 — Isoler $y$:**
+
+$$
+\begin{aligned}
+\frac{1}{y} &= -\frac{t^2}{2} - C_1 \\
+y &= \frac{1}{-\frac{t^2}{2} - C_1} = \frac{-2}{t^2 + C}
+\end{aligned}
+$$
+
+hvor $C = 2C_1$.
+
+**Trin 4 — Bestem $C$ fra $y(0) = 1$:**
+
+$$
+\begin{aligned}
+1 &= \frac{-2}{0 + C} \\
+C &= -2
+\end{aligned}
+$$
+
+**Den partikulære løsning:**
+
+$$\boxed{y = \frac{-2}{t^2 - 2} = \frac{2}{2 - t^2}}$$
+
+**Verificering:** Vi tjekker at $y(0) = \frac{2}{2 - 0} = 1$ ✅
+
+Vi tjekker differentialligningen:
+
+$$
+\begin{aligned}
+y' &= \frac{d}{dt}\left(\frac{2}{2 - t^2}\right) = \frac{2 \cdot 2t}{(2 - t^2)^2} = \frac{4t}{(2 - t^2)^2}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+t \cdot y^2 &= t \cdot \left(\frac{2}{2 - t^2}\right)^2 = t \cdot \frac{4}{(2 - t^2)^2} = \frac{4t}{(2 - t^2)^2} \quad \checkmark
+\end{aligned}
+$$
+
+Bemærk: Løsningen er kun gyldig for $t^2 < 2$, dvs. $-\sqrt{2} < t < \sqrt{2}$. ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Verificering af løsninger
+
+Når du har fundet en løsning, er det vigtigt at <Term definition="At kontrollere en løsning ved at indsætte den i den originale differentialligning og tjekke, at begge sider er ens.">verificere</Term> den. Det gør du i tre trin:
+
+**1. Tjek differentialligningen:** Beregn $y'$ fra din løsning og tjek, at den opfylder differentialligningen.
+
+**2. Tjek begyndelsesbetingelsen:** Indsæt $t = t_0$ og tjek, at $y(t_0) = y_0$.
+
+**3. Tjek gyldighed:** Er løsningen defineret i det relevante interval?
+
+Verificering er ikke bare "godt håndværk" — det er ofte en del af eksamensopgaven! At springe verificeringen over er som at aflevere en opgave uden at sætte navn på. 😄
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Separation med proportionalitet til difference ⚡</summary>
+
+**Opgave:** Løs $\frac{dy}{dt} = 3(10 - y)$, $y(0) = 2$.
+
+Denne type differentialligning opstår f.eks. ved Newtons afkølingslov.
+
+**Løsning:**
+
+**Trin 1 — Adskil variablene** (antag $y \neq 10$):
+
+$$\frac{1}{10 - y} \, dy = 3 \, dt$$
+
+**Trin 2 — Integrer begge sider:**
+
+$$
+\begin{aligned}
+\int \frac{1}{10 - y} \, dy &= \int 3 \, dt \\
+-\ln|10 - y| &= 3t + C_1
+\end{aligned}
+$$
+
+Her brugte vi substitutionen $u = 10 - y$, $du = -dy$.
+
+**Trin 3 — Isoler $y$:**
+
+$$
+\begin{aligned}
+\ln|10 - y| &= -3t - C_1 \\
+|10 - y| &= e^{-C_1} \cdot e^{-3t} \\
+10 - y &= Ae^{-3t} \quad (A = \pm e^{-C_1})\\
+y &= 10 - Ae^{-3t}
+\end{aligned}
+$$
+
+**Trin 4 — Bestem $A$ fra $y(0) = 2$:**
+
+$$
+\begin{aligned}
+2 &= 10 - Ae^0 \\
+2 &= 10 - A \\
+A &= 8
+\end{aligned}
+$$
+
+**Den partikulære løsning:**
+
+$$\boxed{y = 10 - 8e^{-3t}}$$
+
+**Fortolkning:** Når $t \to \infty$ nærmer $y$ sig $10$ (ligevægtspunktet). Det svarer til f.eks. at kaffen nærmer sig rumtemperaturen. ✅
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### Teori: Oversigt over separationsmetoden — tjekliste
+
+Brug denne tjekliste, når du løser en differentialligning med separation:
+
+**✅ Før separation:**
+- Er ligningen separabel? Kan højresiden skrives som $f(t) \cdot g(y)$?
+- Er der stationære løsninger ($g(y) = 0$)?
+
+**✅ Under separation:**
+- Er alle $y$-led (inkl. $dy$) på venstre side?
+- Er alle $t$-led (inkl. $dt$) på højre side?
+- Er integralerne korrekt udregnet?
+- Har du husket integrationskonstanten $C$?
+
+**✅ Efter separation:**
+- Er $y$ isoleret korrekt?
+- Er begyndelsesbetingelsen indsat (hvis givet)?
+- Har du verificeret løsningen?
+- Er definitionsområdet angivet (hvis relevant)?
+
+</div>
+
+---
+
+<details>
+<summary>Vis Bevis: Hvorfor separation virker ⚡</summary>
+
+**Matematisk begrundelse:**
+
+Givet $\frac{dy}{dt} = f(t) \cdot g(y)$ med $g(y) \neq 0$.
+
+Vi definerer $H(y) = \int \frac{1}{g(y)} \, dy$ og $F(t) = \int f(t) \, dt$.
+
+Betragt funktionen $H(y(t))$. Ved kædereglen:
+
+$$
+\begin{aligned}
+\frac{d}{dt} H(y(t)) &= H'(y) \cdot y'(t) \\
+&= \frac{1}{g(y)} \cdot f(t) \cdot g(y) \\
+&= f(t) \\
+&= F'(t)
+\end{aligned}
+$$
+
+Altså er $\frac{d}{dt} H(y(t)) = F'(t)$, hvilket giver:
+
+$$H(y(t)) = F(t) + C$$
+
+som er præcis det resultat, vi får ved at "separere og integrere". Separation er altså en korrekt matematisk procedure — ikke bare et smart trick! ✅
+
+</details>
+
+---
+
+<div className="opgave-box">
+
+### 🏋️ Træningsopgaver
+
+**Opgave 1:** Løs følgende differentialligninger ved separation:
+
+a) $\frac{dy}{dt} = 4y$
+
+b) $\frac{dy}{dt} = -\frac{y}{3}$
+
+c) $\frac{dy}{dt} = t \cdot y$
+
+**Opgave 2:** Løs begyndelsesværdiproblemerne:
+
+a) $y' = 5y$, $y(0) = 2$
+
+b) $y' = -3y$, $y(0) = 100$
+
+c) $y' = 2(8 - y)$, $y(0) = 0$
+
+**Opgave 3:** Verificer at $y = 3e^{4t}$ er løsning til $y' = 4y$, $y(0) = 3$.
+
+**Opgave 4:** En patients medicinkoncentration i blodet (i mg/L) aftager med en hastighed, der er proportional med koncentrationen. Ved $t = 0$ er koncentrationen 120 mg/L, og efter 4 timer er den 60 mg/L.
+
+a) Opstil og løs differentialligningen.
+
+b) Hvornår er koncentrationen nede på 10 mg/L?
+
+**Opgave 5:** Løs $\frac{dy}{dt} = \frac{t^2}{y}$, $y(0) = 3$ ved separation.
+
+**Opgave 6 (Boss-kamp!):** En vandtank indeholder 100 liter rent vand. Der pumpes saltvand ind, og den velomrørte blanding pumpes ud. Saltmængden $S(t)$ (i gram) opfylder $S' = 5 - 0{,}02 \cdot S$, $S(0) = 0$. Løs differentialligningen og bestem, hvornår saltmængden når 200 gram.
+
+</div>
+
+---
+
+## Quiz – Test din forståelse
+
+<QuizQuestion
+  client:load
+  quizId="separation-q1"
+  question="Hvad er det første trin i separationsmetoden?"
+  options={[
+    "Integrere begge sider",
+    "Indsætte begyndelsesbetingelsen",
+    "Adskille variablene, så y-led og t-led står på hver sin side",
+    "Differentiere begge sider"
+  ]}
+  correctIndex={2}
+  hint="Metodens navn afslører svaret — vi 'separerer' variablene!"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="separation-q2"
+  question="Hvad er den fuldstændige løsning til y' = -3y fundet ved separation?"
+  options={[
+    "y = Ce^(3t)",
+    "y = Ce^(-3t)",
+    "y = -3t + C",
+    "y = Ce^(-3/t)"
+  ]}
+  correctIndex={1}
+  hint="Brug formlen for y' = ky, hvor k = -3"
+/>
+
+<QuizQuestion
+  client:load
+  quizId="separation-q3"
+  question="Er differentialligningen y' = t + y separabel?"
+  options={[
+    "Ja, vi separerer med f(t) = t og g(y) = y",
+    "Ja, vi faktoriserer til t(1 + y/t)",
+    "Nej, højresiden kan ikke skrives som f(t) · g(y)",
+    "Ja, vi dividerer med y på begge sider"
+  ]}
+  correctIndex={2}
+  hint="Prøv at skrive t + y som et produkt af en funktion af t alene og en funktion af y alene"
+/>

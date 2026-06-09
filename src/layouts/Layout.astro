@@ -578,6 +578,24 @@ const nextItem = currentIndex !== -1 && currentIndex < allItems.length - 1 ? all
 
         // Toggle state on click
         toggleBtn.addEventListener('click', () => {
+          const wasCollapsed = list.classList.contains('collapsed');
+          
+          if (wasCollapsed) {
+            // Collapse all other modules when expanding this one
+            modulesElements.forEach(otherMod => {
+              if (otherMod !== mod) {
+                const otherList = otherMod.querySelector('.sidebar-module-list');
+                const otherArrow = otherMod.querySelector('.sidebar-module-arrow');
+                const otherId = otherMod.getAttribute('data-module-id');
+                if (otherList && otherArrow && otherId) {
+                  otherList.classList.add('collapsed');
+                  otherArrow.classList.add('collapsed');
+                  localStorage.setItem(`collapsed_${otherId}`, 'true');
+                }
+              }
+            });
+          }
+
           const currentlyCollapsed = list.classList.toggle('collapsed');
           arrow.classList.toggle('collapsed');
           localStorage.setItem(`collapsed_${moduleId}`, currentlyCollapsed ? 'true' : 'false');
