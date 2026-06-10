@@ -6,7 +6,7 @@ description: "Lær at tælle systematisk med multiplikationsprincippet, permutat
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Kombinatorik 🔢
 
@@ -226,7 +226,7 @@ $$
 
 Fra en klasse med 12 elever skal der vælges et udvalg på 4 til en projektgruppe. Hvor mange mulige grupper er der?
 
-Rækkefølgen er ligegyldig (gruppen {Anna, Bo, Carl, Dina} er den samme som {Carl, Anna, Dina, Bo}).
+Rækkefølgen er ligegyldig (gruppen {"{"}Anna, Bo, Carl, Dina{"}"} er den samme som {"{"}Carl, Anna, Dina, Bo{"}"}).
 
 $$
 \begin{aligned}
@@ -482,44 +482,44 @@ b) Hvor mange, hvis ingen bogstaver eller cifre må gentages?
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="kombinatorik-multi-1"
-  question="Du har 3 hatte og 5 tørklæder. Hvor mange forskellige hat-tørklæde-kombinationer kan du lave?"
-  options={[
+  questions={[
+      {
+        quizId: "kombinatorik-multi-1",
+        question: `Du har 3 hatte og 5 tørklæder. Hvor mange forskellige hat-tørklæde-kombinationer kan du lave?`,
+        options: [
     "8",
     "15",
     "35",
     "2"
-  ]}
-  correctIndex={1}
-  hint="Brug multiplikationsprincippet: antal hatte × antal tørklæder."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="kombinatorik-binom-1"
-  question="Hvad er værdien af binomialkoefficienten (6 over 2)?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Brug multiplikationsprincippet: antal hatte × antal tørklæder.`,
+      },
+      {
+        quizId: "kombinatorik-binom-1",
+        question: `Hvad er værdien af binomialkoefficienten (6 over 2)?`,
+        options: [
     "12",
     "30",
     "15",
     "36"
-  ]}
-  correctIndex={2}
-  hint="Brug formlen: 6! / (2! · 4!) = (6 · 5) / (2 · 1)."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="kombinatorik-perm-vs-komb-1"
-  question="Du skal vælge 3 bøger fra en hylde med 10 bøger til at tage med på ferie. Er det en permutation eller kombination?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Brug formlen: 6! / (2! · 4!) = (6 · 5) / (2 · 1).`,
+      },
+      {
+        quizId: "kombinatorik-perm-vs-komb-1",
+        question: `Du skal vælge 3 bøger fra en hylde med 10 bøger til at tage med på ferie. Er det en permutation eller kombination?`,
+        options: [
     "Permutation — rækkefølgen er vigtig",
     "Kombination — rækkefølgen er ligegyldig",
     "Hverken — det er multiplikationsprincippet",
     "Begge dele"
+  ],
+        correctIndex: 1,
+        hint: `Spørg dig selv: giver det en anden situation, hvis du bytter om på bøgerne?`,
+      }
   ]}
-  correctIndex={1}
-  hint="Spørg dig selv: giver det en anden situation, hvis du bytter om på bøgerne?"
 />

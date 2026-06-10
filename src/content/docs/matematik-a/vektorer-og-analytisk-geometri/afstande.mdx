@@ -6,7 +6,8 @@ description: "Lær at beregne afstande mellem punkter, planer og linjer i 3D. Op
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { VectorDistance3DVisualizer } from '../../../../components/visualizers/VectorDistance3DVisualizer.tsx';
 
 # Afstande i rummet 🎯
 
@@ -74,6 +75,8 @@ $$
 **Intuition:** Tælleren er den numeriske værdi af planligningen evalueret i punktet (med absolut værdi). Nævneren er længden af normalvektoren $\vec{n} = \begin{pmatrix} a \\ b \\ c \end{pmatrix}$.
 
 </div>
+
+<VectorDistance3DVisualizer />
 
 ---
 
@@ -418,44 +421,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="afstande-quiz-1"
-  question="Hvad er afstanden mellem punkterne (0, 0, 0) og (1, 2, 2)?"
-  options={[
+  questions={[
+      {
+        quizId: "afstande-quiz-1",
+        question: `Hvad er afstanden mellem punkterne (0, 0, 0) og (1, 2, 2)?`,
+        options: [
     "5",
     "3",
     "√5",
     "9"
-  ]}
-  correctIndex={1}
-  hint="Beregn √(1² + 2² + 2²)"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="afstande-quiz-2"
-  question="Hvad er afstanden fra punktet (0, 0, 0) til planet x + y + z - 3 = 0?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Beregn √(1² + 2² + 2²)`,
+      },
+      {
+        quizId: "afstande-quiz-2",
+        question: `Hvad er afstanden fra punktet (0, 0, 0) til planet x + y + z - 3 = 0?`,
+        options: [
     "3",
     "1",
     "√3",
     "3/√3 = √3"
-  ]}
-  correctIndex={3}
-  hint="Brug formlen: |ax₀ + by₀ + cz₀ + d| / √(a² + b² + c²)"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="afstande-quiz-3"
-  question="Hvad bruges krydsproduktet til i formlen for afstand fra punkt til linje?"
-  options={[
+  ],
+        correctIndex: 3,
+        hint: `Brug formlen: |ax₀ + by₀ + cz₀ + d| / √(a² + b² + c²)`,
+      },
+      {
+        quizId: "afstande-quiz-3",
+        question: `Hvad bruges krydsproduktet til i formlen for afstand fra punkt til linje?`,
+        options: [
     "At finde vinklen mellem vektorer",
     "At beregne arealet af parallelogrammet, der bruges til at udlede højden",
     "At bestemme om linjen og punktet er i samme plan",
     "At finde et punkt på linjen tættest på det givne punkt"
+  ],
+        correctIndex: 1,
+        hint: `Tænk på arealet af parallelogrammet som grundlinje gange højde`,
+      }
   ]}
-  correctIndex={1}
-  hint="Tænk på arealet af parallelogrammet som grundlinje gange højde"
 />

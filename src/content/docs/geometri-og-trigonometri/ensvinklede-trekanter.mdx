@@ -6,13 +6,14 @@ description: "Lær om ensvinklede trekanter, forstørrelsesfaktor k og proportio
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { SimilarTrianglesVisualizer } from '../../../components/visualizers/SimilarTrianglesVisualizer.tsx';
 
 # Ensvinklede trekanter 🎯
 
 Har du nogensinde undret dig over, hvordan arkitekter kan bygge en model af et hus i miniature — og alligevel bevare alle proportioner? Eller hvordan et landkort kan repræsentere virkeligheden, bare i en anden størrelse? Svaret ligger i et af geometriens mest fundamentale begreber: **ensvinklede trekanter**.
 
-I dette kapitel lærer du at genkende ensvinklede trekanter, arbejde med forstørrelsesfaktoren $k$, og forstå sammenhængen mellem sidelængder og arealer. Gør dig klar til at **level up** dine geometri-skills! 🚀
+I dette kapitel lærer du at genkende ensvinklede trekanter, arbejde med forstørrelsesfaktoren $k$, og forstå sammenhængen mellem sidelængder og arealer. Gør dig klar to at **level up** dine geometri-skills! 🚀
 
 ---
 
@@ -66,6 +67,8 @@ $$
 - Hvis $0 < k < 1$: trekanten er blevet **formindsket**
 
 </div>
+
+<SimilarTrianglesVisualizer />
 
 ---
 
@@ -316,44 +319,44 @@ Det betyder, at alle sidelængder i den store trekant er dobbelt så store som i
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="ensvinklede-trekanter-q1"
-  question="To ensvinklede trekanter har forstørrelsesfaktor k = 5. Hvis en side i den lille trekant er 3 cm, hvad er den tilsvarende side i den store trekant?"
-  options={[
+  questions={[
+      {
+        quizId: "ensvinklede-trekanter-q1",
+        question: `To ensvinklede trekanter har forstørrelsesfaktor k = 5. Hvis en side i den lille trekant er 3 cm, hvad er den tilsvarende side i den store trekant?`,
+        options: [
     "8 cm",
     "15 cm",
     "25 cm",
     "10 cm"
-  ]}
-  correctIndex={1}
-  hint="Tilsvarende sider ganges med forstørrelsesfaktoren k."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="ensvinklede-trekanter-q2"
-  question="To ensvinklede trekanter har forstørrelsesfaktor k = 3. Hvis den lille trekant har areal 4 cm², hvad er arealet af den store trekant?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Tilsvarende sider ganges med forstørrelsesfaktoren k.`,
+      },
+      {
+        quizId: "ensvinklede-trekanter-q2",
+        question: `To ensvinklede trekanter har forstørrelsesfaktor k = 3. Hvis den lille trekant har areal 4 cm², hvad er arealet af den store trekant?`,
+        options: [
     "12 cm²",
     "16 cm²",
     "36 cm²",
     "27 cm²"
-  ]}
-  correctIndex={2}
-  hint="Arealer skalerer med k² — ikke med k."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="ensvinklede-trekanter-q3"
-  question="Hvad er tilstrækkeligt for at bevise, at to trekanter er ensvinklede?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Arealer skalerer med k² — ikke med k.`,
+      },
+      {
+        quizId: "ensvinklede-trekanter-q3",
+        question: `Hvad er tilstrækkeligt for at bevise, at to trekanter er ensvinklede?`,
+        options: [
     "At alle tre sider er lige lange",
     "At to af de tre vinkler er parvist ens",
     "At én vinkel er ens",
     "At de har samme areal"
+  ],
+        correctIndex: 1,
+        hint: `Husk at vinkelsummen i en trekant altid er 180°.`,
+      }
   ]}
-  correctIndex={1}
-  hint="Husk at vinkelsummen i en trekant altid er 180°."
 />

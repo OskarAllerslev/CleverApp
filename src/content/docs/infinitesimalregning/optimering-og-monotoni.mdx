@@ -6,7 +6,8 @@ description: "Find maksimum og minimum som en pro – brug den afledede til at o
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { OptimizationVisualizer } from '../../../components/visualizers/OptimizationVisualizer.tsx';
 
 # Optimering og monotoni 🎯
 
@@ -346,6 +347,8 @@ $$
 
 **Svar:** Det størst mulige areal er **1800 m²** med sidelængderne $x = 30$ m og $y = 60$ m.
 
+<OptimizationVisualizer client:load />
+
 </details>
 
 ---
@@ -564,44 +567,44 @@ Vis, at $f(x) = x^5$ har et stationært punkt i $x = 0$, og at det hverken er ma
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="optmon-quiz-1"
-  question="Hvad kan man konkludere, hvis $f'(x) > 0$ i et interval?"
-  options={[
+  questions={[
+      {
+        quizId: "optmon-quiz-1",
+        question: `Hvad kan man konkludere, hvis $f'(x) > 0$ i et interval?`,
+        options: [
     "Funktionen har et maksimum i intervallet",
     "Funktionen er aftagende i intervallet",
     "Funktionen er voksende i intervallet",
     "Funktionen er konstant i intervallet"
-  ]}
-  correctIndex={2}
-  hint="Positiv afledet betyder positiv hældning – grafen peger opad."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="optmon-quiz-2"
-  question="Hvornår har en funktion et lokalt maksimum i $x_0$?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Positiv afledet betyder positiv hældning – grafen peger opad.`,
+      },
+      {
+        quizId: "optmon-quiz-2",
+        question: `Hvornår har en funktion et lokalt maksimum i $x_0$?`,
+        options: [
     "Når $f'(x_0) = 0$ og $f'$ skifter fra negativ til positiv",
     "Når $f'(x_0) = 0$ og $f'$ skifter fra positiv til negativ",
     "Når $f'(x_0) > 0$",
     "Når $f(x_0)$ er det største tal i hele definitionsmængden"
-  ]}
-  correctIndex={1}
-  hint="Et maksimum er en bjergtop: funktionen vokser op til toppen og aftager bagefter."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="optmon-quiz-3"
-  question="I en optimeringsopgave med et lukket interval $[a, b]$, hvor kan det globale maksimum ligge?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Et maksimum er en bjergtop: funktionen vokser op til toppen og aftager bagefter.`,
+      },
+      {
+        quizId: "optmon-quiz-3",
+        question: `I en optimeringsopgave med et lukket interval $[a, b]$, hvor kan det globale maksimum ligge?`,
+        options: [
     "Kun i stationære punkter",
     "Kun i endepunkterne",
     "I stationære punkter eller i endepunkterne",
     "Kun hvor $f''(x) < 0$"
+  ],
+        correctIndex: 2,
+        hint: `Husk at tjekke ALLE kandidater: stationære punkter OG endepunkter.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Husk at tjekke ALLE kandidater: stationære punkter OG endepunkter."
 />

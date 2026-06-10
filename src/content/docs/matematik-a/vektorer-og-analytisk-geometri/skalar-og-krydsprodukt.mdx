@@ -6,7 +6,7 @@ description: "Mestér skalarprodukt i 3D, vinkelberegning, krydsprodukt, normalv
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Skalarprodukt og krydsprodukt 🎯
 
@@ -396,44 +396,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="skalar-kryds-quiz-1"
-  question="Hvad er skalarproduktet af vektorerne (2, -1, 3) og (1, 4, -2)?"
-  options={[
+  questions={[
+      {
+        quizId: "skalar-kryds-quiz-1",
+        question: `Hvad er skalarproduktet af vektorerne (2, -1, 3) og (1, 4, -2)?`,
+        options: [
     "-8",
     "0",
     "4",
     "-4"
-  ]}
-  correctIndex={3}
-  hint="Beregn 2·1 + (-1)·4 + 3·(-2)"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="skalar-kryds-quiz-2"
-  question="Hvad er krydsproduktet (1, 0, 0) × (0, 1, 0)?"
-  options={[
+  ],
+        correctIndex: 3,
+        hint: `Beregn 2·1 + (-1)·4 + 3·(-2)`,
+      },
+      {
+        quizId: "skalar-kryds-quiz-2",
+        question: `Hvad er krydsproduktet (1, 0, 0) × (0, 1, 0)?`,
+        options: [
     "(0, 0, 1)",
     "(0, 0, -1)",
     "(1, 1, 0)",
     "(0, 0, 0)"
-  ]}
-  correctIndex={0}
-  hint="Brug formlen for krydsprodukt — eller husk at i × j = k"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="skalar-kryds-quiz-3"
-  question="Hvad er arealet af parallelogrammet udspændt af to vektorer, hvis deres krydsprodukt har længden 10?"
-  options={[
+  ],
+        correctIndex: 0,
+        hint: `Brug formlen for krydsprodukt — eller husk at i × j = k`,
+      },
+      {
+        quizId: "skalar-kryds-quiz-3",
+        question: `Hvad er arealet af parallelogrammet udspændt af to vektorer, hvis deres krydsprodukt har længden 10?`,
+        options: [
     "5",
     "10",
     "20",
     "100"
+  ],
+        correctIndex: 1,
+        hint: `Arealet af parallelogrammet er lig med længden af krydsproduktet`,
+      }
   ]}
-  correctIndex={1}
-  hint="Arealet af parallelogrammet er lig med længden af krydsproduktet"
 />

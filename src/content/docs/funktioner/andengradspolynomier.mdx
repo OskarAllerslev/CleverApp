@@ -6,7 +6,7 @@ description: "Mestr parablen, diskriminanten og toppunktet — knæk den kvadrat
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Andengradspolynomier 🎯
 
@@ -398,44 +398,44 @@ c) $h(x) = x^2 + 2x + 5$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="andengradspoly-quiz-1"
-  question="Hvad er diskriminanten for f(x) = x² + 4x + 4?"
-  options={[
+  questions={[
+      {
+        quizId: "andengradspoly-quiz-1",
+        question: `Hvad er diskriminanten for f(x) = x² + 4x + 4?`,
+        options: [
     "0",
     "8",
     "32",
     "-12"
-  ]}
-  correctIndex={0}
-  hint="Beregn d = b² - 4ac med a=1, b=4, c=4."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="andengradspoly-quiz-2"
-  question="Hvis a < 0 i f(x) = ax² + bx + c, hvad gælder da for parablen?"
-  options={[
+  ],
+        correctIndex: 0,
+        hint: `Beregn d = b² - 4ac med a=1, b=4, c=4.`,
+      },
+      {
+        quizId: "andengradspoly-quiz-2",
+        question: `Hvis a < 0 i f(x) = ax² + bx + c, hvad gælder da for parablen?`,
+        options: [
     "Parablen åbner opad",
     "Parablen åbner nedad",
     "Parablen er en ret linje",
     "Parablen har altid to nulpunkter"
-  ]}
-  correctIndex={1}
-  hint="Tænk over hvad fortegnet af a styrer."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="andengradspoly-quiz-3"
-  question="Toppunktets x-koordinat for f(x) = 3x² - 12x + 7 er?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Tænk over hvad fortegnet af a styrer.`,
+      },
+      {
+        quizId: "andengradspoly-quiz-3",
+        question: `Toppunktets x-koordinat for f(x) = 3x² - 12x + 7 er?`,
+        options: [
     "x = -2",
     "x = 4",
     "x = 2",
     "x = 12"
+  ],
+        correctIndex: 2,
+        hint: `Brug formlen x_T = -b/(2a).`,
+      }
   ]}
-  correctIndex={2}
-  hint="Brug formlen x_T = -b/(2a)."
 />

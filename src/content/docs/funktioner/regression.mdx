@@ -6,7 +6,7 @@ description: "Lær at finde den bedste model til dine data med lineær, eksponen
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Regression 📊
 
@@ -461,44 +461,44 @@ Bestem en eksponentiel model og beregn fordoblingstiden.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="regression-quiz-1"
-  question="Hvad minimerer mindste kvadraters metode?"
-  options={[
+  questions={[
+      {
+        quizId: "regression-quiz-1",
+        question: `Hvad minimerer mindste kvadraters metode?`,
+        options: [
     "Summen af residualerne",
     "Summen af de kvadrerede residualer",
     "Det største residual",
     "Antallet af datapunkter over linjen"
-  ]}
-  correctIndex={1}
-  hint="Metoden hedder 'mindste KVADRATERS metode' — hvad kvadreres?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="regression-quiz-2"
-  question="Hvad betyder r² = 0,95?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Metoden hedder 'mindste KVADRATERS metode' — hvad kvadreres?`,
+      },
+      {
+        quizId: "regression-quiz-2",
+        question: `Hvad betyder r² = 0,95?`,
+        options: [
     "95% af datapunkterne ligger på kurven",
     "Modellen forklarer 95% af variationen i data",
     "Der er 95% sandsynlighed for at modellen er korrekt",
     "Modellen har 95% nøjagtighed"
-  ]}
-  correctIndex={1}
-  hint="r² kaldes også forklaringsgraden — hvad 'forklarer' den?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="regression-quiz-3"
-  question="Data danner en ret linje på dobbeltlogaritmisk papir. Hvilken regression bør du vælge?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `r² kaldes også forklaringsgraden — hvad 'forklarer' den?`,
+      },
+      {
+        quizId: "regression-quiz-3",
+        question: `Data danner en ret linje på dobbeltlogaritmisk papir. Hvilken regression bør du vælge?`,
+        options: [
     "Lineær regression",
     "Eksponentiel regression",
     "Potensregression",
     "Ingen af delene"
+  ],
+        correctIndex: 2,
+        hint: `Ret linje på dobbeltlogaritmisk papir svarer til en bestemt funktionstype.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Ret linje på dobbeltlogaritmisk papir svarer til en bestemt funktionstype."
 />

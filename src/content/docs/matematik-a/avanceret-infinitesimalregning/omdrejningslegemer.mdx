@@ -6,7 +6,7 @@ description: "Beregn volumener af omdrejningslegemer – når kurver roterer og 
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Omdrejningslegemer 🎯
 
@@ -464,44 +464,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="omdrejningslegeme-formel"
-  question="Hvad er formlen for volumenet, når $f(x)$ roterer om $x$-aksen på $[a, b]$?"
-  options={[
+  questions={[
+      {
+        quizId: "omdrejningslegeme-formel",
+        question: `Hvad er formlen for volumenet, når $f(x)$ roterer om $x$-aksen på $[a, b]$?`,
+        options: [
     "$V = \\int_a^b f(x) \\, dx$",
     "$V = \\pi \\int_a^b [f(x)]^2 \\, dx$",
     "$V = 2\\pi \\int_a^b f(x) \\, dx$",
     "$V = \\pi \\int_a^b f(x) \\, dx$"
-  ]}
-  correctIndex={1}
-  hint="Tænk på cirkulære skiver med radius f(x) — cirklens areal er πr²."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="skaldmetoden-ide"
-  question="I skaldmetoden opdeler vi legemet i..."
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Tænk på cirkulære skiver med radius f(x) — cirklens areal er πr².`,
+      },
+      {
+        quizId: "skaldmetoden-ide",
+        question: `I skaldmetoden opdeler vi legemet i...`,
+        options: [
     "Tynde cirkulære skiver",
     "Små kuber",
     "Tynde cylindriske skaller (som lagene i et løg)",
     "Trekantede prismer"
-  ]}
-  correctIndex={2}
-  hint="Navnet 'skaldmetoden' kommer fra formen på de elementer, vi opdeler i."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="kegle-volumen-integration"
-  question="Hvilken funktion skal roteres om $x$-aksen for at danne en kegle med radius $R$ og højde $h$?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Navnet 'skaldmetoden' kommer fra formen på de elementer, vi opdeler i.`,
+      },
+      {
+        quizId: "kegle-volumen-integration",
+        question: `Hvilken funktion skal roteres om $x$-aksen for at danne en kegle med radius $R$ og højde $h$?`,
+        options: [
     "$f(x) = R$",
     "$f(x) = \\frac{R}{h}x$",
     "$f(x) = \\sqrt{R^2 - x^2}$",
     "$f(x) = Rx^2$"
+  ],
+        correctIndex: 1,
+        hint: `En kegle dannes af en ret linje fra origo (0,0) til punktet (h, R).`,
+      }
   ]}
-  correctIndex={1}
-  hint="En kegle dannes af en ret linje fra origo (0,0) til punktet (h, R)."
 />

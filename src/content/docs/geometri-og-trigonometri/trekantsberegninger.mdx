@@ -6,7 +6,8 @@ description: "Mestr sinus- og cosinusrelationerne samt arealformlen for vilkårl
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { TriangleDraggerVisualizer } from '../../../components/visualizers/TriangleDraggerVisualizer.tsx';
 
 # Trekantsberegninger 🎯
 
@@ -210,6 +211,8 @@ $$
 $$
 
 </div>
+
+<TriangleDraggerVisualizer />
 
 ---
 
@@ -524,44 +527,44 @@ Her er en oversigt over, hvornår du bruger de forskellige formler:
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="trekantsberegning-sinus"
-  question="Hvornår kan du IKKE bruge sinusrelationerne?"
-  options={[
+  questions={[
+      {
+        quizId: "trekantsberegning-sinus",
+        question: `Hvornår kan du IKKE bruge sinusrelationerne?`,
+        options: [
     "Når du kender to vinkler og en side (VVS)",
     "Når du kender to sider og en modstående vinkel (SSV)",
     "Når du kender tre sider (SSS)",
     "Når du kender en vinkel og to sider med den ene modstående"
-  ]}
-  correctIndex={2}
-  hint="Sinusrelationerne kræver, at du kender mindst én vinkel og dens modstående side."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="trekantsberegning-cosinus"
-  question="Hvad er cosinusrelationen en generalisering af?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Sinusrelationerne kræver, at du kender mindst én vinkel og dens modstående side.`,
+      },
+      {
+        quizId: "trekantsberegning-cosinus",
+        question: `Hvad er cosinusrelationen en generalisering af?`,
+        options: [
     "Sinusrelationerne",
     "Arealformlen",
     "Pythagoras' sætning",
     "Enhedscirklen"
-  ]}
-  correctIndex={2}
-  hint="Hvad sker der med cosinusrelationen, når vinklen er 90°?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="trekantsberegning-areal"
-  question="Hvad er arealet af en trekant med sider a = 10 og b = 6 og mellemliggende vinkel C = 90°?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Hvad sker der med cosinusrelationen, når vinklen er 90°?`,
+      },
+      {
+        quizId: "trekantsberegning-areal",
+        question: `Hvad er arealet af en trekant med sider a = 10 og b = 6 og mellemliggende vinkel C = 90°?`,
+        options: [
     "60",
     "30",
     "15",
     "45"
+  ],
+        correctIndex: 1,
+        hint: `Brug T = ½·a·b·sin(C). Hvad er sin(90°)?`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug T = ½·a·b·sin(C). Hvad er sin(90°)?"
 />

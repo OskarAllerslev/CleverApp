@@ -6,7 +6,7 @@ description: "Forstå procentregning, fremskrivningsfaktorer og renteformlen –
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Procent og rente 🎯
 
@@ -385,44 +385,44 @@ c) Hvornår er beløbet fordoblet? (brug $n = \frac{\ln 2}{\ln(1{,}025)}$)
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="procent-quiz-1"
-  question="En vare koster 400 kr og sættes ned med 25%. Hvad er den nedsatte pris?"
-  options={[
+  questions={[
+      {
+        quizId: "procent-quiz-1",
+        question: `En vare koster 400 kr og sættes ned med 25%. Hvad er den nedsatte pris?`,
+        options: [
     "100 kr",
     "375 kr",
     "300 kr",
     "350 kr"
-  ]}
-  correctIndex={2}
-  hint="Beregn 25% af 400 kr og træk det fra. Eller brug fremskrivningsfaktor: 400 · 0,75."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="procent-quiz-2"
-  question="Hvad er fremskrivningsfaktoren ved en stigning på 12%?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Beregn 25% af 400 kr og træk det fra. Eller brug fremskrivningsfaktor: 400 · 0,75.`,
+      },
+      {
+        quizId: "procent-quiz-2",
+        question: `Hvad er fremskrivningsfaktoren ved en stigning på 12%?`,
+        options: [
     "0,12",
     "0,88",
     "1,12",
     "12"
-  ]}
-  correctIndex={2}
-  hint="Fremskrivningsfaktoren ved stigning er $1 + \\frac{p}{100}$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="procent-quiz-3"
-  question="Du indsætter 10.000 kr til 5% årlig rente. Hvad er beløbet efter 3 år (afrundet)?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Fremskrivningsfaktoren ved stigning er $1 + \\frac{p}{100}$.`,
+      },
+      {
+        quizId: "procent-quiz-3",
+        question: `Du indsætter 10.000 kr til 5% årlig rente. Hvad er beløbet efter 3 år (afrundet)?`,
+        options: [
     "11.500 kr",
     "11.576 kr",
     "15.000 kr",
     "10.150 kr"
+  ],
+        correctIndex: 1,
+        hint: `Brug renteformlen: $K_3 = 10.000 \\cdot (1{,}05)^3$.`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug renteformlen: $K_3 = 10.000 \\cdot (1{,}05)^3$."
 />

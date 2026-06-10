@@ -6,7 +6,8 @@ description: "Mestr binomialfordelingen – fra Bernoulli-forsøg til binomialte
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { BinomialVisualizer } from '../../../components/visualizers/BinomialVisualizer.tsx';
 
 # Binomialfordeling 🎯
 
@@ -186,6 +187,8 @@ $$
 I praksis bruger vi tabeller eller CAS-værktøjer til dette.
 
 </div>
+
+<BinomialVisualizer client:load />
 
 ---
 
@@ -525,44 +528,44 @@ En terning kastes 120 gange, og man observerer følgende antal seksere: 28. Unde
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="binom-quiz-1"
-  question="Hvad er middelværdien for en binomialfordelt stokastisk variabel X ~ b(20, 0.3)?"
-  options={[
+  questions={[
+      {
+        quizId: "binom-quiz-1",
+        question: `Hvad er middelværdien for en binomialfordelt stokastisk variabel X ~ b(20, 0.3)?`,
+        options: [
     "3",
     "6",
     "7",
     "14"
-  ]}
-  correctIndex={1}
-  hint="Middelværdien er givet ved formlen μ = n · p."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="binom-quiz-2"
-  question="Hvilken betingelse er IKKE et krav for en binomialfordeling?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Middelværdien er givet ved formlen μ = n · p.`,
+      },
+      {
+        quizId: "binom-quiz-2",
+        question: `Hvilken betingelse er IKKE et krav for en binomialfordeling?`,
+        options: [
     "Fast antal forsøg",
     "Hvert forsøg har præcis to udfald",
     "Sandsynligheden for succes ændrer sig fra forsøg til forsøg",
     "Forsøgene er uafhængige"
-  ]}
-  correctIndex={2}
-  hint="Tænk på de fire betingelser – en af disse svarmuligheder bryder en af dem."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="binom-quiz-3"
-  question="I en binomialtest fås en p-værdi på 0.03. Signifikansniveauet er α = 0.05. Hvad er konklusionen?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Tænk på de fire betingelser – en af disse svarmuligheder bryder en af dem.`,
+      },
+      {
+        quizId: "binom-quiz-3",
+        question: `I en binomialtest fås en p-værdi på 0.03. Signifikansniveauet er α = 0.05. Hvad er konklusionen?`,
+        options: [
     "Vi forkaster ikke H₀, da 0.03 er et lille tal",
     "Vi forkaster H₀, da p-værdien er mindre end α",
     "Vi forkaster H₁, da p-værdien er mindre end α",
     "Testen er ugyldig"
+  ],
+        correctIndex: 1,
+        hint: `Sammenlign p-værdien med signifikansniveauet α. Hvad sker der, når p-værdi ≤ α?`,
+      }
   ]}
-  correctIndex={1}
-  hint="Sammenlign p-værdien med signifikansniveauet α. Hvad sker der, når p-værdi ≤ α?"
 />

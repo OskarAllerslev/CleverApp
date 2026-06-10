@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CleverSprint from '../../components/CleverSprint.tsx';
+---
+
+<Layout title="CleverSprint - Spaced Repetition Terpning">
+  <div class="flex-1 flex flex-col justify-start relative max-w-4xl mx-auto w-full py-8">
+    <!-- Premium background decorations -->
+    <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-10 dark:opacity-10 blur-3xl pointer-events-none">
+      <div class="h-[500px] w-[500px] rounded-full bg-amber-500"></div>
+      <div class="h-[400px] w-[400px] rounded-full bg-brand-500 -ml-40"></div>
+    </div>
+
+    <!-- Active CleverSprint Component -->
+    <CleverSprint client:load />
+  </div>
+</Layout>

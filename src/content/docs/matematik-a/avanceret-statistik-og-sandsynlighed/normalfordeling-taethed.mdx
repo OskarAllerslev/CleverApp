@@ -6,7 +6,8 @@ description: "Forstå den berømte klokkeformede kurve – lær om tæthedsfunkt
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { NormalDistributionVisualizer } from '../../../../components/visualizers/NormalDistributionVisualizer.tsx';
 
 # Normalfordeling og tæthedsfunktioner 🎯
 
@@ -134,6 +135,8 @@ Denne formel ser vild ud — men du behøver ikke at huske den! Det vigtige er a
 - $\sigma$ bestemmer, hvor "bred" eller "smal" klokken er
 
 </div>
+
+<NormalDistributionVisualizer client:load />
 
 ---
 
@@ -511,44 +514,44 @@ c) Hvor usædvanligt er et salg på 18.000 kr?
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="normalfordeling-taethed-q1"
-  question="Hvad angiver værdien f(x) i en tæthedsfunktion?"
-  options={[
+  questions={[
+      {
+        quizId: "normalfordeling-taethed-q1",
+        question: `Hvad angiver værdien f(x) i en tæthedsfunktion?`,
+        options: [
     "Sandsynligheden for at X er præcis lig x",
     "Sandsynlighedstætheden — jo højere f(x), desto mere sandsynligt lander X tæt på x",
     "Arealet under kurven fra 0 til x",
     "Middelværdien af fordelingen"
-  ]}
-  correctIndex={1}
-  hint="Husk: for en kontinuert variabel er P(X = x) altid 0. Tætheden fortæller om sandsynlighedskoncentrationen."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="normalfordeling-taethed-q2"
-  question="Hvis X ~ N(50, 4²), hvad er z-værdien for x = 58?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk: for en kontinuert variabel er P(X = x) altid 0. Tætheden fortæller om sandsynlighedskoncentrationen.`,
+      },
+      {
+        quizId: "normalfordeling-taethed-q2",
+        question: `Hvis X ~ N(50, 4²), hvad er z-værdien for x = 58?`,
+        options: [
     "z = 8",
     "z = 4",
     "z = 2",
     "z = 0,5"
-  ]}
-  correctIndex={2}
-  hint="Brug formlen z = (x - μ) / σ. Husk at σ = 4, ikke σ² = 16."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="normalfordeling-taethed-q3"
-  question="Ifølge 68-95-99.7-reglen: ca. hvor stor en procentdel af observationerne i en normalfordeling ligger UDEN for μ ± 2σ?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Brug formlen z = (x - μ) / σ. Husk at σ = 4, ikke σ² = 16.`,
+      },
+      {
+        quizId: "normalfordeling-taethed-q3",
+        question: `Ifølge 68-95-99.7-reglen: ca. hvor stor en procentdel af observationerne i en normalfordeling ligger UDEN for μ ± 2σ?`,
+        options: [
     "Ca. 32 %",
     "Ca. 5 %",
     "Ca. 0,3 %",
     "Ca. 10 %"
+  ],
+        correctIndex: 1,
+        hint: `Hvis 95,4 % ligger INDEN for μ ± 2σ, hvor meget ligger så uden for?`,
+      }
   ]}
-  correctIndex={1}
-  hint="Hvis 95,4 % ligger INDEN for μ ± 2σ, hvor meget ligger så uden for?"
 />

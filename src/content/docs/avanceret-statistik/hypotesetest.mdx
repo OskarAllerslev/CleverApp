@@ -6,7 +6,7 @@ description: "Lær at teste påstande med statistik – fra nulhypotese til chi�
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Hypotesetest 🎯
 
@@ -486,44 +486,44 @@ En lærer påstår, at 70% af eleverne foretrækker digitale lærebøger. I en s
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="hypo-quiz-1"
-  question="Hvad beskriver p-værdien i en hypotesetest?"
-  options={[
+  questions={[
+      {
+        quizId: "hypo-quiz-1",
+        question: `Hvad beskriver p-værdien i en hypotesetest?`,
+        options: [
     "Sandsynligheden for at H₀ er sand",
     "Sandsynligheden for at H₁ er sand",
     "Sandsynligheden for at observere data mindst lige så ekstreme som de observerede, givet at H₀ er sand",
     "Sandsynligheden for at begå en Type II-fejl"
-  ]}
-  correctIndex={2}
-  hint="P-værdien handler om data givet H₀ – ikke om H₀ givet data."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="hypo-quiz-2"
-  question="Hvad er antallet af frihedsgrader i en chi²-test med 5 kategorier?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `P-værdien handler om data givet H₀ – ikke om H₀ givet data.`,
+      },
+      {
+        quizId: "hypo-quiz-2",
+        question: `Hvad er antallet af frihedsgrader i en chi²-test med 5 kategorier?`,
+        options: [
     "3",
     "4",
     "5",
     "6"
-  ]}
-  correctIndex={1}
-  hint="Frihedsgrader = antal kategorier minus 1."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="hypo-quiz-3"
-  question="Hvad er en Type I-fejl?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Frihedsgrader = antal kategorier minus 1.`,
+      },
+      {
+        quizId: "hypo-quiz-3",
+        question: `Hvad er en Type I-fejl?`,
+        options: [
     "At forkaste H₀ når H₀ er falsk",
     "At beholde H₀ når H₀ er falsk",
     "At forkaste H₀ når H₀ er sand",
     "At beholde H₀ når H₀ er sand"
+  ],
+        correctIndex: 2,
+        hint: `Type I-fejl er en 'falsk alarm' – vi tror, vi har fundet noget, men H₀ var faktisk sand.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Type I-fejl er en 'falsk alarm' – vi tror, vi har fundet noget, men H₀ var faktisk sand."
 />

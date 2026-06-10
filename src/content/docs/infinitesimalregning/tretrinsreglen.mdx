@@ -6,7 +6,8 @@ description: "Lær at differentiere fra bunden med tretrinsreglen – forstå di
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { TangentVisualizer } from '../../../components/visualizers/TangentVisualizer.tsx';
 
 # Tretrinsreglen – Differentiering fra bunden 🎯
 
@@ -61,6 +62,8 @@ Denne grænseværdi – hvis den eksisterer – kaldes den <Term definition="Den
 Grænseovergangen $h \to 0$ er broen fra gennemsnit til øjeblik! ⚡
 
 </div>
+
+<TangentVisualizer client:load />
 
 ---
 
@@ -400,44 +403,44 @@ Forklar med ord, hvorfor $f'(x) = 0$ for en konstant funktion. Hvad betyder det 
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="tretrinsregel-quiz-1"
-  question="Hvad udtrykker differenskvotienten geometrisk?"
-  options={[
+  questions={[
+      {
+        quizId: "tretrinsregel-quiz-1",
+        question: `Hvad udtrykker differenskvotienten geometrisk?`,
+        options: [
     "Hældningen af tangenten i et punkt",
     "Hældningen af sekanten mellem to punkter",
     "Arealet under grafen",
     "Funktionens maksimumværdi"
-  ]}
-  correctIndex={1}
-  hint="Tænk på, at differenskvotienten bruger to punkter – sekanten går netop gennem to punkter."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="tretrinsregel-quiz-2"
-  question="Hvad er den afledede af $f(x) = x^4$ ifølge potensreglen?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Tænk på, at differenskvotienten bruger to punkter – sekanten går netop gennem to punkter.`,
+      },
+      {
+        quizId: "tretrinsregel-quiz-2",
+        question: `Hvad er den afledede af $f(x) = x^4$ ifølge potensreglen?`,
+        options: [
     "$4x^4$",
     "$4x^3$",
     "$3x^4$",
     "$x^3$"
-  ]}
-  correctIndex={1}
-  hint="Potensreglen siger: eksponenten rykker ned foran, og eksponenten reduceres med 1."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="tretrinsregel-quiz-3"
-  question="Hvad er trin 2 i tretrinsreglen?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Potensreglen siger: eksponenten rykker ned foran, og eksponenten reduceres med 1.`,
+      },
+      {
+        quizId: "tretrinsregel-quiz-3",
+        question: `Hvad er trin 2 i tretrinsreglen?`,
+        options: [
     "Beregn grænseværdien for $h \\to 0$",
     "Beregn $f(x+h)$",
     "Divider $f(x+h) - f(x)$ med $h$ og forkort",
     "Tegn tangenten til grafen"
+  ],
+        correctIndex: 2,
+        hint: `Trin 1 er differensen, trin 2 er at dividere med h, og trin 3 er grænseovergangen.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Trin 1 er differensen, trin 2 er at dividere med h, og trin 3 er grænseovergangen."
 />

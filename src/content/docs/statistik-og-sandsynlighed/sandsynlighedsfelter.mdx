@@ -6,7 +6,7 @@ description: "Forstå sandsynlighedens grundsprog: udfaldsrum, hændelser og reg
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Sandsynlighedsfelter 🎲
 
@@ -446,44 +446,44 @@ c) at begge terninger viser det samme tal.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="sandsynlighed-laplace-1"
-  question="Du trækker ét kort fra en bunke med 52 kort. Hvad er sandsynligheden for at trække en spar?"
-  options={[
+  questions={[
+      {
+        quizId: "sandsynlighed-laplace-1",
+        question: `Du trækker ét kort fra en bunke med 52 kort. Hvad er sandsynligheden for at trække en spar?`,
+        options: [
     "1/52",
     "1/13",
     "1/4",
     "4/13"
-  ]}
-  correctIndex={2}
-  hint="Der er 4 kulører i en kortbunke, hver med 13 kort."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="sandsynlighed-komplement-1"
-  question="Sandsynligheden for regn i morgen er 0,35. Hvad er sandsynligheden for, at det IKKE regner?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Der er 4 kulører i en kortbunke, hver med 13 kort.`,
+      },
+      {
+        quizId: "sandsynlighed-komplement-1",
+        question: `Sandsynligheden for regn i morgen er 0,35. Hvad er sandsynligheden for, at det IKKE regner?`,
+        options: [
     "0,35",
     "0,50",
     "0,65",
     "1,35"
-  ]}
-  correctIndex={2}
-  hint="Brug komplementærreglen: P(ikke A) = 1 - P(A)."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="sandsynlighed-addition-1"
-  question="P(A) = 0,4 og P(B) = 0,3 og P(A ∩ B) = 0,1. Hvad er P(A ∪ B)?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Brug komplementærreglen: P(ikke A) = 1 - P(A).`,
+      },
+      {
+        quizId: "sandsynlighed-addition-1",
+        question: `P(A) = 0,4 og P(B) = 0,3 og P(A ∩ B) = 0,1. Hvad er P(A ∪ B)?`,
+        options: [
     "0,7",
     "0,6",
     "0,8",
     "0,5"
+  ],
+        correctIndex: 1,
+        hint: `Brug additionsreglen: P(A ∪ B) = P(A) + P(B) - P(A ∩ B).`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug additionsreglen: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)."
 />

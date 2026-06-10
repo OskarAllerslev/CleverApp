@@ -6,7 +6,7 @@ description: "Lær substitutionsmetoden – integration af sammensatte funktione
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Substitution 🎯
 
@@ -430,44 +430,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="substitution-grundide"
-  question="Hvad er grundideen bag substitutionsmetoden?"
-  options={[
+  questions={[
+      {
+        quizId: "substitution-grundide",
+        question: `Hvad er grundideen bag substitutionsmetoden?`,
+        options: [
     "Vi ganger integranden med en smart faktor",
     "Vi anvender kædereglen baglæns",
     "Vi differentierer integranden for at forenkle den",
     "Vi deler integralet op i partialbrøker"
-  ]}
-  correctIndex={1}
-  hint="Substitution 'pakker' en sammensat funktion ud — tænk på, hvordan kædereglen virker."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="lineaer-substitution-resultat"
-  question="Hvad er $\int e^{4x} \, dx$?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Substitution 'pakker' en sammensat funktion ud — tænk på, hvordan kædereglen virker.`,
+      },
+      {
+        quizId: "lineaer-substitution-resultat",
+        question: `Hvad er $\int e^{4x} \, dx$?`,
+        options: [
     "$4e^{4x} + C$",
     "$\\frac{1}{4}e^{4x} + C$",
     "$e^{4x} + C$",
     "$\\frac{e^{4x+1}}{4x+1} + C$"
-  ]}
-  correctIndex={1}
-  hint="Ved lineær substitution dividerer vi med koefficienten foran x."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="bestemt-integral-substitution"
-  question="Når vi bruger substitution $u = g(x)$ i et bestemt integral $\int_a^b$, hvad sker der med grænserne?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Ved lineær substitution dividerer vi med koefficienten foran x.`,
+      },
+      {
+        quizId: "bestemt-integral-substitution",
+        question: `Når vi bruger substitution $u = g(x)$ i et bestemt integral $\int_a^b$, hvad sker der med grænserne?`,
+        options: [
     "De forbliver uændrede",
     "De byttes om",
     "De omregnes til u-værdier: g(a) og g(b)",
     "De sættes begge til 0"
+  ],
+        correctIndex: 2,
+        hint: `Når vi skifter variabel fra x til u, skal grænserne også udtrykkes i u.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Når vi skifter variabel fra x til u, skal grænserne også udtrykkes i u."
 />

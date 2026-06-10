@@ -186,3 +186,101 @@ html.dark .eksempel-box {
 html.dark .opgave-box {
   background-color: rgba(16, 185, 129, 0.08);
 }
+
+/* Premium Styling for Details/Summary (Dropdowns for examples and proofs) */
+details {
+  background-color: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  border-left: 4px solid #f59e0b; /* amber-500 */
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html.dark details {
+  background-color: rgba(30, 41, 59, 0.2);
+  border-color: var(--color-slate-800);
+}
+
+details:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 12px -2px rgba(245, 158, 11, 0.05);
+}
+
+details[open] {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+}
+
+html.dark details[open] {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.3);
+}
+
+summary {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-slate-800);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.15s ease;
+}
+
+html.dark summary {
+  color: var(--color-slate-200);
+}
+
+summary:hover {
+  color: #f59e0b;
+}
+
+/* Customize the arrow indicator */
+summary::-webkit-details-marker {
+  display: none;
+}
+summary {
+  list-style: none;
+}
+
+summary::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23f59e0b' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+/* Content Indentation inside open details */
+details[open] > *:not(summary) {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid rgba(245, 158, 11, 0.15);
+}
+
+html.dark details[open] > *:not(summary) {
+  border-left-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Prevent the collapse button from having the left border/indent styling */
+details[open] > button.details-collapse-btn {
+  margin-left: 1.25rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-slate-200);
+}
+html.dark details[open] > button.details-collapse-btn {
+  border-left-color: var(--color-slate-800);
+}

@@ -6,7 +6,7 @@ description: "Mestr eksponentiel vækst, fremskrivningsfaktorer og potensfunktio
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Eksponentielle og potensfunktioner 📈
 
@@ -454,44 +454,44 @@ c) Fordoblingstiden
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="eksp-potens-quiz-1"
-  question="Hvad er fremskrivningsfaktoren, hvis noget vokser med 7% pr. år?"
-  options={[
+  questions={[
+      {
+        quizId: "eksp-potens-quiz-1",
+        question: `Hvad er fremskrivningsfaktoren, hvis noget vokser med 7% pr. år?`,
+        options: [
     "0,07",
     "0,93",
     "1,07",
     "7"
-  ]}
-  correctIndex={2}
-  hint="Fremskrivningsfaktoren er 1 + r/100."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="eksp-potens-quiz-2"
-  question="Hvad er den vigtigste forskel mellem f(x) = 3 · 2ˣ og f(x) = 3 · x²?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Fremskrivningsfaktoren er 1 + r/100.`,
+      },
+      {
+        quizId: "eksp-potens-quiz-2",
+        question: `Hvad er den vigtigste forskel mellem f(x) = 3 · 2ˣ og f(x) = 3 · x²?`,
+        options: [
     "Den ene er lineær, den anden er kvadratisk",
     "I den eksponentielle funktion er x i eksponenten, i potensfunktionen er x i basen",
     "De er identiske funktioner",
     "Den ene har altid to nulpunkter"
-  ]}
-  correctIndex={1}
-  hint="Se på HVOR x befinder sig i udtrykket."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="eksp-potens-quiz-3"
-  question="På dobbeltlogaritmisk papir viser en potensfunktion sig som..."
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Se på HVOR x befinder sig i udtrykket.`,
+      },
+      {
+        quizId: "eksp-potens-quiz-3",
+        question: `På dobbeltlogaritmisk papir viser en potensfunktion sig som...`,
+        options: [
     "En parabel",
     "En eksponentiel kurve",
     "En ret linje",
     "En cirkel"
+  ],
+        correctIndex: 2,
+        hint: `Hvad sker der, når man tager ln på begge sider af f(x) = b · xᵃ?`,
+      }
   ]}
-  correctIndex={2}
-  hint="Hvad sker der, når man tager ln på begge sider af f(x) = b · xᵃ?"
 />

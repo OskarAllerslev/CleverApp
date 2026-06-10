@@ -6,7 +6,8 @@ description: "Mestr y = ax + b, hældning, skæringspunkter og to-punkts-formlen
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { LinearFunctionVisualizer } from '../../../components/visualizers/LinearFunctionVisualizer.tsx';
 
 # Lineære funktioner 📏
 
@@ -49,6 +50,8 @@ $$
 Når $x$ vokser med $1$, vokser $f(x)$ med $a$.
 
 </div>
+
+<LinearFunctionVisualizer client:load />
 
 ---
 
@@ -383,44 +386,44 @@ b) Bestem forskriften for en linje, der er vinkelret på $l$ og går gennem $(4,
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="lineaer-quiz-1"
-  question="Hvad er hældningen for funktionen f(x) = -4x + 7?"
-  options={[
+  questions={[
+      {
+        quizId: "lineaer-quiz-1",
+        question: `Hvad er hældningen for funktionen f(x) = -4x + 7?`,
+        options: [
     "7",
     "-4",
     "4",
     "-7"
-  ]}
-  correctIndex={1}
-  hint="I f(x) = ax + b er a hældningen."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="lineaer-quiz-2"
-  question="To linjer er parallelle. Den ene har hældning 5. Hvad er den andens hældning?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `I f(x) = ax + b er a hældningen.`,
+      },
+      {
+        quizId: "lineaer-quiz-2",
+        question: `To linjer er parallelle. Den ene har hældning 5. Hvad er den andens hældning?`,
+        options: [
     "-5",
     "1/5",
     "5",
     "-1/5"
-  ]}
-  correctIndex={2}
-  hint="Parallelle linjer har den SAMME hældning."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="lineaer-quiz-3"
-  question="En ret linje går gennem (0, 3) og (2, 7). Hvad er forskriften?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Parallelle linjer har den SAMME hældning.`,
+      },
+      {
+        quizId: "lineaer-quiz-3",
+        question: `En ret linje går gennem (0, 3) og (2, 7). Hvad er forskriften?`,
+        options: [
     "f(x) = 2x + 3",
     "f(x) = 3x + 2",
     "f(x) = 2x + 7",
     "f(x) = 5x + 3"
+  ],
+        correctIndex: 0,
+        hint: `Beregn hældningen med (y2-y1)/(x2-x1), og aflæs b fra punktet (0, 3).`,
+      }
   ]}
-  correctIndex={0}
-  hint="Beregn hældningen med (y2-y1)/(x2-x1), og aflæs b fra punktet (0, 3)."
 />

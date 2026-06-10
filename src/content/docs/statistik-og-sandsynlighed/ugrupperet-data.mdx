@@ -6,7 +6,8 @@ description: "Lær at beskrive datasæt med gennemsnit, median, kvartiler og bok
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { BoxPlotVisualizer } from '../../../components/visualizers/BoxPlotVisualizer.tsx';
 
 # Ugrupperet data 🎯
 
@@ -345,6 +346,8 @@ Et <Term definition="En grafisk fremstilling af datasættets fem-tals-sammenfatn
 
 </div>
 
+<BoxPlotVisualizer client:load />
+
 ---
 
 <details>
@@ -431,44 +434,44 @@ Beregn gennemsnit, median og kvartilbredde for begge grupper. Hvilken gruppe har
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="ugrupperet-hyppighed-1"
-  question="Et datasæt har 40 observationer. Værdien 7 optræder 10 gange. Hvad er frekvensen for værdien 7?"
-  options={[
+  questions={[
+      {
+        quizId: "ugrupperet-hyppighed-1",
+        question: `Et datasæt har 40 observationer. Værdien 7 optræder 10 gange. Hvad er frekvensen for værdien 7?`,
+        options: [
     "10",
     "0,25",
     "0,40",
     "4"
-  ]}
-  correctIndex={1}
-  hint="Frekvens = hyppighed / antal observationer i alt."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="ugrupperet-median-1"
-  question="Hvad er medianen af datasættet: 2, 8, 4, 6, 10?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Frekvens = hyppighed / antal observationer i alt.`,
+      },
+      {
+        quizId: "ugrupperet-median-1",
+        question: `Hvad er medianen af datasættet: 2, 8, 4, 6, 10?`,
+        options: [
     "4",
     "6",
     "8",
     "5"
-  ]}
-  correctIndex={1}
-  hint="Sortér først datasættet og find den midterste værdi."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="ugrupperet-boksplot-1"
-  question="I et boksplot ligger medianen meget tæt på Q₃. Hvad fortæller det om fordelingen?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Sortér først datasættet og find den midterste værdi.`,
+      },
+      {
+        quizId: "ugrupperet-boksplot-1",
+        question: `I et boksplot ligger medianen meget tæt på Q₃. Hvad fortæller det om fordelingen?`,
+        options: [
     "Fordelingen er symmetrisk",
     "Fordelingen er højreskæv",
     "Fordelingen er venstreskæv",
     "Der er ingen outliers"
+  ],
+        correctIndex: 2,
+        hint: `Tænk over, hvilken side 'halen' strækker sig ud mod.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Tænk over, hvilken side 'halen' strækker sig ud mod."
 />

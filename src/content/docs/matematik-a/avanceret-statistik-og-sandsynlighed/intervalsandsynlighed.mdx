@@ -6,7 +6,8 @@ description: "Beregn sandsynligheder som arealer og byg konfidensintervaller –
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { NormalDistributionVisualizer } from '../../../../components/visualizers/NormalDistributionVisualizer.tsx';
 
 # Intervalsandsynlighed og konfidensintervaller 🎯
 
@@ -57,6 +58,8 @@ $$
 Denne sidste formel er særligt elegant, fordi den kun afhænger af $k$ — antallet af standardafvigelser fra middelværdien.
 
 </div>
+
+<NormalDistributionVisualizer client:load />
 
 ---
 
@@ -597,44 +600,44 @@ b) Beregn $P(\bar{X} \geq 503)$ for $n = 40$.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="intervalsandsynlighed-q1"
-  question="Hvad sker der med bredden af et 95 %-konfidensinterval, hvis stikprøvestørrelsen fordobles (alt andet lige)?"
-  options={[
+  questions={[
+      {
+        quizId: "intervalsandsynlighed-q1",
+        question: `Hvad sker der med bredden af et 95 %-konfidensinterval, hvis stikprøvestørrelsen fordobles (alt andet lige)?`,
+        options: [
     "Bredden halveres",
     "Bredden reduceres med en faktor √2 (ca. 29 % smallere)",
     "Bredden forbliver uændret",
     "Bredden fordobles"
-  ]}
-  correctIndex={1}
-  hint="Fejlmarginen er proportional med σ/√n. Hvad sker der med 1/√n, når n fordobles?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="intervalsandsynlighed-q2"
-  question="Hvad er den korrekte fortolkning af et 95 %-konfidensinterval [a; b] for μ?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Fejlmarginen er proportional med σ/√n. Hvad sker der med 1/√n, når n fordobles?`,
+      },
+      {
+        quizId: "intervalsandsynlighed-q2",
+        question: `Hvad er den korrekte fortolkning af et 95 %-konfidensinterval [a; b] for μ?`,
+        options: [
     "Der er 95 % sandsynlighed for, at μ ligger i [a; b]",
     "95 % af alle observationer ligger i [a; b]",
     "Metoden producerer intervaller, der indeholder μ i ca. 95 % af tilfældene",
     "μ ligger med sikkerhed i [a; b]"
-  ]}
-  correctIndex={2}
-  hint="Husk: μ er en fast værdi — det er intervallet, der er tilfældigt."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="intervalsandsynlighed-q3"
-  question="Centralgrænseværdisætningen fortæller, at stikprøvegennemsnittet er tilnærmelsesvist normalfordelt, når n er stort nok. Hvad er den sædvanlige tommelfingerregel for 'stort nok'?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Husk: μ er en fast værdi — det er intervallet, der er tilfældigt.`,
+      },
+      {
+        quizId: "intervalsandsynlighed-q3",
+        question: `Centralgrænseværdisætningen fortæller, at stikprøvegennemsnittet er tilnærmelsesvist normalfordelt, når n er stort nok. Hvad er den sædvanlige tommelfingerregel for 'stort nok'?`,
+        options: [
     "n ≥ 5",
     "n ≥ 10",
     "n ≥ 30",
     "n ≥ 100"
+  ],
+        correctIndex: 2,
+        hint: `Den typiske tommelfingerregel i statistikundervisning er en bestemt grænse for n.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Den typiske tommelfingerregel i statistikundervisning er en bestemt grænse for n."
 />

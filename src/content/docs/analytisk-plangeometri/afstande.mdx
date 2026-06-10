@@ -6,7 +6,8 @@ description: "Beregn afstande mellem punkter, fra punkt til linje og mellem para
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { DistanceVisualizer } from '../../../components/visualizers/DistanceVisualizer.tsx';
 
 # Afstande 🎯
 
@@ -30,7 +31,7 @@ $$
 |P_1P_2| = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
 $$
 
-**Hvorfor virker det?** Formlen er en direkte konsekvens af **Pythagoras' sætning**:
+**Hvorfor virker det?** Formlen er en direkte konsekvens of **Pythagoras' sætning**:
 
 Tegn en retvinklet trekant, hvor:
 - Den vandrette katete har længden $|x_2 - x_1|$
@@ -135,6 +136,8 @@ Læg mærke til:
 **Intuitionen:** Vi projicerer vektoren fra et punkt på linjen til $P_0$ ned på normalvektoren. Normalvektoren peger vinkelret på linjen, så projektionen giver netop den vinkelrette afstand.
 
 </div>
+
+<DistanceVisualizer />
 
 ---
 
@@ -459,44 +462,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="afstand-quiz-punkter"
-  question="Hvad er afstanden mellem punkterne $A(1, 2)$ og $B(4, 6)$?"
-  options={[
+  questions={[
+      {
+        quizId: "afstand-quiz-punkter",
+        question: `Hvad er afstanden mellem punkterne $A(1, 2)$ og $B(4, 6)$?`,
+        options: [
     "$\\sqrt{7}$",
     "$7$",
     "$5$",
     "$25$"
-  ]}
-  correctIndex={2}
-  hint="$|AB| = \\sqrt{(4-1)^2 + (6-2)^2} = \\sqrt{9 + 16}$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="afstand-quiz-punkt-linje"
-  question="Hvad er afstanden fra punktet $(0, 0)$ til linjen $3x + 4y - 10 = 0$?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `$|AB| = \\sqrt{(4-1)^2 + (6-2)^2} = \\sqrt{9 + 16}$.`,
+      },
+      {
+        quizId: "afstand-quiz-punkt-linje",
+        question: `Hvad er afstanden fra punktet $(0, 0)$ til linjen $3x + 4y - 10 = 0$?`,
+        options: [
     "$10$",
     "$2$",
     "$\\frac{10}{7}$",
     "$\\frac{10}{\\sqrt{7}}$"
-  ]}
-  correctIndex={1}
-  hint="$\\frac{|3 \\cdot 0 + 4 \\cdot 0 - 10|}{\\sqrt{9 + 16}} = \\frac{10}{5}$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="afstand-quiz-parallelle"
-  question="Hvad er afstanden mellem de parallelle linjer $2x - y + 3 = 0$ og $2x - y - 2 = 0$?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `$\\frac{|3 \\cdot 0 + 4 \\cdot 0 - 10|}{\\sqrt{9 + 16}} = \\frac{10}{5}$.`,
+      },
+      {
+        quizId: "afstand-quiz-parallelle",
+        question: `Hvad er afstanden mellem de parallelle linjer $2x - y + 3 = 0$ og $2x - y - 2 = 0$?`,
+        options: [
     "$\\frac{5}{\\sqrt{5}} = \\sqrt{5}$",
     "$5$",
     "$1$",
     "$\\frac{1}{\\sqrt{5}}$"
+  ],
+        correctIndex: 0,
+        hint: `$\\frac{|3 - (-2)|}{\\sqrt{4 + 1}} = \\frac{5}{\\sqrt{5}}$.`,
+      }
   ]}
-  correctIndex={0}
-  hint="$\\frac{|3 - (-2)|}{\\sqrt{4 + 1}} = \\frac{5}{\\sqrt{5}}$."
 />

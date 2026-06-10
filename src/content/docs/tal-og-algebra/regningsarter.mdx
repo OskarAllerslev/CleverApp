@@ -6,7 +6,7 @@ description: "Mester de fire regningsarter, regnearternes hierarki og parentesre
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Regningsarter og parenteser 🎯
 
@@ -365,44 +365,44 @@ c) $(2x + 1)(x - 4)$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="regningsarter-quiz-1"
-  question="Hvad er værdien af $2 + 3 \cdot 4$?"
-  options={[
+  questions={[
+      {
+        quizId: "regningsarter-quiz-1",
+        question: `Hvad er værdien af $2 + 3 \cdot 4$?`,
+        options: [
     "14",
     "20",
     "24",
     "10"
-  ]}
-  correctIndex={0}
-  hint="Husk regnehierarkiet: multiplikation udføres før addition."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="regningsarter-quiz-2"
-  question="Hvad er $3 \cdot (x + 4)$ ganget ud?"
-  options={[
+  ],
+        correctIndex: 0,
+        hint: `Husk regnehierarkiet: multiplikation udføres før addition.`,
+      },
+      {
+        quizId: "regningsarter-quiz-2",
+        question: `Hvad er $3 \cdot (x + 4)$ ganget ud?`,
+        options: [
     "$3x + 4$",
     "$3x + 12$",
     "$x + 12$",
     "$3x + 7$"
-  ]}
-  correctIndex={1}
-  hint="Brug den distributive lov: gang 3 ind på begge led i parentesen."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="regningsarter-quiz-3"
-  question="Hvilken af disse regneregler gælder IKKE for subtraktion?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Brug den distributive lov: gang 3 ind på begge led i parentesen.`,
+      },
+      {
+        quizId: "regningsarter-quiz-3",
+        question: `Hvilken af disse regneregler gælder IKKE for subtraktion?`,
+        options: [
     "Den distributive lov",
     "Den kommutative lov",
     "Regnehierarkiet",
     "Potensregler"
+  ],
+        correctIndex: 1,
+        hint: `Tænk over: er $5 - 3$ det samme som $3 - 5$?`,
+      }
   ]}
-  correctIndex={1}
-  hint="Tænk over: er $5 - 3$ det samme som $3 - 5$?"
 />

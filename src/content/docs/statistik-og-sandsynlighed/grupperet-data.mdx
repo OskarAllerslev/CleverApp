@@ -6,7 +6,8 @@ description: "Mestr intervalmidtpunkter, sumkurver og kvartilbestemmelse fra gru
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { GroupedDataVisualizer } from '../../../components/visualizers/GroupedDataVisualizer.tsx';
 
 # Grupperet data 📊
 
@@ -222,6 +223,8 @@ Tilsvarende formler gælder for medianen (med $0{,}50 \cdot n$) og $Q_3$ (med $0
 
 </div>
 
+<GroupedDataVisualizer client:load />
+
 ---
 
 <details>
@@ -390,44 +393,44 @@ c) Bestem kvartilbredden.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="grupperet-midtpunkt-1"
-  question="Hvad er intervalmidtpunktet for klassen [20 ; 30[?"
-  options={[
+  questions={[
+      {
+        quizId: "grupperet-midtpunkt-1",
+        question: `Hvad er intervalmidtpunktet for klassen [20 ; 30[?`,
+        options: [
     "20",
     "30",
     "25",
     "10"
-  ]}
-  correctIndex={2}
-  hint="Midtpunktet er gennemsnittet af nedre og øvre grænse."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="grupperet-gennemsnit-1"
-  question="Når vi beregner gennemsnit for grupperet data, hvad bruger vi da som repræsentant for observationerne i hvert interval?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Midtpunktet er gennemsnittet af nedre og øvre grænse.`,
+      },
+      {
+        quizId: "grupperet-gennemsnit-1",
+        question: `Når vi beregner gennemsnit for grupperet data, hvad bruger vi da som repræsentant for observationerne i hvert interval?`,
+        options: [
     "Den nedre grænse",
     "Den øvre grænse",
     "Intervalmidtpunktet",
     "Hyppigheden"
-  ]}
-  correctIndex={2}
-  hint="Vi antager, at observationerne ligger jævnt fordelt i intervallet."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="grupperet-sumkurve-1"
-  question="Du vil finde medianen fra en sumkurve med 80 observationer. Hvilket tal aflæser du på y-aksen?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Vi antager, at observationerne ligger jævnt fordelt i intervallet.`,
+      },
+      {
+        quizId: "grupperet-sumkurve-1",
+        question: `Du vil finde medianen fra en sumkurve med 80 observationer. Hvilket tal aflæser du på y-aksen?`,
+        options: [
     "80",
     "50",
     "40",
     "20"
+  ],
+        correctIndex: 2,
+        hint: `Medianen er det punkt, hvor 50 % af observationerne er kumuleret. Hvad er 50 % af 80?`,
+      }
   ]}
-  correctIndex={2}
-  hint="Medianen er det punkt, hvor 50 % af observationerne er kumuleret. Hvad er 50 % af 80?"
 />

@@ -6,7 +6,8 @@ description: "Mestr Pythagoras' sætning, beviset, og dens anvendelser. Optjen +
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { PythagorasVisualizer } from '../../../components/visualizers/PythagorasVisualizer.tsx';
 
 # Pythagoras' sætning 🎯
 
@@ -43,6 +44,8 @@ c = \sqrt{a^2 + b^2}
 $$
 
 </div>
+
+<PythagorasVisualizer />
 
 ---
 
@@ -348,44 +351,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="pythagoras-q1"
-  question="En retvinklet trekant har kateterne a = 5 og b = 12. Hvad er hypotenusen c?"
-  options={[
+  questions={[
+      {
+        quizId: "pythagoras-q1",
+        question: `En retvinklet trekant har kateterne a = 5 og b = 12. Hvad er hypotenusen c?`,
+        options: [
     "17",
     "13",
     "14",
     "15"
-  ]}
-  correctIndex={1}
-  hint="Brug formlen c = √(a² + b²) og beregn 5² + 12²."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="pythagoras-q2"
-  question="En trekant har sidelængderne 6, 8 og 11. Hvad kan du sige om trekanten?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Brug formlen c = √(a² + b²) og beregn 5² + 12².`,
+      },
+      {
+        quizId: "pythagoras-q2",
+        question: `En trekant har sidelængderne 6, 8 og 11. Hvad kan du sige om trekanten?`,
+        options: [
     "Den er retvinklet",
     "Den er spidsvinklet",
     "Den er stumpvinklet",
     "Det kan ikke afgøres"
-  ]}
-  correctIndex={2}
-  hint="Sammenlign a² + b² med c², hvor c er den længste side."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="pythagoras-q3"
-  question="Hvad er afstanden mellem punkterne A(0, 0) og B(3, 4)?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Sammenlign a² + b² med c², hvor c er den længste side.`,
+      },
+      {
+        quizId: "pythagoras-q3",
+        question: `Hvad er afstanden mellem punkterne A(0, 0) og B(3, 4)?`,
+        options: [
     "7",
     "5",
     "25",
     "12"
+  ],
+        correctIndex: 1,
+        hint: `Brug afstandsformlen d = √((x₂-x₁)² + (y₂-y₁)²).`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug afstandsformlen d = √((x₂-x₁)² + (y₂-y₁)²)."
 />

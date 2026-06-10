@@ -6,7 +6,8 @@ description: "Knæk cirklens kode — fra centrum og radius til skæringer med l
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { CircleEquationVisualizer } from '../../../components/visualizers/CircleEquationVisualizer.tsx';
 
 # Cirklens ligning 🎯
 
@@ -47,6 +48,8 @@ Her er:
 **Bemærk:** Pas på fortegnene! I $(x - a)^2$ er centrum-koordinaten $a$. Hvis der står $(x + 1)^2 = (x - (-1))^2$, så er $a = -1$.
 
 </div>
+
+<CircleEquationVisualizer />
 
 ---
 
@@ -485,44 +488,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="cirkel-quiz-centrum"
-  question="Hvad er centrum for cirklen $(x + 3)^2 + (y - 5)^2 = 16$?"
-  options={[
+  questions={[
+      {
+        quizId: "cirkel-quiz-centrum",
+        question: `Hvad er centrum for cirklen $(x + 3)^2 + (y - 5)^2 = 16$?`,
+        options: [
     "$(3, -5)$",
     "$(-3, 5)$",
     "$(3, 5)$",
     "$(-3, -5)$"
-  ]}
-  correctIndex={1}
-  hint="Husk: $(x + 3)^2 = (x - (-3))^2$, så $a = -3$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="cirkel-quiz-radius"
-  question="Hvad er radius for cirklen $x^2 + y^2 - 4x + 6y - 3 = 0$?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk: $(x + 3)^2 = (x - (-3))^2$, så $a = -3$.`,
+      },
+      {
+        quizId: "cirkel-quiz-radius",
+        question: `Hvad er radius for cirklen $x^2 + y^2 - 4x + 6y - 3 = 0$?`,
+        options: [
     "$r = 3$",
     "$r = 4$",
     "$r = \\sqrt{16} = 4$",
     "$r = \\sqrt{3}$"
-  ]}
-  correctIndex={2}
-  hint="Kvadratkompleter: $(x-2)^2 + (y+3)^2 = 4 + 9 + 3 = 16$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="cirkel-quiz-skaering"
-  question="Hvis diskriminanten er nul ved skæring af linje og cirkel, hvad betyder det geometrisk?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Kvadratkompleter: $(x-2)^2 + (y+3)^2 = 4 + 9 + 3 = 16$.`,
+      },
+      {
+        quizId: "cirkel-quiz-skaering",
+        question: `Hvis diskriminanten er nul ved skæring af linje og cirkel, hvad betyder det geometrisk?`,
+        options: [
     "Linjen er en sekant (2 skæringspunkter)",
     "Linjen rammer ikke cirklen",
     "Linjen er en tangent (1 skæringspunkt)",
     "Linjen går gennem centrum"
+  ],
+        correctIndex: 2,
+        hint: `$d = 0$ giver netop 1 dobbeltrod — dvs. 1 skæringspunkt.`,
+      }
   ]}
-  correctIndex={2}
-  hint="$d = 0$ giver netop 1 dobbeltrod — dvs. 1 skæringspunkt."
 />

@@ -6,7 +6,7 @@ description: "Mestér parameterfremstillinger for linjer og planer i 3D, samt sk
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Parameterfremstilling i plan og rum 🎯
 
@@ -571,44 +571,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="param-quiz-1"
-  question="Hvor mange parametre bruges i en parameterfremstilling for et plan i rummet?"
-  options={[
+  questions={[
+      {
+        quizId: "param-quiz-1",
+        question: `Hvor mange parametre bruges i en parameterfremstilling for et plan i rummet?`,
+        options: [
     "1",
     "2",
     "3",
     "Det afhænger af planet"
-  ]}
-  correctIndex={1}
-  hint="Et plan er todimensionalt, så vi kan bevæge os i to uafhængige retninger"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="param-quiz-2"
-  question="Hvad er retningsvektoren for skæringslinjen mellem to planer med normalvektorer n₁ og n₂?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Et plan er todimensionalt, så vi kan bevæge os i to uafhængige retninger`,
+      },
+      {
+        quizId: "param-quiz-2",
+        question: `Hvad er retningsvektoren for skæringslinjen mellem to planer med normalvektorer n₁ og n₂?`,
+        options: [
     "n₁ + n₂",
     "n₁ - n₂",
     "n₁ · n₂ (skalarprodukt)",
     "n₁ × n₂ (krydsprodukt)"
-  ]}
-  correctIndex={3}
-  hint="Skæringslinjen skal være vinkelret på begge normalvektorer"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="param-quiz-3"
-  question="Hvad sker der, når man indsætter linjens parameterfremstilling i planligningen og får 0 = 5?"
-  options={[
+  ],
+        correctIndex: 3,
+        hint: `Skæringslinjen skal være vinkelret på begge normalvektorer`,
+      },
+      {
+        quizId: "param-quiz-3",
+        question: `Hvad sker der, når man indsætter linjens parameterfremstilling i planligningen og får 0 = 5?`,
+        options: [
     "Linjen skærer planet i ét punkt",
     "Linjen ligger i planet",
     "Linjen er parallel med planet og har ingen skæring",
     "Der er uendeligt mange skæringspunkter"
+  ],
+        correctIndex: 2,
+        hint: `En modstrid (falsk udsagn) betyder, at der ikke eksisterer nogen t-værdi som løsning`,
+      }
   ]}
-  correctIndex={2}
-  hint="En modstrid (falsk udsagn) betyder, at der ikke eksisterer nogen t-værdi som løsning"
 />

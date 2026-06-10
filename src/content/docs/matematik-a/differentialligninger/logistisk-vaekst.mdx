@@ -6,7 +6,8 @@ description: "Forstå den logistiske model med bæreevne, S-kurve og vendepunkt 
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { LogisticVisualizer } from '../../../../components/visualizers/LogisticVisualizer.tsx';
 
 # Logistisk vækst 🎯
 
@@ -152,6 +153,8 @@ $$\boxed{c = \frac{M - y_0}{y_0}}$$
 - Kurven har en karakteristisk **S-form** (sigmoid kurve)
 
 </div>
+
+<LogisticVisualizer client:load />
 
 ---
 
@@ -477,44 +480,44 @@ c) Forklar forskellen og hvornår hver model er passende.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="logistisk-q1"
-  question="I den logistiske model y' = ky(M-y)/M, hvad repræsenterer M?"
-  options={[
+  questions={[
+      {
+        quizId: "logistisk-q1",
+        question: `I den logistiske model y' = ky(M-y)/M, hvad repræsenterer M?`,
+        options: [
     "Den initiale populationsstørrelse",
     "Vækstkonstanten",
     "Bæreevnen — den maksimale populationsstørrelse",
     "Halveringstiden"
-  ]}
-  correctIndex={2}
-  hint="M er den øvre grænse, som populationen nærmer sig"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="logistisk-q2"
-  question="Hvor ligger vendepunktet på den logistiske kurve?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `M er den øvre grænse, som populationen nærmer sig`,
+      },
+      {
+        quizId: "logistisk-q2",
+        question: `Hvor ligger vendepunktet på den logistiske kurve?`,
+        options: [
     "Ved y = M",
     "Ved y = M/4",
     "Ved y = M/2",
     "Ved y = 0"
-  ]}
-  correctIndex={2}
-  hint="Vendepunktet er der, hvor væksten y' er størst"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="logistisk-q3"
-  question="En logistisk model har M = 5000 og y₀ = 250. Hvad er c?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Vendepunktet er der, hvor væksten y' er størst`,
+      },
+      {
+        quizId: "logistisk-q3",
+        question: `En logistisk model har M = 5000 og y₀ = 250. Hvad er c?`,
+        options: [
     "c = 20",
     "c = 19",
     "c = 0,05",
     "c = 250"
+  ],
+        correctIndex: 1,
+        hint: `Brug formlen c = (M - y₀)/y₀`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug formlen c = (M - y₀)/y₀"
 />

@@ -6,7 +6,8 @@ description: "Mester separation af variable — den vigtigste løsningsteknik ti
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { SeparationVisualizer } from '../../../../components/visualizers/SeparationVisualizer.tsx';
 
 # Separationsmetoden 🎯
 
@@ -74,6 +75,8 @@ Bestem $C$ ud fra $y(t_0) = y_0$.
 **Vigtigt forbehold:** Når vi dividerer med $g(y)$, antager vi at $g(y) \neq 0$. Hvis $g(y_0) = 0$ for en værdi $y_0$, er $y = y_0$ en <Term definition="En konstant løsning til en differentialligning, der svarer til en ligevægtstilstand.">stationær løsning</Term> (ligevægtsløsning), som vi skal tjekke separat.
 
 </div>
+
+<SeparationVisualizer client:load />
 
 ---
 
@@ -407,44 +410,44 @@ b) Hvornår er koncentrationen nede på 10 mg/L?
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="separation-q1"
-  question="Hvad er det første trin i separationsmetoden?"
-  options={[
+  questions={[
+      {
+        quizId: "separation-q1",
+        question: `Hvad er det første trin i separationsmetoden?`,
+        options: [
     "Integrere begge sider",
     "Indsætte begyndelsesbetingelsen",
     "Adskille variablene, så y-led og t-led står på hver sin side",
     "Differentiere begge sider"
-  ]}
-  correctIndex={2}
-  hint="Metodens navn afslører svaret — vi 'separerer' variablene!"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="separation-q2"
-  question="Hvad er den fuldstændige løsning til y' = -3y fundet ved separation?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Metodens navn afslører svaret — vi 'separerer' variablene!`,
+      },
+      {
+        quizId: "separation-q2",
+        question: `Hvad er den fuldstændige løsning til y' = -3y fundet ved separation?`,
+        options: [
     "y = Ce^(3t)",
     "y = Ce^(-3t)",
     "y = -3t + C",
     "y = Ce^(-3/t)"
-  ]}
-  correctIndex={1}
-  hint="Brug formlen for y' = ky, hvor k = -3"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="separation-q3"
-  question="Er differentialligningen y' = t + y separabel?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Brug formlen for y' = ky, hvor k = -3`,
+      },
+      {
+        quizId: "separation-q3",
+        question: `Er differentialligningen y' = t + y separabel?`,
+        options: [
     "Ja, vi separerer med f(t) = t og g(y) = y",
     "Ja, vi faktoriserer til t(1 + y/t)",
     "Nej, højresiden kan ikke skrives som f(t) · g(y)",
     "Ja, vi dividerer med y på begge sider"
+  ],
+        correctIndex: 2,
+        hint: `Prøv at skrive t + y som et produkt af en funktion af t alene og en funktion af y alene`,
+      }
   ]}
-  correctIndex={2}
-  hint="Prøv at skrive t + y som et produkt af en funktion af t alene og en funktion af y alene"
 />

@@ -6,391 +6,248 @@ description: "Bliv mester i brøkregning – fra forlængelse og forkortelse til
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import ExerciseHub from '../../../components/ExerciseHub';
+import { FractionVisualizer } from '../../../components/visualizers/FractionVisualizer.tsx';
 
 # Brøker 🎯
 
-Brøker er overalt i matematik – og i hverdagen! Når du deler en pizza i 8 stykker og spiser 3 af dem, har du spist $\frac{3}{8}$ af pizzaen. I dette kapitel lærer du at mestre brøkregning fra bunden, så du kan håndtere dem med fuld selvtillid. Level up! 🍕
+Brøker er en af de absolut vigtigste byggesten i matematikken. Uanset om du skal løse komplicerede ligninger på STX/HHX eller bare dele en regning med dine venner, så støder du på brøker. Mange oplever brøker som svære, men det handler blot om at forstå den grundlæggende intuition og mestre nogle få, faste spilleregler. 
+
+Når du har gennemgået dette kapitel, vil du have fuld kontrol over brøkregningens fire regningsarter. Lad os kaste os ud i det! 🚀
 
 ---
 
 <div className="teori-box">
 
-### Teori: Hvad er en brøk?
+### 1. Hvad er en brøk egentlig?
 
-En <Term definition="Et tal skrevet som en kvotient a/b, hvor a er tælleren og b er nævneren. Nævneren må ikke være 0.">brøk</Term> er en måde at skrive en division på:
+Intuitivt repræsenterer en brøk en **del af en helhed**. Hvis vi tager en pizza og skærer den i $4$ lige store stykker, og du spiser $3$ af dem, har du spist $\frac{3}{4}$ (tre fjerdedele) af pizzaen.
 
-$$
-\frac{a}{b} = a : b
-$$
-
-Her er $a$ kaldet <Term definition="Tallet over brøkstregen – det antal dele vi har.">tælleren</Term> og $b$ er <Term definition="Tallet under brøkstregen – det antal lige store dele, helheden er delt i.">nævneren</Term>.
-
-**Vigtigt:** Nævneren må **aldrig** være 0, da division med 0 er udefineret.
-
-**Forlængelse af brøker:**
-
-At <Term definition="At gange tæller og nævner med det samme tal. Brøkens værdi ændres ikke.">forlænge</Term> en brøk betyder at gange tæller og nævner med det **samme** tal:
+Formelt set er en <Term definition="Et tal skrevet som en kvotient a/b, hvor a er tælleren og b er nævneren. Nævneren må ikke være 0.">brøk</Term> blot en anden måde at skrive en division på:
 
 $$
-\frac{a}{b} = \frac{a \cdot k}{b \cdot k} \quad \text{for } k \neq 0
+\frac{a}{b} = a : b \quad \text{hvor } b \neq 0
 $$
 
-Eksempel: $\frac{2}{3} = \frac{2 \cdot 4}{3 \cdot 4} = \frac{8}{12}$
-
-**Forkortelse af brøker:**
-
-At <Term definition="At dividere tæller og nævner med det samme tal. Brøkens værdi ændres ikke.">forkorte</Term> en brøk er det modsatte – vi dividerer tæller og nævner med det **samme** tal:
+Brøken er opbygget af tre elementer:
+1. **Tælleren** ($a$): Tallet *over* brøkstregen. Det *tæller*, hvor mange dele vi har.
+2. **Brøkstregen**: Symboliserer division eller deling.
+3. **Nævneren** ($b$): Tallet *under* brøkstregen. Det *nævner*, hvilken type dele (hvor mange dele helheden er skåret i) vi arbejder med.
 
 $$
-\frac{a}{b} = \frac{a : k}{b : k} \quad \text{for } k \neq 0
+\frac{\overbrace{a}^{\text{Tæller (antal dele)}}}{\underline{\underbrace{b}_{\text{Nævner (delenes type)}}}}
 $$
 
-Eksempel: $\frac{12}{18} = \frac{12 : 6}{18 : 6} = \frac{2}{3}$
+<FractionVisualizer client:load />
 
-En brøk er <Term definition="En brøk, hvor tæller og nævner ikke har nogen fælles faktorer ud over 1.">fuldt forkortet</Term>, når tæller og nævner ikke har nogen fælles faktorer.
+> [!IMPORTANT]
+> **Nævneren må aldrig være nul!**
+> Hvis nævneren is $0$, ville vi prøve at dele noget i $0$ stykker, hvilket er matematisk meningsløst og udefineret. Prøv selv at taste $5 : 0$ ind på din lommeregner – den vil give en fejl.
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### 2. Forlængelse og forkortelse: Brøkens forklædninger
+
+En af de mest fantastiske egenskaber ved brøker er, at det samme tal kan skrives på uendeligt mange måder. $\frac{1}{2}$ pizza er præcis det samme som $\frac{2}{4}$ pizza eller $\frac{4}{8}$ pizza. 
+
+#### Forlængelse af brøker
+At <Term definition="At gange tæller og nævner med det samme tal. Brøkens værdi ændres ikke.">forlænge</Term> en brøk betyder, at vi gør delene mindre, men tager tilsvarende flere af dem. Vi gør dette ved at **gange** med det samme tal i både tæller og nævner:
+
+$$
+\frac{a}{b} \overset{\text{forlæng med } k}{=} \frac{a \cdot k}{b \cdot k} \quad \text{for } k \neq 0
+$$
+
+Visuelt svarer det til at tegne flere streger på vores pizza:
+$$
+\frac{2}{3} \overset{\text{forlæng med 4}}{=} \frac{2 \cdot 4}{3 \cdot 4} = \frac{8}{12}
+$$
+
+#### Forkortelse af brøker
+At <Term definition="At dividere tæller og nævner med det samme tal. Brøkens værdi ændres ikke.">forkorte</Term> en brøk er den omvendte proces. Her fjerner vi \"overflødige\" opdelinger ved at **dividere** med det samme tal i både tæller og nævner:
+
+$$
+\frac{a}{b} \overset{\text{forkort med } k}{=} \frac{a : k}{b : k} \quad \text{for } k \neq 0
+$$
+
+Målet er ofte at nå frem til en <Term definition="En brøk, hvor tæller og nævner ikke har nogen fælles faktorer ud over 1.">fuldt forkortet</Term> brøk, hvor tæller og nævner ikke længere deler nogen fælles faktorer:
+$$
+\frac{12}{18} \overset{\text{divider med 6}}{=} \frac{12 : 6}{18 : 6} = \frac{2}{3}
+$$
+
+</div>
+
+---
+
+<div className="teori-box">
+
+### 3. Addition og subtraktion: Find den fælles grund
+
+Når vi skal lægge brøker sammen (addere) eller trække dem fra hinanden (subtrahere), støder vi på en vigtig betingelse: **Brøkerne skal have samme nævner (fællesnævner)**.
+
+Hvorfor? Fordi du ikke kan lægge 2 store pizzastykker ($\frac{2}{3}$) sammen med 1 lille stykke ($\frac{1}{4}$) uden først at gøre dem sammenlignelige.
+
+#### Tilfælde A: Samme nævner (Nem)
+Hvis brøkerne allerede deler nævner, beholder vi bare nævneren og lægger tællerne sammen:
+
+$$
+\frac{a}{c} + \frac{b}{c} = \frac{a + b}{c} \quad \text{og} \quad \frac{a}{c} - \frac{b}{c} = \frac{a - b}{c}
+$$
+
+#### Tilfælde B: Forskellige nævnere (Kræver forlængelse)
+Hvis nævnerne er forskellige, skal vi først forlænge dem, så de får en <Term definition="Når to eller flere brøker har den samme nævner, så de kan adderes eller subtraheres direkte.">fælles nævner</Term>. Den mest sikre metode er at gange de to nævnere med hinanden for at finde en fællesnævner:
+
+$$
+\frac{a}{b} + \frac{c}{d} \overset{\text{forlæng brøker}}{=} \frac{a \cdot d}{b \cdot d} + \frac{c \cdot b}{d \cdot b} \overset{\text{sæt på fælles brøkstreg}}{=} \frac{\overbrace{a \cdot d}^{\text{forlænget } a} + \overbrace{c \cdot b}^{\text{forlænget } c}}{\underbrace{b \cdot d}_{\text{fælles nævner}}}
+$$
 
 </div>
 
 ---
 
 <details>
-<summary>Vis Eksempel: Forlæng og forkort brøker ⚡</summary>
+<summary>Vis Eksempel: Avanceret addition og subtraktion ⚡</summary>
 
-**Opgave:** Forkort $\frac{24}{36}$ til den er fuldt forkortet.
+**Opgave:** Beregn det følgende udtryk og forkort resultatet fuldstændigt:
+$$
+\frac{3}{4} + \frac{5}{6} - \frac{2}{3}
+$$
+
+**Løsning:**
+Vi har tre forskellige nævnere: $4$, $6$ og $3$. Vi skal finde en fælles nævner – det vil sige et tal, som både $4$, $6$ og $3$ går op i.
+Vi finder det **mindste fælles multiplum (MFM)**:
+- Multipla af 3: $3, 6, 9, 12, 15, \dots$
+- Multipla af 4: $4, 8, 12, 16, \dots$
+- Multipla af 6: $6, 12, 18, \dots$
+
+Det mindste tal, de alle tre har til fælles, er $12$. Vi forlænger nu hver enkelt brøk til at have nævneren $12$:
+
+1. **Første brøk ($\frac{3}{4}$):** Forlænges med $3$ (fordi $4 \cdot 3 = 12$):
+   $$
+   \frac{3}{4} \overset{\text{forlæng med 3}}{=} \frac{3 \cdot 3}{4 \cdot 3} = \frac{9}{12}
+   $$
+
+2. **Anden brøk ($\frac{5}{6}$):** Forlænges med $2$ (fordi $6 \cdot 2 = 12$):
+   $$
+   \frac{5}{6} \overset{\text{forlæng med 2}}{=} \frac{5 \cdot 2}{6 \cdot 2} = \frac{10}{12}
+   $$
+
+3. **Tredje brøk ($\frac{2}{3}$):** Forlænges med $4$ (fordi $3 \cdot 4 = 12$):
+   $$
+   \frac{2}{3} \overset{\text{forlæng med 4}}{=} \frac{2 \cdot 4}{3 \cdot 4} = \frac{8}{12}
+   $$
+
+Nu samler vi det hele på én fælles brøkstreg:
+$$
+\begin{aligned}
+\frac{3}{4} + \frac{5}{6} - \frac{2}{3} &= \frac{9}{12} + \frac{10}{12} - \frac{8}{12} \\
+&\overset{\text{fælles brøkstreg}}{=} \frac{9 + 10 - 8}{12} \\
+&\overset{\text{reducér tæller}}{=} \frac{11}{12}
+\end{aligned}
+$$
+
+Da $11$ er et primtal, og $11$ ikke går op i $12$, er brøken fuldt forkortet.
+
+**Svar:** $\frac{11}{12}$
+
+</details>
+
+---
+
+<div className="teori-box">
+
+### 4. Multiplikation og division: De hurtige regneregler
+
+Mange tror, at det er sværere at gange og dividere end at lægge sammen. Men med brøker er det faktisk stik modsat! Her behøver du nemlig **ikke** at finde fællesnævnere.
+
+#### Multiplikation (at gange)
+Når du skal gange to brøker med hinanden, skal du blot **gange tæller med tæller og nævner med nævner**:
+
+$$
+\frac{a}{b} \cdot \frac{c}{d} = \frac{\underbrace{a \cdot c}_{\text{tællere ganges}}}{\underbrace{b \cdot d}_{\text{nævnere ganges}}}
+$$
+
+#### Division (at dividere)
+Når du skal dividere en brøk med en anden brøk, bruger vi en matematisk genvej: **Du vender den anden brøk på hovedet (finder den reciprokke) og ganger derefter**:
+
+$$
+\frac{a}{b} : \frac{c}{d} \overset{\text{gange med omvendt}}{=} \frac{a}{b} \cdot \frac{d}{c} = \frac{a \cdot d}{b \cdot c}
+$$
+
+Visuel intuition: Hvis du spørger \"hvor mange gange går en kvart ($\frac{1}{4}$) op i en halv ($\frac{1}{2}$)?\", så svarer det til at beregne $\frac{1}{2} : \frac{1}{4} = \frac{1}{2} \cdot \frac{4}{1} = \frac{4}{2} = 2$. Det giver perfekt mening!
+
+</div>
+
+---
+
+<details>
+<summary>Vis Eksempel: Multiplikation og division kombineret ⚡</summary>
+
+**Opgave:** Beregn følgende udtryk og forkort undervejs:
+$$
+\left( \frac{9}{10} \cdot \frac{5}{6} \right) : \frac{3}{8}
+$$
 
 **Løsning:**
 
-Vi finder den største fælles divisor (SFD) af 24 og 36.
-
-Faktorerne i 24: $1, 2, 3, 4, 6, 8, 12, 24$
-
-Faktorerne i 36: $1, 2, 3, 4, 6, 9, 12, 18, 36$
-
-Den største fælles divisor er $12$.
-
+**Trin 1: Beregn parentesen (multiplikation)**
+Vi ganger tæller med tæller og nævner med nævner. Men i stedet for at gange ud med det samme (hvilket giver store tal), faktoriserer vi tæller og nævner for at forkorte først:
 $$
-\frac{24}{36} = \frac{24 : 12}{36 : 12} = \frac{2}{3}
+\frac{9}{10} \cdot \frac{5}{6} = \frac{9 \cdot 5}{10 \cdot 6} \overset{\text{faktoriser tallene}}{=} \frac{(3 \cdot 3) \cdot 5}{(2 \cdot 5) \cdot (2 \cdot 3)}
 $$
 
-**Alternativt** kan vi forkorte trinvist:
-
+Vi ser, at vi kan forkorte et $3$-tal og et $5$-tal væk fra både tæller og nævner:
 $$
-\frac{24}{36} = \frac{24 : 2}{36 : 2} = \frac{12}{18} = \frac{12 : 2}{18 : 2} = \frac{6}{9} = \frac{6 : 3}{9 : 3} = \frac{2}{3}
+\frac{3 \cdot \cancel{3} \cdot \cancel{5}}{2 \cdot \cancel{5} \cdot 2 \cdot \cancel{3}} = \frac{3}{2 \cdot 2} = \frac{3}{4}
 $$
 
-**Svar:** $\frac{24}{36} = \frac{2}{3}$
+**Trin 2: Divider resultatet med $\frac{3}{8}$**
+Nu tager vi vores resultat, $\frac{3}{4}$, og dividerer med $\frac{3}{8}$. Vi husker reglen om at **gange med den omvendte brøk**:
+$$
+\frac{3}{4} : \frac{3}{8} \overset{\text{gange med omvendt}}{=} \frac{3}{4} \cdot \frac{8}{3}
+$$
+
+Vi ganger tæller med tæller og nævner med nævner:
+$$
+\frac{3 \cdot 8}{4 \cdot 3} \overset{\text{forkort 3-tallerne}}{=} \frac{\cancel{3} \cdot 8}{4 \cdot \cancel{3}} = \frac{8}{4} = 2
+$$
+
+**Svar:** $2$
 
 </details>
 
 ---
 
-<div className="teori-box">
-
-### Teori: Addition og subtraktion af brøker
-
-For at lægge brøker sammen eller trække dem fra hinanden, **skal** de have <Term definition="Når to eller flere brøker har den samme nævner, så de kan adderes eller subtraheres direkte.">fælles nævner</Term>.
-
-**Samme nævner:**
-
-$$
-\frac{a}{c} + \frac{b}{c} = \frac{a + b}{c} \qquad \text{og} \qquad \frac{a}{c} - \frac{b}{c} = \frac{a - b}{c}
-$$
-
-Vi lægger tællerne sammen (eller trækker fra) og beholder nævneren.
-
-**Forskellige nævnere:**
-
-Hvis nævnerne er forskellige, skal vi først finde <Term definition="Det mindste tal, som begge nævnere går op i.">fællesnævneren</Term> og forlænge brøkerne:
-
-$$
-\frac{a}{b} + \frac{c}{d} = \frac{a \cdot d}{b \cdot d} + \frac{c \cdot b}{d \cdot b} = \frac{a \cdot d + c \cdot b}{b \cdot d}
-$$
-
-**Huskeregel:** Krydsgang tællerne, gang nævnerne!
-
-</div>
-
----
-
-<details>
-<summary>Vis Eksempel: Addition af brøker med forskellige nævnere ⚡</summary>
-
-**Beregn:**
-
-$$
-\frac{2}{3} + \frac{3}{4}
-$$
-
-**Trin 1: Find fællesnævneren**
-
-Nævnerne er 3 og 4. Fællesnævneren er $3 \cdot 4 = 12$.
-
-**Trin 2: Forlæng begge brøker**
-
-$$
-\frac{2}{3} = \frac{2 \cdot 4}{3 \cdot 4} = \frac{8}{12} \qquad \text{og} \qquad \frac{3}{4} = \frac{3 \cdot 3}{4 \cdot 3} = \frac{9}{12}
-$$
-
-**Trin 3: Læg tællerne sammen**
-
-$$
-\frac{8}{12} + \frac{9}{12} = \frac{8 + 9}{12} = \frac{17}{12}
-$$
-
-**Trin 4: Omskriv eventuelt til blandet tal**
-
-$$
-\frac{17}{12} = 1\frac{5}{12}
-$$
-
-Da $17 : 12 = 1$ med rest $5$.
-
-**Svar:** $\frac{2}{3} + \frac{3}{4} = \frac{17}{12} = 1\frac{5}{12}$
-
-</details>
-
----
-
-<div className="teori-box">
-
-### Teori: Multiplikation og division af brøker
-
-**Multiplikation af brøker** er den nemmeste brøkoperation – gang tæller med tæller og nævner med nævner:
-
-$$
-\frac{a}{b} \cdot \frac{c}{d} = \frac{a \cdot c}{b \cdot d}
-$$
-
-**Division af brøker** – her bruger vi et smart trick: vi **ganger med den omvendte brøk**:
-
-$$
-\frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} = \frac{a \cdot d}{b \cdot c}
-$$
-
-Den <Term definition="Brøken vendt om – tæller og nævner bytter plads. Den omvendte brøk af a/b er b/a.">omvendte brøk</Term> (også kaldet den reciprokke) af $\frac{c}{d}$ er $\frac{d}{c}$.
-
-**Tip:** Forkort gerne **inden** du ganger – det giver mindre tal at arbejde med! 🧠
-
-</div>
-
----
-
-<details>
-<summary>Vis Eksempel: Multiplikation af brøker med forkortelse ⚡</summary>
-
-**Beregn:**
-
-$$
-\frac{6}{15} \cdot \frac{5}{8}
-$$
-
-**Metode 1: Gang først, forkort bagefter**
-
-$$
-\frac{6}{15} \cdot \frac{5}{8} = \frac{6 \cdot 5}{15 \cdot 8} = \frac{30}{120} = \frac{30 : 30}{120 : 30} = \frac{1}{4}
-$$
-
-**Metode 2: Forkort på kryds først (smartere!)**
-
-Vi ser at 6 og 8 begge kan divideres med 2, og 5 og 15 begge kan divideres med 5:
-
-$$
-\frac{6}{15} \cdot \frac{5}{8} = \frac{\cancel{6}^{\,3}}{\cancel{15}^{\,3}} \cdot \frac{\cancel{5}^{\,1}}{\cancel{8}^{\,4}} = \frac{3 \cdot 1}{3 \cdot 4} = \frac{3}{12} = \frac{1}{4}
-$$
-
-**Svar:** $\frac{6}{15} \cdot \frac{5}{8} = \frac{1}{4}$
-
-</details>
-
----
-
-<details>
-<summary>Vis Eksempel: Division af brøker ⚡</summary>
-
-**Beregn:**
-
-$$
-\frac{3}{4} : \frac{9}{16}
-$$
-
-**Trin 1: Omskriv divisionen til multiplikation med den omvendte brøk**
-
-$$
-\frac{3}{4} : \frac{9}{16} = \frac{3}{4} \cdot \frac{16}{9}
-$$
-
-**Trin 2: Forkort inden vi ganger**
-
-$3$ og $9$ kan forkortes med $3$. $4$ og $16$ kan forkortes med $4$:
-
-$$
-\frac{3}{4} \cdot \frac{16}{9} = \frac{1}{1} \cdot \frac{4}{3} = \frac{4}{3}
-$$
-
-**Trin 3: Omskriv evt. til blandet tal**
-
-$$
-\frac{4}{3} = 1\frac{1}{3}
-$$
-
-**Svar:** $\frac{3}{4} : \frac{9}{16} = \frac{4}{3} = 1\frac{1}{3}$
-
-</details>
-
----
-
-<div className="teori-box">
-
-### Teori: Blandede tal og brøk-til-decimal
-
-Et <Term definition="Et tal bestående af et helt tal og en ægte brøk, fx 2 3/4.">blandet tal</Term> er et helt tal kombineret med en brøk, fx $2\frac{3}{4}$.
-
-**Fra blandet tal til uægte brøk:**
-
-$$
-a\frac{b}{c} = \frac{a \cdot c + b}{c}
-$$
-
-Eksempel: $2\frac{3}{4} = \frac{2 \cdot 4 + 3}{4} = \frac{11}{4}$
-
-**Fra uægte brøk til blandet tal:**
-
-Divider tæller med nævner. Kvotienten er heltallet, resten er tælleren:
-
-$$
-\frac{11}{4} = 11 : 4 = 2 \text{ rest } 3 \implies 2\frac{3}{4}
-$$
-
-**Fra brøk til decimal:**
-
-Divider tæller med nævner:
-
-$$
-\frac{3}{8} = 3 : 8 = 0{,}375
-$$
-
-**Fra decimal til brøk:**
-
-$$
-0{,}75 = \frac{75}{100} = \frac{3}{4}
-$$
-
-</div>
-
----
-
-<details>
-<summary>Vis Eksempel: Omregning mellem blandede tal, brøker og decimaler ⚡</summary>
-
-**a) Omskriv $3\frac{2}{5}$ til en uægte brøk og til et decimaltal.**
-
-Til uægte brøk:
-
-$$
-3\frac{2}{5} = \frac{3 \cdot 5 + 2}{5} = \frac{17}{5}
-$$
-
-Til decimaltal:
-
-$$
-\frac{17}{5} = 17 : 5 = 3{,}4
-$$
-
-**b) Omskriv $0{,}125$ til en brøk.**
-
-$$
-0{,}125 = \frac{125}{1000}
-$$
-
-Vi forkorter med $125$:
-
-$$
-\frac{125}{1000} = \frac{125 : 125}{1000 : 125} = \frac{1}{8}
-$$
-
-**Svar:** $3\frac{2}{5} = \frac{17}{5} = 3{,}4$ og $0{,}125 = \frac{1}{8}$
-
-</details>
-
----
-
-<div className="opgave-box">
-
-### 🏋️ Træningsopgaver
-
-**Opgave 1:** Forkort følgende brøker fuldt:
-
-a) $\frac{15}{25}$ &emsp; b) $\frac{36}{48}$ &emsp; c) $\frac{42}{70}$
-
-**Opgave 2:** Beregn og forkort resultatet:
-
-a) $\frac{1}{6} + \frac{2}{9}$
-
-b) $\frac{5}{8} - \frac{1}{3}$
-
-c) $\frac{2}{3} + \frac{1}{4} + \frac{1}{6}$
-
-**Opgave 3:** Beregn og forkort:
-
-a) $\frac{3}{5} \cdot \frac{10}{9}$
-
-b) $\frac{7}{12} : \frac{14}{9}$
-
-c) $\frac{4}{9} \cdot \frac{3}{8} : \frac{1}{6}$
-
-**Opgave 4:** Omskriv til uægte brøk:
-
-a) $1\frac{3}{7}$ &emsp; b) $4\frac{1}{3}$ &emsp; c) $2\frac{5}{6}$
-
-**Opgave 5:** Omskriv til decimaltal:
-
-a) $\frac{7}{8}$ &emsp; b) $\frac{5}{6}$ &emsp; c) $\frac{11}{4}$
-
-</div>
-
----
-
-## Quiz – Test din forståelse
-
-<QuizQuestion
-  client:load
-  quizId="broeker-quiz-1"
-  question="Hvad er $\frac{2}{5} + \frac{1}{3}$?"
-  options={[
-    "$\\frac{3}{8}$",
-    "$\\frac{11}{15}$",
-    "$\\frac{7}{15}$",
-    "$\\frac{3}{15}$"
-  ]}
-  correctIndex={1}
-  hint="Find fællesnævneren (5·3 = 15) og forlæng begge brøker."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="broeker-quiz-2"
-  question="Hvad er $\frac{3}{4} : \frac{6}{8}$?"
-  options={[
-    "$\\frac{3}{4}$",
-    "$\\frac{9}{16}$",
-    "$1$",
-    "$\\frac{1}{2}$"
-  ]}
-  correctIndex={2}
-  hint="Gang med den omvendte brøk: $\frac{3}{4} \cdot \frac{8}{6}$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="broeker-quiz-3"
-  question="Hvad er $2\frac{3}{4}$ som uægte brøk?"
-  options={[
-    "$\\frac{7}{4}$",
-    "$\\frac{9}{4}$",
-    "$\\frac{11}{4}$",
-    "$\\frac{23}{4}$"
-  ]}
-  correctIndex={2}
-  hint="Brug formlen: $2 \cdot 4 + 3 = ?$ i tælleren, nævneren forbliver 4."
-/>
+## Boss-Kamp: Test din forståelse ⚔️
+
+Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i første forsøg, optjener du fuld XP (+50 XP pr. opgave). Svarer du forkert, trækkes der 15 XP fra den potentielle gevinst for hver fejl (dog minimum 10 XP pr. korrekt løst opgave). Svarer du forkert, skal du prøve igen for at finde det rigtige svar og få din belønning!
+
+<ExerciseHub questions={[
+  {
+    quizId: "broeker-q1",
+    question: "Hvad er værdien af $\\frac{3}{4} - \\frac{1}{6}$?",
+    options: ["$\\frac{7}{12}$", "$\\frac{5}{12}$", "$\\frac{2}{3}$", "$\\frac{1}{2}$"],
+    answer: "$\\frac{7}{12}$",
+    explanation: "For at trække brøkerne fra hinanden finder vi fællesnævneren, som er 12. Vi forlænger: 3/4 = (3·3)/(4·3) = 9/12, og 1/6 = (1·2)/(6·2) = 2/12. Nu kan vi trække tællerne fra hinanden: 9/12 - 2/12 = (9 - 2)/12 = 7/12.",
+    hint: "Forlæng brøkerne så de begge har nævneren 12."
+  },
+  {
+    quizId: "broeker-q2",
+    question: "Hvad er resultatet af divisionen $\\frac{4}{9} : \\frac{2}{3}$?",
+    options: ["$\\frac{8}{27}$", "$\\frac{2}{3}$", "$\\frac{4}{6}$", "$\\frac{3}{2}$"],
+    answer: "$\\frac{2}{3}$",
+    explanation: "Vi dividerer to brøker ved at gange med den omvendte brøk: (4/9) : (2/3) = (4/9) · (3/2) = (4 · 3) / (9 · 2) = 12/18. Dette kan forkortes med 6 til 2/3.",
+    hint: "Husk reglen: a/b : c/d = a/b · d/c."
+  },
+  {
+    quizId: "broeker-q3",
+    question: "Hvordan skrives det blandede tal $3\\frac{1}{5}$ som en uægte brøk?",
+    options: ["$\\frac{15}{5}$", "$\\frac{8}{5}$", "$\\frac{16}{5}$", "$\\frac{16}{15}$"],
+    answer: "$\\frac{16}{5}$",
+    explanation: "Vi omskriver et blandet tal til en uægte brøk ved at gange heltallet med nævneren og lægge tælleren til: (3 · 5 + 1) / 5 = (15 + 1) / 5 = 16/5.",
+    hint: "Gang det hele tal med nævneren og læg det sammen med den eksisterende tæller."
+  }
+]} />

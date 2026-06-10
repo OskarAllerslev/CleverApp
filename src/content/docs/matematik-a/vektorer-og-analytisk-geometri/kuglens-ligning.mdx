@@ -6,7 +6,7 @@ description: "Lær kuglens ligning, aflæs centrum og radius, og find skæring m
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Kuglens ligning 🎯
 
@@ -393,44 +393,44 @@ Centrum $C\!\left(\frac{1}{2}, \frac{1}{2}, \frac{1}{2}\right)$ og radius $r = \
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="kugle-quiz-1"
-  question="Hvad er centrum og radius for kuglen (x - 3)² + (y + 1)² + z² = 16?"
-  options={[
+  questions={[
+      {
+        quizId: "kugle-quiz-1",
+        question: `Hvad er centrum og radius for kuglen (x - 3)² + (y + 1)² + z² = 16?`,
+        options: [
     "Centrum (3, 1, 0), radius 4",
     "Centrum (3, -1, 0), radius 4",
     "Centrum (3, -1, 0), radius 16",
     "Centrum (-3, 1, 0), radius 4"
-  ]}
-  correctIndex={1}
-  hint="Husk at (y + 1)² = (y - (-1))², og radius er √16"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="kugle-quiz-2"
-  question="En kugle har radius 5 og centrum C. Afstanden fra C til et plan er 3. Hvad er skæringscirklens radius?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk at (y + 1)² = (y - (-1))², og radius er √16`,
+      },
+      {
+        quizId: "kugle-quiz-2",
+        question: `En kugle har radius 5 og centrum C. Afstanden fra C til et plan er 3. Hvad er skæringscirklens radius?`,
+        options: [
     "2",
     "4",
     "√34",
     "8"
-  ]}
-  correctIndex={1}
-  hint="Brug formlen r_s = √(r² - d²) = √(25 - 9)"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="kugle-quiz-3"
-  question="Hvornår tangerer et plan en kugle?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Brug formlen r_s = √(r² - d²) = √(25 - 9)`,
+      },
+      {
+        quizId: "kugle-quiz-3",
+        question: `Hvornår tangerer et plan en kugle?`,
+        options: [
     "Når afstanden fra centrum til planet er 0",
     "Når afstanden fra centrum til planet er halvdelen af radius",
     "Når afstanden fra centrum til planet er lig med radius",
     "Når normalvektoren til planet peger mod centrum"
+  ],
+        correctIndex: 2,
+        hint: `Tangens = berøring i ét punkt, dvs. skæringscirklen har radius 0`,
+      }
   ]}
-  correctIndex={2}
-  hint="Tangens = berøring i ét punkt, dvs. skæringscirklen har radius 0"
 />

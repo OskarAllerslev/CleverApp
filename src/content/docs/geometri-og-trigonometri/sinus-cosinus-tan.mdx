@@ -6,11 +6,12 @@ description: "Mestr de trigonometriske funktioner i retvinklede trekanter og enh
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { UnitCircleVisualizer } from '../../../components/visualizers/UnitCircleVisualizer.tsx';
 
 # Sinus, cosinus og tangens 🎯
 
-Trigonometri — læren om trekanters vinkler og sider — er et af matematikkens mest anvendte værktøjer. Fra GPS-navigation til computergrafik, fra arkitektur til astronomi: trigonometrien er overalt. I dette kapitel lærer du de tre grundlæggende trigonometriske funktioner, og du får et nyt, mægtigt våben i dit matematik-arsenal! 💪
+Trigonometri — læren om trekanters vinkler og sider — er et af matematikkens mest anvendte værktøjer. Fra GPS-navigation to computergrafik, fra arkitektur to astronomi: trigonometrien er overalt. I dette kapitel lærer du de tre grundlæggende trigonometriske funktioner, og du får et nyt, mægtigt våben i dit matematik-arsenal! 💪
 
 ---
 
@@ -83,6 +84,8 @@ $$
 Denne definition virker for alle vinkler, hvor $\cos(v) \neq 0$.
 
 </div>
+
+<UnitCircleVisualizer />
 
 ---
 
@@ -333,44 +336,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="sinus-cosinus-tan-q1"
-  question="I en retvinklet trekant med hypotenuse c og vinkel v, hvad er sin(v)?"
-  options={[
+  questions={[
+      {
+        quizId: "sinus-cosinus-tan-q1",
+        question: `I en retvinklet trekant med hypotenuse c og vinkel v, hvad er sin(v)?`,
+        options: [
     "Hosliggende katete / hypotenuse",
     "Modstående katete / hypotenuse",
     "Modstående katete / hosliggende katete",
     "Hypotenuse / modstående katete"
-  ]}
-  correctIndex={1}
-  hint="Husk SoH: Sinus = overstående (modstående) / Hypotenuse."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="sinus-cosinus-tan-q2"
-  question="Hvad er cos(60°)?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk SoH: Sinus = overstående (modstående) / Hypotenuse.`,
+      },
+      {
+        quizId: "sinus-cosinus-tan-q2",
+        question: `Hvad er cos(60°)?`,
+        options: [
     "√3/2",
     "1",
     "1/2",
     "√2/2"
-  ]}
-  correctIndex={2}
-  hint="Kig i tabellen over vigtige trigonometriske værdier."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="sinus-cosinus-tan-q3"
-  question="Hvis sin(v) = 0,6, hvad er cos²(v)?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Kig i tabellen over vigtige trigonometriske værdier.`,
+      },
+      {
+        quizId: "sinus-cosinus-tan-q3",
+        question: `Hvis sin(v) = 0,6, hvad er cos²(v)?`,
+        options: [
     "0,36",
     "0,4",
     "0,64",
     "0,8"
+  ],
+        correctIndex: 2,
+        hint: `Brug grundrelationen: sin²(v) + cos²(v) = 1, dvs. cos²(v) = 1 - sin²(v).`,
+      }
   ]}
-  correctIndex={2}
-  hint="Brug grundrelationen: sin²(v) + cos²(v) = 1, dvs. cos²(v) = 1 - sin²(v)."
 />

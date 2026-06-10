@@ -6,7 +6,8 @@ description: "Lær at oversætte virkelige fænomener til matematiske modeller m
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
+import { ModelVisualizer } from '../../../../components/visualizers/ModelVisualizer.tsx';
 
 # Opstilling af modeller 🎯
 
@@ -85,6 +86,8 @@ For $y' = 2y$ ser nogle løsningskurver sådan ud:
 Alle disse kurver opfylder differentialligningen, men de beskriver vidt forskellige forløb!
 
 </div>
+
+<ModelVisualizer client:load />
 
 ---
 
@@ -417,44 +420,44 @@ c) "Temperaturen ændrer sig proportionalt med forskellen mellem kropstemperatur
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="difflig-opstilling-q1"
-  question="Hvad er ordenen af differentialligningen y'' + 3y' - 2y = 0?"
-  options={[
+  questions={[
+      {
+        quizId: "difflig-opstilling-q1",
+        question: `Hvad er ordenen af differentialligningen y'' + 3y' - 2y = 0?`,
+        options: [
     "0. orden",
     "1. orden",
     "2. orden",
     "3. orden"
-  ]}
-  correctIndex={2}
-  hint="Kig efter den højeste afledede — hvor mange mærker har den?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="difflig-opstilling-q2"
-  question="Hvad er den fuldstændige løsning til differentialligningen y' = 5y?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Kig efter den højeste afledede — hvor mange mærker har den?`,
+      },
+      {
+        quizId: "difflig-opstilling-q2",
+        question: `Hvad er den fuldstændige løsning til differentialligningen y' = 5y?`,
+        options: [
     "y = 5t + C",
     "y = Ce^(5t)",
     "y = 5e^(Ct)",
     "y = e^(5t)"
-  ]}
-  correctIndex={1}
-  hint="Husk at løsningen til y' = ky er y = Ce^(kt)"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="difflig-opstilling-q3"
-  question="Et stof henfalder med halveringstid 10 timer. Hvad er vækstkonstanten k (afrundet)?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk at løsningen til y' = ky er y = Ce^(kt)`,
+      },
+      {
+        quizId: "difflig-opstilling-q3",
+        question: `Et stof henfalder med halveringstid 10 timer. Hvad er vækstkonstanten k (afrundet)?`,
+        options: [
     "k = 0,0693",
     "k = -0,0693",
     "k = -0,1",
     "k = -0,693"
+  ],
+        correctIndex: 1,
+        hint: `Brug formlen k = -ln(2)/T_(1/2) og husk at k er negativ ved henfald`,
+      }
   ]}
-  correctIndex={1}
-  hint="Brug formlen k = -ln(2)/T_(1/2) og husk at k er negativ ved henfald"
 />

@@ -6,7 +6,7 @@ description: "Forstå grænseværdier, kontinuitet og L'Hôpitals regel – nøg
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Grænseværdier og kontinuitet 🎯
 
@@ -495,44 +495,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="graensevaerdi-definition"
-  question="Hvad betyder det, at $\lim_{x \to 3} f(x) = 7$?"
-  options={[
+  questions={[
+      {
+        quizId: "graensevaerdi-definition",
+        question: `Hvad betyder det, at $\lim_{x \to 3} f(x) = 7$?`,
+        options: [
     "f(3) = 7",
     "f(x) nærmer sig 7, når x nærmer sig 3",
     "f(x) = 7 for alle x nær 3",
     "Funktionen er defineret i x = 3"
-  ]}
-  correctIndex={1}
-  hint="Husk: grænseværdien handler om, hvad funktionen nærmer sig — ikke hvad den ER i punktet."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="ubestemt-form-strategi"
-  question="Du skal finde $\lim_{x \to 2} \frac{x^2-4}{x-2}$. Hvad er den korrekte fremgangsmåde?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Husk: grænseværdien handler om, hvad funktionen nærmer sig — ikke hvad den ER i punktet.`,
+      },
+      {
+        quizId: "ubestemt-form-strategi",
+        question: `Du skal finde $\lim_{x \to 2} \frac{x^2-4}{x-2}$. Hvad er den korrekte fremgangsmåde?`,
+        options: [
     "Indsæt x = 2 direkte og få resultatet 0",
     "Brug L'Hopitals regel som eneste mulighed",
     "Faktoriser tælleren som (x-2)(x+2) og forkort",
     "Grænseværdien eksisterer ikke, da nævneren er 0"
-  ]}
-  correctIndex={2}
-  hint="Tælleren er en forskel af to kvadrater: a² - b² = (a-b)(a+b)."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="lhopital-betingelse"
-  question="Hvornår må du anvende L'Hopitals regel?"
-  options={[
+  ],
+        correctIndex: 2,
+        hint: `Tælleren er en forskel af to kvadrater: a² - b² = (a-b)(a+b).`,
+      },
+      {
+        quizId: "lhopital-betingelse",
+        question: `Hvornår må du anvende L'Hopitals regel?`,
+        options: [
     "Altid når der er en brøk i grænseværdien",
     "Kun når man får formen 0/0 eller ∞/∞",
     "Kun når funktionerne er polynomier",
     "Når nævneren er 0"
+  ],
+        correctIndex: 1,
+        hint: `L'Hopitals regel kræver en specifik ubestemt form — ellers er den ugyldig.`,
+      }
   ]}
-  correctIndex={1}
-  hint="L'Hopitals regel kræver en specifik ubestemt form — ellers er den ugyldig."
 />

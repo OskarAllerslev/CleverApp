@@ -6,7 +6,7 @@ description: "Mester stamfunktioner, bestemte integraler og areal under kurver �
 ---
 
 import { Term } from '../../../../components/Term.tsx';
-import { QuizQuestion } from '../../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../../components/ExerciseHub.tsx';
 
 # Integrationsregneregler 🎯
 
@@ -391,44 +391,44 @@ $$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="stamfunktion-grundlag"
-  question="Hvad er en stamfunktion til $f(x) = 3x^2$?"
-  options={[
+  questions={[
+      {
+        quizId: "stamfunktion-grundlag",
+        question: `Hvad er en stamfunktion til $f(x) = 3x^2$?`,
+        options: [
     "$6x + C$",
     "$x^3 + C$",
     "$x^3$",
     "$\\frac{3x^3}{3} = x^3 + C$"
-  ]}
-  correctIndex={1}
-  hint="En stamfunktion F(x) opfylder F'(x) = f(x). Differentiér svarmuligheder og se, hvad der giver 3x²."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="bestemt-integral-beregning"
-  question="Hvad er $\int_0^2 x \, dx$?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `En stamfunktion F(x) opfylder F'(x) = f(x). Differentiér svarmuligheder og se, hvad der giver 3x².`,
+      },
+      {
+        quizId: "bestemt-integral-beregning",
+        question: `Hvad er $\int_0^2 x \, dx$?`,
+        options: [
     "1",
     "2",
     "4",
     "0"
-  ]}
-  correctIndex={1}
-  hint="Stamfunktionen til x er x²/2. Indsæt grænserne."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="areal-mellem-kurver"
-  question="Arealet mellem $f(x)$ (øverst) og $g(x)$ (nederst) på $[a, b]$ beregnes som..."
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Stamfunktionen til x er x²/2. Indsæt grænserne.`,
+      },
+      {
+        quizId: "areal-mellem-kurver",
+        question: `Arealet mellem $f(x)$ (øverst) og $g(x)$ (nederst) på $[a, b]$ beregnes som...`,
+        options: [
     "$\\int_a^b f(x) \\cdot g(x) \\, dx$",
     "$\\int_a^b [f(x) + g(x)] \\, dx$",
     "$\\int_a^b [f(x) - g(x)] \\, dx$",
     "$\\int_a^b f(x) \\, dx \\cdot \\int_a^b g(x) \\, dx$"
+  ],
+        correctIndex: 2,
+        hint: `Vi finder 'afstanden' mellem kurverne ved at trække den nederste fra den øverste.`,
+      }
   ]}
-  correctIndex={2}
-  hint="Vi finder 'afstanden' mellem kurverne ved at trække den nederste fra den øverste."
 />

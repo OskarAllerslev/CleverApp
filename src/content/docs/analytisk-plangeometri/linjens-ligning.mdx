@@ -6,7 +6,8 @@ description: "Mester normalvektorer, retningsvektorer og parameterfremstillinger
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { LineEquationVisualizer } from '../../../components/visualizers/LineEquationVisualizer.tsx';
 
 # Linjens ligning 🎯
 
@@ -290,6 +291,8 @@ Hældningen $a$ fortæller os, at retningsvektoren kan skrives som $\vec{r} = \b
 
 </div>
 
+<LineEquationVisualizer />
+
 ---
 
 <details>
@@ -442,44 +445,44 @@ Er linjerne parallelle? Begrund dit svar.
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="linje-quiz-normalvektor"
-  question="Linjen har ligningen $3x - 7y + 2 = 0$. Hvad er normalvektoren?"
-  options={[
+  questions={[
+      {
+        quizId: "linje-quiz-normalvektor",
+        question: `Linjen har ligningen $3x - 7y + 2 = 0$. Hvad er normalvektoren?`,
+        options: [
     "$\\binom{3}{-7}$",
     "$\\binom{-7}{3}$",
     "$\\binom{7}{3}$",
     "$\\binom{3}{7}$"
-  ]}
-  correctIndex={0}
-  hint="I ligningen ax + by + c = 0 er normalvektoren (a, b)."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="linje-quiz-haeldning"
-  question="Hvad er hældningen for linjen $4x - 2y + 10 = 0$?"
-  options={[
+  ],
+        correctIndex: 0,
+        hint: `I ligningen ax + by + c = 0 er normalvektoren (a, b).`,
+      },
+      {
+        quizId: "linje-quiz-haeldning",
+        question: `Hvad er hældningen for linjen $4x - 2y + 10 = 0$?`,
+        options: [
     "$-2$",
     "$2$",
     "$\\frac{1}{2}$",
     "$-\\frac{1}{2}$"
-  ]}
-  correctIndex={1}
-  hint="Isoler y: hældningen er $-A/B$."
-/>
-
-<QuizQuestion
-  client:load
-  quizId="linje-quiz-parameterfremstilling"
-  question="En linje har parameterfremstillingen $(x, y) = (3, 1) + t(2, -5)$. Hvilket punkt svarer til $t = 2$?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Isoler y: hældningen er $-A/B$.`,
+      },
+      {
+        quizId: "linje-quiz-parameterfremstilling",
+        question: `En linje har parameterfremstillingen $(x, y) = (3, 1) + t(2, -5)$. Hvilket punkt svarer til $t = 2$?`,
+        options: [
     "$(7, -9)$",
     "$(5, -4)$",
     "$(1, 11)$",
     "$(7, 11)$"
+  ],
+        correctIndex: 0,
+        hint: `Indsæt $t = 2$: $x = 3 + 2 \\cdot 2$ og $y = 1 + 2 \\cdot (-5)$.`,
+      }
   ]}
-  correctIndex={0}
-  hint="Indsæt $t = 2$: $x = 3 + 2 \\cdot 2$ og $y = 1 + 2 \\cdot (-5)$."
 />

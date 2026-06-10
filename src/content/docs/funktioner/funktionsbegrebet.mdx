@@ -6,7 +6,9 @@ description: "Lær hvad en funktion er, og bliv fortrolig med definitionsmængde
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import { QuizQuestion } from '../../../components/QuizQuestion.tsx';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
+import { FunctionMappingVisualizer } from '../../../components/FunctionMappingVisualizer.tsx';
+import { FunctionTransformationsVisualizer } from '../../../components/visualizers/FunctionTransformationsVisualizer.tsx';
 
 # Funktionsbegrebet 🎯
 
@@ -79,6 +81,8 @@ Vi bruger <Term definition="Intervaller angiver en sammenhængende mængde af ta
 - $]-\infty, \infty[$ = $\mathbb{R}$ — alle reelle tal
 
 </div>
+
+<FunctionMappingVisualizer client:load />
 
 ---
 
@@ -167,6 +171,8 @@ For at tegne en graf:
 - En funktion er <Term definition="En funktion er aftagende i et interval, hvis f(x) falder når x stiger">aftagende</Term>, når grafen går nedad fra venstre mod højre
 
 </div>
+
+<FunctionTransformationsVisualizer client:load />
 
 ---
 
@@ -293,44 +299,44 @@ c) $(g \circ f)(3)$
 
 ## Quiz – Test din forståelse
 
-<QuizQuestion
+<ExerciseHub
   client:load
-  quizId="funktionsbegreb-quiz-1"
-  question="Hvad kendetegner en funktion?"
-  options={[
+  questions={[
+      {
+        quizId: "funktionsbegreb-quiz-1",
+        question: `Hvad kendetegner en funktion?`,
+        options: [
     "Hvert input giver præcis ét output",
     "Hvert input kan give flere outputs",
     "Alle inputs giver det samme output",
     "En funktion har altid en lige graf"
-  ]}
-  correctIndex={0}
-  hint="Tænk på funktionen som en maskine: ét input ind, hvad kommer ud?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="funktionsbegreb-quiz-2"
-  question="Hvad er definitionsmængden for f(x) = 1/(x-3)?"
-  options={[
+  ],
+        correctIndex: 0,
+        hint: `Tænk på funktionen som en maskine: ét input ind, hvad kommer ud?`,
+      },
+      {
+        quizId: "funktionsbegreb-quiz-2",
+        question: `Hvad er definitionsmængden for f(x) = 1/(x-3)?`,
+        options: [
     "Alle reelle tal",
     "Alle reelle tal undtagen x = 3",
     "Kun positive tal",
     "Alle reelle tal undtagen x = 0"
-  ]}
-  correctIndex={1}
-  hint="Hvornår bliver nævneren nul?"
-/>
-
-<QuizQuestion
-  client:load
-  quizId="funktionsbegreb-quiz-3"
-  question="Givet f(x) = x + 1 og g(x) = 2x. Hvad er (f ∘ g)(3)?"
-  options={[
+  ],
+        correctIndex: 1,
+        hint: `Hvornår bliver nævneren nul?`,
+      },
+      {
+        quizId: "funktionsbegreb-quiz-3",
+        question: `Givet f(x) = x + 1 og g(x) = 2x. Hvad er (f ∘ g)(3)?`,
+        options: [
     "8",
     "7",
     "10",
     "6"
+  ],
+        correctIndex: 1,
+        hint: `Beregn først g(3), og sæt resultatet ind i f.`,
+      }
   ]}
-  correctIndex={1}
-  hint="Beregn først g(3), og sæt resultatet ind i f."
 />
