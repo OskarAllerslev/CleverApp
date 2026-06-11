@@ -3,6 +3,13 @@ title: "Sinus, cosinus og tangens"
 level: "Matematik C"
 order: 3
 description: "Mestr de trigonometriske funktioner i retvinklede trekanter og enhedscirklen. Optjen +150 XP!"
+overview: "Sinus, cosinus og tangens er de tre trigonometriske grundfunktioner. De udtrykker forholdet mellem vinkler og sider i retvinklede trekanter – og er nøglen til al trigonometri."
+goals:
+  - "Definere sin, cos og tan som sideforhold i retvinklede trekanter"
+  - "Beregne ukendte sider og vinkler i retvinklede trekanter"
+  - "Bruge sin⁻¹, cos⁻¹, tan⁻¹ (inverse) til at finde vinkler"
+  - "Afgøre hvilken trigonometrisk funktion der er relevant i en given situation"
+intuition: "Sinus og cosinus er blot koordinaterne for et punkt på en enhedscirkel. Alt det komplicerede geometri er egentlig bare to simple koordinater!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -374,6 +381,32 @@ $$
   ],
         correctIndex: 2,
         hint: `Brug grundrelationen: sin²(v) + cos²(v) = 1, dvs. cos²(v) = 1 - sin²(v).`,
+      },
+      {
+        quizId: "geometri-og-trigonometri-sinus-cosinus-tan-quiz-premium",
+        question: `I en retvinklet trekant $ABC$ med $C = 90^\circ$ gælder, at $\sin(A) = 0.6$. Hvad er værdien af $\tan(A)$?`,
+        options: [
+          "$0.75$",
+          "$1.33$",
+          "$0.80$",
+          "$0.60$"
+        ],
+        correctIndex: 0,
+        hint: `Brug relationen $\cos^2(A) + \sin^2(A) = 1$ til at finde $\cos(A)$, og beregn derefter $\tan(A) = \frac{\sin(A)}{\cos(A)}$.`,
+        isPremium: true
+      },
+      {
+        quizId: "geometri-og-trigonometri-sinus-cosinus-tan-quiz-premium-2",
+        question: `I en retvinklet trekant er en vinkel $A = 30^\circ$ og den modstående katete $a = 6$. Hvor lang er hypotenusen $c$?`,
+        options: [
+          "$12$",
+          "$6\sqrt{3}$",
+          "$3$",
+          "$8$"
+        ],
+        correctIndex: 0,
+        hint: `Brug formlen $\sin(A) = \frac{\text{modstående}}{\text{hypotenuse}}$ og isoler $c$.`,
+        isPremium: true
       }
   ]}
 />

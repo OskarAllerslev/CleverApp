@@ -3,6 +3,13 @@ title: "Regningsarter og parenteser"
 level: "Matematik C"
 order: 1
 description: "Mester de fire regningsarter, regnearternes hierarki og parentesregler. Optjen +150 XP!"
+overview: "Regningsarter er fundamentet for al matematik. Her mestrer du de fire operationer og det vigtige regnehierarki, der styrer rækkefølgen i alle matematiske udtryk."
+goals:
+  - "Bruge de fire regningsarter korrekt: addition, subtraktion, multiplikation og division"
+  - "Anvende regnearternes hierarki (P-P-M/D-A/S) fejlfrit"
+  - "Sætte og ophæve parenteser med korrekte fortegn"
+  - "Reducere algebraiske udtryk ved at samle ens led"
+intuition: "Matematikken er ligesom et sprog – regningsarterne er alphabetet. Uden dem kan du ikke danne en eneste sætning i matematik."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -403,6 +410,32 @@ c) $(2x + 1)(x - 4)$
   ],
         correctIndex: 1,
         hint: `Tænk over: er $5 - 3$ det samme som $3 - 5$?`,
+      },
+      {
+        quizId: "tal-og-algebra-regningsarter-quiz-premium",
+        question: `Hvad er resultatet af parentesudtrykket: $-(2a - 3b) - 3(a - b)$ ganget ud og reduceret?`,
+        options: [
+          "$-5a + 6b$",
+          "$-5a$",
+          "$-5a + 3b$",
+          "$-a + 6b$"
+        ],
+        correctIndex: 0,
+        hint: `En minusparentes ændrer alle fortegn indeni, og tallet 3 skal ganges ind på begge led i den anden parentes.`,
+        isPremium: true
+      },
+      {
+        quizId: "tal-og-algebra-regningsarter-quiz-premium-2",
+        question: `Reducer udtrykket $4(2x - y) - 3(x + 2y) - (5x - 8y)$ mest muligt.`,
+        options: [
+          "$-2y$",
+          "$0$",
+          "$-2x$",
+          "$8x - 12y$"
+        ],
+        correctIndex: 0,
+        hint: `Gang ind i alle parenteser og vær opmærksom på fortegnene, især den sidste minusparentes.`,
+        isPremium: true
       }
   ]}
 />

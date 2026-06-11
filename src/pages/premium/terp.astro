@@ -1,6 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CleverSprint from '../../components/CleverSprint.tsx';
+import prisma from '../../lib/db/client';
+import { verifySession } from '../../lib/db/auth-server';
+
+export const prerender = false;
+
+const sessionToken = Astro.cookies.get('clevermat_session')?.value;
+const userId = verifySession(sessionToken);
+
+let membershipType = 'GUEST';
+
+if (userId) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { membershipType: true },
+  });
+  if (user) {
+    membershipType = user.membershipType;
+  }
+}
 ---
 
 <Layout title="CleverSprint - Spaced Repetition Terpning">
@@ -12,6 +31,6 @@ import CleverSprint from '../../components/CleverSprint.tsx';
     </div>
 
     <!-- Active CleverSprint Component -->
-    <CleverSprint client:load />
+    <CleverSprint client:load membershipType={membershipType} />
   </div>
 </Layout>

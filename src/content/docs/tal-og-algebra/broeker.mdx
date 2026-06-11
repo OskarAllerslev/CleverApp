@@ -6,7 +6,7 @@ description: "Bliv mester i brøkregning – fra forlængelse og forkortelse til
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import ExerciseHub from '../../../components/ExerciseHub';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 import { FractionVisualizer } from '../../../components/visualizers/FractionVisualizer.tsx';
 
 # Brøker 🎯
@@ -230,7 +230,7 @@ Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i f�
     quizId: "broeker-q1",
     question: "Hvad er værdien af $\\frac{3}{4} - \\frac{1}{6}$?",
     options: ["$\\frac{7}{12}$", "$\\frac{5}{12}$", "$\\frac{2}{3}$", "$\\frac{1}{2}$"],
-    answer: "$\\frac{7}{12}$",
+    correctIndex: 0,
     explanation: "For at trække brøkerne fra hinanden finder vi fællesnævneren, som er 12. Vi forlænger: 3/4 = (3·3)/(4·3) = 9/12, og 1/6 = (1·2)/(6·2) = 2/12. Nu kan vi trække tællerne fra hinanden: 9/12 - 2/12 = (9 - 2)/12 = 7/12.",
     hint: "Forlæng brøkerne så de begge har nævneren 12."
   },
@@ -238,7 +238,7 @@ Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i f�
     quizId: "broeker-q2",
     question: "Hvad er resultatet af divisionen $\\frac{4}{9} : \\frac{2}{3}$?",
     options: ["$\\frac{8}{27}$", "$\\frac{2}{3}$", "$\\frac{4}{6}$", "$\\frac{3}{2}$"],
-    answer: "$\\frac{2}{3}$",
+    correctIndex: 1,
     explanation: "Vi dividerer to brøker ved at gange med den omvendte brøk: (4/9) : (2/3) = (4/9) · (3/2) = (4 · 3) / (9 · 2) = 12/18. Dette kan forkortes med 6 til 2/3.",
     hint: "Husk reglen: a/b : c/d = a/b · d/c."
   },
@@ -246,8 +246,24 @@ Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i f�
     quizId: "broeker-q3",
     question: "Hvordan skrives det blandede tal $3\\frac{1}{5}$ som en uægte brøk?",
     options: ["$\\frac{15}{5}$", "$\\frac{8}{5}$", "$\\frac{16}{5}$", "$\\frac{16}{15}$"],
-    answer: "$\\frac{16}{5}$",
+    correctIndex: 2,
     explanation: "Vi omskriver et blandet tal til en uægte brøk ved at gange heltallet med nævneren og lægge tælleren til: (3 · 5 + 1) / 5 = (15 + 1) / 5 = 16/5.",
     hint: "Gang det hele tal med nævneren og læg det sammen med den eksisterende tæller."
+  },
+  {
+    quizId: "tal-og-algebra-broeker-quiz-premium",
+    question: "Reducer brøken $\\frac{12a^2b}{18ab^2}$ mest muligt.",
+    options: ["$\\frac{2a}{3b}$", "$\\frac{2a^2}{3b^2}$", "$\\frac{a}{b}$", "$\\frac{4a}{6b}$"],
+    correctIndex: 0,
+    hint: "Del tæller og nævner med den største fælles faktor: $\\text{GCF}(12, 18) = 6$, og $a^2/a = a$, $b/b^2 = 1/b$.",
+    isPremium: true
+  },
+  {
+    quizId: "tal-og-algebra-broeker-quiz-premium-2",
+    question: "Hvad er resultatet af divisionen: $\\frac{2a}{3b} : \\frac{4a^2}{9b^2}$ forkortet mest muligt?",
+    options: ["$\\frac{3b}{2a}$", "$\\frac{8a^3}{27b^3}$", "$\\frac{3b^2}{2a}$", "$\\frac{3}{2}$"],
+    correctIndex: 0,
+    hint: "At dividere med en brøk er det samme som at gange med den omvendte. Forkort derefter fælles faktorer i tæller og nævner.",
+    isPremium: true
   }
 ]} />

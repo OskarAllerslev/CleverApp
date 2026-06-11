@@ -3,6 +3,13 @@ title: "Ensvinklede trekanter"
 level: "Matematik C"
 order: 1
 description: "Lær om ensvinklede trekanter, forstørrelsesfaktor k og proportionalitet. Optjen +150 XP!"
+overview: "Ensvinklede trekanter er fundamentet for forholdsregning i geometrien. To figurer er ensvinklede, når alle vinkler er ens – og så er alle tilsvarende sider proportionale med det samme skalaforhold."
+goals:
+  - "Afgøre om to trekanter er ensvinklede ved brug af AA-, SSS- og SAS-kriterierne"
+  - "Opstille og løse proportioner fra tilsvarende sider"
+  - "Beregne ukendte sidelængder ved hjælp af skalaforholdet"
+  - "Anvende ensvinklede trekanter til praktiske beregninger"
+intuition: "Forestil dig at zoome ind eller ud på en figur uden at ændre dens form. Det er præcis hvad ensvinklede trekanter er: samme form, forskellig størrelse."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -357,6 +364,32 @@ Det betyder, at alle sidelængder i den store trekant er dobbelt så store som i
   ],
         correctIndex: 1,
         hint: `Husk at vinkelsummen i en trekant altid er 180°.`,
+      },
+      {
+        quizId: "geometri-og-trigonometri-ensvinklede-trekanter-quiz-premium",
+        question: `To ensvinklede trekanter har sidelængderne $a, b, c$ og $a', b', c'$. Hvis $a = 6$, $b = 8$ og arealet af den første trekant er $24$, hvad er arealet af den anden trekant, hvis skaleringsfaktoren $k = 1.5$?`,
+        options: [
+          "$54$",
+          "$36$",
+          "$48$",
+          "$24$"
+        ],
+        correctIndex: 0,
+        hint: `Husk, at forholdet mellem arealer af ensvinklede figurer er lig med skaleringsfaktoren i anden potens ($k^2$).`,
+        isPremium: true
+      },
+      {
+        quizId: "geometri-og-trigonometri-ensvinklede-trekanter-quiz-premium-2",
+        question: `To ensvinklede trekanter $T_1$ og $T_2$ har arealerne $A_1 = 12$ og $A_2 = 48$. Hvis en side i $T_1$ er $5$, hvad er den tilsvarende side i $T_2$?`,
+        options: [
+          "$10$",
+          "$20$",
+          "$15$",
+          "$2.5$"
+        ],
+        correctIndex: 0,
+        hint: `For ensvinklede figurer gælder det, at arealforholdet er lig med kvadratet på skalaforholdet ($k^2$).`,
+        isPremium: true
       }
   ]}
 />

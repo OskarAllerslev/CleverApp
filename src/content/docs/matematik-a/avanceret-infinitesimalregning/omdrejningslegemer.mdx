@@ -3,6 +3,13 @@ title: "Omdrejningslegemer"
 level: "Matematik A"
 order: 4
 description: "Beregn volumener af omdrejningslegemer – når kurver roterer og bliver til 3D-figurer! Optjen +150 XP!"
+overview: "Omdrejningslegemer opstår når en kurve roteres om en akse. Deres volumen og overfladeareal kan beregnes med integration – det er en smuk anvendelse af integralregning til rumgeometri."
+goals:
+  - "Beregne volumen af omdrejningslegemer om x-aksen med V = π·∫(f(x))²dx"
+  - "Beregne volumen om y-aksen ved skiveintegraler"
+  - "Fortolke den geometriske ide bag integrationen"
+  - "Beregne praktiske omdrejningslegemer som kegle, kugle og torus"
+intuition: "Del omdrejningslegemet op i uendeligt mange tynde skiver, hver med volumen π·r²·dx. Summer dem alle op med integration – det er præcis hvad volumensintegralet gør!"
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -502,6 +509,32 @@ $$
   ],
         correctIndex: 1,
         hint: `En kegle dannes af en ret linje fra origo (0,0) til punktet (h, R).`,
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-omdrejningslegemer-quiz-premium",
+        question: `En flade begrænses af funktionen $f(x) = \sqrt{x}$ og x-aksen i intervallet $[0; 4]$. Bestem volumenet af det omdrejningslegeme, der fremkommer ved at rotere denne flade $360^\circ$ om x-aksen.`,
+        options: [
+          "$8\pi$",
+          "$16\pi$",
+          "$4\pi$",
+          "$12\pi$"
+        ],
+        correctIndex: 0,
+        hint: `Formlen er $V = \pi \int_{0}^{4} (f(x))^2 dx$. Indsæt $f(x) = \sqrt{x}$ og integrer.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-omdrejningslegemer-quiz-premium-2",
+        question: `Funktionen $f(x) = \sqrt{x}$ drejes $360^\circ$ om x-aksen i intervallet $[0, 4]$. Beregn volumenet $V$ af omdrejningslegemet.`,
+        options: [
+          "$8\pi$",
+          "$16\pi$",
+          "$4\pi$",
+          "$12\pi$"
+        ],
+        correctIndex: 0,
+        hint: `Formlen for volumen av omdrejningslegeme om x-aksen er $V = \pi \int_{a}^{b} (f(x))^2 \, dx$.`,
+        isPremium: true
       }
   ]}
 />

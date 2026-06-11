@@ -3,6 +3,13 @@ title: "Separationsmetoden"
 level: "Matematik A"
 order: 2
 description: "Mester separation af variable — den vigtigste løsningsteknik til differentialligninger i Matematik A. Optjen +150 XP!"
+overview: "Separationsmetoden er den vigtigste teknik til at løse separable differentialligninger. Ved at separere variablerne og integrere begge sider finder vi den generelle løsning."
+goals:
+  - "Identificere separable differentialligninger"
+  - "Separere variablerne og integrere begge sider"
+  - "Finde den generelle og partikulære løsning"
+  - "Anvende begyndelsesværdier til at bestemme integrationskonstanten"
+intuition: "Separationsmetoden er elegant: samle alle y-udtryk på én side og alle x-udtryk på den anden, og integrer. Det er som at sortere din garderobe – alt i den rigtige kasse!"
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -448,6 +455,32 @@ b) Hvornår er koncentrationen nede på 10 mg/L?
   ],
         correctIndex: 2,
         hint: `Prøv at skrive t + y som et produkt af en funktion af t alene og en funktion af y alene`,
+      },
+      {
+        quizId: "matematik-a-differentialligninger-separationsmetoden-quiz-premium",
+        question: `Find den fuldstændige løsning til differentialligningen $\frac{dy}{dx} = \frac{2x}{y}$ for $y > 0$.`,
+        options: [
+          "$y = \sqrt{2x^2 + C}$",
+          "$y = x^2 + C$",
+          "$y = \sqrt{x^2 + C}$",
+          "$y = 2x^2 + C$"
+        ],
+        correctIndex: 0,
+        hint: `Separer de variable til $y \, dy = 2x \, dx$ og integrer derefter på begge sider.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-differentialligninger-separationsmetoden-quiz-premium-2",
+        question: `Løs differentialligningen $\frac{dy}{dx} = 3x^2 \cdot y$, hvor $y > 0$.`,
+        options: [
+          "$y = C \cdot e^{x^3}$",
+          "$y = e^{x^3} + C$",
+          "$y = C \cdot e^{3x^2}$",
+          "$y = x^3 \cdot y + C$"
+        ],
+        correctIndex: 0,
+        hint: `Separer de variable til $\frac{1}{y} \, dy = 3x^2 \, dx$, og integrer på begge sider.`,
+        isPremium: true
       }
   ]}
 />

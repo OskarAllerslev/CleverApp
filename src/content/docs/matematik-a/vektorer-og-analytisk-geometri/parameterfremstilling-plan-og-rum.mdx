@@ -3,6 +3,13 @@ title: "Parameterfremstilling i plan og rum"
 level: "Matematik A"
 order: 4
 description: "Mestér parameterfremstillinger for linjer og planer i 3D, samt skæringer. Optjen +150 XP!"
+overview: "Parameterfremstillinger beskriver linjer og planer i rummet ved hjælp af en parameter t. I stedet for at kræve et specifikt udtryk som y = ax + b, kan vi beskrive bevægelse langs en retning."
+goals:
+  - "Opstille parameterfremstillinger for linjer i planen og rummet"
+  - "Opstille parameterfremstillinger for planer i rummet"
+  - "Afgøre om punkter ligger på linjer eller planer"
+  - "Finde skæringspunkter mellem linjer og planer"
+intuition: "En parameterfremstilling er som en rejsebeskrivelse: du starter et sted (punktet P) og bevæger dig i en retning (vektoren r). Parameteren t fortæller dig, hvor langt du er kommet."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -609,6 +616,32 @@ $$
   ],
         correctIndex: 2,
         hint: `En modstrid (falsk udsagn) betyder, at der ikke eksisterer nogen t-værdi som løsning`,
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-parameterfremstilling-plan-og-rum-quiz-premium",
+        question: `En linje går gennem $A(1,0,2)$ med retningsvektor $\vec{r} = (2, -1, 3)$, og en plan har ligningen $x + 2y - z + 4 = 0$. Hvad er skæringspunktet?`,
+        options: [
+          "$(3, -1, 5)$",
+          "$(1, 0, 2)$",
+          "$(5, -2, 8)$",
+          "$(0, 0, 4)$"
+        ],
+        correctIndex: 0,
+        hint: `Indsæt linjens koordinatudtryk $x = 1+2t$, $y = -t$, og $z = 2+3t$ i planens ligning for at finde parameteren $t$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-parameterfremstilling-plan-og-rum-quiz-premium-2",
+        question: `En linje i rummet går gennem $P(1, 2, 3)$ med retningsvektor $\vec{r} = \begin{pmatrix} 2 \\ -1 \\ 4 \end{pmatrix}$. Hvilket af følgende punkter ligger på linjen?`,
+        options: [
+          "$(3, 1, 7)$",
+          "$(2, 1, 7)$",
+          "$(1, 0, 3)$",
+          "$(5, 0, 11)$"
+        ],
+        correctIndex: 0,
+        hint: `Indsæt koordinaterne i parameterfremstillingen og se, om der findes en fælles værdi af parameteren $t$ for alle tre koordinater.`,
+        isPremium: true
       }
   ]}
 />

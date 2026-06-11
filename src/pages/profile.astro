@@ -1,0 +1,387 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Min Profil">
+  <div class="flex-1 max-w-2xl mx-auto w-full py-10 px-4">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a href="/" class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-brand-650 dark:text-slate-400 dark:hover:text-brand-400">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="ml-1 text-sm font-semibold text-slate-700 dark:text-slate-200 md:ml-2">Profil</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Main Title -->
+    <div class="mb-8">
+      <h1 class="font-outfit text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        Din <span class="bg-gradient-to-r from-brand-600 to-sky-500 bg-clip-text text-transparent dark:from-brand-400 dark:to-sky-400">Profil</span>
+      </h1>
+      <p class="mt-2 text-sm text-slate-500 dark:text-slate-400 font-medium">
+        Administrer din CleverMat-konto, medlemskab og brugerdata.
+      </p>
+    </div>
+
+    <!-- Loading State -->
+    <div id="profile-loading" class="flex flex-col items-center justify-center py-20 space-y-4">
+      <div class="w-10 h-10 border-4 border-brand-500/20 border-t-brand-500 rounded-full animate-spin"></div>
+      <p class="text-sm font-semibold text-slate-500 dark:text-slate-400">Henter profiloplysninger...</p>
+    </div>
+
+    <!-- Profile content (hidden initially) -->
+    <div id="profile-content" class="hidden space-y-6">
+      
+      <!-- Card 1: Profile Info & Stats -->
+      <div class="bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-xl backdrop-blur-lg overflow-hidden relative transition-all duration-300">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-600 to-sky-400"></div>
+        <div class="p-6">
+          <h2 class="font-outfit text-lg font-bold text-slate-900 dark:text-white mb-4">Profiloplysninger</h2>
+          
+          <div class="space-y-4">
+            <!-- Email -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-slate-100 dark:border-slate-800/60">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">E-mail adresse</span>
+              <span id="profile-email" class="text-sm font-semibold text-slate-850 dark:text-slate-200 mt-1 sm:mt-0"></span>
+            </div>
+            
+            <!-- Gamified Stats -->
+            <div class="grid grid-cols-2 gap-4 pt-2">
+              <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200/40 dark:border-slate-800/40">
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">XP Niveau</span>
+                <span id="profile-level" class="text-2xl font-black text-brand-600 dark:text-brand-400 font-outfit">Niveau -</span>
+              </div>
+              <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200/40 dark:border-slate-800/40">
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Samlet XP</span>
+                <span id="profile-xp" class="text-2xl font-black text-sky-500 dark:text-sky-400 font-outfit">- XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Subscription -->
+      <div id="subscription-card" class="relative overflow-hidden bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-xl backdrop-blur-lg transition-all duration-300">
+        <div class="p-6">
+          <h2 class="font-outfit text-lg font-bold text-slate-900 dark:text-white mb-4">Medlemskab & Abonnement</h2>
+          
+          <div id="subscription-status-area">
+            <!-- Populated by script -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Danger Zone -->
+      <div class="bg-white/80 dark:bg-slate-900/80 border border-red-200/40 dark:border-red-900/20 rounded-2xl shadow-xl backdrop-blur-lg overflow-hidden relative transition-all duration-300">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-red-500"></div>
+        <div class="p-6">
+          <h2 class="font-outfit text-lg font-bold text-red-600 dark:text-red-400 mb-2">Farlig zone</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+            Her kan du nulstille alle dine data. Denne handling er permanent og kan ikke fortrydes.
+          </p>
+
+          <div class="p-4 rounded-xl bg-red-50/50 dark:bg-red-950/10 border border-red-200/80 dark:border-red-900/40 space-y-4">
+            <div class="flex gap-3">
+              <svg class="h-5 w-5 text-red-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div>
+                <h4 class="text-xs font-bold text-red-800 dark:text-red-400">Advarsel om nulstilling</h4>
+                <p class="text-xs text-red-750/80 dark:text-red-400/80 mt-1 leading-relaxed">
+                  Dette vil slette dine gennemførte opgaver, dine svarsvarhistorikker, din optjente XP, dit niveau samt alle gemte spaced repetition (Anki) kort.
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <label for="confirm-reset-input" class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Skriv <span class="font-black text-red-600 dark:text-red-400">NULSTIL</span> for at bekræfte:
+              </label>
+              <input
+                id="confirm-reset-input"
+                type="text"
+                autocomplete="off"
+                placeholder="NULSTIL"
+                class="block w-full rounded-xl border border-slate-200 bg-white/40 dark:border-slate-800 dark:bg-slate-950/40 px-3.5 py-2.5 text-sm font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500 transition-all placeholder-slate-400/60"
+              />
+            </div>
+
+            <button
+              id="reset-data-btn"
+              disabled
+              class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-xs font-bold text-white bg-red-650 hover:bg-red-700 disabled:opacity-40 disabled:hover:bg-red-650 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              Nulstil alt min brugerdata
+            </button>
+            <div id="reset-error" class="hidden text-xs font-semibold text-red-650 dark:text-red-450 mt-2 text-center"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const loadingEl = document.getElementById('profile-loading');
+    const contentEl = document.getElementById('profile-content');
+    const emailEl = document.getElementById('profile-email');
+    const levelEl = document.getElementById('profile-level');
+    const xpEl = document.getElementById('profile-xp');
+    const subscriptionCard = document.getElementById('subscription-card');
+    const subscriptionArea = document.getElementById('subscription-status-area');
+    
+    const confirmInput = document.getElementById('confirm-reset-input') as HTMLInputElement;
+    const resetBtn = document.getElementById('reset-data-btn') as HTMLButtonElement;
+    const resetError = document.getElementById('reset-error');
+
+    // Check if user session exists
+    const sessionStr = localStorage.getItem('clevermat_session');
+    if (!sessionStr) {
+      window.location.href = '/login';
+    } else {
+      try {
+        const session = JSON.parse(sessionStr);
+        if (!session.user) {
+          window.location.href = '/login';
+        } else {
+          initProfile(session.user);
+        }
+      } catch (e) {
+        console.error(e);
+        window.location.href = '/login';
+      }
+    }
+
+    async function initProfile(user) {
+      // 1. Populate initial UI values
+      if (emailEl) emailEl.textContent = user.email;
+      
+      // 2. Fetch fresh live user stats from server
+      try {
+        const res = await fetch(`/api/user/stats`);
+        if (res.ok) {
+          const stats = await res.json();
+          if (levelEl) levelEl.textContent = `Niveau ${stats.level}`;
+          if (xpEl) xpEl.textContent = `${stats.totalXp} XP`;
+          
+          // Sync with local session if changed
+          if (user.xp !== stats.totalXp || user.level !== stats.level) {
+            user.xp = stats.totalXp;
+            user.level = stats.level;
+            const updatedSession = { user };
+            localStorage.setItem('clevermat_session', JSON.stringify(updatedSession));
+            window.dispatchEvent(new CustomEvent('clevermat_auth_change', { detail: updatedSession }));
+          }
+        } else {
+          // Fallback to local storage if API call fails
+          if (levelEl) levelEl.textContent = `Niveau ${user.level || 1}`;
+          if (xpEl) xpEl.textContent = `${user.xp || 0} XP`;
+        }
+      } catch (e) {
+        console.error('Failed to load live stats', e);
+        if (levelEl) levelEl.textContent = `Niveau ${user.level || 1}`;
+        if (xpEl) xpEl.textContent = `${user.xp || 0} XP`;
+      }
+
+      // 3. Render subscription state
+      renderSubscription(user.membershipType || 'FREE');
+
+      // 4. Show content
+      loadingEl?.classList.add('hidden');
+      contentEl?.classList.remove('hidden');
+    }
+
+    function renderSubscription(membershipType) {
+      if (!subscriptionArea || !subscriptionCard) return;
+
+      const isPremium = membershipType === 'PREMIUM';
+      
+      // Update card top line
+      let accentLine = subscriptionCard.querySelector('.subscription-accent');
+      if (!accentLine) {
+        accentLine = document.createElement('div');
+        accentLine.className = 'subscription-accent absolute top-0 left-0 right-0 h-1.5';
+        subscriptionCard.appendChild(accentLine);
+      }
+      
+      if (isPremium) {
+        accentLine.className = 'subscription-accent absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-yellow-400';
+        subscriptionArea.innerHTML = `
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-amber-55/50 dark:bg-amber-950/10 border border-amber-250/80 dark:border-amber-900/40">
+            <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-955 flex items-center justify-center font-bold text-xl shrink-0 shadow-md">
+              👑
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-bold text-amber-850 dark:text-amber-300">Du er PREMIUM Medlem</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Tusind tak for din støtte! Din konto har fuld adgang til alle fordele, herunder Eksamensopgaver (Premium), CleverSprint Spaced Repetition og tredobbelt XP optjening.
+              </p>
+            </div>
+          </div>
+        `;
+      } else {
+        accentLine.className = 'subscription-accent absolute top-0 left-0 right-0 h-1.5 bg-slate-200 dark:bg-slate-800';
+        subscriptionArea.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800/60">
+              <div class="h-10 w-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center font-bold text-xl shrink-0">
+                ⭐
+              </div>
+              <div class="space-y-1">
+                <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Du er GRATIS Medlem</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Lige nu bruger du den gratis version af CleverMat. Opgrader for at låse op for de sværeste opgaver og accelerere din læring.
+                </p>
+              </div>
+            </div>
+
+            <!-- Premium Benefits -->
+            <div class="bg-gradient-to-r from-brand-600/5 to-sky-500/5 rounded-xl border border-brand-500/10 dark:border-brand-500/5 p-4">
+              <h4 class="text-xs font-bold text-slate-850 dark:text-slate-200 mb-2">Fordele ved Premium:</h4>
+              <ul class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-500 font-bold">✓</span> De sværeste eksamensopgaver i hvert emne
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-500 font-bold">✓</span> CleverSprint – Spaced Repetition (Anki) til din matematik-hukommelse
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-brand-500 font-bold">✓</span> 3x XP på alle besvarelser
+                </li>
+              </ul>
+            </div>
+
+            <button
+              id="upgrade-premium-btn"
+              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-xs font-bold text-white bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950 hover:shadow-amber-500/35 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer focus:outline-none"
+            >
+              Opgrader til Premium (Simuleret)
+            </button>
+          </div>
+        `;
+
+        // Add event listener to upgrade button
+        document.getElementById('upgrade-premium-btn')?.addEventListener('click', upgradeToPremium);
+      }
+    }
+
+    async function upgradeToPremium() {
+      const btn = document.getElementById('upgrade-premium-btn') as HTMLButtonElement;
+      if (btn) {
+        btn.setAttribute('disabled', 'true');
+        btn.textContent = 'Opgraderer...';
+      }
+
+      try {
+        const res = await fetch('/api/premium/upgrade', { method: 'POST' });
+        if (res.ok) {
+          const sessionStr = localStorage.getItem('clevermat_session');
+          if (sessionStr) {
+            const session = JSON.parse(sessionStr);
+            if (session.user) {
+              session.user.membershipType = 'PREMIUM';
+              localStorage.setItem('clevermat_session', JSON.stringify(session));
+              window.dispatchEvent(new CustomEvent('clevermat_auth_change', { detail: session }));
+              
+              // Re-render UI
+              renderSubscription('PREMIUM');
+            }
+          }
+        } else {
+          alert('Kunne ikke opgradere. Prøv venligst igen.');
+          if (btn) {
+            btn.removeAttribute('disabled');
+            btn.textContent = 'Opgrader til Premium (Simuleret)';
+          }
+        }
+      } catch (e) {
+        console.error(e);
+        alert('Der opstod en fejl under opgraderingen.');
+        if (btn) {
+          btn.removeAttribute('disabled');
+          btn.textContent = 'Opgrader til Premium (Simuleret)';
+        }
+      }
+    }
+
+    // Enable reset button only when "NULSTIL" is entered
+    confirmInput?.addEventListener('input', (e) => {
+      const val = (e.target as HTMLInputElement).value;
+      if (val === 'NULSTIL') {
+        resetBtn.removeAttribute('disabled');
+      } else {
+        resetBtn.setAttribute('disabled', 'true');
+      }
+    });
+
+    // Handle data reset
+    resetBtn?.addEventListener('click', async () => {
+      if (confirmInput.value !== 'NULSTIL') return;
+
+      if (!confirm('Er du helt sikker på, at du vil slette ALT dit brugerdata? Denne handling kan ikke fortrydes.')) {
+        return;
+      }
+
+      resetBtn.setAttribute('disabled', 'true');
+      resetBtn.textContent = 'Nulstiller data...';
+      if (resetError) resetError.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/user/reset', { method: 'POST' });
+        if (res.ok) {
+          // Clear client storage
+          const keysToRemove = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.startsWith('clevermat-quiz-') || key.startsWith('clevermat-mock-xp-') || key.startsWith('clevermat_local_xp'))) {
+              keysToRemove.push(key);
+            }
+          }
+          keysToRemove.forEach(key => localStorage.removeItem(key));
+          localStorage.removeItem('clevermat_local_xp');
+
+          // Reset values inside user session
+          const sessionStr = localStorage.getItem('clevermat_session');
+          if (sessionStr) {
+            const session = JSON.parse(sessionStr);
+            if (session.user) {
+              session.user.xp = 0;
+              session.user.level = 1;
+              session.user.completed_topics = [];
+              localStorage.setItem('clevermat_session', JSON.stringify(session));
+              window.dispatchEvent(new CustomEvent('clevermat_auth_change', { detail: session }));
+            }
+          }
+
+          // Show success message and redirect
+          alert('Din brugerdata er blevet nulstillet!');
+          window.location.href = '/';
+        } else {
+          const data = await res.json();
+          throw new Error(data.error || 'Nulstilling mislykkedes.');
+        }
+      } catch (err: any) {
+        console.error(err);
+        if (resetError) {
+          resetError.textContent = err.message || 'Der opstod en fejl under nulstilling af data.';
+          resetError.classList.remove('hidden');
+        }
+        resetBtn.removeAttribute('disabled');
+        resetBtn.textContent = 'Nulstil alt min brugerdata';
+      }
+    });
+  </script>
+</Layout>

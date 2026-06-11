@@ -3,6 +3,13 @@ title: "Eksponentielle og potensfunktioner"
 level: "Matematik C"
 order: 4
 description: "Mestr eksponentiel vækst, fremskrivningsfaktorer og potensfunktioner — vækst-boss unlocked! Optjen +150 XP!"
+overview: "Eksponentielle og potensfunktioner beskriver vækst og fald i naturen. Eksponentielle funktioner bruges til befolkningsvækst og renters rente, mens potensfunktioner beskriver geometriske sammenhænge."
+goals:
+  - "Identificere og beskrive eksponentielle funktioner f(x) = b·aˣ"
+  - "Beregne fordoblings- og halveringskonstanter"
+  - "Identificere og beregne potensfunktioner f(x) = b·xᵃ"
+  - "Afgøre hvilken model (eksponentiel eller potens) der passer til data"
+intuition: "En eksponentiel funktion vokser med en fast PROCENT for hvert skridt. En potensfunktion vokser med en fast FAKTOR afhænging af basis. Det er en subtil men vigtig forskel!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -492,6 +499,32 @@ c) Fordoblingstiden
   ],
         correctIndex: 2,
         hint: `Hvad sker der, når man tager ln på begge sider af f(x) = b · xᵃ?`,
+      },
+      {
+        quizId: "funktioner-eksponentiel-og-potens-quiz-premium",
+        question: `En eksponentiel udvikling $y = b \cdot a^x$ fordobles hver gang $x$ vokser med $3$. Hvis begyndelsesværdien $b = 5$, hvad er funktionsværdien til $x = 9$?`,
+        options: [
+          "$40$",
+          "$15$",
+          "$45$",
+          "$35$"
+        ],
+        correctIndex: 0,
+        hint: `Fordobling 3 gange svarer til at multiplicere med $2^3 = 8$.`,
+        isPremium: true
+      },
+      {
+        quizId: "funktioner-eksponentiel-og-potens-quiz-premium-2",
+        question: `En potensfunktion $f(x) = b \cdot x^a$ går gennem punkterne $(1, 3)$ og $(2, 24)$. Bestem forskriften.`,
+        options: [
+          "$f(x) = 3 \cdot x^3$",
+          "$f(x) = 3 \cdot x^2$",
+          "$f(x) = 2 \cdot x^3$",
+          "$f(x) = 3 \cdot 2^x$"
+        ],
+        correctIndex: 0,
+        hint: `Brug punktet $(1,3)$ til nemt at bestemme $b$, da $1^a = 1$. Indsæt derefter $b$ og det andet punkt for at finde $a$.`,
+        isPremium: true
       }
   ]}
 />

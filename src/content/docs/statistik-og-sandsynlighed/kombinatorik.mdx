@@ -3,6 +3,13 @@ title: "Kombinatorik"
 level: "Matematik C"
 order: 4
 description: "Lær at tælle systematisk med multiplikationsprincippet, permutationer og kombinationer. Optjen +150 XP!"
+overview: "Kombinatorik handler om at tælle på en smart måde. Du lærer at beregne antallet af måder at vælge og arrangere elementer – essentielt for avanceret sandsynlighedsregning."
+goals:
+  - "Anvende multiplikationsprincippet til at tælle sammensatte eksperimenter"
+  - "Beregne permutationer (ordnet udvælgelse) med og uden gentageleg"
+  - "Beregne kombinationer (uordnet udvælgelse) med binomialkoefficienter"
+  - "Anvende kombinatorik til sandsynlighedsberegninger"
+intuition: "Kombinatorik er svaret på spørgsmålet: 'Hvor mange måder kan det ske på?' Rækkefølge betyder alt for permutationer, men intet for kombinationer."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -520,6 +527,32 @@ b) Hvor mange, hvis ingen bogstaver eller cifre må gentages?
   ],
         correctIndex: 1,
         hint: `Spørg dig selv: giver det en anden situation, hvis du bytter om på bøgerne?`,
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-kombinatorik-quiz-premium",
+        question: `På hvor mange forskellige måder kan man vælge et udvalg på 4 personer ud af en gruppe på 10 personer?`,
+        options: [
+          "$210$",
+          "$5040$",
+          "$120$",
+          "$24$"
+        ],
+        correctIndex: 0,
+        hint: `Brug kombinationsformlen $K(n,r) = \binom{n}{r}$, da rækkefølgen af personer i et udvalg ikke er vigtig.`,
+        isPremium: true
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-kombinatorik-quiz-premium-2",
+        question: `På hvor mange måder kan man vælge et udvalg på 3 personer ud af en gruppe på 10 personer?`,
+        options: [
+          "$120$",
+          "$720$",
+          "$30$",
+          "$240$"
+        ],
+        correctIndex: 0,
+        hint: `Da rækkefølgen af personerne i udvalget ikke har betydning, skal du bruge formlen for kombinationer $K(n, r) = \binom{n}{r}$.`,
+        isPremium: true
       }
   ]}
 />

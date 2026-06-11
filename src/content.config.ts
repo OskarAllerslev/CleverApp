@@ -8,6 +8,9 @@ const docs = defineCollection({
     level: z.string(), // e.g. "Matematik C"
     order: z.number(),
     description: z.string().optional(),
+    overview: z.string().optional(), // Short learning summary shown at top of page
+    goals: z.array(z.string()).optional(), // List of 3-4 learning goals
+    intuition: z.string().optional(), // One-liner intuition / the "why"
   }),
 });
 

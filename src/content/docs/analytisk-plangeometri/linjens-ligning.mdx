@@ -3,6 +3,13 @@ title: "Linjens ligning"
 level: "Matematik B"
 order: 1
 description: "Mester normalvektorer, retningsvektorer og parameterfremstillinger — og bliv klar til analytisk geometri! Optjen +150 XP!"
+overview: "Analytisk plangeometri binder algebra og geometri sammen. Linjens ligning giver dig et præcist algebraisk udtryk for enhver ret linje i koordinatsystemet – med normalvektor og retningsvektor som centrale begreber."
+goals:
+  - "Opstille linjens ligning på standardform ax + by + c = 0"
+  - "Bestemme normalvektoren og retningsvektoren for en linje"
+  - "Beregne skæringspunktet mellem to linjer"
+  - "Afgøre om to linjer er parallelle eller vinkelrette"
+intuition: "En linjes ligning er en betingelse: den beskriver alle de punkter (x, y) der opfylder en bestemt lineær relation. Normalvektoren peger vinkelret på linjen og er nøglen til linjens orientering."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -483,6 +490,32 @@ Er linjerne parallelle? Begrund dit svar.
   ],
         correctIndex: 0,
         hint: `Indsæt $t = 2$: $x = 3 + 2 \\cdot 2$ og $y = 1 + 2 \\cdot (-5)$.`,
+      },
+      {
+        quizId: "analytisk-plangeometri-linjens-ligning-quiz-premium",
+        question: `To rette linjer har parameterfremstillingerne $l: (x,y) = (2,1) + t(2,-1)$ og $m: (x,y) = (1,4) + s(1,2)$. Bestem skæringspunktet mellem de to linjer.`,
+        options: [
+          "$(0,2)$",
+          "$(2,1)$",
+          "$(4,0)$",
+          "$(1,3)$"
+        ],
+        correctIndex: 0,
+        hint: `Sæt koordinaterne lig hinanden for at få to ligninger med de to parametre $t$ og $s$, og løs dem.`,
+        isPremium: true
+      },
+      {
+        quizId: "analytisk-plangeometri-linjens-ligning-quiz-premium-2",
+        question: `En ligning har normalvektoren $\vec{n} = \binom{3}{-4}$ og går gennem punktet $P(2, 5)$. Hvad er linjens ligning på standardform?`,
+        options: [
+          "$3x - 4y + 14 = 0$",
+          "$3x - 4y - 14 = 0$",
+          "$3x + 4y - 26 = 0$",
+          "$-4x + 3y - 7 = 0$"
+        ],
+        correctIndex: 0,
+        hint: `Brug standardformlen for linjens ligning: $a(x - x_0) + b(y - y_0) = 0$, hvor $\vec{n} = \binom{a}{b}$.`,
+        isPremium: true
       }
   ]}
 />

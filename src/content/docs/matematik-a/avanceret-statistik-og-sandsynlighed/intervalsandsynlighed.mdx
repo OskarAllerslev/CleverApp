@@ -3,6 +3,13 @@ title: "Intervalsandsynlighed og konfidensintervaller"
 level: "Matematik A"
 order: 2
 description: "Beregn sandsynligheder som arealer og byg konfidensintervaller – statistikkens kraftværktøj! Optjen +150 XP!"
+overview: "Intervalsandsynligheder for kontinuerte fordelinger beregnes ved integration af tæthedsfunktionen. Det er overgangen fra diskrete sandsynligheder til kontinuerte – et fundamentalt skifte i perspektiv."
+goals:
+  - "Forstå og beregne sandsynligheder som arealer under tæthedsfunktionen"
+  - "Anvende integraler til at beregne P(a ≤ X ≤ b)"
+  - "Bestemme middelværdi og varians for kontinuerte fordelinger"
+  - "Anvende disse teknikker på normalfordelingen specifikt"
+intuition: "For en kontinuert variabel er sandsynligheden for præcis ét bestemt tal altid nul. Kun intervaller har sandsynligheder – og de beregnes som arealet under kurven over intervallet."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -638,6 +645,32 @@ b) Beregn $P(\bar{X} \geq 503)$ for $n = 40$.
   ],
         correctIndex: 2,
         hint: `Den typiske tommelfingerregel i statistikundervisning er en bestemt grænse for n.`,
+      },
+      {
+        quizId: "matematik-a-avanceret-statistik-og-sandsynlighed-intervalsandsynlighed-quiz-premium",
+        question: `Et 95% konfidensinterval for en population-andel $p$ er beregnet til $[0.42; 0.48]$. Hvad var stikprøveandelen $\hat{p}$ og fejlmargenen (margin of error) for denne stikprøve?`,
+        options: [
+          "$\hat{p} = 0.45$, fejlmargen $= 0.03$",
+          "$\hat{p} = 0.45$, fejlmargen $= 0.06$",
+          "$\hat{p} = 0.46$, fejlmargen $= 0.02$",
+          "$\hat{p} = 0.44$, fejlmargen $= 0.04$"
+        ],
+        correctIndex: 0,
+        hint: `Stikprøveandelen $\hat{p}$ ligger præcis midt i konfidensintervallet, og fejlmargenen er afstanden fra midten til grænserne.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-statistik-og-sandsynlighed-intervalsandsynlighed-quiz-premium-2",
+        question: `Hvilket af følgende integraler udtrykker intervalsandsynligheden $P(a \le X \le b)$ for en stokastisk variabel med tæthedsfunktion $f(x)$?`,
+        options: [
+          "$\int_{a}^{b} f(x) \, dx$",
+          "$f(b) - f(a)$",
+          "$\int_{-\infty}^{\infty} f(x) \, dx$",
+          "$P(X \le b) + P(X \ge a)$"
+        ],
+        correctIndex: 0,
+        hint: `Sandsynligheden for, at en kontinuert stokastisk variabel ligger i et interval, er lig med arealet under tæthedsfunktionen i det pågældende interval.`,
+        isPremium: true
       }
   ]}
 />

@@ -3,6 +3,13 @@ title: "Logistisk vækst"
 level: "Matematik A"
 order: 3
 description: "Forstå den logistiske model med bæreevne, S-kurve og vendepunkt — biologi møder matematik! Optjen +150 XP!"
+overview: "Logistisk vækst modellerer populationer med en øvre grænse (bæreevne). Det er en realistisk model for biologisk vækst: hurtig start, aftagende stigning, asymptotisk grænse."
+goals:
+  - "Opstille og løse den logistiske differentialligning"
+  - "Identificere og fortolke vækstraten a og bæreevnen M"
+  - "Bestemme inflektionspunktet for logistisk vækst"
+  - "Sammenligne logistisk og eksponentiel vækst"
+intuition: "Logistisk vækst starter som eksponentiel, men opbremsas efterhånden som vi nærmer os bæreevnen. Tænk på det som en befolkning i et lukket system – jo tættere på bærekapaciteten, desto langsommere vækst."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -518,6 +525,32 @@ c) Forklar forskellen og hvornår hver model er passende.
   ],
         correctIndex: 1,
         hint: `Brug formlen c = (M - y₀)/y₀`,
+      },
+      {
+        quizId: "matematik-a-differentialligninger-logistisk-vaekst-quiz-premium",
+        question: `En logistisk differentialligning har formen $\frac{dy}{dt} = 0.002y(500 - y)$. Hvad er den maksimale væksthastighed for denne population?`,
+        options: [
+          "$125$",
+          "$250$",
+          "$500$",
+          "$100$"
+        ],
+        correctIndex: 0,
+        hint: `Maksimal væksthastighed opnås, når populationen $y$ er præcis halvdelen af bæreevnen $M = 500$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-differentialligninger-logistisk-vaekst-quiz-premium-2",
+        question: `En logistisk differentialligning har formen $\frac{dy}{dt} = 0,002 \cdot y \cdot (500 - y)$. Hvad er populationens bæreevne $M$?`,
+        options: [
+          "$500$",
+          "$0.002$",
+          "$1000$",
+          "$250$"
+        ],
+        correctIndex: 0,
+        hint: `Sammenlign med den standardiserede logistiske vækstformel $\frac{dy}{dt} = a \cdot y(M - y)$, hvor $M$ er den maksimale bæreevne.`,
+        isPremium: true
       }
   ]}
 />

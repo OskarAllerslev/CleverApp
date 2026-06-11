@@ -3,10 +3,17 @@ title: "Ligninger"
 level: "Matematik C"
 order: 5
 description: "Knæk koden til ligninger – fra simple førstegradsligninger til uligheder og nulreglen. Optjen +150 XP!"
+overview: "Ligningsløsning er detektivarbejde i matematik. Du isolerer den ubekendte ved at udføre de samme operationer på begge sider – en teknik du bruger i alle gymnasiets matematikemner."
+goals:
+  - "Løse førstegradsligninger med én ubekendt"
+  - "Løse uligheder og huske at vende tegnet ved division med negativt tal"
+  - "Anvende nulreglen til at løse ligninger på faktorform"
+  - "Opstille og løse ligninger ud fra praktiske situationer"
+intuition: "En ligning er en vægt i balance. Hvad du gør på den ene side, SKAL du gøre på den anden – ellers tipper vægten og ligningen er ikke længere sand."
 ---
 
 import { Term } from '../../../components/Term.tsx';
-import ExerciseHub from '../../../components/ExerciseHub';
+import { ExerciseHub } from '../../../components/ExerciseHub.tsx';
 
 # Ligninger 🎯
 
@@ -242,14 +249,14 @@ Ligningen har altså to løsninger.
 
 ## Boss-Kamp: Test din forståelse ⚔️
 
-Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i første forsøg, optjener du fuld XP (+50 XP pr. opgave). Svarer du forkert, trækkes der 15 XP fra den potentielle gevinst for hver fejl (dog minimum 10 XP pr. korrekt løst opgave). Svarer du forkert, skal du prøve igen for at finde det rigtige svar og få din belønning!
+Herunder finder du fem interaktive træningsopgaver. Hvis du svarer rigtigt i første forsøg, optjener du fuld XP (+50 XP pr. opgave). Svarer du forkert, trækkes der 15 XP fra den potentielle gevinst for hver fejl (dog minimum 10 XP pr. korrekt løst opgave). Opgave 4 og 5 er premium-opgaver med avancerede udfordringer!
 
 <ExerciseHub questions={[
   {
     quizId: "ligninger-q1",
     question: "Hvad er løsningen til ligningen $5x - 7 = 3x + 9$?",
     options: ["$x = 8$", "$x = 4$", "$x = 2$", "$x = -8$"],
-    answer: "$x = 8$",
+    correctIndex: 0,
     explanation: "Vi samler først x-leddene på venstre side ved at trække 3x fra på begge sider: 5x - 3x - 7 = 9, hvilket giver 2x - 7 = 9. Derefter lægger vi 7 til på begge sider: 2x = 16. Til sidst dividerer vi med 2: x = 8.",
     hint: "Saml x-leddene på den ene side og de konstante tal på den anden side."
   },
@@ -257,7 +264,7 @@ Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i f�
     quizId: "ligninger-q2",
     question: "Hvad er løsningen til uligheden $-3x + 4 < 10$?",
     options: ["$x > -2$", "$x < -2$", "$x > 2$", "$x < 2$"],
-    answer: "$x > -2$",
+    correctIndex: 0,
     explanation: "Vi trækker 4 fra på begge sider: -3x < 6. Nu skal vi dividere med -3 på begge sider. Fordi vi dividerer med et negativt tal, skal vi vende ulighedstegnet: x > 6 / (-3), hvilket forenkles til x > -2.",
     hint: "Pas på! Når du dividerer med et negativt tal, skal du huske at vende ulighedstegnet."
   },
@@ -265,8 +272,24 @@ Herunder finder du tre interaktive træningsopgaver. Hvis du svarer rigtigt i f�
     quizId: "ligninger-q3",
     question: "Find løsningerne til ligningen $(2x - 8)(x + 5) = 0$ ved hjælp af nulreglen.",
     options: ["$x = 4$ eller $x = -5$", "$x = -4$ eller $x = 5$", "$x = 8$ eller $x = -5$", "$x = 4$ eller $x = 5$"],
-    answer: "$x = 4$ eller $x = -5$",
+    correctIndex: 0,
     explanation: "Ifølge nulreglen skal enten (2x - 8) = 0 eller (x + 5) = 0. Hvis 2x - 8 = 0, får vi 2x = 8, hvilket giver x = 4. Hvis x + 5 = 0, får vi x = -5. Løsningerne er derfor x = 4 eller x = -5.",
     hint: "Nulreglen siger, at et produkt er nul, hvis mindst en af faktorerne er lig med nul. Sæt hver parentes lig med 0."
+  },
+  {
+    quizId: "tal-og-algebra-ligninger-quiz-premium",
+    question: "Løs ligningssystemet med to ubekendte: $2x + y = 7$ og $x - 3y = 7$. Hvad er værdien af $x$?",
+    options: ["$4$", "$-1$", "$3$", "$2$"],
+    correctIndex: 0,
+    hint: "Isoler $x$ i den anden ligning og indsæt i den første ligning.",
+    isPremium: true
+  },
+  {
+    quizId: "tal-og-algebra-ligninger-quiz-premium-2",
+    question: "Løs ligningen for $x$: $\\frac{3x - 2}{4} - \\frac{x + 1}{3} = 1$.",
+    options: ["$x = \\frac{22}{5}$", "$x = \\frac{10}{5}$", "$x = 3$", "$x = 2$"],
+    correctIndex: 0,
+    hint: "Find en fællesnævner (12) og gang alle led på begge sider med denne for at fjerne brøkerne.",
+    isPremium: true
   }
 ]} />

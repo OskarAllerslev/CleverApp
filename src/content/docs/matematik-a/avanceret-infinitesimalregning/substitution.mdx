@@ -3,6 +3,13 @@ title: "Substitution"
 level: "Matematik A"
 order: 3
 description: "Lær substitutionsmetoden – integration af sammensatte funktioner gjort simpelt. Optjen +150 XP!"
+overview: "Substitutionsmetoden er den vigtigste teknik til at integrere sammensatte funktioner. Ved at bytte variabel kan du forenkle komplicerede integraler til simple standardformer."
+goals:
+  - "Identificere hvornår substitutionsmetoden kan bruges"
+  - "Udføre kædereglen i omvendt rækkefølge for at integrere"
+  - "Anvende substitution på bestemte integraler med ændrede grænser"
+  - "Genkende standardsubstitutioner for trigonometriske og eksponentielle funktioner"
+intuition: "Substitution er som at skifte perspektiv. Du vælger en indre funktion t = g(x), og pludselig ser det komplicerede integral ud som et simpelt integral i t. Det handler om at se det rigtige mønster."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -468,6 +475,32 @@ $$
   ],
         correctIndex: 2,
         hint: `Når vi skifter variabel fra x til u, skal grænserne også udtrykkes i u.`,
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-substitution-quiz-premium",
+        question: `Bestem det bestemte integral: $\int_{0}^{1} x \cdot e^{x^2} dx$.`,
+        options: [
+          "$\frac{e - 1}{2}$",
+          "$e - 1$",
+          "$\frac{e}{2}$",
+          "$2(e - 1)$"
+        ],
+        correctIndex: 0,
+        hint: `Brug substitutionen $u = x^2$, hvilket medfører $du = 2x \, dx$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-substitution-quiz-premium-2",
+        question: `Find det ubestemte integral $\int 2x \cdot e^{x^2} \, dx$ ved substitution.`,
+        options: [
+          "$e^{x^2} + C$",
+          "$2e^{x^2} + C$",
+          "$x^2 \cdot e^{x^2} + C$",
+          "$\frac{1}{2}e^{x^2} + C$"
+        ],
+        correctIndex: 0,
+        hint: `Sæt den indre funktion $t = x^2$, så differentialet bliver $dt = 2x \, dx$. Dette lader dig erstatte hele udtrykket.`,
+        isPremium: true
       }
   ]}
 />

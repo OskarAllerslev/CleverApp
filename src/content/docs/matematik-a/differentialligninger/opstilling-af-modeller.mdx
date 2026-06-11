@@ -3,6 +3,13 @@ title: "Opstilling af differentialligninger"
 level: "Matematik A"
 order: 1
 description: "Lær at oversætte virkelige fænomener til matematiske modeller med differentialligninger — orden, løsningskurver og begyndelsesværdiproblemer. Optjen +150 XP!"
+overview: "Differentialligninger beskriver systemer der ændrer sig over tid. Her lærer du at oversætte fysiske og biologiske sammenhænge til matematiske ligninger som kan løses analytisk eller numerisk."
+goals:
+  - "Identificere og opstille differentialligninger fra verbale beskrivelser"
+  - "Kende til lineære og separable differentialligninger"
+  - "Verificere løsninger til differentialligninger"
+  - "Tolke begyndelsesværdier og steady-state løsninger"
+intuition: "En differentialligning fortæller dig noget om HASTIGHEDEN af en ændring, ikke om størrelsen selv. Du skal 'integrere' informationen for at finde selve funktionen."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -458,6 +465,32 @@ c) "Temperaturen ændrer sig proportionalt med forskellen mellem kropstemperatur
   ],
         correctIndex: 1,
         hint: `Brug formlen k = -ln(2)/T_(1/2) og husk at k er negativ ved henfald`,
+      },
+      {
+        quizId: "matematik-a-differentialligninger-opstilling-af-modeller-quiz-premium",
+        question: `Væksthastigheden af en temperatur $T(t)$ er proportional med differensen mellem temperaturen og rumtemperaturen $T_R = 20^\circ\text{C}$ (Newtons afkølingslov). Hvis afkølingskonstanten er $k = 0.05$, hvilken differentialligning beskriver dette?`,
+        options: [
+          "$\frac{dT}{dt} = -0.05(T - 20)$",
+          "$\frac{dT}{dt} = 0.05T$",
+          "$\frac{dT}{dt} = -0.05T(T - 20)$",
+          "$\frac{dT}{dt} = -0.05(20 - T)$"
+        ],
+        correctIndex: 0,
+        hint: `Da temperaturen falder mod rumtemperaturen, skal væksthastigheden være negativ proportional med $(T - T_R)$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-differentialligninger-opstilling-af-modeller-quiz-premium-2",
+        question: `En population vokser med en hastighed, der er proportional med kvadratroden af populationens størrelse $y$. Opstil differentialligningen.`,
+        options: [
+          "$\frac{dy}{dt} = k \cdot \sqrt{y}$",
+          "$\frac{dy}{dt} = k \cdot y^2$",
+          "$\frac{dy}{dt} = \frac{k}{\sqrt{y}}$",
+          "$y(t) = k \cdot \sqrt{t}$"
+        ],
+        correctIndex: 0,
+        hint: `Proportionalitet betyder, at væksthastigheden $\frac{dy}{dt}$ er lig med en konstant $k$ ganget med udtrykket $\sqrt{y}$.`,
+        isPremium: true
       }
   ]}
 />

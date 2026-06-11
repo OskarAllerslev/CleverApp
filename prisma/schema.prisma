@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+/// User account information
+model User {
+  id               String       @id @default(uuid())
+  email            String       @unique
+  passwordHash     String
+  membershipType   Membership   @default(FREE)
+  stats            UserStats?
+  exerciseLogs     ExerciseLog[]
+  ankiMemories     AnkiMemory[]
+}
+
+enum Membership {
+  FREE
+  PREMIUM
+}
+
+/// One‑to‑one stats for a user
+model UserStats {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  level            Int
+  totalXp          Int
+  skillRatingAlgebra   Float
+  skillRatingCalculus  Float
+  user             User     @relation(fields: [userId], references: [id])
+}
+
+/// Log of exercises attempted by a user
+model ExerciseLog {
+  id            String   @id @default(uuid())
+  userId        String
+  exerciseId    String
+  folder        String
+  attempts      Int      @default(0)
+  completed     Boolean  @default(false)
+  xpEarned      Int      @default(0)
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, exerciseId, folder])
+}
+
+/// Anki‑style spaced‑repetition cards belonging to a user
+model AnkiMemory {
+  id            String   @id @default(uuid())
+  userId        String
+  cardId        String   @unique
+  question      String
+  solution      String
+  interval      Int      @default(0)
+  easeFactor    Float    @default(2.5)
+  nextReview    DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+}

@@ -3,6 +3,13 @@ title: "Tretrinsreglen"
 level: "Matematik B"
 order: 1
 description: "Lær at differentiere fra bunden med tretrinsreglen – forstå differenskvotienten og grænseovergangen. Optjen +150 XP!"
+overview: "Tretrinsreglen er den systematiske metode til at differentiere en funktion fra definitionen. Selvom du normalt bruger regneregler, giver tretrinsreglen den dybe forståelse af, hvad differentiation egentlig er."
+goals:
+  - "Beregne differenskvotienten Δy/Δx for en given funktion"
+  - "Tage grænseværdien Δx → 0 for at finde differentialkvotienten"
+  - "Bruge tretrinsreglen til at bevise regneregler"
+  - "Forstå den intuitive forbindelse mellem sekant og tangent"
+intuition: "Tretrinsreglen er zooming: du starter med hældningen på en secant (to punkter), og lader de to punkter komme tættere og tættere på hinanden, indtil secanten bliver til en tangent."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -441,6 +448,32 @@ Forklar med ord, hvorfor $f'(x) = 0$ for en konstant funktion. Hvad betyder det 
   ],
         correctIndex: 2,
         hint: `Trin 1 er differensen, trin 2 er at dividere med h, og trin 3 er grænseovergangen.`,
+      },
+      {
+        quizId: "infinitesimalregning-tretrinsreglen-quiz-premium",
+        question: `Når man beviser, at differentialkvotienten af $f(x) = \frac{1}{x}$ er $f'(x) = -\frac{1}{x^2}$ ved tretrinsreglen, hvad er differenskvotienten (sekantens hældning) efter trin 2?`,
+        options: [
+          "$-\frac{1}{x \cdot (x + \Delta x)}$",
+          "$\frac{1}{\Delta x}$",
+          "$-\frac{1}{x^2}$",
+          "$\frac{\Delta x}{x \cdot (x + \Delta x)}$"
+        ],
+        correctIndex: 0,
+        hint: `Bring brøkerne på fællesnævner i trin 1, og divider derefter med $\Delta x$ i trin 2.`,
+        isPremium: true
+      },
+      {
+        quizId: "infinitesimalregning-tretrinsreglen-quiz-premium-2",
+        question: `Hvilket af følgende udtryk definerer grænseværdien for sekantens hældning, når vi lader sekanten nærme sig tangenten?`,
+        options: [
+          "$\lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$",
+          "$\lim_{x \to x_0} \frac{f(x) + f(x_0)}{x - x_0}$",
+          "$\lim_{\Delta x \to \infty} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$",
+          "$\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$"
+        ],
+        correctIndex: 0,
+        hint: `Tretrinsreglen finder grænseværdien for differenskvotienten, når tilvæksten i x ($\Delta x$) går mod nul.`,
+        isPremium: true
       }
   ]}
 />

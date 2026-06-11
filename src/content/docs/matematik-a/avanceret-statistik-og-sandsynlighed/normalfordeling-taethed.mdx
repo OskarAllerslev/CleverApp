@@ -3,6 +3,13 @@ title: "Normalfordeling og tæthedsfunktioner"
 level: "Matematik A"
 order: 1
 description: "Forstå den berømte klokkeformede kurve – lær om tæthedsfunktioner, normalfordelingen og z-transformation. Optjen +150 XP!"
+overview: "Normalfordelingen er den vigtigste sandsynlighedsfordeling i statistikken. Den symmetriske klokkeformel opstår naturligt i utallige situationer og er grundlaget for næsten al statistisk inferens."
+goals:
+  - "Identificere og fortolke normalfordelingens parametre μ og σ"
+  - "Beregne sandsynligheder med normalfordelingens tæthedsfunktion og standardisering"
+  - "Anvende 68-95-99,7%-reglen for intervalsandsynligheder"
+  - "Standardisere observationer til z-scores"
+intuition: "Normalfordelingen opstår, når mange uafhængige tilfældige faktorer adderes (Centralgrænsesætningen). Derfor ser vi den overalt: højder, testresultater, målefejl – alt følger denne klokkeform."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -552,6 +559,32 @@ c) Hvor usædvanligt er et salg på 18.000 kr?
   ],
         correctIndex: 1,
         hint: `Hvis 95,4 % ligger INDEN for μ ± 2σ, hvor meget ligger så uden for?`,
+      },
+      {
+        quizId: "matematik-a-avanceret-statistik-og-sandsynlighed-normalfordeling-taethed-quiz-premium",
+        question: `En stokastisk variabel $X$ er normalfordelt med middelværdi $\mu = 50$ og spredning $\sigma = 10$. Hvad er sandsynligheden for at $X$ er større end $70$?`,
+        options: [
+          "$2.5\%$",
+          "$5\%$",
+          "$16\%$",
+          "$0.15\%$"
+        ],
+        correctIndex: 0,
+        hint: `Værdien 70 ligger præcis 2 standardafvigelser over middelværdien. Brug symmetri og standardafvigelses-reglen.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-statistik-og-sandsynlighed-normalfordeling-taethed-quiz-premium-2",
+        question: `En normalfordeling har middelværdien $\mu = 100$ og spredningen $\sigma = 15$. Hvad er sandsynligheden for at en observation ligger i intervallet $[70, 130]$?`,
+        options: [
+          "Ca. $95.4\%$",
+          "Ca. $68.2\%$",
+          "Ca. $99.7\%$",
+          "Ca. $50.0\%$"
+        ],
+        correctIndex: 0,
+        hint: `Intervallet $[70, 130]$ svarer præcis til $\mu - 2\sigma$ og $\mu + 2\sigma$. Husk $68-95-99.7$-reglen.`,
+        isPremium: true
       }
   ]}
 />

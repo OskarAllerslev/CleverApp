@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getTotalXP, getLevelFromXP } from '../lib/xpService';
 import type { LevelInfo } from '../lib/xpService';
+import { authHelper } from '../lib/auth';
 
 // Audio Synthesizer for Retro Level-Up Chime
 const playLevelUpSound = () => {
@@ -67,9 +68,45 @@ export const LevelProgressBar: React.FC = () => {
     setLevelInfo(info);
   };
 
+  // Fetch live stats from cloud database
+  const fetchLiveStats = async () => {
+    const user = authHelper.getUser();
+    if (!user) return;
+
+    try {
+      const response = await fetch(`/api/user/stats?userId=${user.id}`);
+      if (response.ok) {
+        const data = await response.json();
+        const savedSession = localStorage.getItem('clevermat_session');
+        if (savedSession) {
+          const session = JSON.parse(savedSession);
+          if (session.user && (session.user.xp !== data.totalXp || session.user.level !== data.level)) {
+            session.user.xp = data.totalXp;
+            session.user.level = data.level;
+            localStorage.setItem('clevermat_session', JSON.stringify(session));
+            
+            // Re-sync progress bar locally
+            setTotalXP(data.totalXp);
+            const info = getLevelFromXP(data.totalXp);
+            
+            if (currentLevelRef.current > 0 && info.level > currentLevelRef.current) {
+              setShowLevelUp(true);
+            }
+            
+            currentLevelRef.current = info.level;
+            setLevelInfo(info);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch live stats from backend:', err);
+    }
+  };
+
   useEffect(() => {
     // Initial fetch on mount - mark as initial to prevent triggering level up on load
     syncXP(true);
+    fetchLiveStats();
 
     // Listen for XP changes
     const handleXPEarned = (e: Event) => {
@@ -86,6 +123,7 @@ export const LevelProgressBar: React.FC = () => {
     // Listen for authentication changes (which updates session XP)
     const handleAuthChange = () => {
       syncXP(false);
+      fetchLiveStats();
     };
 
     window.addEventListener('clevermat-xp-earned', handleXPEarned);

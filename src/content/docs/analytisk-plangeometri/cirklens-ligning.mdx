@@ -3,6 +3,13 @@ title: "Cirklens ligning"
 level: "Matematik B"
 order: 2
 description: "Knæk cirklens kode — fra centrum og radius til skæringer med linjer. Optjen +150 XP!"
+overview: "Cirklens ligning beskriver geometrisk alle punkter med samme afstand til centrum. Med kvadratkomplettering kan du omskrive enhver cirkelligning til standardform og aflæse centrum og radius."
+goals:
+  - "Opstille cirklens ligning fra centrum og radius: (x-a)² + (y-b)² = r²"
+  - "Finde centrum og radius ved hjælp af kvadratkomplettering"
+  - "Bestemme om en linje skærer, er tangent til eller ikke rammer en cirkel"
+  - "Finde tangentlinjen til en cirkel i et givet punkt"
+intuition: "Cirklens ligning er bare Pythagoras' sætning i forklædning: afstanden fra et punkt til centrum er altid r, og afstandsformlen involverer netop summen af to kvadrerede led."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -526,6 +533,32 @@ $$
   ],
         correctIndex: 2,
         hint: `$d = 0$ giver netop 1 dobbeltrod — dvs. 1 skæringspunkt.`,
+      },
+      {
+        quizId: "analytisk-plangeometri-cirklens-ligning-quiz-premium",
+        question: `En cirkel har ligningen $x^2 - 6x + y^2 + 8y = 0$. Bestem ligningen for tangenten til cirklen i punktet $P(6,0)$ på cirkelperiferien.`,
+        options: [
+          "$3x + 4y - 18 = 0$",
+          "$3x - 4y - 18 = 0$",
+          "$4x + 3y - 24 = 0$",
+          "$3x + 4y - 24 = 0$"
+        ],
+        correctIndex: 0,
+        hint: `Cirklens centrum er $(3,-4)$. Vektoren fra centrum til tangentpunktet $P(6,0)$ er normalvektor til tangenten.`,
+        isPremium: true
+      },
+      {
+        quizId: "analytisk-plangeometri-cirklens-ligning-quiz-premium-2",
+        question: `Hvad er centrum og radius for cirklen med ligningen $x^2 + y^2 - 6x + 8y = 0$?`,
+        options: [
+          "$C(3, -4)$ og $r = 5$",
+          "$C(-3, 4)$ og $r = 5$",
+          "$C(3, -4)$ og $r = 25$",
+          "$C(6, -8)$ og $r = 10$"
+        ],
+        correctIndex: 0,
+        hint: `Omskriv ligningen ved at lave kvadratkomplettering for $x$-leddene og $y$-leddene hver for sig.`,
+        isPremium: true
       }
   ]}
 />

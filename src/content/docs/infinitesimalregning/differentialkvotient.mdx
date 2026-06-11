@@ -3,6 +3,13 @@ title: "Differentialkvotient og regneregler"
 level: "Matematik B"
 order: 2
 description: "Mestr alle regnereglerne for differentiation – fra potensregel til kæderegel. Optjen +150 XP!"
+overview: "Differentialkvotienten måler en funktions øjeblikkelige ændringshastighed. Det er selve definitionen på differentiation og svaret på spørgsmålet: Hvor hurtigt ændrer funktionen sig præcis her?"
+goals:
+  - "Forstå differentialkvotienten som grænsen af differenskvotienten"
+  - "Differentiere polynomier, potenser og simple sammensatte funktioner"
+  - "Beregne tangentlinjens ligning i et givet punkt"
+  - "Fortolke f'(x) geometrisk som hældning og fysisk som hastighed"
+intuition: "Differentialkvotienten er hældningen på tangenten – den linje der 'rører' kurven i præcis ét punkt. Det er som at zoome ind på kurven, til den ser helt ret ud, og så måle hældningen."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -535,6 +542,32 @@ Find $f'(x)$ for $f(x) = x \cdot (3x+2)^5$. Brug produktreglen og kædereglen.
   ],
         correctIndex: 1,
         hint: `Husk remsen: 'afledt-gange-hel plus hel-gange-afledt'.`,
+      },
+      {
+        quizId: "infinitesimalregning-differentialkvotient-quiz-premium",
+        question: `Bestem den afledte funktion $f'(x)$ for funktionen $f(x) = x^2 \cdot e^x$.`,
+        options: [
+          "$(x^2 + 2x)e^x$",
+          "$2xe^x$",
+          "$x^2e^x$",
+          "$(2x + 2)e^x$"
+        ],
+        correctIndex: 0,
+        hint: `Brug produktreglen: $(u \cdot v)' = u'v + uv'$ med $u = x^2$ og $v = e^x$.`,
+        isPremium: true
+      },
+      {
+        quizId: "infinitesimalregning-differentialkvotient-quiz-premium-2",
+        question: `Bestem differentialkvotienten $f'(x)$ for funktionen $f(x) = x^2 \cdot \ln(x)$ ved brug af produktreglen.`,
+        options: [
+          "$2x \cdot \ln(x) + x$",
+          "$2x \cdot \ln(x) + 1$",
+          "$2x + \frac{1}{x}$",
+          "$x(2\ln(x) - 1)$"
+        ],
+        correctIndex: 0,
+        hint: `Brug produktreglen for differentiation: $(u \cdot v)' = u' \cdot v + u \cdot v'$.`,
+        isPremium: true
       }
   ]}
 />

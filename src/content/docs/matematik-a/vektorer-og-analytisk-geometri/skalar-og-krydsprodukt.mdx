@@ -3,6 +3,13 @@ title: "Skalarprodukt og krydsprodukt"
 level: "Matematik A"
 order: 1
 description: "Mestér skalarprodukt i 3D, vinkelberegning, krydsprodukt, normalvektorer og arealberegning. Optjen +150 XP!"
+overview: "Skalarproduktet og krydsproduktet er to måder at 'gange' vektorer på med helt forskelligt resultat. Skalarproduktet giver et tal og fortæller om vinklen, mens krydsproduktet giver en ny vektor vinkelret på begge."
+goals:
+  - "Beregne og fortolke skalarproduktet ā·b̄ = |ā||b̄|cos(θ)"
+  - "Beregne og fortolke krydsproduktet ā×b̄"
+  - "Bruge skalarproduktet til at afgøre om to vektorer er vinkelrette"
+  - "Anvende krydsproduktet til at finde normalvektorer til planer"
+intuition: "Skalarproduktet måler 'hvor meget' to vektorer peger i samme retning. Krydsproduktet finder den vektor der er vinkelret på begge – og arealet af det parallelogram de danner."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -434,6 +441,32 @@ $$
   ],
         correctIndex: 1,
         hint: `Arealet af parallelogrammet er lig med længden af krydsproduktet`,
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-skalar-og-krydsprodukt-quiz-premium",
+        question: `Givet to vektorer i rummet $\vec{u} = (1, 2, 2)$ og $\vec{v} = (2, -2, 1)$. Hvad er vinklen mellem de to vektorer afrundet til nærmeste grad?`,
+        options: [
+          "$90^\circ$",
+          "$45^\circ$",
+          "$0^\circ$",
+          "$60^\circ$"
+        ],
+        correctIndex: 0,
+        hint: `Beregn skalarproduktet $\vec{u} \cdot \vec{v}$. Hvis det giver $0$, er vektorerne ortogonale.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-skalar-og-krydsprodukt-quiz-premium-2",
+        question: `Bestem krydsproduktet $\vec{a} \times \vec{b}$ af vektorerne $\vec{a} = \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix}$ og $\vec{b} = \begin{pmatrix} 0 \\ 1 \\ 3 \end{pmatrix}$.`,
+        options: [
+          "$\begin{pmatrix} 6 \\ -3 \\ 1 \end{pmatrix}$",
+          "$\begin{pmatrix} 6 \\ 3 \\ 1 \end{pmatrix}$",
+          "$\begin{pmatrix} 2 \\ 3 \\ 1 \end{pmatrix}$",
+          "$\begin{pmatrix} 6 \\ -3 \\ -1 \end{pmatrix}$"
+        ],
+        correctIndex: 0,
+        hint: `Brug determinantmetoden til at beregne krydsproduktet: $\vec{a} \times \vec{b} = \begin{pmatrix} a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1 \end{pmatrix}$.`,
+        isPremium: true
       }
   ]}
 />

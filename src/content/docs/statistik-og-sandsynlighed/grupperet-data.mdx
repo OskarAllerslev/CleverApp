@@ -3,6 +3,13 @@ title: "Grupperet data"
 level: "Matematik C"
 order: 2
 description: "Mestr intervalmidtpunkter, sumkurver og kvartilbestemmelse fra grupperet data. Optjen +150 XP!"
+overview: "Grupperet data opstår når mange observationer sorteres i klasser eller intervaller. Du lærer at beregne approksimative deskriptorer og aflæse sumkurven til kvartilbestemmelse."
+goals:
+  - "Opstille frekvenstavle og beregne relative frekvenser for grupperet data"
+  - "Beregne approksimativ middelværdi og standardafvigelse for grupperet data"
+  - "Tegne og aflæse sumkurver (ogiver)"
+  - "Bestemme kvartiler fra sumkurven"
+intuition: "Når du grupperer data mister du information om de præcise værdier, men du vinder overblik over fordelingen. Det er en afvejning – og sumkurven er dit vigtigste redskab."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -431,6 +438,32 @@ c) Bestem kvartilbredden.
   ],
         correctIndex: 2,
         hint: `Medianen er det punkt, hvor 50 % af observationerne er kumuleret. Hvad er 50 % af 80?`,
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-grupperet-data-quiz-premium",
+        question: `Givet et datasæt, hvor 25%-kvartilen er $15$, medianen (50%-kvartilen) er $22$, og 75%-kvartilen er $30$. Hvilken af følgende påstande om kvartilbredden ($IQR$) og observationerne er sand?`,
+        options: [
+          "$IQR = 15$, og $50\%$ af observationerne ligger mellem $15$ og $30$",
+          "$IQR = 7.5$, og medianen er præcis i midten",
+          "$IQR = 15$, og $25\%$ af observationerne er mindre end $15$",
+          "$IQR = 22$, og $75\%$ af observationerne er mindre end $30$"
+        ],
+        correctIndex: 0,
+        hint: `Kvartilbredden $IQR$ er differensen $Q_3 - Q_1$, og der ligger altid $50\%$ af observationerne i dette interval.`,
+        isPremium: true
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-grupperet-data-quiz-premium-2",
+        question: `Hvad kaldes den x-værdi på sumkurven, hvor den kumulerede frekvens rammer $75\%$?`,
+        options: [
+          "Øvre kvartil ($Q_3$)",
+          "Medianen ($Q_2$)",
+          "Nedre kvartil ($Q_1$)",
+          "Typetallet"
+        ],
+        correctIndex: 0,
+        hint: `Kvartilsættet aflæses på sumkurven ved y-værdierne $25\%$, $50\%$ og $75\%$.`,
+        isPremium: true
       }
   ]}
 />

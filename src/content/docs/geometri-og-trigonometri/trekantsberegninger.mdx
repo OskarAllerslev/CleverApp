@@ -3,6 +3,13 @@ title: "Trekantsberegninger"
 level: "Matematik B"
 order: 4
 description: "Mestr sinus- og cosinusrelationerne samt arealformlen for vilkårlige trekanter. Optjen +150 XP!"
+overview: "Vilkårlige trekanter (ikke-retvinklede) kræver sinus- og cosinusrelationerne. Disse kraftfulde formler løser alle typer trekantberegninger – uanset om du kender sider, vinkler eller begge."
+goals:
+  - "Anvende sinusrelationen til at finde sider og vinkler"
+  - "Anvende cosinusrelationen til SSS- og SAS-situationer"
+  - "Beregne arealet af en vilkårlig trekant med areal = ½·a·b·sin(C)"
+  - "Vælge den rigtige relation ud fra de givne oplysninger"
+intuition: "Sinusrelationen er din ven, når du har et sæt af (vinkel, modstående side). Cosinusrelationen tager over, når du mangler en vinkel eller har alle tre sider."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -565,6 +572,32 @@ Her er en oversigt over, hvornår du bruger de forskellige formler:
   ],
         correctIndex: 1,
         hint: `Brug T = ½·a·b·sin(C). Hvad er sin(90°)?`,
+      },
+      {
+        quizId: "geometri-og-trigonometri-trekantsberegninger-quiz-premium",
+        question: `I en trekant $ABC$ er $a = 5$, $b = 8$ og vinkel $C = 60^\circ$. Bestem sidelængden $c$.`,
+        options: [
+          "$7$",
+          "$9$",
+          "$6.5$",
+          "$8.5$"
+        ],
+        correctIndex: 0,
+        hint: `Brug cosinusrelationen: $c^2 = a^2 + b^2 - 2ab\cos(C)$.`,
+        isPremium: true
+      },
+      {
+        quizId: "geometri-og-trigonometri-trekantsberegninger-quiz-premium-2",
+        question: `I en trekant ABC er $a = 5$, $b = 8$ og $C = 60^\circ$. Beregn sidelængden $c$.`,
+        options: [
+          "$7$",
+          "$\sqrt{39}$",
+          "$9$",
+          "$\sqrt{89}$"
+        ],
+        correctIndex: 0,
+        hint: `Brug cosinusrelationen: $c^2 = a^2 + b^2 - 2ab\cos(C)$.`,
+        isPremium: true
       }
   ]}
 />

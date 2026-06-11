@@ -3,6 +3,13 @@ title: "Grænseværdier og kontinuitet"
 level: "Matematik A"
 order: 1
 description: "Forstå grænseværdier, kontinuitet og L'Hôpitals regel – nøglen til hele analysen. Optjen +150 XP!"
+overview: "Grænseværdier er fundamentet under al kalkulus. De beskriver hvad en funktion nærmer sig – selv hvis den aldrig når derhen. Kontinuitet er betingelsen for at en funktion kan differentieres."
+goals:
+  - "Beregne grænseværdier algebraisk og ved L'Hôpitals regel"
+  - "Afgøre om en funktion er kontinuert i et punkt"
+  - "Identificere og klassificere diskontinuitetspunkter"
+  - "Anvende sætninger om grænseværdier (skvisesætningen, osv.)"
+intuition: "En grænseværdi er svaret på: 'Hvad nærmer f(x) sig, mens x nærmer sig en bestemt værdi?' Vi lader x komme meget tæt på – men aldrig præcis derhen."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -533,6 +540,32 @@ $$
   ],
         correctIndex: 1,
         hint: `L'Hopitals regel kræver en specifik ubestemt form — ellers er den ugyldig.`,
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-graensevaerdier-og-kontinuitet-quiz-premium",
+        question: `Bestem grænseværdien: $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$.`,
+        options: [
+          "$6$",
+          "$3$",
+          "$0$",
+          "Eksisterer ikke"
+        ],
+        correctIndex: 0,
+        hint: `Faktorer tælleren som $(x-3)(x+3)$ og forkort brøken før du tager grænseværdien.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-graensevaerdier-og-kontinuitet-quiz-premium-2",
+        question: `Bestem grænseværdien $\lim_{x \to 0} \frac{\sin(3x)}{x}$ ved brug af L'Hôpitals regel.`,
+        options: [
+          "$3$",
+          "$1$",
+          "$0$",
+          "Grænseværdien eksisterer ikke"
+        ],
+        correctIndex: 0,
+        hint: `Da grænseværdien er af typen $\frac{0}{0}$, kan du differentiere tæller og nævner hver for sig og derefter tage grænseværdien.`,
+        isPremium: true
       }
   ]}
 />

@@ -8,9 +8,14 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 import react from '@astrojs/react';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: node({
+    mode: 'standalone',
+  }),
+
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath],

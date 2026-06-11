@@ -3,6 +3,13 @@ title: "Optimering og monotoni"
 level: "Matematik B"
 order: 3
 description: "Find maksimum og minimum som en pro – brug den afledede til at optimere og analysere monotoni. Optjen +150 XP!"
+overview: "Optimering og monotonianalyse bruger differentialregning til at finde maksima og minima. Dette er en af de mest praktiske anvendelser af matematik – fra at minimere materialeomkostninger til at maksimere profit."
+goals:
+  - "Bestemme en funktions monotoni (stigning og fald) fra fortegnet af f'(x)"
+  - "Finde og klassificere kritiske punkter (lokale ekstrema og saddelpunkter)"
+  - "Udføre monotoniskema"
+  - "Opstille og løse praktiske optimeringsproblemer"
+intuition: "Funktionen stiger, når f'(x) > 0, og falder, når f'(x) < 0. Et ekstrema opstår der, hvor funktionen skifter fra stigning til fald eller omvendt – altså der hvor f'(x) = 0."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -605,6 +612,32 @@ Vis, at $f(x) = x^5$ har et stationært punkt i $x = 0$, og at det hverken er ma
   ],
         correctIndex: 2,
         hint: `Husk at tjekke ALLE kandidater: stationære punkter OG endepunkter.`,
+      },
+      {
+        quizId: "infinitesimalregning-optimering-og-monotoni-quiz-premium",
+        question: `Vi ønsker at indhegne et rektangulært areal op mod en lige mur (så der kun skal hegn på 3 sider). Vi har 40 meter hegn til rådighed. Hvad er det maksimale areal, vi kan indhegne?`,
+        options: [
+          "$200\text{ m}^2$",
+          "$100\text{ m}^2$",
+          "$400\text{ m}^2$",
+          "$150\text{ m}^2$"
+        ],
+        correctIndex: 0,
+        hint: `Udtryk arealet $A(x) = x \cdot (40 - 2x)$ og find maksimum ved at differentiere og sætte lig $0$.`,
+        isPremium: true
+      },
+      {
+        quizId: "infinitesimalregning-optimering-og-monotoni-quiz-premium-2",
+        question: `Find de lokale ekstremumssteder for funktionen $f(x) = \frac{1}{3}x^3 - 4x$.`,
+        options: [
+          "$x = 2$ og $x = -2$",
+          "$x = 4$ og $x = -4$",
+          "$x = 0$",
+          "$x = 2$ (kun)"
+        ],
+        correctIndex: 0,
+        hint: `Differentier funktionen og løs ligningen $f'(x) = 0$ for at finde de kritiske punkter.`,
+        isPremium: true
       }
   ]}
 />

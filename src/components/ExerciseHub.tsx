@@ -1,6 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { calculateRewardXP, addXP } from '../lib/xpService';
 import { logExerciseFailure } from '../lib/srsService';
+import { authHelper } from '../lib/auth';
+import katex from 'katex';
+
+const renderMathToHtml = (text?: string): string => {
+  if (!text) return '';
+  
+  // Replace block math $$...$$
+  let html = text.replace(/\$\$(.+?)\$\$/gs, (_, math) => {
+    try {
+      return katex.renderToString(math, { displayMode: true, throwOnError: false });
+    } catch (e) {
+      return `$$${math}$$`;
+    }
+  });
+
+  // Replace inline math $...$
+  html = html.replace(/\$(.+?)\$/g, (_, math) => {
+    try {
+      return katex.renderToString(math, { displayMode: false, throwOnError: false });
+    } catch (e) {
+      return `$${math}$`;
+    }
+  });
+
+  return html;
+};
 
 // Sound Synthesizers using Web Audio API for gamified feedback
 const playSoundWrong = () => {
@@ -102,6 +128,8 @@ export interface QuestionData {
   explanation?: string;
   hint?: string;
   solution?: string;
+  answer?: string;
+  isPremium?: boolean;
 }
 
 interface Props {
@@ -117,7 +145,6 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   
   // Status states loaded from localStorage for ALL questions in the array
-  // We key these by quizId
   const [solvedStates, setSolvedStates] = useState<Record<string, boolean>>({});
   const [attemptCounts, setAttemptCounts] = useState<Record<string, number>>({});
   const [perfectStates, setPerfectStates] = useState<Record<string, boolean>>({});
@@ -126,8 +153,23 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
 
-  // Load saved states from localStorage on mount and when questions change
+  // User Premium check
+  const [isUserPremium, setIsUserPremium] = useState(false);
+
   useEffect(() => {
+    const checkPremium = () => {
+      const user = authHelper.getUser();
+      setIsUserPremium(user?.membershipType === 'PREMIUM');
+    };
+    checkPremium();
+    window.addEventListener('clevermat_auth_change', checkPremium);
+    return () => {
+      window.removeEventListener('clevermat_auth_change', checkPremium);
+    };
+  }, []);
+
+  // Load saved states from localStorage on mount and when questions change
+  const loadSavedStates = () => {
     const solved: Record<string, boolean> = {};
     const attempts: Record<string, number> = {};
     const perfect: Record<string, boolean> = {};
@@ -146,7 +188,18 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
     setSolvedStates(solved);
     setAttemptCounts(attempts);
     setPerfectStates(perfect);
-  }, [questions]);
+  };
+
+  const questionIdsSerialized = questions.map(q => q.quizId).join(',');
+
+  useEffect(() => {
+    loadSavedStates();
+
+    window.addEventListener('clevermat-srs-changed', loadSavedStates);
+    return () => {
+      window.removeEventListener('clevermat-srs-changed', loadSavedStates);
+    };
+  }, [questionIdsSerialized]);
 
   // When active index changes, load states for the active question
   const activeQuestion = questions[activeIdx];
@@ -171,25 +224,9 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
         setShowSolution(true);
       }
     }
-  }, [activeIdx, activeQuestion, solvedStates]);
+  }, [activeIdx, activeQuestion?.quizId, solvedStates[activeQuestion?.quizId]]);
 
-  // Re-run KaTeX when math content is revealed
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      import('katex/dist/contrib/auto-render.mjs')
-        .then((module) => {
-          const renderMathInElement = module.default;
-          renderMathInElement(document.body, {
-            delimiters: [
-              { left: '$$', right: '$$', display: true },
-              { left: '$', right: '$', display: false }
-            ],
-            throwOnError: false
-          });
-        })
-        .catch((err) => console.error('Failed to load KaTeX auto-render', err));
-    }
-  }, [activeIdx, checked, showHint, showSolution]);
+  // Math is now safely rendered using renderMathToHtml inline inside React render.
 
   if (questions.length === 0 || !activeQuestion) {
     return <div className="p-4 text-center text-slate-500">Ingen opgaver tilgængelige.</div>;
@@ -204,8 +241,59 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
 
   const isMultipleChoice = activeQuestion.options !== undefined && correctIndex !== undefined;
   const activeId = activeQuestion.quizId;
+  const isLocked = activeQuestion.isPremium && !isUserPremium;
+
+  const syncToBackend = async (attempts: number) => {
+    const user = authHelper.getUser();
+    if (!user) return; // Guest user fallback
+
+    let folder = 'generelt';
+    if (typeof window !== 'undefined') {
+      const paths = window.location.pathname.split('/').filter(Boolean);
+      if (paths.length >= 2) {
+        folder = paths[paths.length - 2];
+      }
+    }
+
+    try {
+      const response = await fetch('/api/exercise/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          exerciseId: activeId,
+          folder,
+          attempts,
+          question: activeQuestion.question,
+          solution: activeQuestion.explanation || activeQuestion.solution || "Se teorien.",
+          isHard: attempts > 2,
+          isPremium: activeQuestion.isPremium
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Update local session to trigger global LevelProgressBar sync
+        const savedSession = localStorage.getItem('clevermat_session');
+        if (savedSession) {
+          const session = JSON.parse(savedSession);
+          if (session.user) {
+            session.user.xp = data.totalXp;
+            session.user.level = data.level;
+            localStorage.setItem('clevermat_session', JSON.stringify(session));
+            window.dispatchEvent(new CustomEvent('clevermat_auth_change', { detail: session }));
+          }
+        }
+      } else {
+        console.error('Kunne ikke gemme fremskridt i skyen.');
+      }
+    } catch (err) {
+      console.error('Netværksfejl ved synkronisering:', err);
+    }
+  };
 
   const handleCheck = () => {
+    if (isLocked) return; // Blocked
     if (selected === null || correctIndex === undefined) return;
     
     const correct = selected === correctIndex;
@@ -240,6 +328,9 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
         detail: { quizId: activeId, points }
       });
       window.dispatchEvent(event);
+
+      // Sync with cloud database
+      syncToBackend(currentAttempts);
     } else {
       // Play wrong answer sound
       playSoundWrong();
@@ -261,15 +352,17 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
   };
 
   const handleReset = () => {
+    if (isLocked) return;
     setSelected(null);
     setChecked(false);
   };
 
   const handleRevealSolution = () => {
+    if (isLocked) return;
     setShowSolution(true);
     if (!solvedStates[activeId]) {
       const currentAttempts = attemptCounts[activeId] || 0;
-      const points = calculateRewardXP(currentAttempts); // Reveal solution still counts as completing, but with penalty
+      const points = calculateRewardXP(currentAttempts);
 
       localStorage.setItem(`clevermat-quiz-${activeId}`, 'correct');
       localStorage.setItem(`clevermat-quiz-status-${activeId}`, 'solved');
@@ -281,6 +374,9 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
         detail: { quizId: activeId, points }
       });
       window.dispatchEvent(event);
+
+      // Sync with cloud database
+      syncToBackend(currentAttempts);
     }
   };
 
@@ -289,12 +385,22 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
     const q = questions[idx];
     const base = "h-10 w-10 md:h-12 md:w-12 rounded-xl text-sm font-bold flex items-center justify-center border transition-all duration-200 cursor-pointer shadow-sm focus:outline-none";
     
-    if (idx === activeIdx) {
-      // Currently active tab
+    const isActive = idx === activeIdx;
+    
+    if (q.isPremium) {
+      // Markant Guld Outline and Text: border-amber-400 / text-amber-400
+      if (isActive) {
+        return `${base} border-amber-400 text-amber-400 bg-amber-50/50 dark:bg-amber-950/30 ring-4 ring-amber-400/30`;
+      }
       if (solvedStates[q.quizId]) {
-        if (perfectStates[q.quizId]) {
-          return `${base} bg-amber-500 text-white border-amber-600 ring-4 ring-amber-500/20`;
-        }
+        return `${base} border-amber-400 text-amber-400 bg-emerald-50/20 dark:bg-emerald-950/10`;
+      }
+      return `${base} border-amber-400 text-amber-400 bg-white dark:bg-slate-900 hover:bg-amber-50/30 dark:hover:bg-amber-950/10`;
+    }
+
+    // Non-premium questions (standard)
+    if (isActive) {
+      if (solvedStates[q.quizId]) {
         return `${base} bg-emerald-500 text-white border-emerald-600 ring-4 ring-emerald-500/20`;
       }
       return `${base} bg-brand-600 text-white border-brand-700 ring-4 ring-brand-500/20`;
@@ -302,18 +408,14 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
 
     if (solvedStates[q.quizId]) {
       if (perfectStates[q.quizId]) {
-        // Solved on 1st attempt (Perfect!)
-        return `${base} bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-900/60 text-amber-700 dark:text-amber-300 hover:bg-amber-100/60`;
+        return `${base} bg-amber-50 dark:bg-amber-950/20 border-amber-400 text-amber-700 dark:text-amber-300 hover:bg-amber-100/60`;
       }
-      // Solved on 2+ attempts
       return `${base} bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100/60`;
     }
 
-    // Unsolved
     return `${base} bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80`;
   };
 
-  // Active question reward display
   const currentAttempts = attemptCounts[activeId] || 0;
   const earnedXP = calculateRewardXP(currentAttempts);
   const isPerfect = perfectStates[activeId];
@@ -334,7 +436,11 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
         
         {/* XP Status Badge for active question */}
         <div className="text-right">
-          {solvedStates[activeId] ? (
+          {isLocked ? (
+            <span className="text-xs font-outfit font-extrabold px-3 py-1 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-200/30 flex items-center gap-1.5 animate-pulse">
+              <span>Premium Opgave 🔒</span>
+            </span>
+          ) : solvedStates[activeId] ? (
             <span className={`text-xs font-outfit font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm ${
               isPerfect 
                 ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-250/20' 
@@ -351,179 +457,261 @@ export const ExerciseHub: React.FC<Props> = ({ questions }) => {
       </div>
 
       {/* Task Selector Tabs */}
-      <div className="flex justify-center gap-3 mb-6">
-        {questions.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setActiveIdx(idx)}
-            className={getSelectorBtnClass(idx)}
-            title={`Gå til opgave ${idx + 1}`}
-          >
-            {idx + 1}
-          </button>
-        ))}
+      <div className="flex justify-center gap-3 mb-6 flex-wrap">
+        {questions.map((q, idx) => {
+          const isTaskPremiumLocked = q.isPremium && !isUserPremium;
+          return (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setActiveIdx(idx)}
+              className={`${getSelectorBtnClass(idx)} relative`}
+              title={isTaskPremiumLocked ? `Premium: Opgave ${idx + 1}` : `Gå til opgave ${idx + 1}`}
+            >
+              {idx + 1}
+              {isTaskPremiumLocked && (
+                <span className="absolute -top-1.5 -right-1.5 bg-amber-400 text-white text-[8px] h-4 w-4 rounded-full flex items-center justify-center shadow-md border border-white dark:border-slate-900 select-none">
+                  🔒
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Active Question Box with animate key to restart animation on index change */}
+      {/* Active Question Box */}
       <div key={activeIdx} className="animate-in fade-in slide-in-from-right-3 duration-250">
         
-        {/* Question text */}
-        <div className="text-slate-800 dark:text-slate-200 font-medium mb-6 leading-relaxed text-base md:text-lg math-rendered">
-          {activeQuestion.question}
-        </div>
+        {isLocked ? (
+          <div className="space-y-6">
+            {/* Toned down and disabled question preview */}
+            <div className="opacity-25 pointer-events-none select-none filter blur-[1.5px] transition-all duration-305">
+              <div 
+                className="text-slate-850 dark:text-slate-200 font-medium mb-6 leading-relaxed text-base md:text-lg"
+                dangerouslySetInnerHTML={{ __html: renderMathToHtml(activeQuestion.question) }}
+              />
 
-        {isMultipleChoice ? (
-          <>
-            {/* Multiple Choice Options */}
-            <div className="space-y-3.5">
-              {activeQuestion.options?.map((opt, idx) => {
-                let optionStyles = 'border-slate-200 hover:border-slate-350 bg-slate-50/50 hover:bg-slate-100/80 dark:border-slate-800 dark:hover:border-slate-700 dark:bg-slate-950/40 dark:hover:bg-slate-950/70 text-slate-700 dark:text-slate-300';
-                
-                if (selected === idx) {
-                  optionStyles = 'border-brand-500 bg-brand-50/20 text-brand-700 dark:border-brand-400 dark:bg-brand-950/20 dark:text-brand-300 ring-2 ring-brand-500/15';
-                }
-                
-                if (checked) {
-                  if (idx === correctIndex && isCorrect) {
-                    optionStyles = 'border-emerald-500 bg-emerald-50/25 text-emerald-700 dark:border-emerald-500 dark:bg-emerald-950/20 dark:text-emerald-300 font-semibold ring-2 ring-emerald-500/15';
-                  } else if (selected === idx && !isCorrect) {
-                    optionStyles = 'border-rose-500 bg-rose-50/25 text-rose-700 dark:border-rose-500 dark:bg-rose-950/20 dark:text-rose-300 line-through ring-2 ring-rose-500/15';
-                  }
-                }
-
-                return (
+              {isMultipleChoice ? (
+                <div className="space-y-3.5">
+                  {activeQuestion.options?.map((opt, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      disabled
+                      className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 text-slate-400 dark:text-slate-650 text-sm flex items-center justify-between"
+                    >
+                      <span dangerouslySetInnerHTML={{ __html: renderMathToHtml(opt) }} />
+                      <span className="h-5.5 w-5.5 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-xs font-bold text-slate-455">
+                        {idx + 1}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex gap-3 mt-6">
+                  {activeQuestion.hint && (
+                    <button
+                      type="button"
+                      disabled
+                      className="px-4.5 py-2.5 text-sm font-semibold rounded-xl border border-slate-200 dark:border-slate-800 text-slate-400"
+                    >
+                      Vis hint
+                    </button>
+                  )}
                   <button
-                    key={idx}
                     type="button"
-                    disabled={checked}
-                    onClick={() => setSelected(idx)}
-                    className={`w-full text-left p-4 rounded-xl border text-sm transition-all duration-150 flex items-center justify-between ${
-                      !checked ? 'cursor-pointer' : ''
-                    } ${optionStyles}`}
+                    disabled
+                    className="px-5.5 py-3 text-sm font-bold rounded-xl text-slate-400 bg-slate-100 dark:bg-slate-800"
                   >
-                    <span className="math-rendered">{opt}</span>
-                    <span className={`h-5.5 w-5.5 rounded-full border flex items-center justify-center text-xs font-bold shrink-0 ${
-                      selected === idx
-                        ? 'border-brand-500 bg-brand-500 text-white dark:border-brand-400 dark:bg-brand-400'
-                        : 'border-slate-300 dark:border-slate-700 text-slate-400 dark:text-slate-550'
-                    }`}>
-                      {idx + 1}
-                    </span>
+                    Vis løsning
                   </button>
-                );
-              })}
+                </div>
+              )}
             </div>
 
-            {/* MCQ Action Buttons */}
-            <div className="mt-6 flex items-center justify-between">
-              <div>
-                {checked && (
-                  <span className={`font-outfit font-bold text-sm flex items-center gap-1.5 ${
-                    isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
-                  }`}>
-                    {isCorrect ? (
-                      <>
-                        <svg className="h-5 w-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {isPerfect ? 'Rigtigt! Gennemført i 1. forsøg 🏆' : 'Korrekt! Du klarede det.'}
-                      </>
-                    ) : (
-                      <>
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                        </svg>
-                        <span>Ikke helt rigtigt. Svar reduceret med 15 XP.</span>
-                      </>
-                    )}
-                  </span>
-                )}
+            {/* Premium Lock Callout */}
+            <div className="p-6 rounded-2xl border border-amber-250/20 bg-amber-50/20 dark:bg-amber-950/10 dark:border-amber-550/30 flex flex-col items-center text-center space-y-4 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="h-12 w-12 rounded-full bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-xl text-amber-600 dark:text-amber-400 animate-bounce">
+                🔒
               </div>
-              
-              <div className="flex gap-2.5">
-                {checked && !isCorrect && (
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="px-4.5 py-2.5 text-sm font-semibold rounded-xl border border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 cursor-pointer transition-all duration-150"
-                  >
-                    Prøv igen
-                  </button>
-                )}
-                {!checked ? (
-                  <button
-                    type="button"
-                    onClick={handleCheck}
-                    disabled={selected === null}
-                    className={`px-5.5 py-3 text-sm font-bold rounded-xl text-white shadow-md transition-all duration-150 ${
-                      selected === null
-                        ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed shadow-none'
-                        : 'bg-brand-600 hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 cursor-pointer hover:shadow-brand-500/15'
-                    }`}
-                  >
-                    Tjek svar
-                  </button>
-                ) : null}
-              </div>
+              <h4 className="font-outfit font-black text-slate-800 dark:text-white text-base">
+                Denne opgave kræver Premium adgang
+              </h4>
+              <p className="text-slate-650 dark:text-slate-350 text-sm leading-relaxed max-w-md">
+                Lås op for at teste dig selv i de sværeste eksamensopgaver og optjene tredobbelt XP!
+              </p>
+              <a 
+                href="/premium/terp" 
+                className="px-6 py-3 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-450 text-xs font-extrabold text-white shadow-lg hover:shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+              >
+                Opgrader til Premium ⚡
+              </a>
             </div>
-
-            {/* Explanation box */}
-            {checked && isCorrect && activeQuestion.explanation && (
-              <div className="mt-6 p-4.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-850/80 animate-in fade-in slide-in-from-bottom-2 duration-200">
-                <span className="font-bold text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 block mb-2">
-                  Forklaring
-                </span>
-                <p className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed math-rendered">
-                  {activeQuestion.explanation}
-                </p>
-              </div>
-            )}
-          </>
+          </div>
         ) : (
           <>
-            {/* Open Ended controls */}
-            <div className="flex gap-3 mt-6">
-              {activeQuestion.hint && (
-                <button
-                  type="button"
-                  onClick={() => setShowHint(!showHint)}
-                  className="px-4.5 py-2.5 text-sm font-semibold rounded-xl border border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 cursor-pointer transition duration-150"
-                >
-                  {showHint ? 'Skjul hint' : 'Vis hint'}
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={handleRevealSolution}
-                className="px-5.5 py-3 text-sm font-bold rounded-xl text-white bg-brand-600 hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 shadow-md cursor-pointer transition-all duration-150"
-              >
-                {showSolution ? 'Løsning vist' : 'Vis løsning'}
-              </button>
-            </div>
+            {/* Question text */}
+            <div 
+              className="text-slate-800 dark:text-slate-200 font-medium mb-6 leading-relaxed text-base md:text-lg"
+              dangerouslySetInnerHTML={{ __html: renderMathToHtml(activeQuestion.question) }}
+            />
 
-            {/* Hint Box */}
-            {showHint && activeQuestion.hint && (
-              <div className="mt-4 p-4.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 animate-in fade-in duration-200">
-                <span className="font-bold text-xs uppercase tracking-widest text-amber-650 dark:text-amber-400 block mb-1">
-                  Hint
-                </span>
-                <p className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed math-rendered">
-                  {activeQuestion.hint}
-                </p>
-              </div>
-            )}
+            {isMultipleChoice ? (
+              <>
+                {/* Multiple Choice Options */}
+                <div className="space-y-3.5">
+                  {activeQuestion.options?.map((opt, idx) => {
+                    let optionStyles = 'border-slate-200 hover:border-slate-350 bg-slate-50/50 hover:bg-slate-100/80 dark:border-slate-800 dark:hover:border-slate-700 dark:bg-slate-950/40 dark:hover:bg-slate-950/70 text-slate-700 dark:text-slate-300';
+                    
+                    if (selected === idx) {
+                      optionStyles = 'border-brand-500 bg-brand-50/20 text-brand-700 dark:border-brand-400 dark:bg-brand-950/20 dark:text-brand-300 ring-2 ring-brand-500/15';
+                    }
+                    
+                    if (checked) {
+                      if (idx === correctIndex && isCorrect) {
+                        optionStyles = 'border-emerald-500 bg-emerald-50/25 text-emerald-700 dark:border-emerald-500 dark:bg-emerald-950/20 dark:text-emerald-300 font-semibold ring-2 ring-emerald-500/15';
+                      } else if (selected === idx && !isCorrect) {
+                        optionStyles = 'border-rose-500 bg-rose-50/25 text-rose-700 dark:border-rose-500 dark:bg-rose-950/20 dark:text-rose-300 line-through ring-2 ring-rose-500/15';
+                      }
+                    }
 
-            {/* Solution Box */}
-            {showSolution && activeQuestion.solution && (
-              <div className="mt-4 p-4.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-850/80 animate-in fade-in duration-200">
-                <span className="font-bold text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 block mb-2">
-                  Fuldstændig Løsning
-                </span>
-                <div className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed math-rendered">
-                  {activeQuestion.solution}
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        disabled={checked}
+                        onClick={() => setSelected(idx)}
+                        className={`w-full text-left p-4 rounded-xl border text-sm transition-all duration-150 flex items-center justify-between ${
+                          !checked ? 'cursor-pointer' : ''
+                        } ${optionStyles}`}
+                      >
+                        <span dangerouslySetInnerHTML={{ __html: renderMathToHtml(opt) }} />
+                        <span className={`h-5.5 w-5.5 rounded-full border flex items-center justify-center text-xs font-bold shrink-0 ${
+                          selected === idx
+                            ? 'border-brand-500 bg-brand-500 text-white dark:border-brand-400 dark:bg-brand-400'
+                            : 'border-slate-300 dark:border-slate-700 text-slate-400 dark:text-slate-550'
+                        }`}>
+                          {idx + 1}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-              </div>
+
+                {/* MCQ Action Buttons */}
+                <div className="mt-6 flex items-center justify-between">
+                  <div>
+                    {checked && (
+                      <span className={`font-outfit font-bold text-sm flex items-center gap-1.5 ${
+                        isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                      }`}>
+                        {isCorrect ? (
+                          <>
+                            <svg className="h-5 w-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {isPerfect ? 'Rigtigt! Gennemført i 1. forsøg 🏆' : 'Korrekt! Du klarede det.'}
+                          </>
+                        ) : (
+                          <>
+                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                            </svg>
+                            <span>Ikke helt rigtigt. Svar reduceret med 15 XP.</span>
+                          </>
+                        )}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex gap-2.5">
+                    {checked && !isCorrect && (
+                      <button
+                        type="button"
+                        onClick={handleReset}
+                        className="px-4.5 py-2.5 text-sm font-semibold rounded-xl border border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 cursor-pointer transition-all duration-150"
+                      >
+                        Prøv igen
+                      </button>
+                    )}
+                    {!checked ? (
+                      <button
+                        type="button"
+                        onClick={handleCheck}
+                        disabled={selected === null}
+                        className={`px-5.5 py-3 text-sm font-bold rounded-xl text-white shadow-md transition-all duration-150 ${
+                          selected === null
+                            ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-550 cursor-not-allowed shadow-none'
+                            : 'bg-brand-600 hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 cursor-pointer hover:shadow-brand-500/15'
+                        }`}
+                      >
+                        Tjek svar
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+
+                {/* Explanation box */}
+                {checked && isCorrect && activeQuestion.explanation && (
+                  <div className="mt-6 p-4.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-850/80 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                    <span className="font-bold text-xs uppercase tracking-widest text-slate-400 dark:text-slate-550 block mb-2">
+                      Forklaring
+                    </span>
+                    <p 
+                      className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: renderMathToHtml(activeQuestion.explanation) }}
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Open Ended controls */}
+                <div className="flex gap-3 mt-6">
+                  {activeQuestion.hint && (
+                    <button
+                      type="button"
+                      onClick={() => setShowHint(!showHint)}
+                      className="px-4.5 py-2.5 text-sm font-semibold rounded-xl border border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 hover:bg-slate-55 dark:hover:bg-slate-850 cursor-pointer transition duration-150"
+                    >
+                      {showHint ? 'Skjul hint' : 'Vis hint'}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleRevealSolution}
+                    className="px-5.5 py-3 text-sm font-bold rounded-xl text-white bg-brand-600 hover:bg-brand-500 dark:bg-brand-500 dark:hover:bg-brand-400 shadow-md cursor-pointer transition-all duration-150"
+                  >
+                    {showSolution ? 'Løsning vist' : 'Vis løsning'}
+                  </button>
+                </div>
+
+                {/* Hint Box */}
+                {showHint && activeQuestion.hint && (
+                  <div className="mt-4 p-4.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 animate-in fade-in duration-200">
+                    <span className="font-bold text-xs uppercase tracking-widest text-amber-650 dark:text-amber-400 block mb-1">
+                      Hint
+                    </span>
+                    <p 
+                      className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: renderMathToHtml(activeQuestion.hint) }}
+                    />
+                  </div>
+                )}
+
+                {/* Solution Box */}
+                {showSolution && activeQuestion.solution && (
+                  <div className="mt-4 p-4.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-850/80 animate-in fade-in duration-200">
+                    <span className="font-bold text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 block mb-2">
+                      Fuldstændig Løsning
+                    </span>
+                    <div 
+                      className="text-slate-650 dark:text-slate-400 text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: renderMathToHtml(activeQuestion.solution) }}
+                    />
+                  </div>
+                )}
+              </>
             )}
           </>
         )}

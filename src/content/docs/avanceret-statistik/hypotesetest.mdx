@@ -3,6 +3,13 @@ title: "Hypotesetest"
 level: "Matematik B"
 order: 2
 description: "Lær at teste påstande med statistik – fra nulhypotese til chi²-test. Optjen +150 XP!"
+overview: "Hypotesetest er den statistiske metode til at afgøre om observeret data er i overensstemmelse med en teori. Det er kernen i videnskabelig metode og bruges i alle samfundsfaglige og naturvidenskabelige undersøgelser."
+goals:
+  - "Opstille nulhypotese H₀ og alternativ hypotese H₁"
+  - "Beregne en teststørrelse og den tilhørende p-værdi"
+  - "Sammenligne p-værdien med signifikansniveauet α for at konkludere"
+  - "Undgå de typiske fejl (type I og type II fejl)"
+intuition: "Hypotesetest spørger: 'Hvis min antagelse (H₀) er sand, hvad er så sandsynligheden for at se det jeg observerede?' Hvis sandsynligheden er meget lav, forkaster vi antagelsen."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -524,6 +531,32 @@ En lærer påstår, at 70% af eleverne foretrækker digitale lærebøger. I en s
   ],
         correctIndex: 2,
         hint: `Type I-fejl er en 'falsk alarm' – vi tror, vi har fundet noget, men H₀ var faktisk sand.`,
+      },
+      {
+        quizId: "avanceret-statistik-hypotesetest-quiz-premium",
+        question: `I en $\chi^2$-uafhængighedstest med en kontingenstabel med 3 rækker og 4 kolonner, hvor mange frihedsgrader ($df$) skal anvendes til at bestemme den kritiske værdi?`,
+        options: [
+          "$6$",
+          "$12$",
+          "$7$",
+          "$5$"
+        ],
+        correctIndex: 0,
+        hint: `Frihedsgrader beregnes som $df = (r-1) \cdot (k-1)$, hvor $r$ er rækker og $k$ er kolonner.`,
+        isPremium: true
+      },
+      {
+        quizId: "avanceret-statistik-hypotesetest-quiz-premium-2",
+        question: `Hvis p-værdien i en hypotesetest beregnes til $0,034$, og signifikansniveauet er sat til $\alpha = 0,05$, hvad er konklusionen?`,
+        options: [
+          "Nulhypotesen forkastes",
+          "Nulhypotesen accepteres",
+          "Testen er ugyldig",
+          "Det kritiske område skal udvides"
+        ],
+        correctIndex: 0,
+        hint: `Vi forkaster nulhypotesen ($H_0$), hvis den beregnede p-værdi er mindre end signifikansniveauet $\alpha$.`,
+        isPremium: true
       }
   ]}
 />

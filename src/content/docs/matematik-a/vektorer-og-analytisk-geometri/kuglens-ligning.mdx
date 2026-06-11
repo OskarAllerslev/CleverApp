@@ -3,6 +3,13 @@ title: "Kuglens ligning"
 level: "Matematik A"
 order: 3
 description: "Lær kuglens ligning, aflæs centrum og radius, og find skæring mellem kugle og plan. Optjen +150 XP!"
+overview: "Kuglens ligning er Pythagoras' sætning i tre dimensioner. Ligesom cirklens ligning beskriver alle punkter med en given afstand til centrum i planen, beskriver kuglens ligning det tilsvarende i rummet."
+goals:
+  - "Opstille kuglens ligning på standardform (x-a)² + (y-b)² + (z-c)² = r²"
+  - "Finde centrum og radius ved kvadratkomplettering i 3 variable"
+  - "Afgøre om et punkt ligger inden i, på eller uden for en kugle"
+  - "Finde skæringen mellem en linje og en kugle"
+intuition: "Kuglens ligning er egentlig bare definitionen på afstand i 3D: alle punkter med afstand r til centrum. Det er Pythagoras tre gange i stedet for to!"
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -431,6 +438,32 @@ Centrum $C\!\left(\frac{1}{2}, \frac{1}{2}, \frac{1}{2}\right)$ og radius $r = \
   ],
         correctIndex: 2,
         hint: `Tangens = berøring i ét punkt, dvs. skæringscirklen har radius 0`,
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-kuglens-ligning-quiz-premium",
+        question: `En kugle har ligningen $x^2 - 2x + y^2 + 4y + z^2 - 6z - 2 = 0$. Bestem kuglens radius.`,
+        options: [
+          "$4$",
+          "$16$",
+          "$2$",
+          "$5$"
+        ],
+        correctIndex: 0,
+        hint: `Brug kvadratkomplettering for $x$, $y$ og $z$ og flyt de konstante tal over på højre side for at finde $r^2$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-kuglens-ligning-quiz-premium-2",
+        question: `En kugle har ligningen $x^2 + y^2 + z^2 - 2x + 4y - 6z - 2 = 0$. Hvad er kuglens centrum og radius?`,
+        options: [
+          "$C(1, -2, 3)$ og $r = 4$",
+          "$C(-1, 2, -3)$ og $r = 4$",
+          "$C(1, -2, 3)$ og $r = \sqrt{16}$",
+          "$C(1, -2, 3)$ og $r = 2$"
+        ],
+        correctIndex: 0,
+        hint: `Kvadratkompletter for alle tre variable ($x$, $y$ og $z$) for at bringe ligningen på standardformen $(x-a)^2 + (y-b)^2 + (z-c)^2 = r^2$.`,
+        isPremium: true
       }
   ]}
 />

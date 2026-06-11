@@ -3,6 +3,13 @@ title: "Sandsynlighedsfelter"
 level: "Matematik C"
 order: 3
 description: "Forstå sandsynlighedens grundsprog: udfaldsrum, hændelser og regneregler. Optjen +150 XP!"
+overview: "Sandsynlighedsfelter giver en formel ramme for at tænke over tilfældige hændelser. Her lærer du at opstille udfaldsrum og beregne sandsynligheder ved hjælp af grundlæggende regler."
+goals:
+  - "Definere udfaldsrum, hændelse og sandsynlighed"
+  - "Beregne sandsynligheder ved hjælp af klassisk definition (gunstige/mulige)"
+  - "Anvende additionsreglen for sandsynligheder"
+  - "Beregne betinget sandsynlighed og anvende multiplikationsreglen"
+intuition: "Sandsynlighed handler om at tælle. Hvor mange af alle mulige udfald er gunstige for din hændelse? Det forhold er sandsynligheden. Intet mere, intet mindre."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -484,6 +491,32 @@ c) at begge terninger viser det samme tal.
   ],
         correctIndex: 1,
         hint: `Brug additionsreglen: P(A ∪ B) = P(A) + P(B) - P(A ∩ B).`,
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-sandsynlighedsfelter-quiz-premium",
+        question: `Du kaster to almindelige 6-sidede terninger. Hvad er sandsynligheden for at summen af øjnene er præcis 10?`,
+        options: [
+          "$\frac{3}{36} = \frac{1}{12}$",
+          "$\frac{4}{36} = \frac{1}{9}$",
+          "$\frac{2}{36} = \frac{1}{18}$",
+          "$\frac{1}{6}$"
+        ],
+        correctIndex: 0,
+        hint: `Find alle kombinationer af øjne, der giver summen 10, og divider med det samlede antal mulige udfald (36).`,
+        isPremium: true
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-sandsynlighedsfelter-quiz-premium-2",
+        question: `Du trækker to kort fra et almindeligt spil kort (52 kort) uden tilbagelægning. Hvad er sandsynligheden for, at begge er esser?`,
+        options: [
+          "$\frac{1}{221}$",
+          "$\frac{1}{169}$",
+          "$\frac{1}{26}$",
+          "$\frac{3}{676}$"
+        ],
+        correctIndex: 0,
+        hint: `Brug multiplikationsprincippet for betinget sandsynlighed: $P(A \cap B) = P(A) \cdot P(B|A)$.`,
+        isPremium: true
       }
   ]}
 />

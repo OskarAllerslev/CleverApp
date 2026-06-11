@@ -3,6 +3,13 @@ title: "Pythagoras' sætning"
 level: "Matematik C"
 order: 2
 description: "Mestr Pythagoras' sætning, beviset, og dens anvendelser. Optjen +150 XP!"
+overview: "Pythagoras' sætning er en af matematikkens mest berømte formler – og en af de mest brugbare. Den forbinder de tre sider i enhver retvinklet trekant og bruges i navigation, byggeri og koordinatgeometri."
+goals:
+  - "Beregne hypotenusen i en retvinklet trekant med a² + b² = c²"
+  - "Finde en ukendt katete når hypotenuse og den anden katete kendes"
+  - "Afgøre om en trekant er retvinklet via den omvendte Pythagoras"
+  - "Anvende Pythagoras til afstandsberegninger i koordinatsystemet"
+intuition: "Pythagoras handler om arealer: kvadratet på hypotenusen er præcis lig med summen af kvadraterne på de to kateter. Tegn det og du ser det straks!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -389,6 +396,32 @@ $$
   ],
         correctIndex: 1,
         hint: `Brug afstandsformlen d = √((x₂-x₁)² + (y₂-y₁)²).`,
+      },
+      {
+        quizId: "geometri-og-trigonometri-pythagoras-quiz-premium",
+        question: `I en retvinklet trekant er hypotenusen $c = 13$, og differensen mellem de to kateter $a$ og $b$ er $7$ (dvs. $b - a = 7$). Bestem sidelængden af den korteste katete.`,
+        options: [
+          "$5$",
+          "$12$",
+          "$8$",
+          "$6$"
+        ],
+        correctIndex: 0,
+        hint: `Opstil ligningen $a^2 + (a+7)^2 = 13^2$, og løs den som en andengradsligning.`,
+        isPremium: true
+      },
+      {
+        quizId: "geometri-og-trigonometri-pythagoras-quiz-premium-2",
+        question: `I en retvinklet trekant er den ene katete dobbelt så lang som den anden. Hvis hypotenusen er $\sqrt{20}$, hvor lange er kateterne?`,
+        options: [
+          "$2$ og $4$",
+          "$1$ og $2$",
+          "$3$ og $6$",
+          "$2$ og $8$"
+        ],
+        correctIndex: 0,
+        hint: `Sæt den korte katete til $x$ og den lange til $2x$, og brug relationen $a^2 + b^2 = c^2$.`,
+        isPremium: true
       }
   ]}
 />

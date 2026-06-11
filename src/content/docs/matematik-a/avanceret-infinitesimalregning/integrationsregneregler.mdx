@@ -3,6 +3,13 @@ title: "Integrationsregneregler"
 level: "Matematik A"
 order: 2
 description: "Mester stamfunktioner, bestemte integraler og areal under kurver – din integration-toolkit! Optjen +150 XP!"
+overview: "Integralregning er differentialregningens omvendte operation. Mens differentiation finder ændringshastighed, finder integration det samlede akkumulerede areal under en kurve."
+goals:
+  - "Beregne ubestemte integraler med stamfunktioner"
+  - "Anvende de grundlæggende integrationsregler"
+  - "Beregne bestemte integraler med Analysens Fundamentalsætning"
+  - "Beregne arealet between kurver ved integration"
+intuition: "Integration summer uendeligt mange uendeligt tynde rektangler under kurven. Jo finere du deler det op, desto præcisere bliver dit areal-estimat – og integralet er grænsen for denne proces."
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -429,6 +436,32 @@ $$
   ],
         correctIndex: 2,
         hint: `Vi finder 'afstanden' mellem kurverne ved at trække den nederste fra den øverste.`,
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-integrationsregneregler-quiz-premium",
+        question: `Bestem den stamfunktion $F(x)$ til $f(x) = 3x^2 - 4x + 1$, som opfylder betingelsen $F(2) = 5$.`,
+        options: [
+          "$x^3 - 2x^2 + x + 3$",
+          "$x^3 - 2x^2 + x + 5$",
+          "$x^3 - 2x^2 + x$",
+          "$x^3 - 2x^2 + x + 1$"
+        ],
+        correctIndex: 0,
+        hint: `Find det ubestemte integral $F(x) = x^3 - 2x^2 + x + C$ og løs for $C$ ved at indsætte $F(2) = 5$.`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-avanceret-infinitesimalregning-integrationsregneregler-quiz-premium-2",
+        question: `Beregn det bestemte integral $\int_{1}^{3} (3x^2 - 2x) \, dx$.`,
+        options: [
+          "$18$",
+          "$20$",
+          "$16$",
+          "$26$"
+        ],
+        correctIndex: 0,
+        hint: `Find stamfunktionen $F(x) = x^3 - x^2$, og beregn derefter værdien $F(3) - F(1)$.`,
+        isPremium: true
       }
   ]}
 />

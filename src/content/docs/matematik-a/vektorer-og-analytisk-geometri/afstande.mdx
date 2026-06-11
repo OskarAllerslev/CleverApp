@@ -3,6 +3,13 @@ title: "Afstande i rummet"
 level: "Matematik A"
 order: 2
 description: "Lær at beregne afstande mellem punkter, planer og linjer i 3D. Optjen +150 XP!"
+overview: "Afstandsberegninger i rummet generaliser plangeometrien til tre dimensioner. Her lærer du afstandsformler fra punkt til linje og plan i 3D – central færdighed i analytisk geometri på A-niveau."
+goals:
+  - "Beregne afstanden mellem to punkter i rummet"
+  - "Beregne afstanden fra et punkt til en plan med normalvektorformlen"
+  - "Beregne afstanden fra et punkt til en linje i rummet"
+  - "Finde det nærmeste punkt på en linje eller plan til et givet punkt"
+intuition: "Afstand fra et punkt til en plan finder du ved at projicere punktet vinkelret ned på planen. Normalvektoren til planen peger i præcis den retning, du skal projicere!"
 ---
 
 import { Term } from '../../../../components/Term.tsx';
@@ -459,6 +466,32 @@ $$
   ],
         correctIndex: 1,
         hint: `Tænk på arealet af parallelogrammet som grundlinje gange højde`,
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-afstande-quiz-premium",
+        question: `Bestem den vinkelrette afstand fra punktet $P(1, 2, -1)$ til planen med ligningen $2x - y + 2z - 4 = 0$.`,
+        options: [
+          "$2$",
+          "$6$",
+          "$3$",
+          "$1$"
+        ],
+        correctIndex: 0,
+        hint: `Brug afstandsformlen for punkt til plan i 3D: $d = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2 + B^2 + C^2}}.$`,
+        isPremium: true
+      },
+      {
+        quizId: "matematik-a-vektorer-og-analytisk-geometri-afstande-quiz-premium-2",
+        question: `Bestem afstanden fra punktet $P(1, 2, 4)$ til planen $\alpha: 2x - y + 2z + 3 = 0$.`,
+        options: [
+          "$\frac{11}{3}$",
+          "$3$",
+          "$4$",
+          "$\frac{11}{9}$"
+        ],
+        correctIndex: 0,
+        hint: `Brug afstandsformlen fra punkt to plan in 3D: $d(P, \alpha) = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2 + B^2 + C^2}}.$`,
+        isPremium: true
       }
   ]}
 />

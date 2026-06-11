@@ -3,6 +3,13 @@ title: "Regression"
 level: "Matematik C"
 order: 5
 description: "Lær at finde den bedste model til dine data med lineær, eksponentiel og potensregression. Optjen +150 XP!"
+overview: "Regression er metoden til at fitte en matematisk model til rå data. Du bruger det til at forudsige fremtidige værdier og forstå sammenhænge i datasæt fra virkeligheden."
+goals:
+  - "Udføre lineær regression og fortolke hældning og skæring"
+  - "Beregne og fortolke forklaringsgraden R²"
+  - "Vælge den bedste regressionsmodel (lineær, eksponentiel, potens) til data"
+  - "Bruge residualer til at vurdere modellens kvalitet"
+intuition: "Regression finder den linje (eller kurve), der minimerer den samlede fejl til alle datapunkter. Det er som at finde den 'gennemsnitlige tendens' i et rodet datasæt."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -499,6 +506,32 @@ Bestem en eksponentiel model og beregn fordoblingstiden.
   ],
         correctIndex: 2,
         hint: `Ret linje på dobbeltlogaritmisk papir svarer til en bestemt funktionstype.`,
+      },
+      {
+        quizId: "funktioner-regression-quiz-premium",
+        question: `I en lineær regression $y = ax + b$ er determinationskoefficienten $R^2 = 0.96$, og hældningen $a$ er negativ. Hvad er korrelationskoefficienten $r$?`,
+        options: [
+          "$-0.98$",
+          "$0.98$",
+          "$-0.96$",
+          "$0.96$"
+        ],
+        correctIndex: 0,
+        hint: `Korrelationskoefficienten $r$ er kvadratroden af $R^2$, og dens fortegn er det samme som hældningen $a$.`,
+        isPremium: true
+      },
+      {
+        quizId: "funktioner-regression-quiz-premium-2",
+        question: `Hvis forklaringsgraden $R^2$ for en lineær regression er $0,98$, hvad kan vi konkludere?`,
+        options: [
+          "$98\%$ af variationen i y-værdierne forklares af den lineære model",
+          "Modellen har en fejl på $2\%$ i alle forudsigelser",
+          "Hældningen på linjen er positiv",
+          "Modellen er $100\%$ sand for alle data"
+        ],
+        correctIndex: 0,
+        hint: `$R^2$-værdien (definitionskoefficienten) måler styrken af den lineære sammenhæng.`,
+        isPremium: true
       }
   ]}
 />

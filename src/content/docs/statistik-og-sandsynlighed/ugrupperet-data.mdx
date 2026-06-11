@@ -3,6 +3,13 @@ title: "Ugrupperet data"
 level: "Matematik C"
 order: 1
 description: "Lær at beskrive datasæt med gennemsnit, median, kvartiler og boksplot. Optjen +150 XP!"
+overview: "Beskrivende statistik for ugrupperet data giver dig værktøjerne til at opsummere et datasæt med tal. Middelværdi, median, typetal og spredning er de vigtigste deskriptorer."
+goals:
+  - "Beregne middelværdi, median og typetal for et datasæt"
+  - "Bestemme kvartiler, kvartilsæt og interkvartilbredde"
+  - "Beregne varians og standardafvigelse"
+  - "Fortolke boksplot og andre statistiske visualiseringer"
+intuition: "Middelværdien fortæller dig tyngdepunktet i data. Medianen fortæller dig midtpunktet. Og standardafvigelsen fortæller dig, hvor spredt data er om middelværdien."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -472,6 +479,32 @@ Beregn gennemsnit, median og kvartilbredde for begge grupper. Hvilken gruppe har
   ],
         correctIndex: 2,
         hint: `Tænk over, hvilken side 'halen' strækker sig ud mod.`,
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-ugrupperet-data-quiz-premium",
+        question: `Et ugrupperet datasæt består af tallene: $3, 5, 5, 6, 8, 9, 20$. Bestem medianen.`,
+        options: [
+          "$6$",
+          "$8$",
+          "$5$",
+          "$9$"
+        ],
+        correctIndex: 0,
+        hint: `Sortér først observationerne (hvilket de allerede er) og find den midterste værdi.`,
+        isPremium: true
+      },
+      {
+        quizId: "statistik-og-sandsynlighed-ugrupperet-data-quiz-premium-2",
+        question: `Hvad er medianen for følgende datasæt: $12, 5, 22, 17, 9, 14, 11$?`,
+        options: [
+          "$12$",
+          "$11$",
+          "$13$",
+          "$14$"
+        ],
+        correctIndex: 0,
+        hint: `Sorter først datasættet i stigende rækkefølge. Medianen er den midterste værdi.`,
+        isPremium: true
       }
   ]}
 />

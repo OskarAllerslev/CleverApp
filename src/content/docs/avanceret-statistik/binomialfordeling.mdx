@@ -3,6 +3,13 @@ title: "Binomialfordeling"
 level: "Matematik B"
 order: 1
 description: "Mestr binomialfordelingen – fra Bernoulli-forsøg til binomialtest. Optjen +150 XP!"
+overview: "Binomialfordelingen modellerer eksperimenter med to mulige udfald (succes/fiasko), der gentages n gange. Det er den vigtigste diskrete sandsynlighedsfordeling i gymnasiematematik."
+goals:
+  - "Identificere binomialfordelingssituationer med n forsøg og sandsynlighed p"
+  - "Beregne sandsynligheder med binomialformlen P(X=k) = C(n,k)·pᵏ·(1-p)^(n-k)"
+  - "Beregne middelværdi og standardafvigelse for B(n,p)"
+  - "Bruge binomialfordelingen til at løse sandsynlighedsopgaver"
+intuition: "Forestil dig n møntkast, og du vil vide sandsynligheden for præcis k plat. Binomialformlen beregner det eksakt – ved at tælle alle de mulige måder k succeser kan forekomme."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -566,6 +573,32 @@ En terning kastes 120 gange, og man observerer følgende antal seksere: 28. Unde
   ],
         correctIndex: 1,
         hint: `Sammenlign p-værdien med signifikansniveauet α. Hvad sker der, når p-værdi ≤ α?`,
+      },
+      {
+        quizId: "avanceret-statistik-binomialfordeling-quiz-premium",
+        question: `I et binomialt eksperiment med $n = 100$ og $p = 0.2$, hvad er sandsynligheden for at få præcis 20 succeser, afrundet til fire decimaler?`,
+        options: [
+          "$0.0993$",
+          "$0.2000$",
+          "$0.0512$",
+          "$0.1245$"
+        ],
+        correctIndex: 0,
+        hint: `Brug formlen $P(X=20) = \binom{100}{20} 0.2^{20} 0.8^{80}$.`,
+        isPremium: true
+      },
+      {
+        quizId: "avanceret-statistik-binomialfordeling-quiz-premium-2",
+        question: `En stokastisk variabel $X$ er binomialfordelt med $n = 5$ og $p = 0.2$. Hvad er middelværdien $\mu$ og variansen $\sigma^2$?`,
+        options: [
+          "$\mu = 1$ og $\sigma^2 = 0.8$",
+          "$\mu = 1$ og $\sigma^2 = 0.2$",
+          "$\mu = 2$ og $\sigma^2 = 1.6$",
+          "$\mu = 1$ og $\sigma^2 = 1$"
+        ],
+        correctIndex: 0,
+        hint: `Brug formlerne for middelværdi $\mu = n \cdot p$ og varians $\sigma^2 = n \cdot p \cdot (1 - p)$ for en binomialfordeling.`,
+        isPremium: true
       }
   ]}
 />

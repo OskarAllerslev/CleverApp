@@ -3,6 +3,13 @@ title: "Lineære funktioner"
 level: "Matematik C"
 order: 2
 description: "Mestr y = ax + b, hældning, skæringspunkter og to-punkts-formlen. Optjen +150 XP!"
+overview: "Lineære funktioner producerer rette linjer. Med to parametre – hældning og skæring – kan du beskrive ethvert lineært forhold i virkeligheden, fra fartberegninger til prismodeller."
+goals:
+  - "Fortolke hældningskoefficienten a og skæringen b i y = ax + b"
+  - "Beregne a og b fra to punkter med topunktsformlen"
+  - "Tegne og aflæse lineære grafer"
+  - "Bestemme skæringspunkter mellem to linjer"
+intuition: "Hældningskoefficienten a fortæller dig: for hvert skridt du tager til højre på x-aksen, bevæger du dig a enheder op (eller ned) på y-aksen. Det er ændringshastigheden!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -424,6 +431,32 @@ b) Bestem forskriften for en linje, der er vinkelret på $l$ og går gennem $(4,
   ],
         correctIndex: 0,
         hint: `Beregn hældningen med (y2-y1)/(x2-x1), og aflæs b fra punktet (0, 3).`,
+      },
+      {
+        quizId: "funktioner-lineaere-funktioner-quiz-premium",
+        question: `En ret linje går gennem punkterne $A(-2, -5)$ og $B(4, 7)$. Bestem linjens skæring med y-aksen.`,
+        options: [
+          "$-1$",
+          "$1$",
+          "$2$",
+          "$0$"
+        ],
+        correctIndex: 0,
+        hint: `Find først hældningskoefficienten $a$, og indsæt derefter et af punkterne i $y = ax + b$ for at finde $b$.`,
+        isPremium: true
+      },
+      {
+        quizId: "funktioner-lineaere-funktioner-quiz-premium-2",
+        question: `En ret linje går gennem punkterne $(2, 7)$ og $(5, 16)$. Hvad er linjens ligning?`,
+        options: [
+          "$y = 3x + 1$",
+          "$y = 3x - 1$",
+          "$y = 2x + 3$",
+          "$y = 4x - 1$"
+        ],
+        correctIndex: 0,
+        hint: `Bestem først hældningen $a$ med topunktsformlen, og find derefter skæringen med y-aksen $b$.`,
+        isPremium: true
       }
   ]}
 />

@@ -3,6 +3,13 @@ title: "Funktionsbegrebet"
 level: "Matematik C"
 order: 1
 description: "Lær hvad en funktion er, og bliv fortrolig med definitionsmængde, værdimængde, notation og grafer. Optjen +150 XP!"
+overview: "Funktionsbegrebet er matematikkens måde at beskrive sammenhænge. En funktion tager et input og giver præcis ét output – og det er det grundlæggende princip bag grafer, formler og modeller."
+goals:
+  - "Forstå og forklare definitionen af en funktion"
+  - "Bestemme definitionsmængde og værdimængde"
+  - "Aflæse, tegne og fortolke grafer for funktioner"
+  - "Skelne mellem funktion og ikke-funktion"
+intuition: "En funktion er som en maskine: du putter et tal ind (input), maskinen behandler det, og du får præcis ét tal ud (output). Ingen to inputs giver aldrig to forskellige outputs for det samme x."
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -337,6 +344,32 @@ c) $(g \circ f)(3)$
   ],
         correctIndex: 1,
         hint: `Beregn først g(3), og sæt resultatet ind i f.`,
+      },
+      {
+        quizId: "funktioner-funktionsbegrebet-quiz-premium",
+        question: `Givet funktionen $f(x) = \frac{\sqrt{x-2}}{x-5}$. Hvad er funktionens definitionsmængde ($Dm(f)$)?`,
+        options: [
+          "$[2; \infty[ \setminus \{5\}$",
+          "$]2; \infty[$",
+          "$[2; 5[$",
+          "$[2; \infty[$"
+        ],
+        correctIndex: 0,
+        hint: `Udtrykket under kvadratroden skal være $\ge 0$, og nævneren må ikke være $0$.`,
+        isPremium: true
+      },
+      {
+        quizId: "funktioner-funktionsbegrebet-quiz-premium-2",
+        question: `Hvad er den definitionsmængde $\text{Dm}(f)$ for funktionen $f(x) = \frac{1}{\sqrt{x^2 - 9}}$?`,
+        options: [
+          "$x < -3$ eller $x > 3$",
+          "$x > 3$",
+          "$x \neq \pm 3$",
+          "$\mathbb{R}$"
+        ],
+        correctIndex: 0,
+        hint: `Nævneren må ikke være nul, og udtrykket under kvadratroden skal være strengt positivt.`,
+        isPremium: true
       }
   ]}
 />

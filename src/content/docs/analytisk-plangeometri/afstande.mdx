@@ -3,6 +3,13 @@ title: "Afstande"
 level: "Matematik B"
 order: 3
 description: "Beregn afstande mellem punkter, fra punkt til linje og mellem parallelle linjer — præcist og effektivt! Optjen +150 XP!"
+overview: "Afstandsberegninger i planen er fundamentale i geometri. Her lærer du at finde afstanden mellem to punkter, fra et punkt til en linje, og areal af trekanter via determinanter."
+goals:
+  - "Beregne afstanden mellem to punkter med afstandsformlen"
+  - "Beregne afstanden fra et punkt til en linje med formlen d = |ax₀ + by₀ + c| / √(a² + b²)"
+  - "Beregne arealet af en trekant ud fra koordinaterne med krydsproduktmetoden"
+  - "Afgøre om et punkt ligger på en linje"
+intuition: "Afstandsformlen er Pythagoras i koordinatform: den vandrette forskel i anden plus den lodrette forskel i anden, under en kvadratrod. Simpelt og elegant!"
 ---
 
 import { Term } from '../../../components/Term.tsx';
@@ -500,6 +507,32 @@ $$
   ],
         correctIndex: 0,
         hint: `$\\frac{|3 - (-2)|}{\\sqrt{4 + 1}} = \\frac{5}{\\sqrt{5}}$.`,
+      },
+      {
+        quizId: "analytisk-plangeometri-afstande-quiz-premium",
+        question: `Bestem afstanden mellem den rette linje $l: 3x - 4y + 5 = 0$ og cirklen med ligningen $(x-2)^2 + (y+1)^2 = 4$. Hvad er den korteste afstand fra linjen til cirkelperiferien?`,
+        options: [
+          "1",
+          "3",
+          "2",
+          "0.5"
+        ],
+        correctIndex: 0,
+        hint: `Find først afstanden fra cirklens centrum til linjen ved hjælp af punkt-linje-afstandsformlen, og træk derefter cirklens radius fra.`,
+        isPremium: true
+      },
+      {
+        quizId: "analytisk-plangeometri-afstande-quiz-premium-2",
+        question: `Bestem afstanden mellem de to parallelle linjer $L_1: 3x - 4y + 5 = 0$ og $L_2: 3x - 4y - 10 = 0$.`,
+        options: [
+          "$3$",
+          "$15$",
+          "$5$",
+          "$2.5$"
+        ],
+        correctIndex: 0,
+        hint: `Find et tilfældigt punkt på den ene linje, og brug derefter punkt-linje afstandsformlen til at finde afstanden til den anden linje.`,
+        isPremium: true
       }
   ]}
 />
