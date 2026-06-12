@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 export const LineEquationVisualizer: React.FC = () => {
   const [xa, setXa] = useState<number>(-2);
@@ -83,7 +84,7 @@ export const LineEquationVisualizer: React.FC = () => {
           Interaktiv Visualisering: <span className="text-brand-600 dark:text-sky-400 font-extrabold">Linjens Ligning (y = ax + b)</span>
         </h4>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Træk i punkterne $A$ og $B$ direkte på planen (eller juster skyderne) for at se, hvordan linjens ligning beregnes ud fra to punkter.
+          Træk i punkterne <MathRenderer math="A" /> og <MathRenderer math="B" /> direkte på planen (eller juster skyderne) for at se, hvordan linjens ligning beregnes ud fra to punkter.
         </p>
       </div>
 
@@ -249,42 +250,38 @@ export const LineEquationVisualizer: React.FC = () => {
             </h5>
             <div className="space-y-3 font-outfit text-sm">
               <div>
-                <span className="text-xs text-slate-400">1. Find hældningen (a):</span>
-                <div className="bg-white dark:bg-slate-900 px-3 py-2 rounded-xl border border-slate-200/40 dark:border-slate-800/40 font-mono text-xs mt-1">
+                <span className="text-xs text-slate-400">1. Find hældningen (<MathRenderer math="a" />):</span>
+                <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-slate-700 dark:text-slate-350 text-xs mt-1">
                   {isVertical ? (
-                    <span>a = udefineret (lodret linje)</span>
+                    <span><MathRenderer math="a =" /> udefineret (lodret linje)</span>
                   ) : (
-                    <>
-                      a = (y₂ - y₁) / (x₂ - x₁)
-                      <br />
-                      a = ({yb} - {ya}) / ({xb} - {xa})
-                      <br />
-                      a = {dy.toFixed(1)} / {dx.toFixed(1)} = <span className="font-bold text-brand-600 dark:text-sky-400">{slope.toFixed(2)}</span>
-                    </>
+                    <div className="space-y-2">
+                      <MathRenderer block math={`a = \\frac{y_2 - y_1}{x_2 - x_1}`} />
+                      <MathRenderer block math={`a = \\frac{${yb} - (${ya})}{${xb} - (${xa})}`} />
+                      <MathRenderer block math={`a = \\frac{${dy.toFixed(1)}}{${dx.toFixed(1)}} = \\mathbf{${slope.toFixed(2)}}`} className="text-brand-600 dark:text-sky-450 font-bold" />
+                    </div>
                   )}
                 </div>
               </div>
 
               {!isVertical && yIntercept !== null && (
                 <div>
-                  <span className="text-xs text-slate-400">2. Find skæring med y-aksen (b):</span>
-                  <div className="bg-white dark:bg-slate-900 px-3 py-2 rounded-xl border border-slate-200/40 dark:border-slate-800/40 font-mono text-xs mt-1">
-                    b = y₁ - a &middot; x₁
-                    <br />
-                    b = {ya} - ({slope.toFixed(2)}) &middot; ({xa})
-                    <br />
-                    b = <span className="font-bold text-brand-600 dark:text-sky-400">{yIntercept.toFixed(2)}</span>
+                  <span className="text-xs text-slate-400">2. Find skæring med y-aksen (<MathRenderer math="b" />):</span>
+                  <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-slate-700 dark:text-slate-350 text-xs mt-1 space-y-2">
+                    <MathRenderer block math={`b = y_1 - a \\cdot x_1`} />
+                    <MathRenderer block math={`b = ${ya} - (${slope.toFixed(2)}) \\cdot (${xa})`} />
+                    <MathRenderer block math={`b = \\mathbf{${yIntercept.toFixed(2)}}`} className="text-brand-600 dark:text-sky-450 font-bold" />
                   </div>
                 </div>
               )}
 
               <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-3">
                 <span className="text-xs text-slate-400 block mb-1">Resultat (Ligning):</span>
-                <div className="text-base font-extrabold text-brand-600 dark:text-sky-400 font-mono">
+                <div className="text-base font-extrabold text-brand-600 dark:text-sky-400">
                   {isVertical ? (
-                    `x = ${xa.toFixed(1)}`
+                    <MathRenderer math={`x = ${xa.toFixed(1)}`} />
                   ) : (
-                    `y = ${slope.toFixed(2)}x ${yIntercept !== null && yIntercept >= 0 ? '+ ' : ''}${yIntercept?.toFixed(2)}`
+                    <MathRenderer math={`y = ${slope.toFixed(2)}x ${yIntercept !== null && yIntercept >= 0 ? '+' : ''} ${yIntercept?.toFixed(2)}`} />
                   )}
                 </div>
               </div>
@@ -293,8 +290,8 @@ export const LineEquationVisualizer: React.FC = () => {
 
           <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/50 dark:bg-slate-950/20 p-4 rounded-xl border border-slate-100/50 dark:border-slate-850/50">
             <span className="font-bold text-slate-700 dark:text-slate-350 block mb-1">Slopes og Intercepts:</span>
-            - Hældningstallet **a** angiver, hvor meget $y$ vokser, når $x$ øges med 1.
-            - Skæringstallet **b** angiver y-værdien, hvor linjen krydser y-aksen (hvor $x=0$).
+            - Hældningstallet <MathRenderer math="a" /> angiver, hvor meget <MathRenderer math="y" /> vokser, når <MathRenderer math="x" /> øges med 1.
+            - Skæringstallet <MathRenderer math="b" /> angiver y-værdien, hvor linjen krydser y-aksen (hvor <MathRenderer math="x=0" />).
           </div>
         </div>
       </div>

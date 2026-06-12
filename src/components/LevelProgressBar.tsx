@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { getTotalXP, getLevelFromXP } from '../lib/xpService';
 import type { LevelInfo } from '../lib/xpService';
 import { authHelper } from '../lib/auth';
@@ -50,8 +51,10 @@ export const LevelProgressBar: React.FC = () => {
   });
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [xpEarnedToast, setXpEarnedToast] = useState<{ points: number } | null>(null);
+  const [mounted, setMounted] = useState(false);
   
   const currentLevelRef = useRef<number>(0);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Sync state with localStorage/xpService
   const syncXP = (isInitial = false) => {
@@ -104,6 +107,7 @@ export const LevelProgressBar: React.FC = () => {
   };
 
   useEffect(() => {
+    setMounted(true);
     // Initial fetch on mount - mark as initial to prevent triggering level up on load
     syncXP(true);
     fetchLiveStats();
@@ -142,7 +146,7 @@ export const LevelProgressBar: React.FC = () => {
     // Play the synthesized audio effect
     playLevelUpSound();
 
-    const canvas = document.getElementById('level-up-confetti') as HTMLCanvasElement | null;
+    const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -218,64 +222,67 @@ export const LevelProgressBar: React.FC = () => {
     };
   }, [showLevelUp]);
 
-  return (
-    <div className="relative flex items-center gap-3 w-full">
-      {/* Full Screen Level Up Alert Overlay */}
-      {showLevelUp && (
-        <div className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-slate-900/90 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowLevelUp(false)}>
-          {/* Confetti Canvas */}
-          <canvas id="level-up-confetti" className="absolute inset-0 w-full h-full pointer-events-none" />
+  const levelUpOverlay = showLevelUp && (
+    <div className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-slate-900/90 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowLevelUp(false)}>
+      {/* Confetti Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-          {/* Radial Glow Container */}
-          <div className="relative text-center max-w-md px-8 py-12 bg-white/10 dark:bg-slate-900/40 border border-white/10 dark:border-slate-800/40 rounded-3xl shadow-2xl backdrop-blur-xl scale-in duration-500 flex flex-col items-center gap-6 overflow-hidden" onClick={e => e.stopPropagation()}>
-            {/* Glowing Background Light */}
-            <div className="absolute -inset-10 bg-gradient-to-tr from-amber-500/30 via-sky-500/30 to-brand-500/30 rounded-full blur-3xl opacity-70 pointer-events-none animate-pulse" />
+      {/* Radial Glow Container */}
+      <div className="relative text-center max-w-md px-8 py-12 bg-white/10 dark:bg-slate-900/40 border border-white/10 dark:border-slate-800/40 rounded-3xl shadow-2xl backdrop-blur-xl scale-in duration-500 flex flex-col items-center gap-6 overflow-hidden" onClick={e => e.stopPropagation()}>
+        {/* Glowing Background Light */}
+        <div className="absolute -inset-10 bg-gradient-to-tr from-amber-500/30 via-sky-500/30 to-brand-500/30 rounded-full blur-3xl opacity-70 pointer-events-none animate-pulse" />
 
-            {/* Icon/Visual Badge */}
-            <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 bg-amber-500/30 rounded-full blur-xl animate-ping duration-1500" />
-              <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-amber-500 via-orange-400 to-yellow-300 text-white flex items-center justify-center font-outfit font-black text-5xl shadow-lg shadow-amber-500/30 border border-amber-300 animate-[pulse_2s_ease-in-out_infinite]">
-                {levelInfo.level}
-              </div>
-              <div className="absolute -top-3 -right-3 text-4xl animate-bounce">👑</div>
-              <div className="absolute -bottom-3 -left-3 text-4xl animate-bounce delay-200">🌟</div>
-            </div>
+        {/* Icon/Visual Badge */}
+        <div className="relative flex items-center justify-center">
+          <div className="absolute inset-0 bg-amber-500/30 rounded-full blur-xl animate-ping duration-1500" />
+          <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-amber-500 via-orange-400 to-yellow-300 text-white flex items-center justify-center font-outfit font-black text-5xl shadow-lg shadow-amber-500/30 border border-amber-300 animate-[pulse_2s_ease-in-out_infinite]">
+            {levelInfo.level}
+          </div>
+          <div className="absolute -top-3 -right-3 text-4xl animate-bounce">👑</div>
+          <div className="absolute -bottom-3 -left-3 text-4xl animate-bounce delay-200">🌟</div>
+        </div>
 
-            {/* Level up Text */}
-            <div className="space-y-2 relative z-10">
-              <span className="text-xs font-black tracking-widest text-amber-400 dark:text-amber-300 uppercase block animate-bounce">
-                Ny Præstation Låst Op! 🏆
-              </span>
-              <h2 className="font-outfit font-black text-5xl text-white tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 bg-clip-text text-transparent drop-shadow-lg">
-                NIVEAU UPGRADERING
-              </h2>
-              <p className="text-slate-300 text-sm leading-relaxed max-w-xs mx-auto">
-                Du er steget til <span className="text-white font-extrabold">Niveau {levelInfo.level}</span>! Din matematiske styrke vokser for hver løst opgave.
-              </p>
-            </div>
+        {/* Level up Text */}
+        <div className="space-y-2 relative z-10">
+          <span className="text-xs font-black tracking-widest text-amber-400 dark:text-amber-300 uppercase block animate-bounce">
+            Ny Præstation Låst Op! 🏆
+          </span>
+          <h2 className="font-outfit font-black text-5xl text-white tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 bg-clip-text text-transparent drop-shadow-lg">
+            NIVEAU UPGRADERING
+          </h2>
+          <p className="text-slate-300 text-sm leading-relaxed max-w-xs mx-auto">
+            Du er steget til <span className="text-white font-extrabold">Niveau {levelInfo.level}</span>! Din matematiske styrke vokser for hver løst opgave.
+          </p>
+        </div>
 
-            {/* Stats list */}
-            <div className="w-full bg-white/5 dark:bg-slate-950/40 border border-white/10 dark:border-slate-800/20 rounded-2xl p-4 space-y-2 text-xs text-slate-350 font-semibold relative z-10">
-              <div className="flex justify-between">
-                <span>Næste Niveau:</span>
-                <span className="text-amber-400 font-bold">Niveau {levelInfo.level + 1}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>XP Krav til næste:</span>
-                <span className="text-slate-200 font-mono font-bold">{levelInfo.nextLevelXP} XP</span>
-              </div>
-            </div>
-
-            {/* Action button */}
-            <button
-              type="button"
-              onClick={() => setShowLevelUp(false)}
-              className="px-10 py-3 text-lg font-black rounded-xl text-slate-950 bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 shadow-lg shadow-amber-400/25 hover:shadow-amber-400/35 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-150 relative z-10">
-              Fortsæt din rejse 🚀
-            </button>
+        {/* Stats list */}
+        <div className="w-full bg-white/5 dark:bg-slate-950/40 border border-white/10 dark:border-slate-800/20 rounded-2xl p-4 space-y-2 text-xs text-slate-350 font-semibold relative z-10">
+          <div className="flex justify-between">
+            <span>Næste Niveau:</span>
+            <span className="text-amber-400 font-bold">Niveau {levelInfo.level + 1}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>XP Krav til næste:</span>
+            <span className="text-slate-200 font-mono font-bold">{levelInfo.nextLevelXP} XP</span>
           </div>
         </div>
-      )}
+
+        {/* Action button */}
+        <button
+          type="button"
+          onClick={() => setShowLevelUp(false)}
+          className="px-10 py-3 text-lg font-black rounded-xl text-slate-950 bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 shadow-lg shadow-amber-400/25 hover:shadow-amber-400/35 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-150 relative z-10">
+          Fortsæt din rejse 🚀
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="relative flex items-center gap-3 w-full">
+      {mounted && typeof window !== 'undefined' && showLevelUp
+        ? createPortal(levelUpOverlay, document.body)
+        : null}
 
       {/* Floating XP Toast Overlay */}
       {xpEarnedToast && (

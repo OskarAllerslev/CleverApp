@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 export const CircleEquationVisualizer: React.FC = () => {
   // Center of circle (a, b)
@@ -32,7 +33,7 @@ export const CircleEquationVisualizer: React.FC = () => {
           Interaktiv Visualisering: <span className="text-brand-600 dark:text-sky-400 font-extrabold">Cirklens Ligning</span>
         </h4>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Brug skyderne til at ændre centrum $(a, b)$ og radius $r$. Se hvordan punktet $P(x, y)$ på cirklens periferi danner en retvinklet trekant, hvor $(x-a)^2 + (y-b)^2 = r^2$.
+          Brug skyderne til at ændre centrum <MathRenderer math="(a, b)" /> og radius <MathRenderer math="r" />. Se hvordan punktet <MathRenderer math="P(x, y)" /> på cirklens periferi danner en retvinklet trekant, hvor <MathRenderer math="(x-a)^2 + (y-b)^2 = r^2" />.
         </p>
       </div>
 
@@ -194,21 +195,18 @@ export const CircleEquationVisualizer: React.FC = () => {
               Cirklens Ligningsformel
             </h5>
             <div className="space-y-3 font-outfit text-sm">
-              <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 font-mono text-xs leading-relaxed text-slate-700 dark:text-slate-350">
-                (x - a)² + (y - b)² = r²
-                <br />
-                ({px.toFixed(2)} - {a})² + ({py.toFixed(2)} - {b})² = {r.toFixed(1)}²
-                <br />
-                {(px - a).toFixed(2)}² + {(py - b).toFixed(2)}² = {(r * r).toFixed(2)}
-                <br />
-                {((px - a) ** 2).toFixed(2)} + {((py - b) ** 2).toFixed(2)} = <span className="text-indigo-600 dark:text-sky-400 font-bold">{(r * r).toFixed(2)}</span>
+              <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-slate-700 dark:text-slate-350 text-xs space-y-2">
+                <MathRenderer block math={`(x - a)^2 + (y - b)^2 = r^2`} />
+                <MathRenderer block math={`(${px.toFixed(2)} - ${a})^2 + (${py.toFixed(2)} - ${b})^2 = ${r.toFixed(1)}^2`} />
+                <MathRenderer block math={`(${ (px - a).toFixed(2) })^2 + (${ (py - b).toFixed(2) })^2 = ${(r * r).toFixed(2)}`} />
+                <MathRenderer block math={`${ ((px - a) ** 2).toFixed(2) } + ${ ((py - b) ** 2).toFixed(2) } = \\mathbf{${ (r * r).toFixed(2) }}`} className="text-indigo-600 dark:text-sky-400 font-bold" />
               </div>
             </div>
           </div>
 
           <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/50 dark:bg-slate-950/20 p-4 rounded-xl border border-slate-100/50 dark:border-slate-850/50">
             <span className="font-bold text-slate-700 dark:text-slate-350 block mb-1">Hvorfor Pythagoras?</span>
-            Cirklen består af alle punkter $P(x,y)$, der har den præcise afstand $r$ til centrum $C(a,b)$. Trekanten viser, at $(x-a)$ og $(y-b)$ er kateterne i en retvinklet trekant med hypotenuse $r$. Ligningen er derfor blot Pythagoras' sætning!
+            Cirklen består af alle punkter <MathRenderer math="P(x,y)" />, der har den præcise afstand <MathRenderer math="r" /> til centrum <MathRenderer math="C(a,b)" />. Trekanten viser, at <MathRenderer math="(x-a)" /> og <MathRenderer math="(y-b)" /> er kateterne i en retvinklet trekant med hypotenuse <MathRenderer math="r" />. Ligningen er derfor blot Pythagoras' sætning!
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 interface Point {
   x: number;
@@ -508,9 +509,9 @@ export const EulerVisualizer: React.FC = () => {
           {/* Quick Explainer Box */}
           <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed bg-brand-50/20 dark:bg-sky-950/10 p-4 rounded-xl border border-brand-100/40 dark:border-sky-900/20">
             <span className="font-bold text-slate-700 dark:text-slate-350 block mb-1">Hvordan virker det?</span>
-            Eulers metode tager den lokale hældning <span className="font-mono font-bold">{selectedEq.name}</span> i punktet <span className="font-mono">(x_n, y_n)</span>, og går en skridtlængde <span className="font-mono">h</span> frem i den retning for at finde <span className="font-mono">y_n+1</span>. 
+            Eulers metode tager den lokale hældning <span className="font-mono font-bold">{selectedEq.name}</span> i punktet <MathRenderer math="(x_n, y_n)" />, og går en skridtlængde <MathRenderer math="h" /> frem i den retning for at finde <MathRenderer math="y_{n+1} = y_n + h \\cdot f(x_n, y_n)" />. 
             <br />
-            <span className="font-semibold text-brand-600 dark:text-sky-400">Prøv dette:</span> Sæt <span className="font-mono">h = 1.0</span> og derefter <span className="font-mono">h = 0.1</span> for at se, hvor hurtigt fejlen formindskes!
+            <span className="font-semibold text-brand-600 dark:text-sky-400">Prøv dette:</span> Sæt <MathRenderer math="h = 1{,}0" /> og derefter <MathRenderer math="h = 0{,}1" /> for at se, hvor hurtigt fejlen formindskes!
           </div>
         </div>
       </div>
@@ -525,11 +526,11 @@ export const EulerVisualizer: React.FC = () => {
             <table className="w-full text-left text-xs font-medium text-slate-500 dark:text-slate-400">
               <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-700 dark:text-slate-300 uppercase text-[10px] tracking-wider border-b border-slate-200 dark:border-slate-800">
                 <tr>
-                  <th className="px-4 py-3 text-center">n</th>
-                  <th className="px-4 py-3">Aktuelt punkt (x_n, y_n)</th>
-                  <th className="px-4 py-3">Hældning f(x_n, y_n)</th>
-                  <th className="px-4 py-3">Trin-stigning h · f</th>
-                  <th className="px-4 py-3">Næste punkt y_n+1 = y_n + h · f</th>
+                  <th className="px-4 py-3 text-center"><MathRenderer math="n" /></th>
+                  <th className="px-4 py-3">Aktuelt punkt <MathRenderer math="(x_n, y_n)" /></th>
+                  <th className="px-4 py-3">Hældning <MathRenderer math="f(x_n, y_n)" /></th>
+                  <th className="px-4 py-3">Trin-stigning <MathRenderer math="h \\cdot f" /></th>
+                  <th className="px-4 py-3">Næste punkt <MathRenderer math="y_{n+1} = y_n + h \\cdot f" /></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-150 dark:divide-slate-850">
@@ -552,7 +553,7 @@ export const EulerVisualizer: React.FC = () => {
                       {step.slope.toFixed(4)}
                     </td>
                     <td className="px-4 py-3.5 font-mono text-brand-600 dark:text-sky-400">
-                      {h} &middot; {step.slope.toFixed(3)} = {step.dy.toFixed(4)}
+                      <MathRenderer math={`${h} \\cdot ${step.slope.toFixed(3)} = ${step.dy.toFixed(4)}`} />
                     </td>
                     <td className="px-4 py-3.5 font-mono font-bold">
                       {step.yNext.toFixed(4)}

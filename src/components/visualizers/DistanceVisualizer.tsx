@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 export const DistanceVisualizer: React.FC = () => {
   // Point P(x1, y1)
@@ -76,7 +77,7 @@ export const DistanceVisualizer: React.FC = () => {
           Interaktiv Visualisering: <span className="text-brand-600 dark:text-sky-400 font-extrabold">Afstand fra punkt til linje (Hesselbergs formel)</span>
         </h4>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Træk punktet $P$ rundt i koordinatsystemet eller juster linjens ligning $ax + by + c = 0$ for at se den vinkelrette afstand live.
+          Træk punktet <MathRenderer math="P" /> rundt i koordinatsystemet eller juster linjens ligning <MathRenderer math="ax + by + c = 0" /> for at se den vinkelrette afstand live.
         </p>
       </div>
 
@@ -211,23 +212,18 @@ export const DistanceVisualizer: React.FC = () => {
               Dist-Formel Beregning
             </h5>
             <div className="space-y-3 font-outfit text-sm">
-              <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 font-mono text-xs leading-relaxed text-slate-700 dark:text-slate-350">
-                dist(P, l) = |a·x₁ + b·y₁ + c| / √(a² + b²)
-                <br />
-                dist = |({a})·({px.toFixed(1)}) + ({b})·({py.toFixed(1)}) + {c}| / √({a}² + ({b})²)
-                <br />
-                dist = |{(a * px + b * py + c).toFixed(2)}| / √{denom}
-                <br />
-                dist = {numerator.toFixed(2)} / {Math.sqrt(safeDenom).toFixed(3)}
-                <br />
-                dist = <span className="text-rose-600 dark:text-rose-400 font-bold">{distance.toFixed(3)}</span>
+              <div className="bg-white dark:bg-slate-900 px-3 py-2.5 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-slate-700 dark:text-slate-350 text-xs space-y-2">
+                <MathRenderer block math={`\\text{dist}(P, l) = \\frac{|a \\cdot x_1 + b \\cdot y_1 + c|}{\\sqrt{a^2 + b^2}}`} />
+                <MathRenderer block math={`\\text{dist} = \\frac{|(${a}) \\cdot (${px.toFixed(1)}) + (${b}) \\cdot (${py.toFixed(1)}) + (${c})|}{\\sqrt{(${a})^2 + (${b})^2}}`} />
+                <MathRenderer block math={`\\text{dist} = \\frac{|${(a * px + b * py + c).toFixed(2)}|}{\\sqrt{${denom}}}`} />
+                <MathRenderer block math={`\\text{dist} = \\frac{${numerator.toFixed(2)}}{${Math.sqrt(safeDenom).toFixed(3)}} \\approx \\mathbf{${distance.toFixed(3)}}`} className="text-rose-600 dark:text-rose-450 font-bold text-sm" />
               </div>
             </div>
           </div>
 
           <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/50 dark:bg-slate-950/20 p-4 rounded-xl border border-slate-100/50 dark:border-slate-850/50">
             <span className="font-bold text-slate-700 dark:text-slate-350 block mb-1">Geometrisk betydning:</span>
-            Afstanden er defineret som den **korteste** vej fra punktet til linjen. Denne vej vil altid ramme linjen i en ret vinkel ($90°$).
+            Afstanden er defineret som den **korteste** vej fra punktet til linjen. Denne vej vil altid ramme linjen i en ret vinkel (<MathRenderer math="90^\circ" />).
           </div>
         </div>
       </div>

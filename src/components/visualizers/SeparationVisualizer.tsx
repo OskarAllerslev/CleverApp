@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 interface Point {
   x: number;
@@ -138,20 +139,18 @@ export const SeparationVisualizer: React.FC = () => {
     if (eqId === '1') {
       const c = y0 / Math.exp(k * x0);
       return (
-        <div className="space-y-2 font-mono text-xs text-slate-700 dark:text-slate-350">
+        <div className="space-y-2 text-xs text-slate-700 dark:text-slate-350">
           <div className="font-bold text-slate-800 dark:text-slate-200 text-sm border-b border-slate-200 dark:border-slate-800 pb-1.5 font-outfit uppercase">Separations Trin:</div>
-          <div>1. Separer: (1/y) dy = k dx</div>
-          <div>2. Integrer: ln|y| = kx + C₁</div>
-          <div>3. General formel: y = C &middot; e^(kx)</div>
-          <div className="font-semibold text-brand-600 dark:text-sky-400">
-            4. Indsæt ({x0.toFixed(2)}, {y0.toFixed(2)}):
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;{y0.toFixed(2)} = C &middot; e^({k.toFixed(2)} &middot; {x0.toFixed(2)})
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;C = {c.toFixed(4)}
+          <div>1. Separer: <MathRenderer math="\frac{1}{y} \, dy = k \, dx" /></div>
+          <div>2. Integrer: <MathRenderer math="\ln|y| = kx + C_1" /></div>
+          <div>3. Generel formel: <MathRenderer math="y = C \cdot e^{kx}" /></div>
+          <div className="font-semibold text-brand-600 dark:text-sky-400 space-y-1">
+            <div>4. Indsæt <MathRenderer math={`(x_0, y_0) = (${x0.toFixed(2)}, ${y0.toFixed(2)})`} />:</div>
+            <MathRenderer block math={`${y0.toFixed(2)} = C \\cdot e^{${k.toFixed(2)} \\cdot ${x0.toFixed(2)}}`} />
+            <MathRenderer block math={`C = ${c.toFixed(4)}`} />
           </div>
           <div className="font-extrabold text-slate-800 dark:text-slate-100 border-t border-slate-150 dark:border-slate-850 pt-1.5">
-            Løsning: y = {c.toFixed(4)} &middot; e^({k.toFixed(2)}x)
+            Løsning: <MathRenderer math={`y = ${c.toFixed(4)} \\cdot e^{${k.toFixed(2)}x}`} />
           </div>
         </div>
       );
@@ -159,40 +158,36 @@ export const SeparationVisualizer: React.FC = () => {
       const R2 = x0 * x0 + y0 * y0;
       const R = Math.sqrt(R2);
       return (
-        <div className="space-y-2 font-mono text-xs text-slate-700 dark:text-slate-350">
+        <div className="space-y-2 text-xs text-slate-700 dark:text-slate-350">
           <div className="font-bold text-slate-800 dark:text-slate-200 text-sm border-b border-slate-200 dark:border-slate-800 pb-1.5 font-outfit uppercase">Separations Trin:</div>
-          <div>1. Separer: y dy = -x dx</div>
-          <div>2. Integrer: 0.5 y² = -0.5 x² + C₁</div>
-          <div>3. General formel: x² + y² = C</div>
-          <div className="font-semibold text-brand-600 dark:text-sky-400">
-            4. Indsæt ({x0.toFixed(2)}, {y0.toFixed(2)}):
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;{x0.toFixed(2)}² + {y0.toFixed(2)}² = C
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;C = {R2.toFixed(4)}
+          <div>1. Separer: <MathRenderer math="y \, dy = -x \, dx" /></div>
+          <div>2. Integrer: <MathRenderer math="\frac{1}{2} y^2 = -\frac{1}{2} x^2 + C_1" /></div>
+          <div>3. Generel formel: <MathRenderer math="x^2 + y^2 = C" /></div>
+          <div className="font-semibold text-brand-600 dark:text-sky-400 space-y-1">
+            <div>4. Indsæt <MathRenderer math={`(x_0, y_0) = (${x0.toFixed(2)}, ${y0.toFixed(2)})`} />:</div>
+            <MathRenderer block math={`${x0.toFixed(2)}^2 + ${y0.toFixed(2)}^2 = C`} />
+            <MathRenderer block math={`C = ${R2.toFixed(4)}`} />
           </div>
           <div className="font-extrabold text-slate-800 dark:text-slate-100 border-t border-slate-150 dark:border-slate-850 pt-1.5">
-            Løsning: x² + y² = {R2.toFixed(2)} (Radius: {R.toFixed(2)})
+            Løsning: <MathRenderer math={`x^2 + y^2 = ${R2.toFixed(2)}`} /> (Radius: <MathRenderer math={`R = ${R.toFixed(2)}`} />)
           </div>
         </div>
       );
     } else {
       const c = y0 / Math.exp(0.5 * x0 * x0);
       return (
-        <div className="space-y-2 font-mono text-xs text-slate-700 dark:text-slate-350">
+        <div className="space-y-2 text-xs text-slate-700 dark:text-slate-350">
           <div className="font-bold text-slate-800 dark:text-slate-200 text-sm border-b border-slate-200 dark:border-slate-800 pb-1.5 font-outfit uppercase">Separations Trin:</div>
-          <div>1. Separer: (1/y) dy = x dx</div>
-          <div>2. Integrer: ln|y| = 0.5 x² + C₁</div>
-          <div>3. General formel: y = C &middot; e^(0.5 x²)</div>
-          <div className="font-semibold text-brand-600 dark:text-sky-400">
-            4. Indsæt ({x0.toFixed(2)}, {y0.toFixed(2)}):
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;{y0.toFixed(2)} = C &middot; e^(0.5 &middot; {x0.toFixed(2)}²)
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;C = {c.toFixed(4)}
+          <div>1. Separer: <MathRenderer math="\frac{1}{y} \, dy = x \, dx" /></div>
+          <div>2. Integrer: <MathRenderer math="\ln|y| = \frac{1}{2} x^2 + C_1" /></div>
+          <div>3. Generel formel: <MathRenderer math="y = C \cdot e^{\frac{1}{2} x^2}" /></div>
+          <div className="font-semibold text-brand-600 dark:text-sky-400 space-y-1">
+            <div>4. Indsæt <MathRenderer math={`(x_0, y_0) = (${x0.toFixed(2)}, ${y0.toFixed(2)})`} />:</div>
+            <MathRenderer block math={`${y0.toFixed(2)} = C \\cdot e^{\\frac{1}{2} \\cdot ${x0.toFixed(2)}^2}`} />
+            <MathRenderer block math={`C = ${c.toFixed(4)}`} />
           </div>
           <div className="font-extrabold text-slate-800 dark:text-slate-100 border-t border-slate-150 dark:border-slate-850 pt-1.5">
-            Løsning: y = {c.toFixed(4)} &middot; e^(0.5 x²)
+            Løsning: <MathRenderer math={`y = ${c.toFixed(4)} \\cdot e^{\\frac{1}{2} x^2}`} />
           </div>
         </div>
       );

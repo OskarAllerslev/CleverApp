@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { MathRenderer } from '../MathRenderer';
 
 export const TangentVisualizer: React.FC = () => {
   const [x0, setX0] = useState<number>(2);
@@ -190,31 +191,31 @@ export const TangentVisualizer: React.FC = () => {
           {/* Dynamic explanation of Tretrinsreglen */}
           <div className="p-5 bg-slate-50 dark:bg-slate-950/40 border border-slate-200/60 dark:border-slate-850/80 rounded-2xl space-y-4">
             <h5 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Beregning med tretrinsreglen (f(x) = 0.25x² + 1)
+              Beregning med tretrinsreglen (<MathRenderer math="f(x) = 0{,}25x^2 + 1" />)
             </h5>
 
             {/* Trin 1 */}
             <div className="text-xs space-y-1">
-              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 1: Tilvækst Δy = f(x₀+h) - f(x₀)</span>
-              <div className="font-mono bg-white dark:bg-slate-900 p-2 rounded border border-slate-150 dark:border-slate-800 text-slate-600 dark:text-slate-400">
-                Δy = f({x0.toFixed(2)} + ({isHZero ? 'h' : h.toFixed(2)})) - f({x0.toFixed(2)}) <br />
-                Δy = {f(x0 + h).toFixed(3)} - {f(x0).toFixed(3)} = {isHZero ? '0.50·h + 0.25·h²' : (f(x0 + h) - f(x0)).toFixed(3)}
+              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 1: Funktionstilvækst <MathRenderer math="\Delta y = f(x_0+h) - f(x_0)" /></span>
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-150 dark:border-slate-800 text-slate-700 dark:text-slate-350 space-y-2">
+                <MathRenderer block math={`\\Delta y = f(${x0.toFixed(2)} + ${isHZero ? 'h' : h.toFixed(2)}) - f(${x0.toFixed(2)})`} />
+                <MathRenderer block math={`\\Delta y = ${f(x0 + h).toFixed(3)} - ${f(x0).toFixed(3)} = ${isHZero ? '0{,}50 \\cdot h + 0{,}25 \\cdot h^2' : (f(x0 + h) - f(x0)).toFixed(3)}`} />
               </div>
             </div>
 
             {/* Trin 2 */}
             <div className="text-xs space-y-1">
-              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 2: Differenskvotient Δy/h (Sekanthældning)</span>
-              <div className="font-mono bg-white dark:bg-slate-900 p-2 rounded border border-slate-150 dark:border-slate-800 text-slate-600 dark:text-slate-400">
-                Sekanthældning = {isHZero ? '0.50·x₀ + 0.25·h' : `(${ (f(x0 + h) - f(x0)).toFixed(3) }) / (${h.toFixed(2)})`} = <span className="font-bold text-orange-600 dark:text-amber-400">{mSec.toFixed(3)}</span>
+              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 2: Differenskvotient <MathRenderer math="\frac{\Delta y}{h}" /> (Sekanthældning)</span>
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-150 dark:border-slate-800 text-slate-700 dark:text-slate-350 space-y-2">
+                <MathRenderer block math={`\\frac{\\Delta y}{h} = ${isHZero ? '0{,}50 \\cdot x_0 + 0{,}25 \\cdot h' : `\\frac{${(f(x0 + h) - f(x0)).toFixed(3)}}{${h.toFixed(2)}}`} = \\mathbf{${mSec.toFixed(3)}}`} className="text-orange-600 dark:text-amber-400 font-bold" />
               </div>
             </div>
 
             {/* Trin 3 */}
             <div className="text-xs space-y-1">
-              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 3: Grænseværdi h → 0 (Tangenthældning f'(x₀))</span>
-              <div className="font-mono bg-white dark:bg-slate-900 p-2 rounded border border-slate-150 dark:border-slate-800 text-slate-600 dark:text-slate-400">
-                f'({x0.toFixed(2)}) = lim<sub>h→0</sub> (0.50 · {x0.toFixed(2)} + 0.25 · h) = <span className="font-bold text-emerald-600 dark:text-emerald-450">{mTan.toFixed(3)}</span>
+              <span className="font-bold text-slate-700 dark:text-slate-350 block">Trin 3: Grænseværdi <MathRenderer math="h \to 0" /> (Tangenthældning <MathRenderer math="f'(x_0)" />)</span>
+              <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-150 dark:border-slate-800 text-slate-700 dark:text-slate-350 space-y-2">
+                <MathRenderer block math={`f'(${x0.toFixed(2)}) = \\lim_{h \\to 0} \\left(0{,}50 \\cdot ${x0.toFixed(2)} + 0{,}25 \\cdot h\\right) = \\mathbf{${mTan.toFixed(3)}}`} className="text-emerald-600 dark:text-emerald-450 font-bold" />
               </div>
             </div>
           </div>
